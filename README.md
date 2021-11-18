@@ -1,2 +1,2 @@
-# boxer-engine
-C++ Game Engine Assignment
+# Engine
+C++ Game Engine assignment
