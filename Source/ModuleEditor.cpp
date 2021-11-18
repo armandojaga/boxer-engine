@@ -7,8 +7,8 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
-#include "ImGui/imgui_impl_opengl3.h"
-#include "ImGui/imgui_impl_sdl.h"
+#include "imgui_impl_opengl3.h"
+#include "imgui_impl_sdl.h"
 
 
 ModuleEditor::ModuleEditor()

@@ -4,10 +4,10 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="ImGui\imgui_impl_opengl3.cpp">
+    <ClCompile Include="vendors\ImGui\imgui_impl_opengl3.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_impl_sdl.cpp">
+    <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ModuleInput.cpp">
@@ -19,16 +19,16 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui.cpp">
+    <ClCompile Include="vendors\ImGui\imgui.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_draw.cpp">
+    <ClCompile Include="vendors\ImGui\imgui_draw.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_tables.cpp">
+    <ClCompile Include="vendors\ImGui\imgui_tables.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="ImGui\imgui_widgets.cpp">
+    <ClCompile Include="vendors\ImGui\imgui_widgets.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="ModuleEditor.cpp">
@@ -37,144 +37,147 @@
     <ClCompile Include="ModuleCamera.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\BitOps.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\BitOps.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\Callstack.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\Callstack.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float2.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\float2.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float3.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\float3.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float3x3.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\float3x3.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float3x4.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\float3x4.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float4.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\float4.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float4d.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\float4d.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\float4x4.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\float4x4.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\grisu3.c">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\grisu3_cpp.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3_cpp.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\MathFunc.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\MathFunc.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\MathLog.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\MathLog.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\MathOps.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\MathOps.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\MiniFloat.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\MiniFloat.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\Polynomial.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\Polynomial.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\Quat.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\Quat.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\SSEMath.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\SSEMath.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Math\TransformOps.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Math\TransformOps.cpp">
       <Filter>MatGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\AABB.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\AABB.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Capsule.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Capsule.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Circle.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Circle.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Circle2D.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Circle2D.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Frustum.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Frustum.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Line.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Line.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\LineSegment.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\LineSegment.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\LineSegment2D.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\LineSegment2D.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\OBB.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\OBB.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\PBVolume.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\PBVolume.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Plane.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Plane.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Polygon.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Polygon.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Polyhedron.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Polyhedron.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Ray.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Ray.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Sphere.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Sphere.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Triangle.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Triangle.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\Triangle2D.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\Triangle2D.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Geometry\TriangleMesh.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Geometry\TriangleMesh.cpp">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Algorithm\GJK.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Algorithm\GJK.cpp">
       <Filter>MatGeoLib\Algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Algorithm\GJK2D.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Algorithm\GJK2D.cpp">
       <Filter>MatGeoLib\Algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Algorithm\SAT.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Algorithm\SAT.cpp">
       <Filter>MatGeoLib\Algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Algorithm\Random\LCG.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Algorithm\Random\LCG.cpp">
       <Filter>MatGeoLib\Algorithm\Random</Filter>
     </ClCompile>
-    <ClCompile Include="MathGeoLib\include\Time\Clock.cpp">
+    <ClCompile Include="vendors\MathGeoLib\include\Time\Clock.cpp">
       <Filter>MatGeoLib\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\DevIL\include\IL\luadevil.c">
+      <Filter>DevIL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Module.h" />
-    <ClInclude Include="ImGui\imgui_impl_opengl3.h">
+    <ClInclude Include="vendors\ImGui\imgui_impl_opengl3.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_opengl3_loader.h">
+    <ClInclude Include="vendors\ImGui\imgui_impl_opengl3_loader.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_sdl.h">
+    <ClInclude Include="vendors\ImGui\imgui_impl_sdl.h">
       <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ModuleInput.h">
@@ -186,22 +189,22 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
+    <ClInclude Include="vendors\ImGui\imconfig.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
+    <ClInclude Include="vendors\ImGui\imgui.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
+    <ClInclude Include="vendors\ImGui\imgui_internal.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_rectpack.h">
+    <ClInclude Include="vendors\ImGui\imstb_rectpack.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_textedit.h">
+    <ClInclude Include="vendors\ImGui\imstb_textedit.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imstb_truetype.h">
+    <ClInclude Include="vendors\ImGui\imstb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="ModuleEditor.h">
@@ -210,230 +213,524 @@
     <ClInclude Include="ModuleCamera.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\MathBuildConfig.h">
+    <ClInclude Include="vendors\MathGeoLib\include\MathBuildConfig.h">
       <Filter>MatGeoLib</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\MathGeoLib.h">
+    <ClInclude Include="vendors\MathGeoLib\include\MathGeoLib.h">
       <Filter>MatGeoLib</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\MathGeoLibFwd.h">
+    <ClInclude Include="vendors\MathGeoLib\include\MathGeoLibFwd.h">
       <Filter>MatGeoLib</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\assume.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\assume.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\BitFuncs.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\BitFuncs.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\BitOps.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\BitOps.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Callstack.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\Callstack.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\FixedPoint.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\FixedPoint.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float2.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float2.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float3.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float3.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float3x3.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float3x3.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float3x4.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float3x4.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float4.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4_neon.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float4_neon.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4_sse.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float4_sse.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4d.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float4d.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4x4.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float4x4.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4x4_neon.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float4x4_neon.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\float4x4_sse.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\float4x4_sse.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\FloatCmp.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\FloatCmp.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\grisu3.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\grisu3.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\InclWindows.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\InclWindows.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Interpolate.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\Interpolate.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathAll.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MathAll.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathConstants.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MathConstants.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathFunc.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MathFunc.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathLog.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MathLog.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathNamespace.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MathNamespace.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MathTypes.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MathTypes.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MatrixProxy.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MatrixProxy.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MiniFloat.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MiniFloat.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\MultiLineMacro.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\MultiLineMacro.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\myassert.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\myassert.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Polynomial.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\Polynomial.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Quat.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\Quat.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\quat_simd.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\quat_simd.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Rect.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\Rect.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Reinterpret.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\Reinterpret.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\simd.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\simd.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\sse_mathfun.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\sse_mathfun.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\SSEMath.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\SSEMath.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\Swap.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\Swap.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\TransformOps.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\TransformOps.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Math\vec2d.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Math\vec2d.h">
       <Filter>MatGeoLib\Math</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\AABB.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\AABB.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\AABB2D.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\AABB2D.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Capsule.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Capsule.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Circle.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Circle.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Circle2D.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Circle2D.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Frustum.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Frustum.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\GeometryAll.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\GeometryAll.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\GeomType.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\GeomType.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\HitInfo.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\HitInfo.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\KDTree.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\KDTree.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Line.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Line.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\LineSegment.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\LineSegment.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\LineSegment2D.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\LineSegment2D.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\OBB.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\OBB.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\OBB2D.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\OBB2D.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\PBVolume.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\PBVolume.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Plane.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Plane.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Polygon.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Polygon.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Polygon2DRef.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Polygon2DRef.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Polyhedron.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Polyhedron.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\QuadTree.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\QuadTree.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Ray.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Ray.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Sphere.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Sphere.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Triangle.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Triangle.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\Triangle2D.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\Triangle2D.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Geometry\TriangleMesh.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Geometry\TriangleMesh.h">
       <Filter>MatGeoLib\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Algorithm\GJK.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK.h">
       <Filter>MatGeoLib\Algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Algorithm\GJK2D.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK2D.h">
       <Filter>MatGeoLib\Algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Algorithm\SAT.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Algorithm\SAT.h">
       <Filter>MatGeoLib\Algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Algorithm\Random\LCG.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Algorithm\Random\LCG.h">
       <Filter>MatGeoLib\Algorithm\Random</Filter>
     </ClInclude>
-    <ClInclude Include="MathGeoLib\include\Time\Clock.h">
+    <ClInclude Include="vendors\MathGeoLib\include\Time\Clock.h">
       <Filter>MatGeoLib\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\DevIL\include\IL\devil_cpp_wrapper.hpp">
+      <Filter>DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\DevIL\include\IL\devil_internal_exports.h">
+      <Filter>DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\DevIL\include\IL\il.h">
+      <Filter>DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\DevIL\include\IL\il_wrap.h">
+      <Filter>DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\DevIL\include\IL\ilu.h">
+      <Filter>DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\DevIL\include\IL\ilu_region.h">
+      <Filter>DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\DevIL\include\IL\ilut.h">
+      <Filter>DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\DevIL\include\IL\ilut_config.h">
+      <Filter>DevIL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\begin_code.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\close_code.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_assert.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_atomic.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_audio.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_bits.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_blendmode.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_clipboard.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_android.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_iphoneos.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_macosx.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_minimal.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_pandora.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_psp.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_windows.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_winrt.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_config_wiz.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_copying.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_cpuinfo.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_egl.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_endian.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_error.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_events.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_filesystem.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_gamecontroller.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_gesture.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_haptic.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_hints.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_joystick.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_keyboard.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_keycode.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_loadso.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_locale.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_log.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_main.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_messagebox.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_metal.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_misc.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_mouse.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_mutex.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_name.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_opengl.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_opengl_glext.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_opengles.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_opengles2.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_opengles2_gl2.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_opengles2_gl2ext.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_opengles2_gl2platform.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_opengles2_khrplatform.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_pixels.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_platform.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_power.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_quit.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_rect.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_render.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_revision.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_rwops.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_scancode.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_sensor.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_shape.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_stdinc.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_surface.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_system.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_syswm.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_assert.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_common.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_compare.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_crc32.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_font.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_fuzzer.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_harness.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_images.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_log.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_md5.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_memory.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_test_random.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_thread.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_timer.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_touch.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_types.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_version.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_video.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\SDL\include\SDL_vulkan.h">
+      <Filter>SDL</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\glew-2.1.0\include\GL\eglew.h">
+      <Filter>Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\glew-2.1.0\include\GL\glew.h">
+      <Filter>Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h">
+      <Filter>Glew</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\glew-2.1.0\include\GL\wglew.h">
+      <Filter>Glew</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -461,28 +758,61 @@
     <Filter Include="MatGeoLib\Algorithm\Random">
       <UniqueIdentifier>{f340fb0f-fa55-4172-89a9-2cbc34f3e16b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DevIL">
+      <UniqueIdentifier>{5ea59bde-ed8f-44c0-8aaa-e73d5970ff05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDL">
+      <UniqueIdentifier>{3b4a8bbb-c7a5-4741-8d07-89ca8302a506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glew">
+      <UniqueIdentifier>{40259142-d59f-4b4c-a4e1-516c41ba07c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MathGeoLib\include\Math\float2.inl">
+    <None Include="vendors\MathGeoLib\include\Math\float2.inl">
       <Filter>MatGeoLib\Math</Filter>
     </None>
-    <None Include="MathGeoLib\include\Math\Matrix.inl">
+    <None Include="vendors\MathGeoLib\include\Math\Matrix.inl">
       <Filter>MatGeoLib\Math</Filter>
     </None>
-    <None Include="MathGeoLib\include\Geometry\KDTree.inl">
+    <None Include="vendors\MathGeoLib\include\Geometry\KDTree.inl">
       <Filter>MatGeoLib\Geometry</Filter>
     </None>
-    <None Include="MathGeoLib\include\Geometry\QuadTree.inl">
+    <None Include="vendors\MathGeoLib\include\Geometry\QuadTree.inl">
       <Filter>MatGeoLib\Geometry</Filter>
     </None>
-    <None Include="MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_AVX.inl">
+    <None Include="vendors\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_AVX.inl">
       <Filter>MatGeoLib\Geometry</Filter>
     </None>
-    <None Include="MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_CPP.inl">
+    <None Include="vendors\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_CPP.inl">
       <Filter>MatGeoLib\Geometry</Filter>
     </None>
-    <None Include="MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_SSE.inl">
+    <None Include="vendors\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_SSE.inl">
       <Filter>MatGeoLib\Geometry</Filter>
+    </None>
+    <None Include="vendors\DevIL\include\IL\build-lua">
+      <Filter>DevIL</Filter>
+    </None>
+    <None Include="vendors\DevIL\include\IL\build-python">
+      <Filter>DevIL</Filter>
+    </None>
+    <None Include="vendors\DevIL\include\IL\config.h.win">
+      <Filter>DevIL</Filter>
+    </None>
+    <None Include="vendors\DevIL\include\IL\DevIL.i">
+      <Filter>DevIL</Filter>
+    </None>
+    <None Include="vendors\DevIL\include\IL\stamp-h.in">
+      <Filter>DevIL</Filter>
+    </None>
+    <None Include="vendors\SDL\include\SDL_config.h.cmake">
+      <Filter>SDL</Filter>
+    </None>
+    <None Include="vendors\SDL\include\SDL_config.h.in">
+      <Filter>SDL</Filter>
+    </None>
+    <None Include="vendors\SDL\include\SDL_config_macosx.h.orig">
+      <Filter>SDL</Filter>
     </None>
   </ItemGroup>
 </Project>

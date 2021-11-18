@@ -36,7 +36,7 @@
 #ifndef SDL_test_compare_h_
 #define SDL_test_compare_h_
 
-#include "SDL.h"
+#include <SDL.h>
 
 #include "SDL_test_images.h"
 

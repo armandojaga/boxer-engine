@@ -32,7 +32,7 @@
 #ifndef SDL_test_common_h_
 #define SDL_test_common_h_
 
-#include "SDL.h"
+#include <SDL.h>
 
 #if defined(__PSP__)
 #define DEFAULT_WINDOW_WIDTH  480

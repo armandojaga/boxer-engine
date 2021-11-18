@@ -20,29 +20,23 @@
 */
 
 /**
- *  \file SDL_test.h
+ *  \file SDL_test_images.h
  *
  *  Include file for SDL test framework.
  *
  *  This code is a part of the SDL2_test library, not the main SDL library.
  */
 
-#ifndef SDL_test_h_
-#define SDL_test_h_
+/*
 
-#include "SDL.h"
-#include "SDL_test_assert.h"
-#include "SDL_test_common.h"
-#include "SDL_test_compare.h"
-#include "SDL_test_crc32.h"
-#include "SDL_test_font.h"
-#include "SDL_test_fuzzer.h"
-#include "SDL_test_harness.h"
-#include "SDL_test_images.h"
-#include "SDL_test_log.h"
-#include "SDL_test_md5.h"
-#include "SDL_test_memory.h"
-#include "SDL_test_random.h"
+ Defines some images for tests.
+
+*/
+
+#ifndef SDL_test_images_h_
+#define SDL_test_images_h_
+
+#include <SDL.h>
 
 #include "begin_code.h"
 /* Set up for C function definitions, even when using C++ */
@@ -50,13 +44,28 @@
 extern "C" {
 #endif
 
-/* Global definitions */
-
-/*
- * Note: Maximum size of SDLTest log message is less than SDL's limit
- * to ensure we can fit additional information such as the timestamp.
+/**
+ *Type for test images.
  */
-#define SDLTEST_MAX_LOGMESSAGE_LENGTH   3584
+typedef struct SDLTest_SurfaceImage_s {
+  int width;
+  int height;
+  unsigned int bytes_per_pixel; /* 3:RGB, 4:RGBA */
+  const char *pixel_data;
+} SDLTest_SurfaceImage_t;
+
+/* Test images */
+SDL_Surface *SDLTest_ImageBlit(void);
+SDL_Surface *SDLTest_ImageBlitColor(void);
+SDL_Surface *SDLTest_ImageBlitAlpha(void);
+SDL_Surface *SDLTest_ImageBlitBlendAdd(void);
+SDL_Surface *SDLTest_ImageBlitBlend(void);
+SDL_Surface *SDLTest_ImageBlitBlendMod(void);
+SDL_Surface *SDLTest_ImageBlitBlendNone(void);
+SDL_Surface *SDLTest_ImageBlitBlendAll(void);
+SDL_Surface *SDLTest_ImageFace(void);
+SDL_Surface *SDLTest_ImagePrimitives(void);
+SDL_Surface *SDLTest_ImagePrimitivesBlend(void);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
@@ -64,6 +73,6 @@ extern "C" {
 #endif
 #include "close_code.h"
 
-#endif /* SDL_test_h_ */
+#endif /* SDL_test_images_h_ */
 
 /* vi: set ts=4 sw=4 expandtab: */
