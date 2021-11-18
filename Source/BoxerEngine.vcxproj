@@ -106,8 +106,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -209,6 +209,83 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\anim.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\BaseImporter.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Bitmap.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\BlobIOSystem.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\ByteSwapper.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\camera.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\cexport.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\cfileio.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\cimport.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\color4.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Compiler\poppack1.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Compiler\pstdint.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Compiler\pushpack1.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\config.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\CreateAnimMesh.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\DefaultIOStream.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\DefaultIOSystem.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\DefaultLogger.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\Defines.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\defs.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Exceptional.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Exporter.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\fast_atof.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\GenericProperty.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Hash.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Importer.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\importerdesc.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\IOStream.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\IOStreamBuffer.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\IOSystem.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\irrXMLWrapper.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\light.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\LineSplitter.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\LogAux.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Logger.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\LogStream.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\Macros.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\material.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\MathFunctions.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\matrix3x3.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\matrix4x4.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\MemoryIOWrapper.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\mesh.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\metadata.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\NullLogger.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\ParsingUtils.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\pbrmaterial.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\port\AndroidJNI\AndroidJNIIOSystem.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\postprocess.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Profiler.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\ProgressHandler.hpp" />
+    <ClInclude Include="vendors\assimp\include\assimp\qnan.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\quaternion.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\RemoveComments.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\scene.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\SceneCombiner.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\SGSpatialSort.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\SkeletonMeshBuilder.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\SmoothingGroups.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\SpatialSort.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\StandardShapes.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\StreamReader.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\StreamWriter.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\StringComparison.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\StringUtils.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Subdivision.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\texture.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\TinyFormatter.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\types.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\vector2.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\vector3.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\version.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\Vertex.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\XMLTools.h" />
+    <ClInclude Include="vendors\assimp\include\assimp\ZipArchiveIOSystem.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\eglew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h" />
@@ -400,6 +477,15 @@
     <ClInclude Include="vendors\SDL\include\SDL_vulkan.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="vendors\assimp\include\assimp\color4.inl" />
+    <None Include="vendors\assimp\include\assimp\config.h.in" />
+    <None Include="vendors\assimp\include\assimp\material.inl" />
+    <None Include="vendors\assimp\include\assimp\matrix3x3.inl" />
+    <None Include="vendors\assimp\include\assimp\matrix4x4.inl" />
+    <None Include="vendors\assimp\include\assimp\quaternion.inl" />
+    <None Include="vendors\assimp\include\assimp\SmoothingGroups.inl" />
+    <None Include="vendors\assimp\include\assimp\vector2.inl" />
+    <None Include="vendors\assimp\include\assimp\vector3.inl" />
     <None Include="vendors\MathGeoLib\include\Geometry\KDTree.inl" />
     <None Include="vendors\MathGeoLib\include\Geometry\QuadTree.inl" />
     <None Include="vendors\MathGeoLib\include\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
