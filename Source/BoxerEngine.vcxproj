@@ -72,15 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)bin\build\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -144,15 +152,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_tables.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="log.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="src\log.cpp" />
+    <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="vendors\MathGeoLib\include\Algorithm\GJK.cpp" />
     <ClCompile Include="vendors\MathGeoLib\include\Algorithm\GJK2D.cpp" />
     <ClCompile Include="vendors\MathGeoLib\include\Algorithm\Random\LCG.cpp" />
@@ -200,15 +208,15 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="ModuleCamera.cpp" />
-    <ClCompile Include="ModuleEditor.cpp" />
-    <ClCompile Include="ModuleInput.cpp" />
-    <ClCompile Include="ModuleRender.cpp" />
-    <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="src\ModuleCamera.cpp" />
+    <ClCompile Include="src\ModuleEditor.cpp" />
+    <ClCompile Include="src\ModuleInput.cpp" />
+    <ClCompile Include="src\ModuleRender.cpp" />
+    <ClCompile Include="src\ModuleWindow.cpp" />
     <ClCompile Include="vendors\DevIL\include\IL\luadevil.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h" />
+    <ClInclude Include="src\Application.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="vendors\assimp\include\assimp\anim.h" />
@@ -365,9 +373,9 @@
     <ClInclude Include="vendors\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Math\vec2d.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Time\Clock.h" />
-    <ClInclude Include="ModuleCamera.h" />
-    <ClInclude Include="ModuleEditor.h" />
-    <ClInclude Include="Globals.h" />
+    <ClInclude Include="src\ModuleCamera.h" />
+    <ClInclude Include="src\ModuleEditor.h" />
+    <ClInclude Include="src\Globals.h" />
     <ClInclude Include="vendors\ImGui\imconfig.h" />
     <ClInclude Include="vendors\ImGui\imgui.h" />
     <ClInclude Include="vendors\ImGui\imgui_impl_opengl3.h" />
@@ -377,10 +385,10 @@
     <ClInclude Include="vendors\ImGui\imstb_rectpack.h" />
     <ClInclude Include="vendors\ImGui\imstb_textedit.h" />
     <ClInclude Include="vendors\ImGui\imstb_truetype.h" />
-    <ClInclude Include="Module.h" />
-    <ClInclude Include="ModuleInput.h" />
-    <ClInclude Include="ModuleRender.h" />
-    <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="src\Module.h" />
+    <ClInclude Include="src\ModuleInput.h" />
+    <ClInclude Include="src\ModuleRender.h" />
+    <ClInclude Include="src\ModuleWindow.h" />
     <ClInclude Include="vendors\DevIL\include\IL\devil_cpp_wrapper.hpp" />
     <ClInclude Include="vendors\DevIL\include\IL\devil_internal_exports.h" />
     <ClInclude Include="vendors\DevIL\include\IL\il.h" />
