@@ -13,5 +13,5 @@ public:
 	bool CleanUp() override;
 
 private:
-	void CreateMenu();
+	int CreateMenu();
 };

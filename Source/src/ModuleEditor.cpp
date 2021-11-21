@@ -1,5 +1,6 @@
 #include "ModuleEditor.h"
 
+#include <iostream>
 #include <SDL.h>
 #include <SDL_error.h>
 #include <GL/glew.h>
@@ -50,6 +51,7 @@ bool ModuleEditor::Init()
 
 update_status ModuleEditor::Update()
 {
+	update_status result = UPDATE_CONTINUE;
 	// Start the Dear ImGui frame
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
@@ -60,7 +62,11 @@ update_status ModuleEditor::Update()
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_MenuBar;
 	ImGui::Begin("Editor", &open, window_flags);
 
-	CreateMenu();
+	int action = CreateMenu();
+	if(action == UPDATE_STOP)
+	{
+		result = UPDATE_STOP;
+	}
 
 	ImGui::End();
 
@@ -71,7 +77,7 @@ update_status ModuleEditor::Update()
 	ImGui::UpdatePlatformWindows();
 	ImGui::RenderPlatformWindowsDefault();
 
-	return UPDATE_CONTINUE;
+	return result;
 }
 
 bool ModuleEditor::CleanUp()
@@ -83,34 +89,34 @@ bool ModuleEditor::CleanUp()
 	return true;
 }
 
-void ModuleEditor::CreateMenu()
+int ModuleEditor::CreateMenu()
 {
+	int action = 0;
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Exit", "Alt+F4"))
+			{
+				LOG("Exiting");
+				action = UPDATE_STOP;
+			}
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("Edit"))
+		if (ImGui::BeginMenu("View"))
 		{
-			if (ImGui::MenuItem("Undo", "CTRL+Z"))
+			if (ImGui::MenuItem("Console", "CTRL+O"))
 			{
+				LOG("Open console");
 			}
-			if (ImGui::MenuItem("Redo", "CTRL+Y", false, false))
-			{
-			} // Disabled item
 			ImGui::Separator();
-			if (ImGui::MenuItem("Cut", "CTRL+X"))
+			if (ImGui::MenuItem("Stats", "CTRL+Alt+S"))
 			{
-			}
-			if (ImGui::MenuItem("Copy", "CTRL+C"))
-			{
-			}
-			if (ImGui::MenuItem("Paste", "CTRL+V"))
-			{
+				LOG("View stats");
 			}
 			ImGui::EndMenu();
 		}
 		ImGui::EndMainMenuBar();
 	}
+	return action;
 }
