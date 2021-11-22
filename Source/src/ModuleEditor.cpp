@@ -44,21 +44,16 @@ update_status ModuleEditor::Update()
 {
     CreateMenu();
 
-    //make sure we render the console if opened
-    if (display_console)
-    {
-        ShowConsole(&display_console);
-    }
-
-    //make sure we render the stats if opened
-    if (display_stats)
-    {
-        ShowStats(&display_stats);
-    }
+    //make sure we render the opened windows
+    if (display_about) ShowAbout(&display_about);
+    if (display_console) ShowConsole(&display_console);
+    if (display_stats) ShowStats(&display_stats);
+    if (display_config) ShowConfig(&display_config);
+    if (display_hardware) ShowHardware(&display_hardware);
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
+    ImGui::StyleColorsLight();
     return UPDATE_CONTINUE;
 }
 
@@ -90,24 +85,46 @@ void ModuleEditor::CreateMenu()
         {
             if (ImGui::MenuItem("Exit"))
             {
-                LOG("Exiting");
+                console_logger.Debug("Exiting");
                 should_exit = true;
             }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("View"))
         {
-            if (ImGui::MenuItem("Console", "CTRL+O"))
+            if (ImGui::MenuItem("Console"))
             {
-                LOG("Open console");
+                console_logger.Debug("Open console");
                 display_console = true;
-                ShowConsole(&display_console);
             }
             ImGui::Separator();
-            if (ImGui::MenuItem("Stats", "CTRL+Alt+S"))
+            if (ImGui::MenuItem("Stats"))
             {
-                console_logger.Error(" ERROR View stats");
+                console_logger.Debug("Open stats");
                 display_stats = true;
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Tools"))
+        {
+            if (ImGui::MenuItem("Hardware"))
+            {
+                console_logger.Debug("Open hardware");
+                display_hardware = true;
+            }
+            if(ImGui::MenuItem("Config"))
+            {
+                console_logger.Debug("Open config");
+                display_config = true;
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Help"))
+        {
+            if (ImGui::MenuItem("About"))
+            {
+                console_logger.Debug("Open about");
+                display_about = true;
             }
             ImGui::EndMenu();
         }
@@ -123,7 +140,6 @@ void ModuleEditor::ShowConsole(bool* open) const
         ImGui::End();
         return;
     }
-    ImGui::TextWrapped("Engine version %s", BOXER_ENGINE_VERSION);
     const float footerHeight = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
     ImGui::BeginChild("ConsoleScrollingRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
     if (ImGui::BeginPopupContextWindow())
@@ -145,4 +161,39 @@ void ModuleEditor::ShowConsole(bool* open) const
 
 void ModuleEditor::ShowStats(bool*) const
 {
+}
+
+void ModuleEditor::ShowConfig(bool*) const
+{
+}
+
+void ModuleEditor::ShowHardware(bool*) const
+{
+}
+
+void ModuleEditor::ShowAbout(bool*) const
+{
+    ImVec4 red(1.0f, 0.0f, 0.0f, 1.0f);
+    ImGui::TextWrapped("Engine version %s", BOXER_ENGINE_VERSION);
+    ImGui::Separator();
+    ImGui::TextWrapped("Boxer is another name for the actual flat engines in vehicles, widely used by Subaru");
+    ImGui::Separator();
+    ImGui::TextWrapped("Made with");
+    ImGui::SameLine();
+    ImGui::TextColored(red, " <3 ");
+    ImGui::SameLine();
+    ImGui::TextWrapped("by Armando");
+    ImGui::Separator();
+    ImGui::TextWrapped("Libraries");
+
+    ImGui::Indent();
+    ImGui::BulletText("Assimp 143");
+    ImGui::BulletText("DevIL ");
+    ImGui::BulletText("Glew");
+    ImGui::BulletText("ImGui");
+    ImGui::BulletText("MathGeoLib");
+    ImGui::BulletText("SDL");
+    ImGui::Unindent();
+
+
 }
