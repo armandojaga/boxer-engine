@@ -155,6 +155,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Console.cpp" />
+    <ClCompile Include="src\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
@@ -162,7 +164,7 @@
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_tables.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="src\log.cpp" />
+    <ClCompile Include="src\ConsoleLogger.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="vendors\MathGeoLib\include\Algorithm\GJK.cpp" />
     <ClCompile Include="vendors\MathGeoLib\include\Algorithm\GJK2D.cpp" />
@@ -219,6 +221,11 @@
     <ClCompile Include="vendors\DevIL\include\IL\luadevil.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ImGuiLogger.h" />
+    <ClInclude Include="src\Console.h" />
+    <ClInclude Include="src\ConsoleLogger.h" />
+    <ClInclude Include="src\ErrorHandler.h" />
+    <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />

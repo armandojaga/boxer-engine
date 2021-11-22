@@ -1,6 +1,6 @@
 #pragma once
 
-#include<list>
+#include <list>
 #include "Globals.h"
 #include "Module.h"
 

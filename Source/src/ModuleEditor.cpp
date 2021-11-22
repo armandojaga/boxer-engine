@@ -12,111 +12,137 @@
 #include "imgui_impl_sdl.h"
 
 
-ModuleEditor::ModuleEditor()
+ModuleEditor::ModuleEditor() : console(new BoxerEngine::Console())
 {
 }
 
 ModuleEditor::~ModuleEditor()
 {
+    delete console;
 }
 
 bool ModuleEditor::Init()
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0)
-	{
-		printf("Error: %s\n", SDL_GetError());
-		return false;
-	}
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
 
-	const char* glsl_version = "#version 460";
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS, 0);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
+    ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
-	SDL_GL_MakeCurrent(App->window->window, App->renderer->context);
-	SDL_GL_SetSwapInterval(VSYNC); // Enable vsync
+    return true;
+}
 
-	IMGUI_CHECKVERSION();
-	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO();
-	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
-	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Enable Docking
-	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-	ImGui::StyleColorsDark();
-
-	ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
-	ImGui_ImplOpenGL3_Init(glsl_version);
-
-	return true;
+update_status ModuleEditor::PreUpdate()
+{
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplSDL2_NewFrame();
+    ImGui::NewFrame();
+    return UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::Update()
 {
-	update_status result = UPDATE_CONTINUE;
-	// Start the Dear ImGui frame
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplSDL2_NewFrame();
-	ImGui::NewFrame();
+    CreateMenu();
 
+    //make sure we render the console if opened
+    if (display_console)
+    {
+        ShowConsole(&display_console);
+    }
 
-	bool open = true;
-	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_MenuBar;
-	ImGui::Begin("Editor", &open, window_flags);
+    //make sure we render the stats if opened
+    if (display_stats)
+    {
+        ShowStats(&display_stats);
+    }
 
-	int action = CreateMenu();
-	if(action == UPDATE_STOP)
-	{
-		result = UPDATE_STOP;
-	}
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-	ImGui::End();
+    return UPDATE_CONTINUE;
+}
 
-	ImGui::Render();
-
-	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-	ImGui::UpdatePlatformWindows();
-	ImGui::RenderPlatformWindowsDefault();
-
-	return result;
+update_status ModuleEditor::PostUpdate()
+{
+    ImGui::UpdatePlatformWindows();
+    ImGui::RenderPlatformWindowsDefault();
+    if (should_exit)
+    {
+        return UPDATE_STOP;
+    }
+    return UPDATE_CONTINUE;
 }
 
 bool ModuleEditor::CleanUp()
 {
-	ImGui_ImplOpenGL3_Shutdown();
-	ImGui_ImplSDL2_Shutdown();
-	ImGui::DestroyContext();
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplSDL2_Shutdown();
+    ImGui::DestroyContext();
 
-	return true;
+    return true;
 }
 
-int ModuleEditor::CreateMenu()
+void ModuleEditor::CreateMenu()
 {
-	int action = 0;
-	if (ImGui::BeginMainMenuBar())
-	{
-		if (ImGui::BeginMenu("File"))
-		{
-			if (ImGui::MenuItem("Exit", "Alt+F4"))
-			{
-				LOG("Exiting");
-				action = UPDATE_STOP;
-			}
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("View"))
-		{
-			if (ImGui::MenuItem("Console", "CTRL+O"))
-			{
-				LOG("Open console");
-			}
-			ImGui::Separator();
-			if (ImGui::MenuItem("Stats", "CTRL+Alt+S"))
-			{
-				LOG("View stats");
-			}
-			ImGui::EndMenu();
-		}
-		ImGui::EndMainMenuBar();
-	}
-	return action;
+    if (ImGui::BeginMainMenuBar())
+    {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("Exit"))
+            {
+                LOG("Exiting");
+                should_exit = true;
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("View"))
+        {
+            if (ImGui::MenuItem("Console", "CTRL+O"))
+            {
+                LOG("Open console");
+                display_console = true;
+                ShowConsole(&display_console);
+            }
+            ImGui::Separator();
+            if (ImGui::MenuItem("Stats", "CTRL+Alt+S"))
+            {
+                console_logger.Error(" ERROR View stats");
+                display_stats = true;
+            }
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
+    }
+}
+
+void ModuleEditor::ShowConsole(bool* open) const
+{
+    ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
+    if (!ImGui::Begin("Console", open))
+    {
+        ImGui::End();
+        return;
+    }
+    ImGui::TextWrapped("Engine version %s", BOXER_ENGINE_VERSION);
+    const float footerHeight = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
+    ImGui::BeginChild("ConsoleScrollingRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
+    if (ImGui::BeginPopupContextWindow())
+    {
+        if (ImGui::Selectable("Clear"))
+        {
+            console->Clear();
+        }
+        ImGui::EndPopup();
+    }
+    console->Display();
+    if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
+    {
+        ImGui::SetScrollHereY(1.0f);
+    }
+    ImGui::EndChild();
+    ImGui::End();
+}
+
+void ModuleEditor::ShowStats(bool*) const
+{
 }

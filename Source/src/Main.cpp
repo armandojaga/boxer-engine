@@ -6,9 +6,9 @@
 #endif
 
 #include <stdlib.h>
+#include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
-#include "Globals.h"
 
 #include <SDL.h>
 
