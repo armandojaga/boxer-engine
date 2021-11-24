@@ -158,6 +158,7 @@
     <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_opengl3.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="src\ErrorHandler.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\Timer.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="vendors\assimp\include\assimp\anim.h" />

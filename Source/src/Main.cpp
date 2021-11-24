@@ -12,6 +12,8 @@
 
 #include <SDL.h>
 
+#include "Timer.h"
+
 enum main_states
 {
 	MAIN_CREATION,
@@ -37,7 +39,14 @@ int main(int argc, char** argv)
 		case MAIN_CREATION:
 
 			LOG("Application Creation --------------");
-			App = new Application();
+			{
+				Timer appTimer;
+				appTimer.Start();
+				App = new Application();
+				appTimer.Stop();
+				LOG("Took %d ms", appTimer.ReadMs());
+				LOG("Took %d us", appTimer.ReadUs());
+			}
 			state = MAIN_START;
 			break;
 
