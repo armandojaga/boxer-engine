@@ -8,9 +8,9 @@
 
 using namespace std;
 
-Application::Application()
+Application::Application() : statistics(new BoxerEngine::Statistics())
 {
-	// Order matters: they will Init/start/update in this order
+    // Order matters: they will Init/start/update in this order
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
 	modules.push_back(input = new ModuleInput());
@@ -20,6 +20,7 @@ Application::Application()
 
 Application::~Application()
 {
+	delete statistics;
 	for (auto it = modules.begin(); it != modules.end(); ++it)
 	{
 		delete *it;

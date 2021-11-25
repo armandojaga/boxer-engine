@@ -160,6 +160,26 @@ void ModuleEditor::ShowConsole(bool* open) const
 
 void ModuleEditor::ShowStats(bool* open) const
 {
+    ImGui::SetNextWindowSize(ImVec2(200, 200), ImGuiCond_Always);
+    if (!ImGui::Begin("Statistics", open))
+    {
+        ImGui::End();
+        return;
+    }
+    static int counter = 0;
+    static float fps = App->statistics->GetFramesPerSecond();
+    static float ups = App->statistics->GetUpdatesPerSecond();
+    if (counter >= 10)
+    {
+        fps = App->statistics->GetFramesPerSecond();
+        ups = App->statistics->GetUpdatesPerSecond();
+        counter = 0;
+    }
+    ++counter;
+
+    ImGui::TextWrapped("FPS %f", fps);
+    ImGui::TextWrapped("UPS %f", ups);
+    ImGui::End();
 }
 
 void ModuleEditor::ShowConfig(bool* open) const

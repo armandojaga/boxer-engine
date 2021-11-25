@@ -5,7 +5,7 @@
 #define new DEBUG_NEW
 #endif
 
-#include <stdlib.h>
+#include <cstdlib>
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
@@ -16,88 +16,95 @@
 
 enum main_states
 {
-	MAIN_CREATION,
-	MAIN_START,
-	MAIN_UPDATE,
-	MAIN_FINISH,
-	MAIN_EXIT
+    MAIN_CREATION,
+    MAIN_START,
+    MAIN_UPDATE,
+    MAIN_FINISH,
+    MAIN_EXIT
 };
 
 Application* App = nullptr;
 
 int main(int argc, char** argv)
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	int main_return = EXIT_FAILURE;
-	main_states state = MAIN_CREATION;
+    int main_return = EXIT_FAILURE;
+    main_states state = MAIN_CREATION;
 
-	while (state != MAIN_EXIT)
-	{
-		switch (state)
-		{
-		case MAIN_CREATION:
+    game_clock.Start(); //TODO autostart/label
 
-			LOG("Application Creation --------------");
-			{
-				Timer appTimer;
-				appTimer.Start();
-				App = new Application();
-				appTimer.Stop();
-				LOG("Took %d ms", appTimer.ReadMs());
-				LOG("Took %d us", appTimer.ReadUs());
-			}
-			state = MAIN_START;
-			break;
+    while (state != MAIN_EXIT)
+    {
+        switch (state)
+        {
+        case MAIN_CREATION:
 
-		case MAIN_START:
+            LOG("Application Creation --------------");
+            App = new Application();
+            state = MAIN_START;
+            break;
 
-			LOG("Application Init --------------");
-			if (App->Init() == false)
-			{
-				LOG("Application Init exits with error -----");
-				state = MAIN_EXIT;
-			}
-			else
-			{
-				state = MAIN_UPDATE;
-				LOG("Application Update --------------");
-			}
+        case MAIN_START:
 
-			break;
+            LOG("Application Init --------------");
+            if (App->Init() == false)
+            {
+                LOG("Application Init exits with error -----");
+                state = MAIN_EXIT;
+            }
+            else
+            {
+                state = MAIN_UPDATE;
+                LOG("Application Update --------------");
+            }
 
-		case MAIN_UPDATE:
-			{
-				int update_return = App->Update();
+            break;
 
-				if (update_return == UPDATE_ERROR)
-				{
-					LOG("Application Update exits with error -----");
-					state = MAIN_EXIT;
-				}
+        case MAIN_UPDATE:
+            {
+                //FPS limit
+                // BoxerEngine::Timer clock;
+                double start = game_clock.ReadMs();
 
-				if (update_return == UPDATE_STOP)
-					state = MAIN_FINISH;
-			}
-			break;
+                int update_return = App->Update();
 
-		case MAIN_FINISH:
+                App->statistics->calculate();
 
-			LOG("Application CleanUp --------------");
-			if (App->CleanUp() == false)
-			{
-				LOG("Application CleanUp exits with error -----");
-			}
-			else
-				main_return = EXIT_SUCCESS;
+                double elapsed = game_clock.ReadMs() - start;
+                if (1000.0 / FPS_LIMIT > elapsed)
+                {
+                    SDL_Delay(1000.0 / FPS_LIMIT - elapsed);
+                }
 
-			state = MAIN_EXIT;
+                if (update_return == UPDATE_ERROR)
+                {
+                    LOG("Application Update exits with error -----");
+                    state = MAIN_EXIT;
+                }
 
-			break;
-		}
-	}
+                if (update_return == UPDATE_STOP)
+                    state = MAIN_FINISH;
+            }
+            break;
 
-	delete App;
-	LOG("Bye :)\n");
-	return main_return;
+        case MAIN_FINISH:
+
+            LOG("Application CleanUp --------------");
+            if (App->CleanUp() == false)
+            {
+                LOG("Application CleanUp exits with error -----");
+            }
+            else
+                main_return = EXIT_SUCCESS;
+
+            state = MAIN_EXIT;
+
+            break;
+        }
+    }
+
+    delete App;
+    LOG("Bye :)\n");
+    return main_return;
 }

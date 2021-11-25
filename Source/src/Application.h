@@ -1,8 +1,12 @@
 #pragma once
 
 #include <list>
+#include <vector>
+
 #include "Globals.h"
 #include "Module.h"
+#include "Timer.h"
+#include "instrumentation/Statistics.h"
 
 class ModuleCamera;
 class ModuleEditor;
@@ -28,6 +32,7 @@ public:
 	ModuleInput* input = nullptr;
 	ModuleEditor* editor = nullptr;
 	ModuleCamera* camera = nullptr;
+	BoxerEngine::Statistics* statistics;
 
 private:
 	std::list<Module*> modules;

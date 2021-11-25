@@ -1,38 +1,43 @@
 #include "Timer.h"
 #include "SDL_timer.h"
 
-void Timer::Start()
+namespace BoxerEngine
 {
-    startUs = SDL_GetPerformanceCounter();
-    startMs = SDL_GetTicks();
-}
-
-void Timer::Stop()
-{
-    endUs = SDL_GetPerformanceCounter();
-    endMs = SDL_GetTicks();
-    stopped = true;
-}
-
-Uint64 Timer::ReadUs() const
-{
-    if (!stopped)
+    void Timer::Start()
     {
-        return SDL_GetPerformanceCounter() - startUs;
+        start = SDL_GetPerformanceCounter();
     }
-    return endUs - startUs;
-}
 
-const char* Timer::GetName() const
-{
-    return name;
-}
-
-Uint64 Timer::ReadMs() const
-{
-    if (!stopped)
+    void Timer::Stop()
     {
-        return SDL_GetTicks() - startMs;
+        end = SDL_GetPerformanceCounter();
+        stopped = true;
     }
-    return endMs - startMs;
+
+    float Timer::Read() const
+    {
+        if (!stopped)
+        {
+            return (SDL_GetPerformanceCounter() - start) / frequency;
+        }
+        return (end - start) / frequency;
+    }
+
+    float Timer::ReadMs() const
+    {
+        if (!stopped)
+        {
+            return ((SDL_GetPerformanceCounter() - start) * 1000.0f) / frequency;
+        }
+        return ((end - start) * 1000.0f) / frequency;
+    }
+
+    float Timer::ReadUs() const
+    {
+        if (!stopped)
+        {
+            return ((SDL_GetPerformanceCounter() - start) * 1000000.0f) / frequency;
+        }
+        return ((end - start) * 1000000.0f) / frequency;
+    }
 }

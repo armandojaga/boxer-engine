@@ -229,6 +229,7 @@
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\ConsoleLogger.h" />
     <ClInclude Include="src\ErrorHandler.h" />
+    <ClInclude Include="src\instrumentation\Statistics.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Timer.h" />
