@@ -2,10 +2,9 @@
 
 #include <iostream>
 #include <SDL.h>
-#include <SDL_error.h>
-#include <GL/glew.h>
 
 #include "Application.h"
+#include "Files.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "imgui_impl_opengl3.h"
@@ -85,7 +84,7 @@ void ModuleEditor::CreateMenu()
         {
             if (ImGui::MenuItem("Exit"))
             {
-                console_logger.Debug("Exiting");
+                logger.Debug("Exiting");
                 should_exit = true;
             }
             ImGui::EndMenu();
@@ -94,13 +93,13 @@ void ModuleEditor::CreateMenu()
         {
             if (ImGui::MenuItem("Console"))
             {
-                console_logger.Debug("Open console");
+                logger.Debug("Open console");
                 display_console = true;
             }
             ImGui::Separator();
             if (ImGui::MenuItem("Stats"))
             {
-                console_logger.Debug("Open stats");
+                logger.Debug("Open stats");
                 display_stats = true;
             }
             ImGui::EndMenu();
@@ -109,12 +108,12 @@ void ModuleEditor::CreateMenu()
         {
             if (ImGui::MenuItem("Hardware"))
             {
-                console_logger.Debug("Open hardware");
+                logger.Debug("Open hardware");
                 display_hardware = true;
             }
-            if(ImGui::MenuItem("Config"))
+            if (ImGui::MenuItem("Config"))
             {
-                console_logger.Debug("Open config");
+                logger.Debug("Open config");
                 display_config = true;
             }
             ImGui::EndMenu();
@@ -123,7 +122,7 @@ void ModuleEditor::CreateMenu()
         {
             if (ImGui::MenuItem("About"))
             {
-                console_logger.Debug("Open about");
+                logger.Debug("Open about");
                 display_about = true;
             }
             ImGui::EndMenu();
@@ -159,41 +158,58 @@ void ModuleEditor::ShowConsole(bool* open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowStats(bool*) const
+void ModuleEditor::ShowStats(bool* open) const
 {
 }
 
-void ModuleEditor::ShowConfig(bool*) const
+void ModuleEditor::ShowConfig(bool* open) const
 {
 }
 
-void ModuleEditor::ShowHardware(bool*) const
+void ModuleEditor::ShowHardware(bool* open) const
 {
 }
 
-void ModuleEditor::ShowAbout(bool*) const
+void ModuleEditor::ShowAbout(bool* open) const
 {
+    ImGui::SetNextWindowSize(ImVec2(605, 400), ImGuiCond_Always);
+    if (!ImGui::Begin("About", open))
+    {
+        ImGui::End();
+        return;
+    }
     ImVec4 red(1.0f, 0.0f, 0.0f, 1.0f);
-    ImGui::TextWrapped("Engine version %s", BOXER_ENGINE_VERSION);
+    ImGui::TextWrapped("Boxer Engine - version %s", BOXER_ENGINE_VERSION);
     ImGui::Separator();
     ImGui::TextWrapped("Boxer is another name for the actual flat engines in vehicles, widely used by Subaru");
     ImGui::Separator();
     ImGui::TextWrapped("Made with");
     ImGui::SameLine();
-    ImGui::TextColored(red, " <3 ");
+    ImGui::TextColored(red, "<3");
     ImGui::SameLine();
     ImGui::TextWrapped("by Armando");
     ImGui::Separator();
     ImGui::TextWrapped("Libraries");
 
     ImGui::Indent();
-    ImGui::BulletText("Assimp 143");
-    ImGui::BulletText("DevIL ");
-    ImGui::BulletText("Glew");
-    ImGui::BulletText("ImGui");
-    ImGui::BulletText("MathGeoLib");
-    ImGui::BulletText("SDL");
+    ImGui::BulletText("Assimp v 143");
+    ImGui::BulletText("DevIL v 1.8.0");
+    ImGui::BulletText("Glew v 2.1.0");
+    ImGui::BulletText("ImGui v 1.86 WIP");
+    ImGui::BulletText("MathGeoLib v 1.5");
+    ImGui::BulletText("SDL v 2.0.16");
     ImGui::Unindent();
+    ImGui::Separator();
+    ImGui::TextWrapped("License");
 
+    const float footerHeight = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
+    ImGui::BeginChild("LicenseScrollingRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
+    if (license_content.empty())
+    {
+        license_content = Files::ReadFile(LICENSE_PATH);
+    }
 
+    ImGui::TextWrapped(license_content.c_str());
+    ImGui::EndChild();
+    ImGui::End();
 }

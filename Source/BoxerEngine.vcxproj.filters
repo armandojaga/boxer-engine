@@ -992,6 +992,9 @@
     <ClInclude Include="src\Timer.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="src\Files.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1128,5 +1131,8 @@
     <None Include="vendors\assimp\include\assimp\vector3.inl">
       <Filter>Vendors\Assimp</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="licenses\LICENSE.TXT" />
   </ItemGroup>
 </Project>

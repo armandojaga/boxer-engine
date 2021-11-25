@@ -13,6 +13,7 @@ private:
     bool display_config = false;
     bool display_hardware = false;
     bool should_exit = false;
+    mutable std::string license_content;
 
 public:
     ModuleEditor();

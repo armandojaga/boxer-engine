@@ -2,16 +2,18 @@
 
 // TODO create singleton and factories for logging 
 #include "ConsoleLogger.h"
-inline BoxerEngine::ConsoleLogger console_logger;
+inline BoxerEngine::ConsoleLogger logger;
 
-#define LOG(format, ...) console_logger.Log(__FILE__, __LINE__, format, __VA_ARGS__);
+#define LOG(format, ...) logger.Log(__FILE__, __LINE__, format, __VA_ARGS__);
 
 enum update_status
 {
-	UPDATE_CONTINUE = 1,
-	UPDATE_STOP,
-	UPDATE_ERROR
+    UPDATE_CONTINUE = 1,
+    UPDATE_STOP,
+    UPDATE_ERROR
 };
+
+#define LICENSE_PATH "../Source/licenses/LICENSE.TXT"
 
 // Configuration -----------
 #define SCREEN_WIDTH 1280
