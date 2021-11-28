@@ -22,6 +22,7 @@ enum main_states
     MAIN_FINISH,
     MAIN_EXIT
 };
+
 Application* App = nullptr;
 
 int main(int argc, char** argv)

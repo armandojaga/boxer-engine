@@ -28,6 +28,10 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
+    // Font
+    ImGuiIO& io = ImGui::GetIO();
+    io.Fonts->AddFontFromFileTTF("fonts/JetBrainsMono-Light.ttf", 16);
+
     // UI style
     ImGui::StyleColorsLight();
     ImGuiStyle& style = ImGui::GetStyle();

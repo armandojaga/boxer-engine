@@ -502,7 +502,6 @@
     <ClInclude Include="vendors\SDL\include\SDL_vulkan.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\Windows\Fonts" />
     <None Include="vendors\assimp\include\assimp\color4.inl" />
     <None Include="vendors\assimp\include\assimp\config.h.in" />
     <None Include="vendors\assimp\include\assimp\material.inl" />
