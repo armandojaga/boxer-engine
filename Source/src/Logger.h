@@ -38,7 +38,7 @@ namespace BoxerEngine
         // chain of responsibility for calling all loggers
         void Register(Logger* next)
         {
-            //TODO imgui_logger registry?
+            //TODO logger registry?
             if (this->next)
             {
                 this->next->Register(next);

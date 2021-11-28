@@ -1,42 +1,81 @@
 #pragma once
+#include "Windows.h"
+#include "Psapi.h"
 
 namespace BoxerEngine
 {
     class Statistics
     {
         //FPS counter
+        //240 FPS = 4.1666ms
+        //120 FPS = 8.3333ms
         //60 FPS = 16.6666ms
         //30 FPS = 33.3333ms
     private:
         float fps = 0.0;
-        float ups = 0.0;
+        float ms = 0.0;
+        int memory = 0.0;
+
+        static const int SAMPLES = 60;
+        static const int LOG_SIZE = 50;
+
+        float historic[SAMPLES] = {};
+        int currentFrame = 0;
+        float previousTicks = game_clock.ReadMs();
+
+        float fps_log[LOG_SIZE] = {};
+        float ms_log[LOG_SIZE] = {};
+        
+        int log_counter = 0;
+
     public:
         [[nodiscard]] float GetFramesPerSecond() const
         {
             return fps;
         }
 
-        [[nodiscard]] float GetUpdatesPerSecond() const
+        [[nodiscard]] float GetFrameSpeed() const
         {
-            return ups;
+            return ms;
+        }
+
+        [[nodiscard]] int GetUsedMemory() const
+        {
+            return memory;
+        }
+
+        // auto here refers to:
+        // typedef float float50[50];
+        // const float50*
+        [[nodiscard]] auto GetFPSLog() const
+        {
+            return &fps_log;
+        }
+
+        [[nodiscard]] auto GetMSLog() const
+        {
+            return &ms_log;
         }
 
         void calculate()
         {
-            static const int SAMPLES = 16;
-            static float historic[SAMPLES];
-            static int currentFrame = 0;
-            static float previousTicks = game_clock.ReadMs();
+            PROCESS_MEMORY_COUNTERS_EX pmc;
+            GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
+            memory = static_cast<int>(pmc.PrivateUsage);
+
+
+
 
             const float currentTicks = game_clock.ReadMs();
-            ups = currentTicks - previousTicks;
+            ms = currentTicks - previousTicks;
+            previousTicks = currentTicks;
 
-            historic[currentFrame % SAMPLES] = ups;
+            historic[currentFrame % SAMPLES] = ms;
 
             int count;
             if (currentFrame < SAMPLES)
             {
-                count = currentFrame;
+                count = currentFrame++;
             }
             else
             {
@@ -49,6 +88,8 @@ namespace BoxerEngine
                 averageTime += time;
             }
             averageTime /= static_cast<float>(count);
+            ms = averageTime;
+
             if (averageTime > 0)
             {
                 fps = 1000.0f / averageTime;
@@ -56,9 +97,16 @@ namespace BoxerEngine
             else
             {
                 fps = FPS_LIMIT;
+                ms = 1000.0f / FPS_LIMIT;
             }
-            ++currentFrame;
-            previousTicks = currentTicks;
+            
+            ms_log[log_counter] = ms;
+            fps_log[log_counter] = fps;
+
+            if(++log_counter >= LOG_SIZE)
+            {
+                log_counter = 0;
+            }
         }
     };
 }

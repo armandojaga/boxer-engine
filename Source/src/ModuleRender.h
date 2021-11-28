@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL_video.h>
 
 #include "Module.h"
 #include "Globals.h"
@@ -21,9 +20,9 @@ public:
 	update_status PostUpdate() override;
 	bool CleanUp() override;
 	void WindowResized(unsigned width, unsigned height);
-	void* context;
+	void* context{};
 
 private:
-	int width, height;
-	unsigned vbo;
+	int width{}, height{};
+	unsigned vbo{};
 };

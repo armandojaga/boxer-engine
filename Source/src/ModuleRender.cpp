@@ -4,9 +4,7 @@
 #include "ModuleWindow.h"
 #include <SDL.h>
 
-ModuleRender::ModuleRender()
-{
-}
+ModuleRender::ModuleRender()= default;
 
 // Destructor
 ModuleRender::~ModuleRender()
@@ -16,7 +14,7 @@ ModuleRender::~ModuleRender()
 // Called before render is available
 bool ModuleRender::Init()
 {
-	LOG("Creating Renderer context");
+	BE_LOG("Creating Renderer context");
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4); // desired version
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
@@ -29,12 +27,12 @@ bool ModuleRender::Init()
 
 	GLenum err = glewInit();
 
-	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
+	BE_LOG("Using Glew %s", glewGetString(GLEW_VERSION));
 
-	LOG("Vendor: %s", glGetString(GL_VENDOR));
-	LOG("Renderer: %s", glGetString(GL_RENDERER));
-	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
-	LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	BE_LOG("Vendor: %s", glGetString(GL_VENDOR));
+	BE_LOG("Renderer: %s", glGetString(GL_RENDERER));
+	BE_LOG("OpenGL version supported %s", glGetString(GL_VERSION));
+	BE_LOG("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 	glEnable(GL_DEPTH_TEST); // Enable depth test
 	glEnable(GL_CULL_FACE); // Enable cull backward faces
@@ -53,7 +51,7 @@ bool ModuleRender::Init()
 
 update_status ModuleRender::PreUpdate()
 {
-	glViewport(0, 0, width, height);
+	glViewport(0, 0, width, height-25);
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -83,7 +81,7 @@ update_status ModuleRender::PostUpdate()
 // Called before quitting
 bool ModuleRender::CleanUp()
 {
-	LOG("Destroying renderer");
+	BE_LOG("Destroying renderer");
 
 	//Destroy window
 	SDL_GL_DeleteContext(context);

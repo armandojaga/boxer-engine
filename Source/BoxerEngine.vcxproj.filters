@@ -998,6 +998,9 @@
     <ClInclude Include="src\instrumentation\Statistics.h">
       <Filter>Instrumentation</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\GameOptions.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1062,6 +1065,9 @@
     </Filter>
     <Filter Include="Instrumentation">
       <UniqueIdentifier>{1804d9ac-2391-4b39-97c1-e40bf9734fa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{c0abde9a-4e76-4bd9-9a0b-f138ea04ab0d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1137,6 +1143,7 @@
     <None Include="vendors\assimp\include\assimp\vector3.inl">
       <Filter>Vendors\Assimp</Filter>
     </None>
+    <None Include="..\..\..\..\Windows\Fonts" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="licenses\LICENSE.TXT" />

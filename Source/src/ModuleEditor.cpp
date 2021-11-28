@@ -28,6 +28,24 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
+    // UI style
+    ImGui::StyleColorsLight();
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.Alpha = 0.850f;
+    style.DisabledAlpha = 0.60f;
+    ImVec4* colors = style.Colors;
+    colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 0.70f);
+    colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
+    colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
+    colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
+
+    style.WindowRounding = 6.0f;
+    style.ChildRounding = 6.0f;
+    style.FrameRounding = 2.0f;
+    style.PopupRounding = 6.0f;
+    style.ScrollbarRounding = 6.0f;
+    style.GrabRounding = 4.0f;
+
     return true;
 }
 
@@ -36,6 +54,7 @@ update_status ModuleEditor::PreUpdate()
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
+
     return UPDATE_CONTINUE;
 }
 
@@ -52,7 +71,7 @@ update_status ModuleEditor::Update()
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    ImGui::StyleColorsLight();
+
     return UPDATE_CONTINUE;
 }
 
@@ -133,14 +152,14 @@ void ModuleEditor::CreateMenu()
 
 void ModuleEditor::ShowConsole(bool* open) const
 {
-    ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
+    ImGui::SetNextWindowSize(ImVec2(1100, 170), ImGuiCond_Once);
     if (!ImGui::Begin("Console", open))
     {
         ImGui::End();
         return;
     }
-    const float footerHeight = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
-    ImGui::BeginChild("ConsoleScrollingRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
+
+    ImGui::BeginChild("ConsoleScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
     if (ImGui::BeginPopupContextWindow())
     {
         if (ImGui::Selectable("Clear"))
@@ -160,7 +179,7 @@ void ModuleEditor::ShowConsole(bool* open) const
 
 void ModuleEditor::ShowStats(bool* open) const
 {
-    ImGui::SetNextWindowSize(ImVec2(200, 200), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_Once);
     if (!ImGui::Begin("Statistics", open))
     {
         ImGui::End();
@@ -168,17 +187,22 @@ void ModuleEditor::ShowStats(bool* open) const
     }
     static int counter = 0;
     static float fps = App->statistics->GetFramesPerSecond();
-    static float ups = App->statistics->GetUpdatesPerSecond();
+    static float ms = App->statistics->GetFrameSpeed();
     if (counter >= 10)
     {
         fps = App->statistics->GetFramesPerSecond();
-        ups = App->statistics->GetUpdatesPerSecond();
+        ms = App->statistics->GetFrameSpeed();
         counter = 0;
     }
     ++counter;
+    ImGui::TextWrapped("Memory used: %d MB", App->statistics->GetUsedMemory() / 1000000);
+    char fpsOverlay[32];
+    sprintf(fpsOverlay, "FPS %.2f", fps);
+    ImGui::PlotHistogram("##framerate", *App->statistics->GetFPSLog(), IM_ARRAYSIZE(*App->statistics->GetFPSLog()), 0, fpsOverlay, 0.0f, 100.0f, ImVec2(310, 100));
 
-    ImGui::TextWrapped("FPS %f", fps);
-    ImGui::TextWrapped("UPS %f", ups);
+    char msOverlay[32];
+    sprintf(msOverlay, "%.2f ms", ms);
+    ImGui::PlotHistogram("##framespeed", *App->statistics->GetMSLog(), IM_ARRAYSIZE(*App->statistics->GetMSLog()), 0, msOverlay, 0.0f, 40.0f, ImVec2(310, 100));
     ImGui::End();
 }
 
@@ -192,7 +216,7 @@ void ModuleEditor::ShowHardware(bool* open) const
 
 void ModuleEditor::ShowAbout(bool* open) const
 {
-    ImGui::SetNextWindowSize(ImVec2(605, 400), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(605, 400), ImGuiCond_Once);
     if (!ImGui::Begin("About", open))
     {
         ImGui::End();

@@ -9,7 +9,7 @@ private:
     BoxerEngine::Console* console;
     bool display_about = false;
     bool display_console = false;
-    bool display_stats = false;
+    bool display_stats = true;
     bool display_config = false;
     bool display_hardware = false;
     bool should_exit = false;
