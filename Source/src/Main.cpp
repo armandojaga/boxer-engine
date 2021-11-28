@@ -13,7 +13,6 @@
 #include <SDL.h>
 
 #include "Timer.h"
-#include "core/GameOptions.h"
 
 enum main_states
 {
@@ -23,7 +22,6 @@ enum main_states
     MAIN_FINISH,
     MAIN_EXIT
 };
-#include <typeinfo>
 Application* App = nullptr;
 
 int main(int argc, char** argv)
