@@ -11,64 +11,64 @@ using namespace std;
 Application::Application() : statistics(new BoxerEngine::Statistics())
 {
     // Order matters: they will Init/start/update in this order
-	modules.push_back(window = new ModuleWindow());
-	modules.push_back(renderer = new ModuleRender());
-	modules.push_back(input = new ModuleInput());
-	modules.push_back(editor = new ModuleEditor());
-	// modules.push_back(camera = new ModuleCamera());
+    modules.push_back(window = new ModuleWindow());
+    modules.push_back(renderer = new ModuleRender());
+    modules.push_back(input = new ModuleInput());
+    modules.push_back(editor = new ModuleEditor());
+    // modules.push_back(camera = new ModuleCamera());
 }
 
 Application::~Application()
 {
-	delete statistics;
-	for (auto it = modules.begin(); it != modules.end(); ++it)
-	{
-		delete *it;
-	}
+    delete statistics;
+    for (auto it = modules.begin(); it != modules.end(); ++it)
+    {
+        delete *it;
+    }
 }
 
 bool Application::Init()
 {
-	bool ret = true;
+    bool ret = true;
 
-	for (auto it = modules.begin(); it != modules.end() && ret; ++it)
-	{
-		ret = (*it)->Init();
-	}
+    for (auto it = modules.begin(); it != modules.end() && ret; ++it)
+    {
+        ret = (*it)->Init();
+    }
 
-	return ret;
+    return ret;
 }
 
 update_status Application::Update()
 {
-	update_status ret = UPDATE_CONTINUE;
+    update_status ret = UPDATE_CONTINUE;
 
-	for (auto it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-	{
-		ret = (*it)->PreUpdate();
-	}
+    for (auto it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+    {
+        ret = (*it)->PreUpdate();
+    }
 
-	for (auto it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-	{
-		ret = (*it)->Update();
-	}
+    for (auto it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+    {
+        ret = (*it)->Update();
+    }
 
-	for (auto it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-	{
-		ret = (*it)->PostUpdate();
-	}
+    for (auto it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+    {
+        ret = (*it)->PostUpdate();
+    }
 
-	return ret;
+    return ret;
 }
 
 bool Application::CleanUp()
 {
-	bool ret = true;
+    bool ret = true;
 
-	for (auto it = modules.rbegin(); it != modules.rend() && ret; ++it)
-	{
-		ret = (*it)->CleanUp();
-	}
+    for (auto it = modules.rbegin(); it != modules.rend() && ret; ++it)
+    {
+        ret = (*it)->CleanUp();
+    }
 
-	return ret;
+    return ret;
 }

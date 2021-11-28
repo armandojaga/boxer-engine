@@ -1,11 +1,10 @@
 #pragma once
 
 #include <list>
-#include <vector>
+#include <memory>
 
 #include "Globals.h"
 #include "Module.h"
-#include "Timer.h"
 #include "instrumentation/Statistics.h"
 
 class ModuleCamera;
@@ -38,4 +37,4 @@ private:
 	std::list<Module*> modules;
 };
 
-extern Application* App;
+extern std::unique_ptr<Application> App;

@@ -24,7 +24,7 @@ bool ModuleRender::Init()
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8); // we want to have a stencil buffer with 8 bits
 
 	context = SDL_GL_CreateContext(App->window->window);
-
+	
 	GLenum err = glewInit();
 
 	BE_LOG("Using Glew %s", glewGetString(GLEW_VERSION));
@@ -40,18 +40,19 @@ bool ModuleRender::Init()
 
 	SDL_GetWindowSize(App->window->window, &width, &height);
 
-	float vtx_data[] = {-1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
-
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
+	// float vtx_data[] = {-1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
+	//
+	// glGenBuffers(1, &vbo);
+	// glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
+	// glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
+	// glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	return true;
 }
 
 update_status ModuleRender::PreUpdate()
 {
-	glViewport(0, 0, width, height-25);
+	glViewport(0, 0, width, height);
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -61,7 +62,7 @@ update_status ModuleRender::PreUpdate()
 	// stride = 0 is equivalent to stride = sizeof(float)*3
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(0));
 	// 1 triangle to draw = 3 vertices
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	// glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	return UPDATE_CONTINUE;
 }

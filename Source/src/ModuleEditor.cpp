@@ -25,11 +25,15 @@ bool ModuleEditor::Init()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
-    ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
-    ImGui_ImplOpenGL3_Init(GLSL_VERSION);
+    ImGuiIO& io = ImGui::GetIO();
+    (void)io;
+
+    //config
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Enable Docking
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable; // Enable Multi-Viewport / Platform Windows
 
     // Font
-    ImGuiIO& io = ImGui::GetIO();
     io.Fonts->AddFontFromFileTTF("fonts/JetBrainsMono-Light.ttf", 16);
 
     // UI style
@@ -50,6 +54,9 @@ bool ModuleEditor::Init()
     style.ScrollbarRounding = 6.0f;
     style.GrabRounding = 4.0f;
 
+    ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
+    ImGui_ImplOpenGL3_Init(GLSL_VERSION);
+
     return true;
 }
 
@@ -59,13 +66,37 @@ update_status ModuleEditor::PreUpdate()
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
+    //dockerspace
+    const ImGuiWindowFlags dockspace_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus |
+        ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_MenuBar;
+
+    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(viewport->Pos);
+    ImGui::SetNextWindowSize(viewport->Size);
+    ImGui::SetNextWindowViewport(viewport->ID);
+
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+    ImGui::Begin("Dockspace", nullptr, dockspace_flags);
+    ImGui::PopStyleVar(3);
+
+    const ImGuiID dockSpaceId = ImGui::GetID("DockspaceID");
+
+    ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
+
+    CreateMenu();
+
+    ImGui::End();
+
     return UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::Update()
 {
-    CreateMenu();
-
     //make sure we render the opened windows
     if (display_about) ShowAbout(&display_about);
     if (display_console) ShowConsole(&display_console);
@@ -73,16 +104,96 @@ update_status ModuleEditor::Update()
     if (display_config) ShowConfig(&display_config);
     if (display_hardware) ShowHardware(&display_hardware);
 
+    ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_Once);
+
+    ImGui::Begin("Scene");
+
+    const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+    int x = viewportPanelSize.x, y = viewportPanelSize.y;
+    //===============================================================================================================
+    //frame buffer
+    if (mFBO)
+    {
+        glDeleteFramebuffers(GL_FRAMEBUFFER, &mFBO);
+        glDeleteTextures(1, &mTexId);
+        glDeleteTextures(1, &mDepthId);
+        mTexId = 0;
+        mDepthId = 0;
+    }
+
+
+    glGenFramebuffers(1, &mFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, mFBO);
+    glCreateTextures(GL_TEXTURE_2D, 1, &mTexId);
+    glBindTexture(GL_TEXTURE_2D, mTexId);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mTexId, 0);
+
+    glCreateTextures(GL_TEXTURE_2D, 1, &mDepthId);
+    glBindTexture(GL_TEXTURE_2D, mDepthId);
+    glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, x, y);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, mDepthId, 0);
+
+    GLenum buffers[4] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers(mTexId, buffers);
+
+
+
+
+    glViewport(0, 0, x, y);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //===============================================================================================================
+
+    unsigned vbo{};
+    float vtx_data[] = { -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(0));
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDeleteBuffers(1, &vbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+    ImGui::Image(reinterpret_cast<void*>(mTexId), ImVec2{ static_cast<float>(x), static_cast<float>(y) }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+    
+    //===============================================================================================================
+
+    ImGui::End();
+
+
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 
     return UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::PostUpdate()
 {
-    ImGui::UpdatePlatformWindows();
-    ImGui::RenderPlatformWindowsDefault();
+    ImGuiIO& io = ImGui::GetIO();
+
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        auto ctx = ImGui::GetCurrentContext();
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        ImGui::SetCurrentContext(ctx);
+    }
     if (should_exit)
     {
         return UPDATE_STOP;
@@ -212,10 +323,44 @@ void ModuleEditor::ShowStats(bool* open) const
 
 void ModuleEditor::ShowConfig(bool* open) const
 {
+    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_Once);
+    if (!ImGui::Begin("Config", open))
+    {
+        ImGui::End();
+        return;
+    }
+    float maxFps = game_options.GetMaxFPS();
+    ImGui::SliderFloat("##FPSSlider", &maxFps, 24.0f, 250.0f,"FPS %.1f");
+    game_options.SetMaxFPS(maxFps);
+
+    bool vsync = game_options.GetVsync();
+    ImGui::TextWrapped("Vsync");
+    ImGui::SameLine();
+    ImGui::Checkbox("##vsync", &vsync);
+    game_options.SetVsync(vsync);
+
+    bool fullscreen = game_options.IsFullScreen();
+    ImGui::TextWrapped("Fullscreen");
+    ImGui::SameLine();
+    ImGui::Checkbox("##fullscreen", &fullscreen);
+    game_options.SetFullSceen(fullscreen);
+
+    ImGui::End();
 }
 
 void ModuleEditor::ShowHardware(bool* open) const
 {
+    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_Once);
+    if (!ImGui::Begin("Hardware", open))
+    {
+        ImGui::End();
+        return;
+    }
+    ImGui::TextWrapped("Vendor: %s", glGetString(GL_VENDOR));
+    ImGui::TextWrapped("Renderer: %s", glGetString(GL_RENDERER));
+    ImGui::TextWrapped("OpenGL: %s", glGetString(GL_VERSION));
+    ImGui::TextWrapped("GLSL: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+    ImGui::End();
 }
 
 void ModuleEditor::ShowAbout(bool* open) const
@@ -250,8 +395,7 @@ void ModuleEditor::ShowAbout(bool* open) const
     ImGui::Separator();
     ImGui::TextWrapped("License");
 
-    const float footerHeight = ImGui::GetStyle().ItemSpacing.y + ImGui::GetFrameHeightWithSpacing();
-    ImGui::BeginChild("LicenseScrollingRegion", ImVec2(0, -footerHeight), false, ImGuiWindowFlags_HorizontalScrollbar);
+    ImGui::BeginChild("LicenseScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
     if (license_content.empty())
     {
         license_content = Files::ReadFile(LICENSE_PATH);

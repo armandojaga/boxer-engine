@@ -8,7 +8,6 @@
 #include <cstdlib>
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleRender.h"
 
 #include <SDL.h>
 
@@ -23,7 +22,7 @@ enum main_states
     MAIN_EXIT
 };
 
-Application* App = nullptr;
+std::unique_ptr<Application> App = nullptr;
 
 int main(int argc, char** argv)
 {
@@ -40,7 +39,7 @@ int main(int argc, char** argv)
         {
         case MAIN_CREATION:
             BE_LOG("Application Creation --------------");
-            App = new Application();
+            App = std::make_unique<Application>();
             state = MAIN_START;
             break;
 
@@ -64,16 +63,18 @@ int main(int argc, char** argv)
             {
                 //FPS limit
                 // BoxerEngine::Timer clock;
-                double start = game_clock.ReadMs();
+                float start = game_clock.ReadMs();
 
                 int update_return = App->Update();
 
                 App->statistics->calculate();
 
-                double elapsed = game_clock.ReadMs() - start;
-                if (1000.0 / FPS_LIMIT > elapsed)
+                SDL_GL_SetSwapInterval(game_options.GetVsync());
+
+                const float elapsed = game_clock.ReadMs() - start;
+                if (1000.0f / game_options.GetMaxFPS() > elapsed)
                 {
-                    SDL_Delay(1000.0 / FPS_LIMIT - elapsed);
+                    SDL_Delay(1000.0f / game_options.GetMaxFPS() - elapsed);
                 }
 
                 if (update_return == UPDATE_ERROR)
@@ -103,7 +104,6 @@ int main(int argc, char** argv)
         }
     }
 
-    delete App;
     BE_LOG("Bye :)\n");
     return main_return;
 }

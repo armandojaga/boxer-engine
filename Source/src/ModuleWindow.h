@@ -12,7 +12,7 @@ public:
 	ModuleWindow();
 
 	// Destructor
-	virtual ~ModuleWindow();
+    ~ModuleWindow() override;
 
 	// Called before quitting
 	bool Init() override;
@@ -20,12 +20,11 @@ public:
 	// Called before quitting
 	bool CleanUp() override;
 
+	update_status PreUpdate() override;
+
 public:
 	//The window we'll be rendering to
 	SDL_Window* window = nullptr;
-
-	//The surface contained by the window
-	SDL_Surface* screen_surface = nullptr;
 };
 
 #endif // __ModuleWindow_H__

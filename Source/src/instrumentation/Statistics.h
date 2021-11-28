@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Windows.h"
 #include "Psapi.h"
 
@@ -20,7 +21,8 @@ namespace BoxerEngine
         static const int LOG_SIZE = 50;
 
         float historic[SAMPLES] = {};
-        int currentFrame = 0;
+        int current_frame = 0;
+        int historic_counter = 0;
         float previousTicks = game_clock.ReadMs();
 
         float fps_log[LOG_SIZE] = {};
@@ -63,23 +65,20 @@ namespace BoxerEngine
             GetProcessMemoryInfo(GetCurrentProcess(), (PROCESS_MEMORY_COUNTERS*)&pmc, sizeof(pmc));
             memory = static_cast<int>(pmc.PrivateUsage);
 
-
-
-
             const float currentTicks = game_clock.ReadMs();
             ms = currentTicks - previousTicks;
             previousTicks = currentTicks;
 
-            historic[currentFrame % SAMPLES] = ms;
+            historic[current_frame % SAMPLES] = ms;
 
-            int count;
-            if (currentFrame < SAMPLES)
+            if (++current_frame >= SAMPLES)
             {
-                count = currentFrame++;
+                current_frame = 0;
+                historic_counter = SAMPLES;
             }
-            else
+            else if(historic_counter < SAMPLES)
             {
-                count = SAMPLES;
+                historic_counter = current_frame;
             }
 
             float averageTime = 0;
@@ -87,7 +86,7 @@ namespace BoxerEngine
             {
                 averageTime += time;
             }
-            averageTime /= static_cast<float>(count);
+            averageTime /= static_cast<float>(historic_counter);
             ms = averageTime;
 
             if (averageTime > 0)
@@ -96,8 +95,8 @@ namespace BoxerEngine
             }
             else
             {
-                fps = FPS_LIMIT;
-                ms = 1000.0f / FPS_LIMIT;
+                fps = game_options.GetMaxFPS();
+                ms = 1000.0f / game_options.GetMaxFPS();
             }
             
             ms_log[log_counter] = ms;

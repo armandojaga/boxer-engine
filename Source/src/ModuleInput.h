@@ -8,7 +8,7 @@ class ModuleInput : public Module
 {
 public:
 	ModuleInput();
-	~ModuleInput();
+	~ModuleInput() override;
 
 	bool Init() override;
 	update_status Update() override;
