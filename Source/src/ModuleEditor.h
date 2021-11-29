@@ -8,10 +8,10 @@ class ModuleEditor : public Module
 private:
     BoxerEngine::Console* console;
     bool display_about = false;
-    bool display_console = false;
+    bool display_console = true;
     bool display_stats = true;
-    bool display_config = false;
-    bool display_hardware = false;
+    bool display_config = true;
+    bool display_hardware = true;
     bool should_exit = false;
     mutable std::string license_content;
 

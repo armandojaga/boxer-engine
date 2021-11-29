@@ -313,7 +313,8 @@ void ModuleEditor::ShowStats(bool* open) const
     ImGui::TextWrapped("Memory used: %d MB", App->statistics->GetUsedMemory() / 1000000);
     char fpsOverlay[32];
     sprintf(fpsOverlay, "FPS %.2f", fps);
-    ImGui::PlotHistogram("##framerate", *App->statistics->GetFPSLog(), IM_ARRAYSIZE(*App->statistics->GetFPSLog()), 0, fpsOverlay, 0.0f, 100.0f, ImVec2(310, 100));
+    float fpsLimit = App->statistics->GetFramesPerSecond() + 10.0f;
+    ImGui::PlotHistogram("##framerate", *App->statistics->GetFPSLog(), IM_ARRAYSIZE(*App->statistics->GetFPSLog()), 0, fpsOverlay, 0.0f, fpsLimit, ImVec2(310, 100));
 
     char msOverlay[32];
     sprintf(msOverlay, "%.2f ms", ms);
@@ -356,7 +357,10 @@ void ModuleEditor::ShowHardware(bool* open) const
         ImGui::End();
         return;
     }
-    ImGui::TextWrapped("Vendor: %s", glGetString(GL_VENDOR));
+    ImGui::TextWrapped("System memory: %d GB", SDL_GetSystemRAM()/1000);
+    ImGui::TextWrapped("CPU cores: %d", SDL_GetCPUCount());
+    ImGui::Separator();
+    ImGui::TextWrapped("GPU Vendor: %s", glGetString(GL_VENDOR));
     ImGui::TextWrapped("Renderer: %s", glGetString(GL_RENDERER));
     ImGui::TextWrapped("OpenGL: %s", glGetString(GL_VERSION));
     ImGui::TextWrapped("GLSL: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
