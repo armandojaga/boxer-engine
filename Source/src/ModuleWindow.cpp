@@ -2,9 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 
-ModuleWindow::ModuleWindow()
-{
-}
+ModuleWindow::ModuleWindow() = default;
 
 // Destructor
 ModuleWindow::~ModuleWindow() = default;
@@ -12,7 +10,7 @@ ModuleWindow::~ModuleWindow() = default;
 // Called before render is available
 bool ModuleWindow::Init()
 {
-    BE_LOG("Init SDL window & surface");
+    BE_LOG("Init SDL window");
     bool ret = true;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -27,7 +25,7 @@ bool ModuleWindow::Init()
         constexpr int height = SCREEN_HEIGHT;
         Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
 
-        if (game_options.IsFullScreen())
+        if (game_options.IsFullscreen())
         {
             flags |= SDL_WINDOW_FULLSCREEN;
         }
@@ -62,7 +60,7 @@ bool ModuleWindow::CleanUp()
 
 update_status ModuleWindow::PreUpdate()
 {
-    if (game_options.IsFullScreen())
+    if (game_options.IsFullscreen())
     {
         SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     }

@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
+#include "ModuleCamera.h"
+#include "ModuleDebugDraw.h"
 #include <SDL.h>
 
 ModuleRender::ModuleRender()= default;
@@ -40,12 +42,11 @@ bool ModuleRender::Init()
 
 	SDL_GetWindowSize(App->window->window, &width, &height);
 
-	// float vtx_data[] = {-1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f};
+	// float vtx_data[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
 	//
 	// glGenBuffers(1, &vbo);
 	// glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
 	// glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
-	// glDrawArrays(GL_TRIANGLES, 0, 3);
 
 	return true;
 }
@@ -56,20 +57,26 @@ update_status ModuleRender::PreUpdate()
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glEnableVertexAttribArray(0);
-	// size = 3 float per vertex
-	// stride = 0 is equivalent to stride = sizeof(float)*3
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(0));
-	// 1 triangle to draw = 3 vertices
-	// glDrawArrays(GL_TRIANGLES, 0, 3);
-
 	return UPDATE_CONTINUE;
 }
 
 // Called every draw update
 update_status ModuleRender::Update()
 {
+	// App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), SCREEN_WIDTH, SCREEN_HEIGHT); // delete this when editor is enabled
+	//
+	// unsigned vbo{};
+	// constexpr float vtx_data[] = { -0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f };
+	// glGenBuffers(1, &vbo);
+	// glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
+	// glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
+	//
+	// glEnableVertexAttribArray(0);
+	// glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(0));
+	// glDrawArrays(GL_TRIANGLES, 0, 3);
+	//
+	// glDeleteBuffers(1, &vbo);
+
 	return UPDATE_CONTINUE;
 }
 
@@ -86,7 +93,7 @@ bool ModuleRender::CleanUp()
 
 	//Destroy window
 	SDL_GL_DeleteContext(context);
-	glDeleteBuffers(1, &vbo);
+	// glDeleteBuffers(1, &vbo);
 	return true;
 }
 

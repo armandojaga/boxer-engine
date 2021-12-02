@@ -1,41 +1,46 @@
 #include "ModuleCamera.h"
 
-#include <GL/glew.h>
-#include <Geometry/Frustum.h>
+#include "Math/float3x3.h"
 
-constexpr auto DEGTORAD = 0.0174532925199432957f;
+constexpr auto DEGTORAD = 0.0174532925199432957f; // PI/180
 
-ModuleCamera::ModuleCamera()
-{
-}
+ModuleCamera::ModuleCamera() = default;
 
-ModuleCamera::~ModuleCamera()
-{
-}
+ModuleCamera::~ModuleCamera() = default;
 
 bool ModuleCamera::Init()
 {
-	Frustum frustum;
-	frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
-	frustum.SetViewPlaneDistances(0.1f, 200.0f);
-	frustum.SetHorizontalFovAndAspectRatio(DEGTORAD * 90.0f, 1.3f);
-	frustum.SetPos(float3(0.0f, 1.0f, -2.0f));
-	frustum.SetFront(float3::unitZ);
-	frustum.SetUp(float3::unitY);
-	float4x4 projectionGL = frustum.ProjectionMatrix().Transposed(); //<-- Important to transpose!
-	//Send the frustum projection matrix to OpenGL
-	// direct mode would be:
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(*projectionGL.v);
-	return true;
+    frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
+    frustum.SetViewPlaneDistances(0.1f, 100.0f);
+    frustum.SetHorizontalFovAndAspectRatio(DEGTORAD * 90.0f, static_cast<float>(SCREEN_WIDTH) / static_cast<float>(SCREEN_HEIGHT));
+    frustum.SetPos(float3(1.0f, 2.5f, -5.0f));
+    frustum.SetFront(float3::unitZ);
+    frustum.SetUp(float3::unitY);
+    //
+    LookAt(float3(0.0f));
+
+    model = float4x4::identity;
+    view = frustum.ViewMatrix();
+    projection = frustum.ProjectionMatrix();
+
+    return true;
 }
 
 update_status ModuleCamera::Update()
 {
-	return UPDATE_CONTINUE;
+    return UPDATE_CONTINUE;
 }
 
 bool ModuleCamera::CleanUp()
 {
-	return true;
+    return true;
+}
+
+void ModuleCamera::LookAt(const float3& position)
+{
+    const float3 direction = position - frustum.Pos();
+    const float3x3 look = float3x3::LookAt(frustum.Front(), direction.Normalized(), frustum.Up(), float3::unitY);
+    frustum.SetFront(look.MulDir(frustum.Front()).Normalized());
+    frustum.SetUp(look.MulDir(frustum.Up()).Normalized());
+
 }

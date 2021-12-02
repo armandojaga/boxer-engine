@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;_CONSOLE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -144,7 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -160,6 +160,8 @@
     <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
+    <ClCompile Include="src\ModuleDebugDraw.cpp" />
+    <ClCompile Include="src\ModuleScene.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
@@ -233,6 +235,8 @@
     <ClInclude Include="src\instrumentation\Statistics.h" />
     <ClInclude Include="src\Logger.h" />
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\ModuleDebugDraw.h" />
+    <ClInclude Include="src\ModuleScene.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />
@@ -311,6 +315,8 @@
     <ClInclude Include="vendors\assimp\include\assimp\Vertex.h" />
     <ClInclude Include="vendors\assimp\include\assimp\XMLTools.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ZipArchiveIOSystem.h" />
+    <ClInclude Include="vendors\debugdraw\debugdraw.h" />
+    <ClInclude Include="vendors\debugdraw\debug_draw.hpp" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\eglew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h" />

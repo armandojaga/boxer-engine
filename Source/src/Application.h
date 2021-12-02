@@ -7,13 +7,15 @@
 #include "Module.h"
 #include "instrumentation/Statistics.h"
 
+class ModuleWindow;
+class ModuleInput;
 class ModuleCamera;
 class ModuleEditor;
 class ModuleRender;
-class ModuleWindow;
-class ModuleTextures;
-class ModuleInput;
-class ModuleRenderExercise;
+class ModuleScene;
+class ModuleDebugDraw;
+
+
 
 class Application
 {
@@ -26,11 +28,14 @@ public:
 	bool CleanUp();
 
 public:
-	ModuleRender* renderer = nullptr;
 	ModuleWindow* window = nullptr;
 	ModuleInput* input = nullptr;
+    ModuleCamera* camera = nullptr;
+	ModuleScene* scene = nullptr;
+    ModuleRender* renderer = nullptr;
+	ModuleDebugDraw* debug_draw = nullptr;
 	ModuleEditor* editor = nullptr;
-	ModuleCamera* camera = nullptr;
+
 	BoxerEngine::Statistics* statistics;
 
 private:

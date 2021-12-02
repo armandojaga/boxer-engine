@@ -1,10 +1,12 @@
 #include "Application.h"
 
 #include "ModuleWindow.h"
-#include "ModuleRender.h"
 #include "ModuleInput.h"
-#include "ModuleEditor.h"
 #include "ModuleCamera.h"
+#include "ModuleScene.h"
+#include "ModuleRender.h"
+#include "ModuleDebugDraw.h"
+#include "ModuleEditor.h"
 
 using namespace std;
 
@@ -12,10 +14,13 @@ Application::Application() : statistics(new BoxerEngine::Statistics())
 {
     // Order matters: they will Init/start/update in this order
     modules.push_back(window = new ModuleWindow());
-    modules.push_back(renderer = new ModuleRender());
     modules.push_back(input = new ModuleInput());
+    modules.push_back(camera = new ModuleCamera());
+    // modules.push_back(scene = new ModuleScene());
+    modules.push_back(renderer = new ModuleRender());
+    modules.push_back(debug_draw = new ModuleDebugDraw());
     modules.push_back(editor = new ModuleEditor());
-    // modules.push_back(camera = new ModuleCamera());
+    
 }
 
 Application::~Application()

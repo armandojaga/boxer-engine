@@ -7,6 +7,11 @@
 #include "Files.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
+#include "ModuleDebugDraw.h"
+#include "ModuleCamera.h"
+
+#include "debugdraw.h"
+
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
 
@@ -67,7 +72,7 @@ update_status ModuleEditor::PreUpdate()
     ImGui::NewFrame();
 
     //dockerspace
-    const ImGuiWindowFlags dockspace_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+    constexpr ImGuiWindowFlags dockspace_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
         ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
         ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus |
         ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_MenuBar;
@@ -104,12 +109,13 @@ update_status ModuleEditor::Update()
     if (display_config) ShowConfig(&display_config);
     if (display_hardware) ShowHardware(&display_hardware);
 
-    ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_Once);
 
+    ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin("Scene");
-
+    //
     const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-    int x = viewportPanelSize.x, y = viewportPanelSize.y;
+    float x = viewportPanelSize.x, y = viewportPanelSize.y;
     //===============================================================================================================
     //frame buffer
     if (mFBO)
@@ -146,34 +152,44 @@ update_status ModuleEditor::Update()
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, mDepthId, 0);
 
-    GLenum buffers[4] = { GL_COLOR_ATTACHMENT0 };
+    GLenum buffers[4] = {GL_COLOR_ATTACHMENT0};
     glDrawBuffers(mTexId, buffers);
-
-
 
 
     glViewport(0, 0, x, y);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //===============================================================================================================
+    // ===============================================================================================================
+    if (game_options.IsDisplayDebugDraw())
+    {
+        App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), viewportPanelSize.x, viewportPanelSize.y);
+    }
 
     unsigned vbo{};
-    float vtx_data[] = { -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+    constexpr float vtx_data[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
     glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(0));
     glDrawArrays(GL_TRIANGLES, 0, 3);
+
     glDeleteBuffers(1, &vbo);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+    // App->debug_draw->
 
-    ImGui::Image(reinterpret_cast<void*>(mTexId), ImVec2{ static_cast<float>(x), static_cast<float>(y) }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
-    
+
+    // App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), viewportPanelSize.x, viewportPanelSize.y);
+
+
+    ImGui::Image(reinterpret_cast<void*>(mTexId), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
+    ImGui::Image(reinterpret_cast<void*>(vbo), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
+
     //===============================================================================================================
 
     ImGui::End();
+    ImGui::PopStyleVar();
 
 
     ImGui::Render();
@@ -189,7 +205,7 @@ update_status ModuleEditor::PostUpdate()
 
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
-        auto ctx = ImGui::GetCurrentContext();
+        const auto ctx = ImGui::GetCurrentContext();
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();
         ImGui::SetCurrentContext(ctx);
@@ -267,7 +283,7 @@ void ModuleEditor::CreateMenu()
 
 void ModuleEditor::ShowConsole(bool* open) const
 {
-    ImGui::SetNextWindowSize(ImVec2(1100, 170), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(1100, 170), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin("Console", open))
     {
         ImGui::End();
@@ -294,7 +310,7 @@ void ModuleEditor::ShowConsole(bool* open) const
 
 void ModuleEditor::ShowStats(bool* open) const
 {
-    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin("Statistics", open))
     {
         ImGui::End();
@@ -324,14 +340,14 @@ void ModuleEditor::ShowStats(bool* open) const
 
 void ModuleEditor::ShowConfig(bool* open) const
 {
-    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin("Config", open))
     {
         ImGui::End();
         return;
     }
     float maxFps = game_options.GetMaxFPS();
-    ImGui::SliderFloat("##FPSSlider", &maxFps, 24.0f, 250.0f,"FPS %.1f");
+    ImGui::SliderFloat("##FPSSlider", &maxFps, 24.0f, 250.0f, "FPS %.1f");
     game_options.SetMaxFPS(maxFps);
 
     bool vsync = game_options.GetVsync();
@@ -340,24 +356,30 @@ void ModuleEditor::ShowConfig(bool* open) const
     ImGui::Checkbox("##vsync", &vsync);
     game_options.SetVsync(vsync);
 
-    bool fullscreen = game_options.IsFullScreen();
+    bool fullscreen = game_options.IsFullscreen();
     ImGui::TextWrapped("Fullscreen");
     ImGui::SameLine();
     ImGui::Checkbox("##fullscreen", &fullscreen);
-    game_options.SetFullSceen(fullscreen);
+    game_options.SetFullscreen(fullscreen);
+
+    bool displayDebugDraw = game_options.IsDisplayDebugDraw();
+    ImGui::TextWrapped("Display debug draw");
+    ImGui::SameLine();
+    ImGui::Checkbox("##debugdraw", &displayDebugDraw);
+    game_options.SetDisplayDebugDraw(displayDebugDraw);
 
     ImGui::End();
 }
 
 void ModuleEditor::ShowHardware(bool* open) const
 {
-    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin("Hardware", open))
     {
         ImGui::End();
         return;
     }
-    ImGui::TextWrapped("System memory: %d GB", SDL_GetSystemRAM()/1000);
+    ImGui::TextWrapped("System memory: %.1f GB", SDL_GetSystemRAM() / 1000.0f);
     ImGui::TextWrapped("CPU cores: %d", SDL_GetCPUCount());
     ImGui::Separator();
     ImGui::TextWrapped("GPU Vendor: %s", glGetString(GL_VENDOR));
@@ -369,7 +391,7 @@ void ModuleEditor::ShowHardware(bool* open) const
 
 void ModuleEditor::ShowAbout(bool* open) const
 {
-    ImGui::SetNextWindowSize(ImVec2(605, 400), ImGuiCond_Once);
+    ImGui::SetNextWindowSize(ImVec2(605, 400), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin("About", open))
     {
         ImGui::End();
@@ -377,15 +399,21 @@ void ModuleEditor::ShowAbout(bool* open) const
     }
     ImVec4 red(1.0f, 0.0f, 0.0f, 1.0f);
     ImGui::TextWrapped("Boxer Engine - version %s", BOXER_ENGINE_VERSION);
+
     ImGui::Separator();
+
     ImGui::TextWrapped("Boxer is another name for the actual flat engines in vehicles, widely used by Subaru");
+
     ImGui::Separator();
+
     ImGui::TextWrapped("Made with");
     ImGui::SameLine();
     ImGui::TextColored(red, "<3");
     ImGui::SameLine();
     ImGui::TextWrapped("by Armando");
+
     ImGui::Separator();
+
     ImGui::TextWrapped("Libraries");
 
     ImGui::Indent();
@@ -396,7 +424,9 @@ void ModuleEditor::ShowAbout(bool* open) const
     ImGui::BulletText("MathGeoLib v 1.5");
     ImGui::BulletText("SDL v 2.0.16");
     ImGui::Unindent();
+
     ImGui::Separator();
+
     ImGui::TextWrapped("License");
 
     ImGui::BeginChild("LicenseScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
