@@ -16,7 +16,7 @@ Application::Application() : statistics(new BoxerEngine::Statistics())
     modules.push_back(window = new ModuleWindow());
     modules.push_back(input = new ModuleInput());
     modules.push_back(camera = new ModuleCamera());
-    // modules.push_back(scene = new ModuleScene());
+    modules.push_back(scene = new ModuleScene());
     modules.push_back(renderer = new ModuleRender());
     modules.push_back(debug_draw = new ModuleDebugDraw());
     modules.push_back(editor = new ModuleEditor());
