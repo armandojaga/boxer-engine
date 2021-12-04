@@ -198,10 +198,11 @@ update_status ModuleEditor::PostUpdate()
 
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
-        const auto ctx = ImGui::GetCurrentContext();
+        const auto win = SDL_GL_GetCurrentWindow();
+        const auto ctx = SDL_GL_GetCurrentContext();
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();
-        ImGui::SetCurrentContext(ctx);
+        SDL_GL_MakeCurrent(win, ctx);
     }
     if (should_exit)
     {

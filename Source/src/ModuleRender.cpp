@@ -26,6 +26,7 @@ bool ModuleRender::Init()
 	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8); // we want to have a stencil buffer with 8 bits
 
 	context = SDL_GL_CreateContext(App->window->window);
+	SDL_GL_MakeCurrent(App->window->window, context);
 	
 	GLenum err = glewInit();
 
@@ -54,7 +55,7 @@ bool ModuleRender::Init()
 update_status ModuleRender::PreUpdate()
 {
 	glViewport(0, 0, width, height);
-	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	return UPDATE_CONTINUE;
