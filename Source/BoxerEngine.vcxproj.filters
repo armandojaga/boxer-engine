@@ -174,7 +174,7 @@
     <ClCompile Include="src\ui\components\ConsolePanel.cpp">
       <Filter>Modules\Editor\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\Timer.cpp">
+    <ClCompile Include="src\core\util\Timer.cpp">
       <Filter>Util</Filter>
     </ClCompile>
     <ClCompile Include="src\ModuleScene.cpp">
@@ -986,7 +986,7 @@
     <ClInclude Include="src\ui\components\ConsolePanel.h">
       <Filter>Modules\Editor\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\Logger.h">
+    <ClInclude Include="src\core\util\Logger.h">
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="src\ConsoleLogger.h">
@@ -995,10 +995,10 @@
     <ClInclude Include="src\ImGuiLogger.h">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="src\Timer.h">
+    <ClInclude Include="src\core\util\Timer.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\Files.h">
+    <ClInclude Include="src\core\util\Files.h">
       <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="src\instrumentation\Statistics.h">
@@ -1018,6 +1018,9 @@
     </ClInclude>
     <ClInclude Include="src\ModuleDebugDraw.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\instrumentation\MemoryLeaks.h">
+      <Filter>Instrumentation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

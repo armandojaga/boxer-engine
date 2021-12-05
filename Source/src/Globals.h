@@ -2,8 +2,8 @@
 
 // TODO create singleton and factories for logging 
 #include "ConsoleLogger.h"
-#include "Timer.h"
 #include "core/GameOptions.h"
+#include "core/util/Timer.h"
 
 inline BoxerEngine::ConsoleLogger logger;
 inline BoxerEngine::Timer game_clock;

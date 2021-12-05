@@ -4,7 +4,6 @@
 #include <SDL.h>
 
 #include "Application.h"
-#include "Files.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleDebugDraw.h"
@@ -14,6 +13,8 @@
 
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
+#include "core/util/Files.h"
+#include "ui/widgets/AxisSlider.h"
 
 
 ModuleEditor::ModuleEditor() : console(new BoxerEngine::ConsolePanel())
@@ -113,6 +114,7 @@ update_status ModuleEditor::Update()
     ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin("Scene");
+    
     //
     const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
     float x = viewportPanelSize.x, y = viewportPanelSize.y;
@@ -134,7 +136,7 @@ update_status ModuleEditor::Update()
     glCreateTextures(GL_TEXTURE_2D, 1, &mTexId);
     glBindTexture(GL_TEXTURE_2D, mTexId);
     
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
@@ -361,6 +363,10 @@ void ModuleEditor::ShowConfig(bool* open) const
     ImGui::SameLine();
     ImGui::Checkbox("##debugdraw", &displayDebugDraw);
     game_options.SetDisplayDebugDraw(displayDebugDraw);
+
+    float3 values(0.0f);
+    std::string label = "Camera";
+    BoxerEngine::AxisSlider::Build(label, values);
 
     ImGui::End();
 }

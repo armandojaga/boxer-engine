@@ -2,8 +2,7 @@
 
 #include <functional>
 
-#include "Logger.h"
-#include "imgui.h"
+#include "core/util/Logger.h"
 
 namespace BoxerEngine
 {
