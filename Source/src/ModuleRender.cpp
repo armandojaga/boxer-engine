@@ -5,13 +5,12 @@
 #include "ModuleCamera.h"
 #include "ModuleDebugDraw.h"
 #include <SDL.h>
+#include "ErrorHandler.h"
 
 ModuleRender::ModuleRender()= default;
 
 // Destructor
-ModuleRender::~ModuleRender()
-{
-}
+ModuleRender::~ModuleRender() = default;
 
 // Called before render is available
 bool ModuleRender::Init()
@@ -41,13 +40,12 @@ bool ModuleRender::Init()
 	glEnable(GL_CULL_FACE); // Enable cull backward faces
 	glFrontFace(GL_CCW); // Front faces will be counter clockwise
 
-	SDL_GetWindowSize(App->window->window, &width, &height);
+	glEnable(GL_DEBUG_OUTPUT);
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	glDebugMessageCallback(&BoxerEngine::ErrorHandler::HandleOpenGlError, nullptr);
+	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, true);
 
-	// float vtx_data[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
-	//
-	// glGenBuffers(1, &vbo);
-	// glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
-	// glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
+	SDL_GetWindowSize(App->window->window, &width, &height);
 
 	return true;
 }
