@@ -183,6 +183,9 @@
     <ClCompile Include="src\ModuleDebugDraw.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\rendering\FrameBuffer.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1019,11 +1022,17 @@
     <ClInclude Include="src\ModuleDebugDraw.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\rendering\FrameBuffer.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
     <ClInclude Include="src\ui\widgets\AxisSlider.h">
       <Filter>Modules\Editor\Components\widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Cache.h">
       <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Bindable.h">
+      <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\instrumentation\MemoryLeaks.h">
       <Filter>Instrumentation</Filter>
@@ -1101,6 +1110,9 @@
     </Filter>
     <Filter Include="Modules\Editor\Components\widgets">
       <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Rendering">
+      <UniqueIdentifier>{826cf4e3-3ba7-47fc-898e-ce9eac655d7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

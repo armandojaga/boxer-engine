@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\rendering\FrameBuffer.cpp" />
     <ClCompile Include="src\ui\components\ConsolePanel.cpp" />
     <ClCompile Include="src\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
@@ -227,6 +228,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\GameOptions.h" />
+    <ClInclude Include="src\core\rendering\Bindable.h" />
+    <ClInclude Include="src\core\rendering\FrameBuffer.h" />
     <ClInclude Include="src\instrumentation\MemoryLeaks.h" />
     <ClInclude Include="src\core\util\Cache.h" />
     <ClInclude Include="src\core\util\Files.h" />
