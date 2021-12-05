@@ -1019,6 +1019,9 @@
     <ClInclude Include="src\ModuleDebugDraw.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\util\Cache.h">
+      <Filter>Util</Filter>
+    </ClInclude>
     <ClInclude Include="src\instrumentation\MemoryLeaks.h">
       <Filter>Instrumentation</Filter>
     </ClInclude>

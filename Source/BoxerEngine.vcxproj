@@ -228,6 +228,7 @@
   <ItemGroup>
     <ClInclude Include="src\core\GameOptions.h" />
     <ClInclude Include="src\instrumentation\MemoryLeaks.h" />
+    <ClInclude Include="src\core\util\Cache.h" />
     <ClInclude Include="src\core\util\Files.h" />
     <ClInclude Include="src\ImGuiLogger.h" />
     <ClInclude Include="src\ui\components\ConsolePanel.h" />
