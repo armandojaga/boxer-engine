@@ -1019,6 +1019,9 @@
     <ClInclude Include="src\ModuleDebugDraw.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="src\ui\widgets\AxisSlider.h">
+      <Filter>Modules\Editor\Components\widgets</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\util\Cache.h">
       <Filter>Util</Filter>
     </ClInclude>
@@ -1095,6 +1098,9 @@
     </Filter>
     <Filter Include="Vendors\DebugDraw">
       <UniqueIdentifier>{800e839f-592b-4ee8-bc11-22b66149f852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Editor\Components\widgets">
+      <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

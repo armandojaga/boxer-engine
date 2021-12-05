@@ -240,6 +240,7 @@
     <ClInclude Include="src\ModuleDebugDraw.h" />
     <ClInclude Include="src\ModuleScene.h" />
     <ClInclude Include="src\core\util\Timer.h" />
+    <ClInclude Include="src\ui\widgets\AxisSlider.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="vendors\assimp\include\assimp\anim.h" />
