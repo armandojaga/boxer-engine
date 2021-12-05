@@ -1,4 +1,4 @@
-#include "Console.h"
+#include "ConsolePanel.h"
 
 #include <string>
 
@@ -7,7 +7,7 @@
 
 namespace BoxerEngine
 {
-    Console::Console() : imgui_logger(new ImGuiLogger())
+    ConsolePanel::ConsolePanel() : imgui_logger(new ImGuiLogger())
     {
         logger.Register(imgui_logger);
         auto lambda = [&](std::string&& str, LogLevel& logLevel)
@@ -17,19 +17,19 @@ namespace BoxerEngine
         imgui_logger->SetCallBack(lambda);
     }
 
-    Console::~Console()
+    ConsolePanel::~ConsolePanel()
     {
         logger.Unregister(imgui_logger);
         delete imgui_logger;
         lines.clear();
     }
 
-    void Console::Clear()
+    void ConsolePanel::Clear()
     {
         lines.clear();
     }
 
-    void Console::Add(std::string& str, LogLevel& logLevel)
+    void ConsolePanel::Add(std::string& str, LogLevel& logLevel)
     {
         if (lines.size() >= DISPLAY_THRESHOLD)
         {
@@ -38,7 +38,7 @@ namespace BoxerEngine
         lines.emplace_back(str, logLevel);
     }
 
-    void Console::Display() const
+    void ConsolePanel::Display() const
     {
         for (const auto& [str, logLevel] : lines)
         {

@@ -16,7 +16,7 @@
 #include "imgui_impl_sdl.h"
 
 
-ModuleEditor::ModuleEditor() : console(new BoxerEngine::Console())
+ModuleEditor::ModuleEditor() : console(new BoxerEngine::ConsolePanel())
 {
 }
 

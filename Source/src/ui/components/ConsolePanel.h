@@ -1,5 +1,5 @@
 #pragma once
-#include <vector>
+
 #include "ImGuiLogger.h"
 
 namespace BoxerEngine
@@ -7,14 +7,14 @@ namespace BoxerEngine
 #define DISPLAY_THRESHOLD 100 //lines to display;
 
 
-    class Console
+    class ConsolePanel
     {
     private:
         std::vector<std::pair<std::string, LogLevel>> lines;
         ImGuiLogger* imgui_logger;
     public:
-        Console();
-        ~Console();
+        ConsolePanel();
+        ~ConsolePanel();
         void Clear();
         void Add(std::string&, LogLevel&);
         void Display() const;

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Console.h"
 #include "Module.h"
+#include "ui/components/ConsolePanel.h"
 
 class ModuleEditor : public Module
 {
 private:
-    BoxerEngine::Console* console;
+    BoxerEngine::ConsolePanel* console;
     bool display_about = false;
     bool display_console = true;
     bool display_stats = true;

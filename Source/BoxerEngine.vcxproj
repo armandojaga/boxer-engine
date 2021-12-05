@@ -157,7 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Console.cpp" />
+    <ClCompile Include="src\ui\components\ConsolePanel.cpp" />
     <ClCompile Include="src\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\ModuleDebugDraw.cpp" />
@@ -229,7 +229,7 @@
     <ClInclude Include="src\core\GameOptions.h" />
     <ClInclude Include="src\Files.h" />
     <ClInclude Include="src\ImGuiLogger.h" />
-    <ClInclude Include="src\Console.h" />
+    <ClInclude Include="src\ui\components\ConsolePanel.h" />
     <ClInclude Include="src\ConsoleLogger.h" />
     <ClInclude Include="src\ErrorHandler.h" />
     <ClInclude Include="src\instrumentation\Statistics.h" />

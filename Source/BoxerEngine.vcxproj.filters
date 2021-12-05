@@ -171,7 +171,7 @@
     <ClCompile Include="src\ImGuiLogger.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
-    <ClCompile Include="src\Console.cpp">
+    <ClCompile Include="src\ui\components\ConsolePanel.cpp">
       <Filter>Modules\Editor\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Timer.cpp">
@@ -983,7 +983,7 @@
     <ClInclude Include="src\ModuleEditor.h">
       <Filter>Modules\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="src\Console.h">
+    <ClInclude Include="src\ui\components\ConsolePanel.h">
       <Filter>Modules\Editor\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\Logger.h">
