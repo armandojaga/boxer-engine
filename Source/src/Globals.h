@@ -18,7 +18,8 @@ enum update_status
     UPDATE_ERROR
 };
 
-#define LICENSE_PATH "../Source/licenses/LICENSE.TXT"
+#define ASSERTS_PATH "/assets/"
+#define LICENSE_PATH "../licenses/LICENSE.TXT"
 
 // Configuration -----------
 #define SCREEN_WIDTH 1280
