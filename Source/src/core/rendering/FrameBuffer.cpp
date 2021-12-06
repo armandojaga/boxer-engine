@@ -1,9 +1,11 @@
 #include "FrameBuffer.h"
+
+#include "Globals.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
 #include "GL/glew.h"
 
-BoxerEngine::FrameBuffer::FrameBuffer(int width, int height) : width(width), height(height)
+BoxerEngine::FrameBuffer::FrameBuffer(int w, int h) : width(w), height(h)
 {
     Invalidate();
 }
@@ -13,10 +15,30 @@ BoxerEngine::FrameBuffer::~FrameBuffer()
     glDeleteFramebuffers(GL_FRAMEBUFFER, &FBO);
 }
 
+void BoxerEngine::FrameBuffer::Resize(const int width, const int height)
+{
+    if (this->width != width || this->height != height)
+    {
+        this->width = width;
+        this->height = height;
+        Invalidate();
+    }
+}
+
 void BoxerEngine::FrameBuffer::Invalidate()
 {
+    BE_LOG("Invalidating frame buffer, w: %d, h: %d", width, height);
+    if (FBO)
+    {
+        glDeleteFramebuffers(GL_FRAMEBUFFER, &FBO);
+        glDeleteTextures(1, &TexId);
+        glDeleteTextures(1, &DepthId);
+        TexId = 0;
+        DepthId = 0; Unbind();
+    }
+
     glGenFramebuffers(1, &FBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+    Bind();
 
     glCreateTextures(GL_TEXTURE_2D, 1, &TexId);
     glBindTexture(GL_TEXTURE_2D, TexId);

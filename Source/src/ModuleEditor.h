@@ -15,10 +15,6 @@ private:
     bool should_exit = false;
     mutable std::string license_content;
 
-    uint32_t mFBO = 0;
-    uint32_t mTexId = 0;
-    uint32_t mDepthId = 0;
-
 public:
     ModuleEditor();
     ~ModuleEditor() override;

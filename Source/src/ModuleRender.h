@@ -3,6 +3,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include "GL/glew.h"
+#include "core/rendering/FrameBuffer.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -11,18 +12,25 @@ struct SDL_Rect;
 class ModuleRender : public Module
 {
 public:
-	ModuleRender();
-	~ModuleRender() override;
+    ModuleRender() = default;
+    ~ModuleRender() override = default;
 
-	bool Init() override;
-	update_status PreUpdate() override;
-	update_status Update() override;
-	update_status PostUpdate() override;
-	bool CleanUp() override;
-	void WindowResized(unsigned width, unsigned height);
-	void* context{};
+    bool Init() override;
+    update_status PreUpdate() override;
+    update_status Update() override;
+    update_status PostUpdate() override;
+    bool CleanUp() override;
+    void Resize(int width, int height);
+    void* GetContext() const;
+
+    [[nodiscard]] BoxerEngine::FrameBuffer& GetFrameBuffer() const
+    {
+        return *frame_buffer;
+    }
 
 private:
-	int width{}, height{};
-	unsigned vbo{};
+    void* context{};
+    int width{}, height{};
+    unsigned vbo{};
+    std::unique_ptr<BoxerEngine::FrameBuffer> frame_buffer;
 };

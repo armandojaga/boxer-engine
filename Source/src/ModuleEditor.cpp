@@ -47,12 +47,13 @@ bool ModuleEditor::Init()
     ImGuiStyle& style = ImGui::GetStyle();
     style.Alpha = 0.850f;
     style.DisabledAlpha = 0.60f;
+
     ImVec4* colors = style.Colors;
     colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 0.70f);
     colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
     colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
     colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
-    //
+
     style.WindowRounding = 6.0f;
     style.ChildRounding = 6.0f;
     style.FrameRounding = 2.0f;
@@ -60,7 +61,7 @@ bool ModuleEditor::Init()
     style.ScrollbarRounding = 6.0f;
     style.GrabRounding = 4.0f;
 
-    ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->context);
+    ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->GetContext());
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
     return true;
@@ -114,74 +115,61 @@ update_status ModuleEditor::Update()
     ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::Begin("Scene");
-    
+
     //
     const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
     float x = viewportPanelSize.x, y = viewportPanelSize.y;
-
-    //===============================================================================================================
-    //frame buffer
-    if (mFBO)
-    {
-        glDeleteFramebuffers(GL_FRAMEBUFFER, &mFBO);
-        glDeleteTextures(1, &mTexId);
-        glDeleteTextures(1, &mDepthId);
-        mTexId = 0;
-        mDepthId = 0;
-    }
-
-
-    glGenFramebuffers(1, &mFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, mFBO);
-    glCreateTextures(GL_TEXTURE_2D, 1, &mTexId);
-    glBindTexture(GL_TEXTURE_2D, mTexId);
-    
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, mTexId, 0);
-    
-    glCreateTextures(GL_TEXTURE_2D, 1, &mDepthId);
-    glBindTexture(GL_TEXTURE_2D, mDepthId);
-    glTexStorage2D(GL_TEXTURE_2D, 1, GL_DEPTH24_STENCIL8, x, y);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, mDepthId, 0);
-
-    GLenum buffers[4] = {GL_COLOR_ATTACHMENT0};
-    glDrawBuffers(mTexId, buffers);
-
-
     glViewport(0, 0, x, y);
+    //===============================================================================================================
+
+    App->renderer->Resize(x, y);
+    App->renderer->GetFrameBuffer().Bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     // ===============================================================================================================
     if (game_options.IsDisplayDebugDraw())
     {
-        App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), viewportPanelSize.x, viewportPanelSize.y);
+        App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), x, y);
     }
 
-    unsigned vbo{};
-    constexpr float vtx_data[] = {-0.5f, -0.5f, 0.0f, 0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f};
+    constexpr float positions[] = {
+        -0.5f, -0.5f, //0.0f,
+        0.5f, -0.5f, //0.0f,
+        0.5f, 0.5f, //0.0f,
+        -0.5f, 0.5f, //0.0
+    };
+
+    unsigned int index[] = {
+        0, 1, 2,
+        2, 3, 0
+    };
+    unsigned int vbo{};
     glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo); // set vbo active
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vtx_data), vtx_data, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(0));
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 
+    unsigned int ibo{};
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), index, GL_STATIC_DRAW);
+
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glDeleteBuffers(1, &vbo);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0); 
+    glDeleteBuffers(1, &ibo);
 
+    // const GLenum buffers[4] = {GL_COLOR_ATTACHMENT0};
+    // glDrawBuffers(App->renderer->GetFrameBuffer().GetTextureId(), buffers);
+
+    App->renderer->GetFrameBuffer().Unbind();
     // to actually render inside the scene window
-    ImGui::Image(reinterpret_cast<void*>(mTexId), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
+    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer().GetTextureId()), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
+
 
     //===============================================================================================================
 

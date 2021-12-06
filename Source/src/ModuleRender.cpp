@@ -3,14 +3,8 @@
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera.h"
-#include "ModuleDebugDraw.h"
 #include <SDL.h>
 #include "ErrorHandler.h"
-
-ModuleRender::ModuleRender()= default;
-
-// Destructor
-ModuleRender::~ModuleRender() = default;
 
 // Called before render is available
 bool ModuleRender::Init()
@@ -45,7 +39,9 @@ bool ModuleRender::Init()
 	glDebugMessageCallback(&BoxerEngine::ErrorHandler::HandleOpenGlError, nullptr);
 	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, true);
 
+
 	SDL_GetWindowSize(App->window->window, &width, &height);
+	frame_buffer = std::make_unique<BoxerEngine::FrameBuffer>(width, height);
 
 	return true;
 }
@@ -96,8 +92,14 @@ bool ModuleRender::CleanUp()
 	return true;
 }
 
-void ModuleRender::WindowResized(unsigned width, unsigned height)
+void ModuleRender::Resize(const int width, const int height)
 {
 	this->width = width;
 	this->height = height;
+	frame_buffer->Resize(width, height);
+}
+
+void* ModuleRender::GetContext() const
+{
+	return context;
 }
