@@ -1,16 +1,16 @@
 #include "Application.h"
 
-#include "ModuleWindow.h"
-#include "ModuleInput.h"
-#include "ModuleCamera.h"
-#include "ModuleScene.h"
-#include "ModuleRender.h"
-#include "ModuleDebugDraw.h"
-#include "ModuleEditor.h"
+#include "modules/ModuleWindow.h"
+#include "modules/ModuleInput.h"
+#include "modules/ModuleCamera.h"
+#include "modules/ModuleScene.h"
+#include "modules/ModuleRender.h"
+#include "modules/ModuleDebugDraw.h"
+#include "modules/ModuleEditor.h"
 
 using namespace std;
 
-Application::Application() : statistics(new BoxerEngine::Statistics())
+Application::Application() : statistics(std::make_unique<BoxerEngine::Statistics>())
 {
     // Order matters: they will Init/start/update in this order
     modules.push_back(window = new ModuleWindow());
@@ -25,7 +25,6 @@ Application::Application() : statistics(new BoxerEngine::Statistics())
 
 Application::~Application()
 {
-    delete statistics;
     for (auto it = modules.begin(); it != modules.end(); ++it)
     {
         delete *it;

@@ -4,7 +4,7 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera.h"
 #include <SDL.h>
-#include "ErrorHandler.h"
+#include "core/ErrorHandler.h"
 
 // Called before render is available
 bool ModuleRender::Init()

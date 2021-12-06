@@ -9,13 +9,13 @@
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp">
       <Filter>Vendors\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\ModuleInput.cpp">
+    <ClCompile Include="src\modules\ModuleInput.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="src\ModuleRender.cpp">
+    <ClCompile Include="src\modules\ModuleRender.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="src\ModuleWindow.cpp">
+    <ClCompile Include="src\modules\ModuleWindow.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="vendors\ImGui\imgui.cpp">
@@ -30,7 +30,7 @@
     <ClCompile Include="vendors\ImGui\imgui_widgets.cpp">
       <Filter>Vendors\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\ModuleCamera.cpp">
+    <ClCompile Include="src\modules\ModuleCamera.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\BitOps.cpp">
@@ -162,13 +162,13 @@
     <ClCompile Include="vendors\DevIL\include\IL\luadevil.c">
       <Filter>Vendors\DevIL</Filter>
     </ClCompile>
-    <ClCompile Include="src\ModuleEditor.cpp">
+    <ClCompile Include="src\modules\ModuleEditor.cpp">
       <Filter>Modules\Editor</Filter>
     </ClCompile>
-    <ClCompile Include="src\ConsoleLogger.cpp">
+    <ClCompile Include="src\core\logging\ConsoleLogger.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
-    <ClCompile Include="src\ImGuiLogger.cpp">
+    <ClCompile Include="src\core\logging\ImGuiLogger.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
     <ClCompile Include="src\ui\components\ConsolePanel.cpp">
@@ -177,10 +177,10 @@
     <ClCompile Include="src\core\util\Timer.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="src\ModuleScene.cpp">
+    <ClCompile Include="src\modules\ModuleScene.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="src\ModuleDebugDraw.cpp">
+    <ClCompile Include="src\modules\ModuleDebugDraw.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp">
@@ -190,7 +190,7 @@
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Globals.h" />
-    <ClInclude Include="src\Module.h" />
+    <ClInclude Include="src\modules\Module.h" />
     <ClInclude Include="vendors\ImGui\imgui_impl_opengl3.h">
       <Filter>Vendors\ImGui</Filter>
     </ClInclude>
@@ -200,13 +200,13 @@
     <ClInclude Include="vendors\ImGui\imgui_impl_sdl.h">
       <Filter>Vendors\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\ModuleInput.h">
+    <ClInclude Include="src\modules\ModuleInput.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="src\ModuleRender.h">
+    <ClInclude Include="src\modules\ModuleRender.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="src\ModuleWindow.h">
+    <ClInclude Include="src\modules\ModuleWindow.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="vendors\ImGui\imconfig.h">
@@ -227,7 +227,7 @@
     <ClInclude Include="vendors\ImGui\imstb_truetype.h">
       <Filter>Vendors\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\ModuleCamera.h">
+    <ClInclude Include="src\modules\ModuleCamera.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="vendors\MathGeoLib\include\MathBuildConfig.h">
@@ -980,22 +980,22 @@
     <ClInclude Include="vendors\assimp\include\assimp\port\AndroidJNI\AndroidJNIIOSystem.h">
       <Filter>Vendors\Assimp\port\AndroidJNI</Filter>
     </ClInclude>
-    <ClInclude Include="src\ErrorHandler.h">
+    <ClInclude Include="src\core\ErrorHandler.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\ModuleEditor.h">
+    <ClInclude Include="src\modules\ModuleEditor.h">
       <Filter>Modules\Editor</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\components\ConsolePanel.h">
       <Filter>Modules\Editor\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\util\Logger.h">
+    <ClInclude Include="src\core\logging\Logger.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\ConsoleLogger.h">
+    <ClInclude Include="src\core\logging\ConsoleLogger.h">
       <Filter>Logging</Filter>
     </ClInclude>
-    <ClInclude Include="src\ImGuiLogger.h">
+    <ClInclude Include="src\core\logging\ImGuiLogger.h">
       <Filter>Logging</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Timer.h">
@@ -1010,7 +1010,7 @@
     <ClInclude Include="src\core\GameOptions.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\ModuleScene.h">
+    <ClInclude Include="src\modules\ModuleScene.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="vendors\debugdraw\debug_draw.hpp">
@@ -1019,7 +1019,7 @@
     <ClInclude Include="vendors\debugdraw\debugdraw.h">
       <Filter>Vendors\DebugDraw</Filter>
     </ClInclude>
-    <ClInclude Include="src\ModuleDebugDraw.h">
+    <ClInclude Include="src\modules\ModuleDebugDraw.h">
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\FrameBuffer.h">

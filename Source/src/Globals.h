@@ -1,7 +1,7 @@
 #pragma once
 
 // TODO create singleton and factories for logging 
-#include "ConsoleLogger.h"
+#include "core/logging/ConsoleLogger.h"
 #include "core/GameOptions.h"
 #include "core/util/Timer.h"
 

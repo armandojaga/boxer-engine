@@ -159,10 +159,10 @@
   <ItemGroup>
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp" />
     <ClCompile Include="src\ui\components\ConsolePanel.cpp" />
-    <ClCompile Include="src\ImGuiLogger.cpp" />
+    <ClCompile Include="src\core\logging\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\ModuleDebugDraw.cpp" />
-    <ClCompile Include="src\ModuleScene.cpp" />
+    <ClCompile Include="src\modules\ModuleDebugDraw.cpp" />
+    <ClCompile Include="src\modules\ModuleScene.cpp" />
     <ClCompile Include="src\core\util\Timer.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
@@ -170,7 +170,7 @@
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_tables.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="src\ConsoleLogger.cpp" />
+    <ClCompile Include="src\core\logging\ConsoleLogger.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="vendors\MathGeoLib\include\Algorithm\GJK.cpp" />
     <ClCompile Include="vendors\MathGeoLib\include\Algorithm\GJK2D.cpp" />
@@ -219,11 +219,11 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="src\ModuleCamera.cpp" />
-    <ClCompile Include="src\ModuleEditor.cpp" />
-    <ClCompile Include="src\ModuleInput.cpp" />
-    <ClCompile Include="src\ModuleRender.cpp" />
-    <ClCompile Include="src\ModuleWindow.cpp" />
+    <ClCompile Include="src\modules\ModuleCamera.cpp" />
+    <ClCompile Include="src\modules\ModuleEditor.cpp" />
+    <ClCompile Include="src\modules\ModuleInput.cpp" />
+    <ClCompile Include="src\modules\ModuleRender.cpp" />
+    <ClCompile Include="src\modules\ModuleWindow.cpp" />
     <ClCompile Include="vendors\DevIL\include\IL\luadevil.c" />
   </ItemGroup>
   <ItemGroup>
@@ -233,15 +233,15 @@
     <ClInclude Include="src\instrumentation\MemoryLeaks.h" />
     <ClInclude Include="src\core\util\Cache.h" />
     <ClInclude Include="src\core\util\Files.h" />
-    <ClInclude Include="src\ImGuiLogger.h" />
+    <ClInclude Include="src\core\logging\ImGuiLogger.h" />
     <ClInclude Include="src\ui\components\ConsolePanel.h" />
-    <ClInclude Include="src\ConsoleLogger.h" />
-    <ClInclude Include="src\ErrorHandler.h" />
+    <ClInclude Include="src\core\logging\ConsoleLogger.h" />
+    <ClInclude Include="src\core\ErrorHandler.h" />
     <ClInclude Include="src\instrumentation\Statistics.h" />
-    <ClInclude Include="src\core\util\Logger.h" />
+    <ClInclude Include="src\core\logging\Logger.h" />
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\ModuleDebugDraw.h" />
-    <ClInclude Include="src\ModuleScene.h" />
+    <ClInclude Include="src\modules\ModuleDebugDraw.h" />
+    <ClInclude Include="src\modules\ModuleScene.h" />
     <ClInclude Include="src\core\util\Timer.h" />
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
@@ -402,8 +402,8 @@
     <ClInclude Include="vendors\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Math\vec2d.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Time\Clock.h" />
-    <ClInclude Include="src\ModuleCamera.h" />
-    <ClInclude Include="src\ModuleEditor.h" />
+    <ClInclude Include="src\modules\ModuleCamera.h" />
+    <ClInclude Include="src\modules\ModuleEditor.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="vendors\ImGui\imconfig.h" />
     <ClInclude Include="vendors\ImGui\imgui.h" />
@@ -414,10 +414,10 @@
     <ClInclude Include="vendors\ImGui\imstb_rectpack.h" />
     <ClInclude Include="vendors\ImGui\imstb_textedit.h" />
     <ClInclude Include="vendors\ImGui\imstb_truetype.h" />
-    <ClInclude Include="src\Module.h" />
-    <ClInclude Include="src\ModuleInput.h" />
-    <ClInclude Include="src\ModuleRender.h" />
-    <ClInclude Include="src\ModuleWindow.h" />
+    <ClInclude Include="src\modules\Module.h" />
+    <ClInclude Include="src\modules\ModuleInput.h" />
+    <ClInclude Include="src\modules\ModuleRender.h" />
+    <ClInclude Include="src\modules\ModuleWindow.h" />
     <ClInclude Include="vendors\DevIL\include\IL\devil_cpp_wrapper.hpp" />
     <ClInclude Include="vendors\DevIL\include\IL\devil_internal_exports.h" />
     <ClInclude Include="vendors\DevIL\include\IL\il.h" />

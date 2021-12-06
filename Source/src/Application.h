@@ -2,13 +2,10 @@
 
 #include <list>
 #include <memory>
-#include <string>
 
 #include "Globals.h"
-#include "Module.h"
-#include "core/util/Cache.h"
+#include "modules/Module.h"
 #include "instrumentation/Statistics.h"
-#include <functional>
 
 class ModuleWindow;
 class ModuleInput;
@@ -39,8 +36,7 @@ public:
 	ModuleDebugDraw* debug_draw = nullptr;
 	ModuleEditor* editor = nullptr;
 
-	BoxerEngine::Statistics* statistics;
-	// BoxerEngine::Cache<std::string, int> strCache([&](const std::string& key) {return key.size(); });
+	std::unique_ptr<BoxerEngine::Statistics> statistics;
 
 private:
 	std::list<Module*> modules;

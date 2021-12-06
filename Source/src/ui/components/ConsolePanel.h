@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ImGuiLogger.h"
+#include "core/logging/ImGuiLogger.h"
 
 namespace BoxerEngine
 {

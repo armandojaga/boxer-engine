@@ -1,5 +1,5 @@
 #pragma once
-#include "core/util/Logger.h"
+#include "core/logging/Logger.h"
 
 namespace BoxerEngine
 {
