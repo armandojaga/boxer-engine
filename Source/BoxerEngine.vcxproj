@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;_CONSOLE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -144,7 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -158,6 +158,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp" />
+    <ClCompile Include="src\core\rendering\Mesh.cpp" />
+    <ClCompile Include="src\core\rendering\Model.cpp" />
+    <ClCompile Include="src\modules\ModuleProgram.cpp" />
+    <ClCompile Include="src\modules\ModuleResources.cpp" />
+    <ClCompile Include="src\modules\ModuleTexture.cpp" />
     <ClCompile Include="src\ui\components\ConsolePanel.cpp" />
     <ClCompile Include="src\core\logging\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
@@ -230,10 +235,15 @@
     <ClInclude Include="src\core\GameOptions.h" />
     <ClInclude Include="src\core\rendering\Bindable.h" />
     <ClInclude Include="src\core\rendering\FrameBuffer.h" />
+    <ClInclude Include="src\core\rendering\Mesh.h" />
+    <ClInclude Include="src\core\rendering\Model.h" />
     <ClInclude Include="src\instrumentation\MemoryLeaks.h" />
     <ClInclude Include="src\core\util\Cache.h" />
     <ClInclude Include="src\core\util\Files.h" />
     <ClInclude Include="src\core\logging\ImGuiLogger.h" />
+    <ClInclude Include="src\modules\ModuleProgram.h" />
+    <ClInclude Include="src\modules\ModuleResources.h" />
+    <ClInclude Include="src\modules\ModuleTexture.h" />
     <ClInclude Include="src\ui\components\ConsolePanel.h" />
     <ClInclude Include="src\core\logging\ConsoleLogger.h" />
     <ClInclude Include="src\core\ErrorHandler.h" />

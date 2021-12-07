@@ -55,7 +55,7 @@ int main(int argc, char** argv)
                 // BoxerEngine::Timer clock;
                 float start = game_clock.ReadMs();
 
-                int update_return = App->Update();
+                update_status update_return = App->Update();
 
                 App->statistics->calculate();
 
@@ -67,13 +67,13 @@ int main(int argc, char** argv)
                     SDL_Delay(1000.0f / game_options.GetMaxFPS() - elapsed);
                 }
 
-                if (update_return == UPDATE_ERROR)
+                if (update_return == update_status::UPDATE_ERROR)
                 {
                     BE_LOG("Application Update exits with error -----");
                     state = MAIN_EXIT;
                 }
 
-                if (update_return == UPDATE_STOP)
+                if (update_return == update_status::UPDATE_STOP)
                     state = MAIN_FINISH;
             }
             break;

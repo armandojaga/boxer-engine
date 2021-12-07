@@ -11,7 +11,7 @@ inline BoxerEngine::GameOptions game_options;
 
 #define BE_LOG(format, ...) logger.Log(__FILE__, __LINE__, format, __VA_ARGS__);
 
-enum update_status
+enum class update_status
 {
     UPDATE_CONTINUE = 1,
     UPDATE_STOP,

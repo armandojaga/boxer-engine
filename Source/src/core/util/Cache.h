@@ -9,9 +9,9 @@ namespace BoxerEngine
     {
     private:
         mutable std::unordered_map<K, V> cache;
-        std::function<V(K&)> producer;
+        std::function<V(K)> producer;
     public:
-        explicit Cache(std::function<V(K&)>);
+        explicit Cache(std::function<V(K)>);
         ~Cache() = default;
 
         V Get(K&) const;
@@ -25,7 +25,7 @@ namespace BoxerEngine
 
     // template implementation
     template <typename K, typename V>
-    Cache<K, V>::Cache(std::function<V(K&)> producer) : producer(producer)
+    Cache<K, V>::Cache(std::function<V(K)> producer) : producer(std::move(producer))
     {
     }
 

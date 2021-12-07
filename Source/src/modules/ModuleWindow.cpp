@@ -1,4 +1,4 @@
-#include "Globals.h"
+//#include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
 
@@ -68,5 +68,5 @@ update_status ModuleWindow::PreUpdate()
     {
         SDL_SetWindowFullscreen(window, 0);
     }
-    return UPDATE_CONTINUE;
+    return update_status::UPDATE_CONTINUE;
 }

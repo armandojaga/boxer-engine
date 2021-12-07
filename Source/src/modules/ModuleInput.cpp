@@ -4,6 +4,9 @@
 #include "ModuleRender.h"
 #include <SDL.h>
 
+#include "ModuleResources.h"
+#include "core/util/Files.h"
+
 ModuleInput::ModuleInput()
 {
 }
@@ -39,17 +42,25 @@ update_status ModuleInput::PreUpdate()
         switch (sdlEvent.type)
         {
         case SDL_QUIT:
-            return UPDATE_STOP;
+            return update_status::UPDATE_STOP;
         case SDL_WINDOWEVENT:
             if (sdlEvent.window.event == SDL_WINDOWEVENT_RESIZED || sdlEvent.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+            {
                 // App->renderer->Resize(sdlEvent.window.data1, sdlEvent.window.data2);
-                break;
+            }
+            break;
+        case SDL_DROPFILE:
+            char* file = sdlEvent.drop.file;
+            App->resources->HandleResource(file);
+            BE_LOG("Dropped file %s", file);
+            SDL_free(file);
+            break;
         }
     }
 
     keyboard = SDL_GetKeyboardState(nullptr);
 
-    return UPDATE_CONTINUE;
+    return update_status::UPDATE_CONTINUE;
 }
 
 // Called before quitting

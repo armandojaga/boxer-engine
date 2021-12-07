@@ -607,7 +607,7 @@ update_status ModuleDebugDraw::Update()
     dd::axisTriad(float4x4::identity, 0.1f, 1.0f);
     dd::xzSquareGrid(-15, 15, 0.0f, 1.0f, dd::colors::Green);
 
-    return UPDATE_CONTINUE;
+    return update_status::UPDATE_CONTINUE;
 }
 
 void ModuleDebugDraw::Draw(const float4x4& view, const float4x4& proj, unsigned width, unsigned height)

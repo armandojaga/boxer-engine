@@ -28,7 +28,7 @@ bool ModuleCamera::Init()
 
 update_status ModuleCamera::Update()
 {
-    return UPDATE_CONTINUE;
+    return update_status::UPDATE_CONTINUE;
 }
 
 bool ModuleCamera::CleanUp()

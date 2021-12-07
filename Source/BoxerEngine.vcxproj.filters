@@ -162,9 +162,6 @@
     <ClCompile Include="vendors\DevIL\include\IL\luadevil.c">
       <Filter>Vendors\DevIL</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleEditor.cpp">
-      <Filter>Modules\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\logging\ConsoleLogger.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
@@ -172,7 +169,7 @@
       <Filter>Logging</Filter>
     </ClCompile>
     <ClCompile Include="src\ui\components\ConsolePanel.cpp">
-      <Filter>Modules\Editor\Components</Filter>
+      <Filter>UI\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\core\util\Timer.cpp">
       <Filter>Util</Filter>
@@ -186,6 +183,22 @@
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\modules\ModuleProgram.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleTexture.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\rendering\Model.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\rendering\Mesh.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleEditor.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleResources.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -980,17 +993,8 @@
     <ClInclude Include="vendors\assimp\include\assimp\port\AndroidJNI\AndroidJNIIOSystem.h">
       <Filter>Vendors\Assimp\port\AndroidJNI</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\ErrorHandler.h">
-      <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleEditor.h">
-      <Filter>Modules\Editor</Filter>
-    </ClInclude>
     <ClInclude Include="src\ui\components\ConsolePanel.h">
-      <Filter>Modules\Editor\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\logging\Logger.h">
-      <Filter>Util</Filter>
+      <Filter>UI\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\core\logging\ConsoleLogger.h">
       <Filter>Logging</Filter>
@@ -1026,7 +1030,7 @@
       <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\widgets\AxisSlider.h">
-      <Filter>Modules\Editor\Components\widgets</Filter>
+      <Filter>UI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Cache.h">
       <Filter>Util</Filter>
@@ -1037,6 +1041,28 @@
     <ClInclude Include="src\instrumentation\MemoryLeaks.h">
       <Filter>Instrumentation</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\logging\Logger.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ErrorHandler.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleTexture.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleProgram.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Model.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Mesh.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleEditor.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleResources.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1044,12 +1070,6 @@
     </Filter>
     <Filter Include="Util">
       <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Editor">
-      <UniqueIdentifier>{39f34f71-b9a7-4b39-899b-beaad649842f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Editor\Components">
-      <UniqueIdentifier>{8a267a5f-5060-4ee5-b50c-e70d4cf31796}</UniqueIdentifier>
     </Filter>
     <Filter Include="Vendors">
       <UniqueIdentifier>{7245133f-7871-47b7-912a-f9d8eec3ce74}</UniqueIdentifier>
@@ -1108,11 +1128,17 @@
     <Filter Include="Vendors\DebugDraw">
       <UniqueIdentifier>{800e839f-592b-4ee8-bc11-22b66149f852}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Editor\Components\widgets">
-      <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Rendering">
       <UniqueIdentifier>{826cf4e3-3ba7-47fc-898e-ce9eac655d7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{39f34f71-b9a7-4b39-899b-beaad649842f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Components">
+      <UniqueIdentifier>{8a267a5f-5060-4ee5-b50c-e70d4cf31796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\widgets">
+      <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

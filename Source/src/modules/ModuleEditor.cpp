@@ -99,7 +99,7 @@ update_status ModuleEditor::PreUpdate()
 
     ImGui::End();
 
-    return UPDATE_CONTINUE;
+    return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::Update()
@@ -179,7 +179,7 @@ update_status ModuleEditor::Update()
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-    return UPDATE_CONTINUE;
+    return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::PostUpdate()
@@ -196,9 +196,9 @@ update_status ModuleEditor::PostUpdate()
     }
     if (should_exit)
     {
-        return UPDATE_STOP;
+        return update_status::UPDATE_STOP;
     }
-    return UPDATE_CONTINUE;
+    return update_status::UPDATE_CONTINUE;
 }
 
 bool ModuleEditor::CleanUp()
