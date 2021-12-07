@@ -9,11 +9,11 @@ namespace BoxerEngine
     class Mesh
     {
     private:
-        unsigned int num_indices;
-        unsigned int vbo;
-        unsigned int ebo;
-        unsigned int vao;
-        unsigned int num_vertices;
+        unsigned int num_indices{};
+        unsigned int vbo{};
+        unsigned int ebo{};
+        unsigned int vao{};
+        unsigned int num_vertices{};
     public:
         Mesh();
         ~Mesh();

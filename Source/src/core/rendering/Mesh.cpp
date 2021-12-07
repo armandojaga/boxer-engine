@@ -8,9 +8,7 @@
 #include "modules/ModuleCamera.h"
 #include "modules/ModuleProgram.h"
 
-BoxerEngine::Mesh::Mesh()
-{
-}
+BoxerEngine::Mesh::Mesh() = default;
 
 BoxerEngine::Mesh::~Mesh()
 {

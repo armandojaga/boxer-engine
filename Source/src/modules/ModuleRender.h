@@ -31,6 +31,5 @@ public:
 private:
     void* context{};
     int width{}, height{};
-    unsigned vbo{};
     std::unique_ptr<BoxerEngine::FrameBuffer> frame_buffer;
 };
