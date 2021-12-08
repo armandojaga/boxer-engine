@@ -98,10 +98,12 @@ bool ModuleRender::CleanUp()
 
 void ModuleRender::Resize(const int width, const int height)
 {
-    this->width = width;
-    this->height = height;
-    frame_buffer->Resize(width, height);
-    App->camera->Resize(width, height);
+    if (this->width != width || this->height != height) {
+        this->width = width;
+        this->height = height;
+        frame_buffer->Resize(width, height);
+        App->camera->Resize(width, height);
+    }
 }
 
 void* ModuleRender::GetContext() const

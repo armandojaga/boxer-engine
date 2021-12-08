@@ -16,7 +16,7 @@ bool ModuleCamera::Init()
     frustum.SetPos(float3(1.0f, 2.5f, -5.0f));
     frustum.SetFront(float3::unitZ);
     frustum.SetUp(float3::unitY);
-    //
+    
     LookAt(float3(0.0f));
 
     model = float4x4::identity;
@@ -24,6 +24,15 @@ bool ModuleCamera::Init()
     projection = frustum.ProjectionMatrix();
 
     return true;
+}
+
+update_status ModuleCamera::PreUpdate()
+{
+
+    UpdateView();
+
+    projection = frustum.ProjectionMatrix();
+    return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleCamera::Update()
@@ -42,5 +51,14 @@ void ModuleCamera::LookAt(const float3& position)
     const float3x3 look = float3x3::LookAt(frustum.Front(), direction.Normalized(), frustum.Up(), float3::unitY);
     frustum.SetFront(look.MulDir(frustum.Front()).Normalized());
     frustum.SetUp(look.MulDir(frustum.Up()).Normalized());
+}
 
+void ModuleCamera::SetAspectRatio(float ar)
+{
+    frustum.SetHorizontalFovAndAspectRatio(frustum.HorizontalFov(), ar);
+}
+
+void ModuleCamera::Resize(int width, int height)
+{
+    SetAspectRatio(static_cast<float>(width) / static_cast<float>(height));
 }

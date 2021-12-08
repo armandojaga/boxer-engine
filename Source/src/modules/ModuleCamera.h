@@ -16,9 +16,12 @@ public:
     ~ModuleCamera() override;
 
     bool Init() override;
+    
+    update_status PreUpdate() override;
     update_status Update() override;
     bool CleanUp() override;
     void LookAt(const float3& position);
+    void Resize(int width, int height);
 
     [[nodiscard]] const float4x4& GetModelMatrix() const
     {
@@ -35,5 +38,8 @@ public:
         return projection;
     }
 
+
+
 private:
+    void SetAspectRatio(float ar);
 };
