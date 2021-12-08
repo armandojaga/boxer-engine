@@ -34,7 +34,7 @@ unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
     if (modelPath)
     {
         const std::filesystem::path model = modelPath;
-        relativePath = BoxerEngine::StringUtils::Concat(model.parent_path().string(), "/", texture);
+        relativePath = BoxerEngine::StringUtils::Concat(model.string(), "./", texture);
     }
     std::string path;
     //use path in model
@@ -44,17 +44,22 @@ unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
         logger.Debug("Loading texture from model path");
     }
     //use relative path to model
-    else if (BoxerEngine::Files::IsValidFilePath(relativePath))
+    else if (BoxerEngine::Files::IsValidFilePath(absolute(relativePath)))
     {
         logger.Debug("Loading texture from relative path");
         path = absolute(relativePath).string();
     }
     //use path from textures folder
-    else if (const std::string projectTexture = BoxerEngine::StringUtils::Concat(ASSETS_PATH, TEXTURES_DIR, texture);
-        BoxerEngine::Files::IsValidFilePath(projectTexture))
-    {
-        path = projectTexture;
-        logger.Debug("Loading texture from project folder");
+    if (path.empty()){
+        const std::filesystem::path textPath = texture;
+        const std::filesystem::path projectTexture = 
+            BoxerEngine::StringUtils::Concat(ASSETS_PATH, TEXTURES_DIR, textPath.filename().string());
+        
+        if (BoxerEngine::Files::IsValidFilePath(projectTexture))
+        {
+            path = projectTexture.string();
+            logger.Debug("Loading texture from project folder");
+        }
     }
     if (!path.empty())
     {

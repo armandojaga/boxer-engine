@@ -22,6 +22,7 @@ void BoxerEngine::Mesh::LoadMesh(const aiMesh* mesh)
     LoadVBO(mesh);
     LoadEBO(mesh);
     CreateVAO();
+    texture = mesh->mMaterialIndex;
 }
 
 void BoxerEngine::Mesh::LoadEBO(const aiMesh* mesh)
@@ -77,11 +78,10 @@ void BoxerEngine::Mesh::CreateVAO()
 void BoxerEngine::Mesh::Draw(const std::vector<unsigned int>& model_textures) const
 {
     glActiveTexture(GL_TEXTURE0);
-    // glBindTexture(GL_TEXTURE_2D, model_textures[material_index]);
 
     if (!model_textures.empty())
     {
-        glBindTexture(GL_TEXTURE_2D, model_textures[0]); //default for now
+        glBindTexture(GL_TEXTURE_2D, model_textures[texture]);
     }
 
     App->program->SetUniform("texture", 0);

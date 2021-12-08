@@ -14,6 +14,7 @@ namespace BoxerEngine
         unsigned int vbo{};
         unsigned int ebo{};
         unsigned int vao{};
+        unsigned int texture;
 
     public:
         Mesh();

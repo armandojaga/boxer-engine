@@ -15,7 +15,15 @@ BoxerEngine::Model::~Model() = default;
 
 void BoxerEngine::Model::Load(const char* path)
 {
-    const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
+    const aiScene* scene = aiImportFile(path, aiProcess_Triangulate | aiProcess_OptimizeMeshes
+                                        | aiProcess_ValidateDataStructure | aiProcess_CalcTangentSpace
+                                        | aiProcess_GenSmoothNormals | aiProcess_ImproveCacheLocality
+                                        | aiProcess_LimitBoneWeights | aiProcess_RemoveRedundantMaterials
+                                        | aiProcess_SplitLargeMeshes | aiProcess_Triangulate
+                                        | aiProcess_GenUVCoords | aiProcess_SortByPType
+                                        | aiProcess_FindDegenerates | aiProcess_FindInvalidData
+                                        | aiProcess_FlipUVs); // TODO, check if we can determine the orientation
+
     if (scene)
     {
         ClearModel();

@@ -42,8 +42,15 @@ public:
 
 	std::unique_ptr<BoxerEngine::Statistics> statistics;
 
+    [[nodiscard]] float GetDelta() const
+    {
+        return delta;
+    }
+
 private:
 	std::list<Module*> modules;
+	float delta{ 0.0f };
+	float prev{ 0.0f };
 };
 
 extern std::unique_ptr<Application> App;

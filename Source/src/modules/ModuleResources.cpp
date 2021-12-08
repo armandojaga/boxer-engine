@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "core/rendering/Model.h"
 #include "core/util/Files.h"
+// #include <algorithm>
 
 bool ModuleResources::Init()
 {
@@ -39,7 +40,9 @@ ResourceType ModuleResources::GetType(const std::filesystem::path& path)
 
     auto isValidExtension = [&](const std::pair<ResourceType, std::string>& element)
     {
-        return extension.string() == element.second;
+        return element.second.size() == extension.string().size() &&
+            std::equal(element.second.begin(), element.second.end(), extension.string().begin(),
+                       [](auto a, auto b) { return std::tolower(a) == std::tolower(b); });
     };
 
     const auto it = std::find_if(supported_extensions.begin(), supported_extensions.end(), isValidExtension);

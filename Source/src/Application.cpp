@@ -50,11 +50,17 @@ bool Application::Init()
         ret = (*it)->Start();
     }
 
+    delta = 0.0f;
+    prev = game_clock.ReadMs();
     return ret;
 }
 
 update_status Application::Update()
 {
+    const double current = game_clock.ReadMs();
+    delta = (current - prev) / 1000.0f;
+    prev = current;
+
     update_status ret = update_status::UPDATE_CONTINUE;
 
     for (auto it = modules.begin(); it != modules.end() && ret == update_status::UPDATE_CONTINUE; ++it)

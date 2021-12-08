@@ -321,9 +321,9 @@ void ModuleEditor::ShowConfig(bool* open) const
     ImGui::Checkbox("##debugdraw", &displayDebugDraw);
     game_options.SetDisplayDebugDraw(displayDebugDraw);
 
-    float3 values(0.0f);
-    std::string label = "Camera";
-    BoxerEngine::AxisSlider::Build(label, values);
+    // float3 values = float3::zero;
+    // std::string label = "Camera";
+    // BoxerEngine::AxisSlider::Build(label, values);
 
     ImGui::End();
 }

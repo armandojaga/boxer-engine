@@ -1,6 +1,10 @@
 #include "ModuleCamera.h"
 
+#include "Application.h"
+#include "ModuleInput.h"
+#include "SDL_mouse.h"
 #include "Math/float3x3.h"
+#include "Math/Quat.h"
 
 constexpr auto DEGTORAD = 0.0174532925199432957f; // PI/180
 
@@ -29,7 +33,7 @@ bool ModuleCamera::Init()
 update_status ModuleCamera::PreUpdate()
 {
 
-    UpdateView();
+    HandleMovement();
 
     projection = frustum.ProjectionMatrix();
     return update_status::UPDATE_CONTINUE;
@@ -61,4 +65,20 @@ void ModuleCamera::SetAspectRatio(float ar)
 void ModuleCamera::Resize(int width, int height)
 {
     SetAspectRatio(static_cast<float>(width) / static_cast<float>(height));
+}
+
+void ModuleCamera::HandleMovement()
+{
+    auto dt = App->GetDelta();
+    auto btn = App->input->GetMouseButtonDown(SDL_BUTTON_LEFT);
+    if (btn == KeyState::KEY_DOWN || btn == KeyState::KEY_REPEAT) {
+        auto motion = App->input->GetMouseMotion();
+        auto stepx = motion.x * rotation_speed * dt;
+        auto stepy = motion.y * rotation_speed * dt;
+
+
+        frustum.Transform(Quat::RotateY(stepy));
+        frustum.Transform(Quat::RotateAxisAngle(frustum.WorldRight(), stepx));
+        //TODO FIX this
+    }
 }

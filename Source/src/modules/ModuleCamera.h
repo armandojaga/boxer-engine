@@ -11,6 +11,13 @@ private:
     float4x4 model;
     float4x4 view;
     float4x4 projection;
+
+    //speeds
+    float move_speed = 0.5f;
+    float rotation_speed = 0.005f;
+    float orbit_speed = 0.02f;
+
+
 public:
     ModuleCamera();
     ~ModuleCamera() override;
@@ -42,4 +49,5 @@ public:
 
 private:
     void SetAspectRatio(float ar);
+    void HandleMovement();
 };
