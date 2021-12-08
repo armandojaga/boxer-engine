@@ -420,7 +420,7 @@ void ModuleEditor::ShowAbout(bool* open) const
     ImGui::BeginChild("LicenseScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
     if (license_content.empty())
     {
-        license_content = Files::ReadFile(LICENSE_PATH);
+        license_content = BoxerEngine::Files::ReadFile(LICENSE_PATH);
     }
 
     ImGui::TextWrapped(license_content.c_str());

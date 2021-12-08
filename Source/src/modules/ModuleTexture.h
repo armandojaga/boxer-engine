@@ -1,10 +1,6 @@
 #pragma once
 
-#include <string>
-
 #include "Module.h"
-#include "IL/il.h"
-#include "IL/ilu.h"
 
 class ModuleTexture : public Module
 {
@@ -16,5 +12,5 @@ public:
 
     bool Init() override;
     bool CleanUp() override;
-    unsigned int Load(std::string&&);
+    unsigned int Load(const char*, const char* = nullptr);
 };

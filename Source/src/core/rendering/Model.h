@@ -6,13 +6,22 @@
 
 namespace BoxerEngine
 {
+    class Mesh;
+
     class Model
     {
+    private:
+        std::vector<unsigned int> materials;
+        std::vector<Mesh&> meshes;
+
     public:
         Model();
         ~Model();
-        static void Load(const char* file_name);
-        void LoadMaterials(const aiScene* scene);
-        std::vector<unsigned int> materials;
+        
+        void Load(const char* path);
+
+    private:
+        void LoadMaterials(const aiScene*, const char*);
+        void LoadMeshes(const aiScene*);
     };
 }

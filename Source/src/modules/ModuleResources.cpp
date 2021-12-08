@@ -19,10 +19,11 @@ void ModuleResources::HandleResource(const char* path)
     switch (type)
     {
     case ResourceType::MODEL:
-        BoxerEngine::Model::Load(path);
+        BoxerEngine::Model model;
+        model.Load(path);
         break;
-    case ResourceType::TEXTURE:
-        break;
+    // case ResourceType::TEXTURE:
+        // break;
     }
 }
 

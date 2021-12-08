@@ -198,7 +198,9 @@
     <ClCompile Include="src\modules\ModuleEditor.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleResources.cpp" />
+    <ClCompile Include="src\modules\ModuleResources.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1062,7 +1064,12 @@
     <ClInclude Include="src\modules\ModuleEditor.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleResources.h" />
+    <ClInclude Include="src\modules\ModuleResources.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\util\StringUtils.h">
+      <Filter>Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

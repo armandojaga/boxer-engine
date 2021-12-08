@@ -2,33 +2,33 @@
 
 #include "Application.h"
 #include "Globals.h"
+#include "Mesh.h"
 #include "assimp/cimport.h"
 #include "assimp/postprocess.h"
 #include "modules/ModuleTexture.h"
 
-BoxerEngine::Model::Model()
-= default;
+BoxerEngine::Model::Model() = default;
 
 BoxerEngine::Model::~Model()
 {
 }
 
-void BoxerEngine::Model::Load(const char* file_name)
+void BoxerEngine::Model::Load(const char* path)
 {
-    const aiScene* scene = aiImportFile(file_name, aiProcessPreset_TargetRealtime_MaxQuality);
+    const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
     if (scene)
     {
-        BE_LOG("loaded model %s", file_name);
-        // TODO: LoadTextures(scene->mMaterials, scene->mNumMaterials);
-        // TODO: LoadMeshes(scene->mMeshes, scene->mNumMeshes);
+        BE_LOG("Loaded model from %s", path);
+        LoadMaterials(scene, path);
+        LoadMeshes(scene);
     }
     else
     {
-        BE_LOG("Error loading %s: %s", file_name, aiGetErrorString());
+        BE_LOG("Error loading %s: %s", path, aiGetErrorString());
     }
 }
 
-void BoxerEngine::Model::LoadMaterials(const aiScene* scene)
+void BoxerEngine::Model::LoadMaterials(const aiScene* scene, const char* path)
 {
     aiString file;
     materials.reserve(scene->mNumMaterials);
@@ -36,7 +36,20 @@ void BoxerEngine::Model::LoadMaterials(const aiScene* scene)
     {
         if (scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &file) == AI_SUCCESS)
         {
-            materials.push_back(App->textures->Load(file.data));
+            if (const unsigned int textureId = App->textures->Load(file.data, path);
+                textureId != INVALID_ID)
+            {
+                materials.push_back(textureId);
+            }
         }
+    }
+}
+
+void BoxerEngine::Model::LoadMeshes(const aiScene* scene)
+{
+    meshes.reserve(scene->mNumMeshes);
+    for (unsigned i = 0; i < scene->mNumMeshes; ++i)
+    {
+        Mesh m;
     }
 }
