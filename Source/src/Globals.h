@@ -18,7 +18,7 @@ enum class update_status
     UPDATE_ERROR
 };
 
-#define ASSERTS_PATH "./assets/"
+#define ASSETS_PATH "./assets/"
 #define TEXTURES_DIR "textures/"
 #define MODELS_DIR "models/"
 #define SHADERS_DIR "shaders/"

@@ -1,5 +1,6 @@
 #include "FrameBuffer.h"
 
+#include "Application.h"
 #include "Globals.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
@@ -34,7 +35,8 @@ void BoxerEngine::FrameBuffer::Invalidate()
         glDeleteTextures(1, &TexId);
         glDeleteTextures(1, &DepthId);
         TexId = 0;
-        DepthId = 0; Unbind();
+        DepthId = 0;
+        Unbind();
     }
 
     glGenFramebuffers(1, &FBO);

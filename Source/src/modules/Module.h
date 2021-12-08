@@ -15,6 +15,11 @@ public:
 		return true;
 	}
 
+	virtual bool Start()
+	{
+		return true;
+	}
+
 	virtual update_status PreUpdate()
 	{
 		return update_status::UPDATE_CONTINUE;

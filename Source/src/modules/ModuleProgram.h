@@ -18,7 +18,7 @@ enum class ProgramType
 
 struct Program
 {
-    int id;
+    unsigned int id;
     int model;
     int view;
     int projection;
@@ -37,14 +37,21 @@ public:
     bool Init() override;
     bool CleanUp() override;
 
-    void Create(const std::string& vertex, const std::string& fragment);
-    static unsigned int Load(ProgramType, const std::string&);
+    void Create(const std::string& vertexPath, const std::string& fragmentPath);
+    unsigned int Load(ProgramType, const std::string&);
+    void UseProgram() const;
 
-    void SetUniform(std::string&, int value) const;
-    void SetUniform(std::string&, float value) const;
-    void SetUniform(std::string&, const float2& value) const;
-    void SetUniform(std::string&, const float3& value) const;
-    void SetUniform(std::string&, const float4x4& value) const;
+    // void SetUniform(std::string&, int value) const;
+    // void SetUniform(std::string&, float value) const;
+    // void SetUniform(std::string&, const float2& value) const;
+    // void SetUniform(std::string&, const float3& value) const;
+    // void SetUniform(std::string&, const float4x4& value) const;
+
+    void SetUniform(const char*, int value) const;
+    void SetUniform(const char*, float value) const;
+    void SetUniform(const char*, const float2& value) const;
+    void SetUniform(const char*, const float3& value) const;
+    void SetUniform(const char*, const float4x4& value) const;
 
     [[nodiscard]] const Program& GetProgram() const
     {

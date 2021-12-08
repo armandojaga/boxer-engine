@@ -4,7 +4,10 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera.h"
 #include <SDL.h>
+
+#include "ModuleProgram.h"
 #include "core/ErrorHandler.h"
+#include "core/util/StringUtils.h"
 
 // Called before render is available
 bool ModuleRender::Init()
@@ -43,9 +46,16 @@ bool ModuleRender::Init()
 
     SDL_GetWindowSize(App->window->window, &width, &height);
     frame_buffer = std::make_unique<BoxerEngine::FrameBuffer>(width, height);
-
+    model = std::make_unique<BoxerEngine::Model>();
     return true;
 }
+
+bool ModuleRender::Start()
+{
+    model->Load(BoxerEngine::StringUtils::Concat(ASSETS_PATH, MODELS_DIR, "BakerHouse.fbx").c_str());
+    return true;
+}
+
 
 update_status ModuleRender::PreUpdate()
 {
@@ -59,6 +69,14 @@ update_status ModuleRender::PreUpdate()
 // Called every draw update
 update_status ModuleRender::Update()
 {
+    App->program->UseProgram();
+    const float4x4 model = float4x4::identity;
+    const float4x4& view = App->camera->GetViewMatrix();
+    const float4x4& projection = App->camera->GetProjectionMatrix();
+
+    App->program->SetUniform("model", model);
+    App->program->SetUniform("view", view);
+    App->program->SetUniform("projection", projection);
     return update_status::UPDATE_CONTINUE;
 }
 
@@ -83,6 +101,7 @@ void ModuleRender::Resize(const int width, const int height)
     this->width = width;
     this->height = height;
     frame_buffer->Resize(width, height);
+    App->camera->Resize(width, height);
 }
 
 void* ModuleRender::GetContext() const

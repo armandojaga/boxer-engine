@@ -18,9 +18,11 @@ namespace BoxerEngine
     public:
         Mesh();
         ~Mesh();
+        void LoadMesh(const aiMesh* mesh);
+        void Draw(const std::vector<unsigned int>& model_textures) const;
+    private:
         void LoadEBO(const aiMesh* mesh);
         void LoadVBO(const aiMesh* mesh);
         void CreateVAO();
-        void Draw(const std::vector<unsigned>& model_textures);
     };
 }

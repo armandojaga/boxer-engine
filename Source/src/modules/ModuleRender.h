@@ -4,6 +4,7 @@
 #include "Globals.h"
 #include "GL/glew.h"
 #include "core/rendering/FrameBuffer.h"
+#include "core/rendering/Model.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -16,20 +17,27 @@ public:
     ~ModuleRender() override = default;
 
     bool Init() override;
+    bool Start() override;
     update_status PreUpdate() override;
     update_status Update() override;
     update_status PostUpdate() override;
     bool CleanUp() override;
     void Resize(int width, int height);
-    void* GetContext() const;
+    [[nodiscard]] void* GetContext() const;
 
     [[nodiscard]] BoxerEngine::FrameBuffer& GetFrameBuffer() const
     {
         return *frame_buffer;
     }
 
+    [[nodiscard]] const std::unique_ptr<BoxerEngine::Model>& GetModel() const
+    {
+        return model;
+    }
+
 private:
     void* context{};
     int width{}, height{};
     std::unique_ptr<BoxerEngine::FrameBuffer> frame_buffer;
+    std::unique_ptr<BoxerEngine::Model> model;
 };

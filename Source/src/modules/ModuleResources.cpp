@@ -1,5 +1,7 @@
 #include "ModuleResources.h"
 
+#include "Application.h"
+#include "ModuleRender.h"
 #include "core/rendering/Model.h"
 #include "core/util/Files.h"
 
@@ -19,11 +21,11 @@ void ModuleResources::HandleResource(const char* path)
     switch (type)
     {
     case ResourceType::MODEL:
-        BoxerEngine::Model model;
-        model.Load(path);
+        App->renderer->GetModel()->Load(path);
         break;
     // case ResourceType::TEXTURE:
-        // break;
+    //
+    //     break;
     }
 }
 

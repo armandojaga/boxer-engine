@@ -13,6 +13,7 @@
 
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
+#include "ModuleProgram.h"
 #include "core/util/Files.h"
 #include "ui/widgets/AxisSlider.h"
 
@@ -111,75 +112,43 @@ update_status ModuleEditor::Update()
     if (display_config) ShowConfig(&display_config);
     if (display_hardware) ShowHardware(&display_hardware);
 
-
-    ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-    ImGui::Begin("Scene");
-
-    //
-    const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-    float x = viewportPanelSize.x, y = viewportPanelSize.y;
-    glViewport(0, 0, x, y);
-    //===============================================================================================================
-
-    App->renderer->Resize(x, y);
-    App->renderer->GetFrameBuffer().Bind();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    // ===============================================================================================================
-    if (game_options.IsDisplayDebugDraw())
-    {
-        App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), x, y);
-    }
-
-    constexpr float positions[] = {
-        -0.5f, -0.5f, //0.0f,
-        0.5f, -0.5f, //0.0f,
-        0.5f, 0.5f, //0.0f,
-        -0.5f, 0.5f, //0.0
-    };
-
-    unsigned int index[] = {
-        0, 1, 2,
-        2, 3, 0
-    };
-    unsigned int vbo{};
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, 6 * 2 * sizeof(float), positions, GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-
-    unsigned int ibo{};
-    glGenBuffers(1, &ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(unsigned int), index, GL_STATIC_DRAW);
-
-
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glDeleteBuffers(1, &vbo);
-    glDeleteBuffers(1, &ibo);
-
-    // const GLenum buffers[4] = {GL_COLOR_ATTACHMENT0};
-    // glDrawBuffers(App->renderer->GetFrameBuffer().GetTextureId(), buffers);
-
-    App->renderer->GetFrameBuffer().Unbind();
-    // to actually render inside the scene window
-    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer().GetTextureId()), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
-
-
-    //===============================================================================================================
-
-    ImGui::End();
-    ImGui::PopStyleVar();
+    CreateScene();
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     return update_status::UPDATE_CONTINUE;
+}
+
+void ModuleEditor::CreateScene()
+{
+    ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+    ImGui::Begin("Scene");
+
+    const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
+    float x = viewportPanelSize.x, y = viewportPanelSize.y;
+    glViewport(0, 0, x, y);
+
+    App->renderer->Resize(x, y);
+
+    App->renderer->GetFrameBuffer().Bind();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    if (game_options.IsDisplayDebugDraw())
+    {
+        App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), x, y);
+    }
+    App->program->UseProgram();
+    App->renderer->GetModel()->Draw();
+
+    App->renderer->GetFrameBuffer().Unbind();
+
+    // to actually render inside the scene window
+    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer().GetTextureId()), ImVec2{ x, y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+
+    ImGui::End();
+    ImGui::PopStyleVar();
 }
 
 update_status ModuleEditor::PostUpdate()

@@ -11,17 +11,19 @@ namespace BoxerEngine
     class Model
     {
     private:
-        std::vector<unsigned int> materials;
-        std::vector<Mesh&> meshes;
+        std::vector<unsigned int> textures;
+        std::vector<Mesh*> meshes;
 
     public:
         Model();
         ~Model();
-        
+
         void Load(const char* path);
+        void Draw() const;
 
     private:
-        void LoadMaterials(const aiScene*, const char*);
+        void LoadTextures(const aiScene*, const char*);
+        void ClearModel();
         void LoadMeshes(const aiScene*);
     };
 }

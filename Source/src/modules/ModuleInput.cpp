@@ -51,8 +51,8 @@ update_status ModuleInput::PreUpdate()
             break;
         case SDL_DROPFILE:
             char* file = sdlEvent.drop.file;
-            App->resources->HandleResource(file);
             BE_LOG("Dropped file %s", file);
+            App->resources->HandleResource(file);
             SDL_free(file);
             break;
         }

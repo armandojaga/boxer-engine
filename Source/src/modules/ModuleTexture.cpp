@@ -27,8 +27,9 @@ bool ModuleTexture::CleanUp()
 
 unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
 {
-    unsigned int image;
     unsigned int textureId(INVALID_ID);
+    unsigned int image;
+
     std::filesystem::path relativePath;
     if (modelPath)
     {
@@ -49,7 +50,7 @@ unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
         path = absolute(relativePath).string();
     }
     //use path from textures folder
-    else if (const std::string projectTexture = BoxerEngine::StringUtils::Concat(ASSERTS_PATH, TEXTURES_DIR, texture);
+    else if (const std::string projectTexture = BoxerEngine::StringUtils::Concat(ASSETS_PATH, TEXTURES_DIR, texture);
         BoxerEngine::Files::IsValidFilePath(projectTexture))
     {
         path = projectTexture;
@@ -70,7 +71,7 @@ unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
             glBindTexture(GL_TEXTURE_2D, textureId);
 
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
             glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH),
                          ilGetInteger(IL_IMAGE_HEIGHT), 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE,
                          ilGetData());
@@ -78,7 +79,6 @@ unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
             glGenerateMipmap(GL_TEXTURE_2D);
         }
         ilDeleteImages(1, &image);
-        //TODO glDeleteTextures(1, &textureId);
     }
     return textureId;
 }
