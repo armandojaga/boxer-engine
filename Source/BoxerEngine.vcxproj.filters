@@ -30,9 +30,6 @@
     <ClCompile Include="vendors\ImGui\imgui_widgets.cpp">
       <Filter>Vendors\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleCamera.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\BitOps.cpp">
       <Filter>Vendors\MathGeoLib\Math</Filter>
     </ClCompile>
@@ -201,6 +198,7 @@
     <ClCompile Include="src\modules\ModuleResources.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="src\modules\ModuleCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -241,9 +239,6 @@
     </ClInclude>
     <ClInclude Include="vendors\ImGui\imstb_truetype.h">
       <Filter>Vendors\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleCamera.h">
-      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="vendors\MathGeoLib\include\MathBuildConfig.h">
       <Filter>Vendors\MathGeoLib</Filter>
@@ -1070,6 +1065,7 @@
     <ClInclude Include="src\core\util\StringUtils.h">
       <Filter>Util</Filter>
     </ClInclude>
+    <ClInclude Include="src\modules\ModuleCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
