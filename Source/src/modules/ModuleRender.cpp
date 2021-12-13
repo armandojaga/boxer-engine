@@ -70,11 +70,11 @@ update_status ModuleRender::PreUpdate()
 update_status ModuleRender::Update()
 {
     App->program->UseProgram();
-    const float4x4 model = float4x4::identity;
+    const float4x4 modelMatrix = float4x4::identity;
     const float4x4& view = App->camera->GetViewMatrix();
     const float4x4& projection = App->camera->GetProjectionMatrix();
 
-    App->program->SetUniform("model", model);
+    App->program->SetUniform("model", modelMatrix);
     App->program->SetUniform("view", view);
     App->program->SetUniform("projection", projection);
     return update_status::UPDATE_CONTINUE;
