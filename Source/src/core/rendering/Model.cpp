@@ -11,7 +11,10 @@
 
 BoxerEngine::Model::Model() = default;
 
-BoxerEngine::Model::~Model() = default;
+BoxerEngine::Model::~Model()
+{
+    ClearModel();
+};
 
 void BoxerEngine::Model::Load(const char* path)
 {
@@ -91,7 +94,7 @@ void BoxerEngine::Model::LoadMeshes(const aiScene* scene)
     meshes.reserve(scene->mNumMeshes);
     for (unsigned i = 0; i < scene->mNumMeshes; ++i)
     {
-        Mesh* mesh = new Mesh();
+        auto mesh = new Mesh();
         mesh->LoadMesh(scene->mMeshes[i]);
         meshes.push_back(mesh);
     }
