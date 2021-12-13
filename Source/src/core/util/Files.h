@@ -8,7 +8,7 @@ namespace BoxerEngine
     class Files
     {
     public:
-        static std::string ReadFile(const std::filesystem::path path)
+        static std::string ReadFile(const std::filesystem::path& path)
         {
             std::ifstream f(path, std::ios::in | std::ios::binary);
 

@@ -2,7 +2,8 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
-#include "ModuleCamera.h"
+#include "ModuleCameraAlvaro.h"
+#include "ModuleDebugDraw.h"
 #include <SDL.h>
 
 #include "ModuleProgram.h"
@@ -77,6 +78,18 @@ update_status ModuleRender::Update()
     App->program->SetUniform("model", modelMatrix);
     App->program->SetUniform("view", view);
     App->program->SetUniform("projection", projection);
+
+    App->renderer->GetFrameBuffer().Bind();
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    if (game_options.IsDisplayDebugDraw())
+    {
+        App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), width, height);
+    }
+    App->program->UseProgram();
+    App->renderer->GetModel()->Draw();
+
+    App->renderer->GetFrameBuffer().Unbind();
     return update_status::UPDATE_CONTINUE;
 }
 
@@ -98,11 +111,13 @@ bool ModuleRender::CleanUp()
 
 void ModuleRender::Resize(const int width, const int height)
 {
-    if (this->width != width || this->height != height) {
+    if (this->width != width || this->height != height)
+    {
         this->width = width;
         this->height = height;
         frame_buffer->Resize(width, height);
-        App->camera->Resize(width, height);
+        App->camera->SetAspectRatio(width, height);
+        Update();
     }
 }
 

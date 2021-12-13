@@ -160,20 +160,8 @@ void ModuleEditor::CreateScene()
 
     App->renderer->Resize(x, y);
 
-    App->renderer->GetFrameBuffer().Bind();
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    if (game_options.IsDisplayDebugDraw())
-    {
-        App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), x, y);
-    }
-    App->program->UseProgram();
-    App->renderer->GetModel()->Draw();
-
-    App->renderer->GetFrameBuffer().Unbind();
-
     // to actually render inside the scene window
-    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer().GetTextureId()), ImVec2{ x, y }, ImVec2{ 0, 1 }, ImVec2{ 1, 0 });
+    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer().GetTextureId()), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
 
     ImGui::End();
     ImGui::PopStyleVar();
