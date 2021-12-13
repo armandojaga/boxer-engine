@@ -120,6 +120,34 @@ update_status ModuleEditor::Update()
     return update_status::UPDATE_CONTINUE;
 }
 
+update_status ModuleEditor::PostUpdate()
+{
+    ImGuiIO& io = ImGui::GetIO();
+
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        const auto win = SDL_GL_GetCurrentWindow();
+        const auto ctx = SDL_GL_GetCurrentContext();
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        SDL_GL_MakeCurrent(win, ctx);
+    }
+    if (should_exit)
+    {
+        return update_status::UPDATE_STOP;
+    }
+    return update_status::UPDATE_CONTINUE;
+}
+
+bool ModuleEditor::CleanUp()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplSDL2_Shutdown();
+    ImGui::DestroyContext();
+
+    return true;
+}
+
 void ModuleEditor::CreateScene()
 {
     ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
@@ -149,34 +177,6 @@ void ModuleEditor::CreateScene()
 
     ImGui::End();
     ImGui::PopStyleVar();
-}
-
-update_status ModuleEditor::PostUpdate()
-{
-    ImGuiIO& io = ImGui::GetIO();
-
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-    {
-        const auto win = SDL_GL_GetCurrentWindow();
-        const auto ctx = SDL_GL_GetCurrentContext();
-        ImGui::UpdatePlatformWindows();
-        ImGui::RenderPlatformWindowsDefault();
-        SDL_GL_MakeCurrent(win, ctx);
-    }
-    if (should_exit)
-    {
-        return update_status::UPDATE_STOP;
-    }
-    return update_status::UPDATE_CONTINUE;
-}
-
-bool ModuleEditor::CleanUp()
-{
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplSDL2_Shutdown();
-    ImGui::DestroyContext();
-
-    return true;
 }
 
 void ModuleEditor::CreateMenu()

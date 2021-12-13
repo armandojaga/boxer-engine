@@ -63,6 +63,7 @@ void BoxerEngine::FrameBuffer::Invalidate()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, DepthId, 0);
+    Unbind();
 }
 
 void BoxerEngine::FrameBuffer::Bind()
