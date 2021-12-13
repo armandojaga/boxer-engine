@@ -41,17 +41,11 @@ public:
     unsigned int Load(ProgramType, const std::string&);
     void UseProgram() const;
 
-    // void SetUniform(std::string&, int value) const;
-    // void SetUniform(std::string&, float value) const;
-    // void SetUniform(std::string&, const float2& value) const;
-    // void SetUniform(std::string&, const float3& value) const;
-    // void SetUniform(std::string&, const float4x4& value) const;
-
-    void SetUniform(const char*, int value) const;
-    void SetUniform(const char*, float value) const;
-    void SetUniform(const char*, const float2& value) const;
-    void SetUniform(const char*, const float3& value) const;
-    void SetUniform(const char*, const float4x4& value) const;
+    void SetUniform(const std::string&, int value) const;
+    void SetUniform(const std::string&, float value) const;
+    void SetUniform(const std::string&, const float2& value) const;
+    void SetUniform(const std::string&, const float3& value) const;
+    void SetUniform(const std::string&, const float4x4& value) const;
 
     [[nodiscard]] const Program& GetProgram() const
     {

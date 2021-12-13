@@ -14,8 +14,7 @@ namespace BoxerEngine
         explicit Cache(std::function<V(K)>);
         ~Cache() = default;
 
-        V Get(K&) const;
-        V Get(K&& key) const;
+        V Get(const K&) const;
 
         void Clear()
         {
@@ -30,7 +29,7 @@ namespace BoxerEngine
     }
 
     template <typename K, typename V>
-    V BoxerEngine::Cache<K, V>::Get(K& key) const
+    V BoxerEngine::Cache<K, V>::Get(const K& key) const
     {
         if(cache.find(key) != cache.end())
         {
@@ -38,18 +37,6 @@ namespace BoxerEngine
         }
         auto value = producer(key);
         cache[key] = value;
-        return value;
-    }
-
-    template <typename K, typename V>
-    V Cache<K, V>::Get(K&& key) const
-    {
-        if (cache.find(std::forward<K>(key)) != cache.end())
-        {
-            return cache[std::forward<K>(key)];
-        }
-        auto value = producer(std::forward<K&>(key));
-        cache[std::forward<K>(key)] = value;
         return value;
     }
 }

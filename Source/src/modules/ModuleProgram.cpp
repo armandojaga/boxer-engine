@@ -58,62 +58,32 @@ void ModuleProgram::UseProgram() const
     glUseProgram(program.id);
 }
 
-// void ModuleProgram::SetUniform(std::string& name, int value) const
-// {
-//     const int location = uniformsCache->Get(name);
-//     glUniform1i(location, value);
-// }
-//
-// void ModuleProgram::SetUniform(std::string& name, float value) const
-// {
-//     const int location = uniformsCache->Get(name);
-//     glUniform1f(location, value);
-// }
-//
-// void ModuleProgram::SetUniform(std::string& name, const float2& value) const
-// {
-//     const int location = uniformsCache->Get(name);
-//     glUniform2f(location, value.x, value.y);
-// }
-//
-// void ModuleProgram::SetUniform(std::string& name, const float3& value) const
-// {
-//     const int location = uniformsCache->Get(name);
-//     glUniform3f(location, value.x, value.y, value.z);
-// }
-//
-// void ModuleProgram::SetUniform(std::string& name, const float4x4& value) const
-// {
-//     const int location = uniformsCache->Get(name);
-//     glUniformMatrix4fv(location, 1, true, value.ptr()); // transposing by default to compensate matgeolib vs opengl 
-// }
-
-void ModuleProgram::SetUniform(const char* name, int value) const
+void ModuleProgram::SetUniform(const std::string& name, int value) const
 {
     const int location = uniformsCache->Get(name);
     glUniform1i(location, value);
 }
 
-void ModuleProgram::SetUniform(const char* name, float value) const
+void ModuleProgram::SetUniform(const std::string& name, float value) const
 {
     const int location = uniformsCache->Get(name);
     glUniform1f(location, value);
 }
 
-void ModuleProgram::SetUniform(const char* name, const float2& value) const
+void ModuleProgram::SetUniform(const std::string& name, const float2& value) const
 {
     const int location = uniformsCache->Get(name);
     glUniform2f(location, value.x, value.y);
 }
 
-void ModuleProgram::SetUniform(const char* name, const float3& value) const
+void ModuleProgram::SetUniform(const std::string& name, const float3& value) const
 {
     const int location = uniformsCache->Get(name);
     glUniform3f(location, value.x, value.y, value.z);
 }
 
-void ModuleProgram::SetUniform(const char* name, const float4x4& value) const
+void ModuleProgram::SetUniform(const std::string& name, const float4x4& value) const
 {
     const int location = uniformsCache->Get(name);
-    glUniformMatrix4fv(location, 1, true, reinterpret_cast<const float*>(&value)); // transposing by default to compensate matgeolib vs opengl 
+    glUniformMatrix4fv(location, 1, true, value.ptr()); // transposing by default to compensate matgeolib vs opengl 
 }
