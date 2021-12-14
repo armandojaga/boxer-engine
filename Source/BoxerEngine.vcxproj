@@ -160,6 +160,7 @@
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp" />
     <ClCompile Include="src\core\rendering\Mesh.cpp" />
     <ClCompile Include="src\core\rendering\Model.cpp" />
+    <ClCompile Include="src\modules\ModuleCamera.cpp" />
     <ClCompile Include="src\modules\ModuleProgram.cpp" />
     <ClCompile Include="src\modules\ModuleResources.cpp" />
     <ClCompile Include="src\modules\ModuleTexture.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="src\core\util\Cache.h" />
     <ClInclude Include="src\core\util\Files.h" />
     <ClInclude Include="src\core\logging\ImGuiLogger.h" />
+    <ClInclude Include="src\modules\ModuleCamera.h" />
     <ClInclude Include="src\modules\ModuleProgram.h" />
     <ClInclude Include="src\modules\ModuleResources.h" />
     <ClInclude Include="src\modules\ModuleTexture.h" />

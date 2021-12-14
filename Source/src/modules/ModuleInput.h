@@ -28,6 +28,16 @@ public:
         return keyboard[id];
     }
 
+    [[nodiscard]] bool IsKeyPressed(const int id) const
+    {
+        return keyboard[id] == KeyState::KEY_DOWN || keyboard[id] == KeyState::KEY_REPEAT;
+    }
+
+    [[nodiscard]] bool IsMouseButtonPressed(const int id) const
+    {
+        return mouse_buttons[id - 1] == KeyState::KEY_DOWN || mouse_buttons[id - 1] == KeyState::KEY_REPEAT;
+    }
+
     [[nodiscard]] KeyState GetMouseButtonDown(int id) const
     {
         return mouse_buttons[id - 1];

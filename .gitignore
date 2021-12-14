@@ -343,3 +343,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 Source/VTune Profiler Results/
+Source/.idea/
