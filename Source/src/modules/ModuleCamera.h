@@ -25,8 +25,8 @@ public:
 	update_status Update() override;
 	bool CleanUp() override;
 
-	float4x4 GetViewMatrix();
-	float4x4 GetProjectionMatrix();
+	float4x4 GetViewMatrix() const;
+	float4x4 GetProjectionMatrix() const;
 	const float3& GetPosition() const;
 	float GetAspectRatio() const;
 	float GetHorizontalFovDegrees() const;

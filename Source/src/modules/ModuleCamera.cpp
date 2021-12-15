@@ -2,46 +2,42 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
-#include "ModuleRender.h"
-#include "core/rendering/Model.h"
 
 #include "GL/glew.h"
 #include "MathGeoLib.h"
 
-static const float DEGTORAD = math::pi / 180.0;
-static const float EPSILON = 1e-5;
+static const float DEGTORAD = math::pi / 180.0f;
+static const float EPSILON = 1e-5f;
 
 ModuleCamera::ModuleCamera()
     : AspectRatio(0.0f)
-    , HorizontalFovDegree(0.0f)
-    , NearDistance(0.0f)
-    , FarDistance(0.0f)
-    , Speed(0.05f)
-    , RotationSpeed(0.05f)
-    , ZoomPosSpeed(0.1f)
-    , ZoomFovSpeed(0.0005f)
-    , OrbitSpeed(0.1f)
-    , OrbitAngle(0.0f)
-    , Roll(0.0f)
-    , Pitch(0.0f)
-    , Yaw(0.0f)
-    , LookPosition(float3::zero)
-    , Position(float3::zero)
+      , HorizontalFovDegree(0.0f)
+      , NearDistance(0.0f)
+      , FarDistance(0.0f)
+      , Speed(0.05f)
+      , RotationSpeed(0.05f)
+      , ZoomPosSpeed(0.1f)
+      , ZoomFovSpeed(0.0005f)
+      , OrbitSpeed(0.1f)
+      , OrbitAngle(0.0f)
+      , Roll(0.0f)
+      , Pitch(0.0f)
+      , Yaw(0.0f)
+      , LookPosition(float3::zero)
+      , Position(float3::zero)
 {
 }
 
-ModuleCamera::~ModuleCamera()
-{
-}
+ModuleCamera::~ModuleCamera() = default;
 
 bool ModuleCamera::Init()
 {
     CameraFrustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
-    SetAspectRatio(static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT));
+    SetAspectRatio(SCREEN_WIDTH, SCREEN_HEIGHT);
     SetHorizontalFovInDegrees(90.0f);
     SetPlaneDistances(0.1f, 200.0f);
     SetPosition(float3(8.0f, 8.0f, 8.0f));
-    float3x3 rotation = float3x3::identity;
+    const float3x3 rotation = float3x3::identity;
     CameraFrustum.SetFront(rotation.WorldZ());
     CameraFrustum.SetUp(rotation.WorldY());
     Look(float3(0.0f, 0.0f, 0.0f));
@@ -64,7 +60,7 @@ bool ModuleCamera::CleanUp()
     return true;
 }
 
-float4x4 ModuleCamera::GetViewMatrix()
+float4x4 ModuleCamera::GetViewMatrix() const
 {
     // TODO: Return view matrix from roll, pitch & yaw values
     Quat rotation = Quat();
@@ -73,10 +69,9 @@ float4x4 ModuleCamera::GetViewMatrix()
     rotation.RotateZ(Roll);
     rotation.Inverse();
     return float4x4(CameraFrustum.ViewMatrix());
-    //return 
 }
 
-float4x4 ModuleCamera::GetProjectionMatrix()
+float4x4 ModuleCamera::GetProjectionMatrix() const
 {
     return CameraFrustum.ProjectionMatrix();
 }
@@ -97,7 +92,7 @@ void ModuleCamera::Rotate(float pitch = 0.0f, float yaw = 0.0f, float roll = 0.0
     if (yaw > EPSILON || yaw < EPSILON)
     {
         // Rotate in Y absolut axis
-        Quat rot = Quat::RotateY(yaw);
+        const Quat rot = Quat::RotateY(yaw);
         CameraFrustum.SetFront(rot.Mul(CameraFrustum.Front()).Normalized());
         CameraFrustum.SetUp(rot.Mul(CameraFrustum.Up()).Normalized());
     }
@@ -105,7 +100,7 @@ void ModuleCamera::Rotate(float pitch = 0.0f, float yaw = 0.0f, float roll = 0.0
     if (pitch > EPSILON || pitch < EPSILON)
     {
         // Rotate in X local axis
-        Quat rot = Quat::RotateAxisAngle(CameraFrustum.WorldRight(), pitch);
+        const Quat rot = Quat::RotateAxisAngle(CameraFrustum.WorldRight(), pitch);
         CameraFrustum.SetUp(rot.Mul(CameraFrustum.Up()).Normalized());
         CameraFrustum.SetFront(rot.Mul(CameraFrustum.Front()).Normalized());
     }
@@ -113,7 +108,7 @@ void ModuleCamera::Rotate(float pitch = 0.0f, float yaw = 0.0f, float roll = 0.0
 
 void ModuleCamera::SetAspectRatio(unsigned int width, unsigned int height)
 {
-    AspectRatio = (float)width / (float)height;
+    AspectRatio = static_cast<float>(width) / static_cast<float>(height);
     CameraFrustum.SetHorizontalFovAndAspectRatio(HorizontalFovDegree * DEGTORAD, AspectRatio);
 }
 
@@ -135,8 +130,8 @@ float ModuleCamera::GetHorizontalFovDegrees() const
 
 void ModuleCamera::Look(const float3& position)
 {
-    float3 direction = LookPosition - CameraFrustum.Pos();
-    float3x3 lookDir = float3x3::LookAt(CameraFrustum.Front(), direction.Normalized(), CameraFrustum.Up(), float3::unitY);
+    const float3 direction = LookPosition - CameraFrustum.Pos();
+    const float3x3 lookDir = float3x3::LookAt(CameraFrustum.Front(), direction.Normalized(), CameraFrustum.Up(), float3::unitY);
 
     CameraFrustum.SetFront(lookDir.MulDir(CameraFrustum.Front()).Normalized());
     CameraFrustum.SetUp(lookDir.MulDir(CameraFrustum.Up()).Normalized());
@@ -245,37 +240,36 @@ inline void ModuleCamera::RotationInputs()
         Yaw += App->input->GetMouseMotion().x * GetSpeed(MoveType::ROTATION);
         Pitch += App->input->GetMouseMotion().y * GetSpeed(MoveType::ROTATION);
         // Deprecate below
-        int mouseMotionX = App->input->GetMouseMotion().x;
-        int mouseMotionY = App->input->GetMouseMotion().y;
-        Rotate(-0.01 * (float)mouseMotionY, -0.01 * (float)mouseMotionX);
+        const float mouseMotionX = App->input->GetMouseMotion().x;
+        const float mouseMotionY = App->input->GetMouseMotion().y;
+        Rotate(-0.01f * mouseMotionY, -0.01f * mouseMotionX);
     }
 
     // Orbit
-    // if (App->input->IsModPressed(KMOD_ALT)
-    //     && App->input->GetMouseButton().button == SDL_BUTTON_LEFT
-    //     && App->input->GetMouseButton().state == SDL_PRESSED)
-    // {
-    //     OrbitModule();
-    // }
+    if (App->input->IsModKeyPressed(KMOD_ALT) && App->input->IsMouseButtonPressed(SDL_BUTTON_LEFT))
+    {
+        OrbitModule();
+    }
 }
+
 //
 void ModuleCamera::OrbitModule()
 {
-//     const Model* model = App->renderer->GetCurrentModel();
-//     if (model == nullptr)
-//     {
-//         return;
-//     }
-//     const float3 moduleOrigin = model->GetOrigin();
-//
-//     // Radius is the distance to the module in xz plane
-//     float2 distanceXZ = float2(Position.x - moduleOrigin.x, Position.z - moduleOrigin.z);
-//     const float radius = sqrt((distanceXZ.x * distanceXZ.x) + (distanceXZ.y * distanceXZ.y));
-//
-//     OrbitAngle += GetSpeed(MoveType::ORBIT);
-//     const float3 position = float3(sin(OrbitAngle * DEGTORAD) * radius, Position.y, cos(OrbitAngle * DEGTORAD) * radius);
-//     SetPosition(position);
-//     Look(moduleOrigin);
+    //     const Model* model = App->renderer->GetCurrentModel();
+    //     if (model == nullptr)
+    //     {
+    //         return;
+    //     }
+    //     const float3 moduleOrigin = model->GetOrigin();
+    //
+    //     // Radius is the distance to the module in xz plane
+    //     float2 distanceXZ = float2(Position.x - moduleOrigin.x, Position.z - moduleOrigin.z);
+    //     const float radius = sqrt((distanceXZ.x * distanceXZ.x) + (distanceXZ.y * distanceXZ.y));
+    //
+    //     OrbitAngle += GetSpeed(MoveType::ORBIT);
+    //     const float3 position = float3(sin(OrbitAngle * DEGTORAD) * radius, Position.y, cos(OrbitAngle * DEGTORAD) * radius);
+    //     SetPosition(position);
+    //     Look(moduleOrigin);
 }
 
 void ModuleCamera::ZoomInPosition()
@@ -308,35 +302,35 @@ inline void ModuleCamera::ZoomInFOV()
 
 inline float ModuleCamera::GetSpeed(MoveType type) const
 {
-    float speed = 0.0f;
-    const int mult = 1;
+    float speed;
+    float multiplier = 1.0f;
     switch (type)
     {
-        case MoveType::TRANSLATION:
-            speed = Speed;
-            break;
-        case MoveType::ROTATION:
-            speed = RotationSpeed;
-            break;
-        case MoveType::ZOOM_POS:
-            speed = ZoomPosSpeed;
-            break;
-        case MoveType::ZOOM_FOV:
-            speed = ZoomFovSpeed;
-            break;
-        case MoveType::ORBIT:
-            speed = OrbitSpeed;
-            break;
-        default:
-            speed = Speed;
-            break;
+    case MoveType::TRANSLATION:
+        speed = Speed;
+        break;
+    case MoveType::ROTATION:
+        speed = RotationSpeed;
+        break;
+    case MoveType::ZOOM_POS:
+        speed = ZoomPosSpeed;
+        break;
+    case MoveType::ZOOM_FOV:
+        speed = ZoomFovSpeed;
+        break;
+    case MoveType::ORBIT:
+        speed = OrbitSpeed;
+        break;
+    default:
+        speed = Speed;
+        break;
     }
-    // if (App->input->IsModPressed(KMOD_SHIFT))
-    // {
-    //     mult = 2;
-    // }
-    auto delta = App->GetDelta();
-    return speed * delta * mult;
+    if (App->input->IsModKeyPressed(KMOD_SHIFT))
+    {
+        multiplier = 2.0f;
+    }
+    const auto delta = App->GetDelta();
+    return speed * delta * multiplier;
 }
 
 void ModuleCamera::SetPlaneDistances(const float nearDist, const float farDist)

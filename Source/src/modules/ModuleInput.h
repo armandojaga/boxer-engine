@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
+#include "SDL_keyboard.h"
 #include "Math/float2.h"
 
 constexpr int NUM_MOUSE_BUTTONS = 5;
@@ -56,6 +57,11 @@ public:
     [[nodiscard]] const float2& GetMouseWheel() const
     {
         return mouse_wheel;
+    }
+
+    [[nodiscard]] bool IsModKeyPressed(int modkey) const
+    {
+        return (SDL_GetModState() & modkey);
     }
 
 private:
