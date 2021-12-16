@@ -111,6 +111,7 @@ update_status ModuleEditor::Update()
     if (display_stats) ShowStats(&display_stats);
     if (display_config) ShowConfig(&display_config);
     if (display_hardware) ShowHardware(&display_hardware);
+    if (display_camera_settings) ShowCameraSettings(&display_camera_settings);
 
     CreateScene();
 
@@ -192,6 +193,12 @@ void ModuleEditor::CreateMenu()
             {
                 logger.Debug("Open stats");
                 display_stats = true;
+            }
+            ImGui::Separator();
+            if (ImGui::MenuItem("Camera"))
+            {
+                logger.Debug("Open camera settings");
+                display_camera_settings = true;
             }
             ImGui::EndMenu();
         }
@@ -382,5 +389,38 @@ void ModuleEditor::ShowAbout(bool* open) const
 
     ImGui::TextWrapped(license_content.c_str());
     ImGui::EndChild();
+    ImGui::End();
+}
+
+void ModuleEditor::ShowCameraSettings(bool open) const
+{
+    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
+    if (!ImGui::Begin("Camera Settings", &open))
+    {
+        ImGui::End();
+        return;
+    }
+
+    float move_speed = App->camera->GetMoveSpeed();
+    if(ImGui::SliderFloat("Move Speed", &move_speed, 0.1f, 10.0f))
+    {
+        App->camera->SetMoveSpeed(move_speed);
+    }
+
+    float rotation_speed = App->camera->GetRotationSpeed();
+    if (ImGui::SliderFloat("Rotation Speed", &rotation_speed, 0.1f, 10.0f))
+    {
+        App->camera->SetRotationSpeed(rotation_speed);
+    }
+
+    float zoom_speed = App->camera->GetZoomPosSpeed();
+    if (ImGui::SliderFloat("Zoom Speed", &zoom_speed, 0.1f, 5.0f))
+    {
+        App->camera->SetZoomPosSpeed(zoom_speed);
+    }
+
+    float fov = App->camera->GetHorizontalFovDegrees();
+    ImGui::InputFloat("FOV", &fov, 0.0f, 120.0f);
+
     ImGui::End();
 }

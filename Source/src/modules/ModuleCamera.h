@@ -25,16 +25,16 @@ public:
 	update_status Update() override;
 	bool CleanUp() override;
 
-	float4x4 GetViewMatrix() const;
-	float4x4 GetProjectionMatrix() const;
-	const float3& GetPosition() const;
-	float GetAspectRatio() const;
-	float GetHorizontalFovDegrees() const;
+	[[nodiscard]] float4x4 GetViewMatrix() const;
+	[[nodiscard]] float4x4 GetProjectionMatrix() const;
+	[[nodiscard]] const float3& GetPosition() const;
+	[[nodiscard]] float GetAspectRatio() const;
+	[[nodiscard]] float GetHorizontalFovDegrees() const;
 
-	float GetMoveSpeed() const { return Speed; };
-	float GetZoomPosSpeed() const { return ZoomPosSpeed; };
-	float GetRotationSpeed() const { return RotationSpeed; };
-	float GetOrbitSpeed() const { return OrbitSpeed; };
+	[[nodiscard]] float GetMoveSpeed() const { return Speed; };
+	[[nodiscard]] float GetZoomPosSpeed() const { return ZoomPosSpeed; };
+	[[nodiscard]] float GetRotationSpeed() const { return RotationSpeed; };
+	[[nodiscard]] float GetOrbitSpeed() const { return OrbitSpeed; };
 
 	void SetPosition(const float3& position);
 	void Rotate(float pitch, float yaw, float roll);

@@ -525,6 +525,8 @@
     <ClInclude Include="vendors\SDL\include\SDL_vulkan.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Game\assets\shaders\fragmentTexture.glsl" />
+    <None Include="..\Game\assets\shaders\vertexTexture.glsl" />
     <None Include="vendors\assimp\include\assimp\color4.inl" />
     <None Include="vendors\assimp\include\assimp\config.h.in" />
     <None Include="vendors\assimp\include\assimp\material.inl" />

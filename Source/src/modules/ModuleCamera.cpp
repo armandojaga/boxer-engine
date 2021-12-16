@@ -14,10 +14,10 @@ ModuleCamera::ModuleCamera()
       , HorizontalFovDegree(0.0f)
       , NearDistance(0.0f)
       , FarDistance(0.0f)
-      , Speed(0.05f)
-      , RotationSpeed(0.05f)
+      , Speed(2.0f)
+      , RotationSpeed(1.0f)
       , ZoomPosSpeed(0.1f)
-      , ZoomFovSpeed(0.0005f)
+      , ZoomFovSpeed(0.05f)
       , OrbitSpeed(0.1f)
       , OrbitAngle(0.0f)
       , Roll(0.0f)
@@ -188,12 +188,12 @@ inline void ModuleCamera::TranslationInputs()
 
 inline void ModuleCamera::AspectInputs()
 {
-    if (App->input->GetKey(SDL_SCANCODE_Q) == KeyState::KEY_DOWN)
+    if (App->input->IsKeyPressed(SDL_SCANCODE_Q))
     {
         ZoomOutFOV();
     }
 
-    if (App->input->GetKey(SDL_SCANCODE_E) == KeyState::KEY_DOWN)
+    if (App->input->IsKeyPressed(SDL_SCANCODE_E))
     {
         ZoomInFOV();
     }
@@ -293,7 +293,7 @@ inline void ModuleCamera::ZoomOutFOV()
 
 inline void ModuleCamera::ZoomInFOV()
 {
-    if (HorizontalFovDegree <= 0.1f)
+    if (HorizontalFovDegree <= EPSILON)
     {
         return;
     }

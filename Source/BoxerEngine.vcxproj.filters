@@ -1143,6 +1143,9 @@
     <Filter Include="UI\widgets">
       <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{08ea9f15-9e0f-49ca-8a06-f19f6a4d4d44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="vendors\MathGeoLib\include\Math\float2.inl">
@@ -1216,6 +1219,12 @@
     </None>
     <None Include="vendors\assimp\include\assimp\vector3.inl">
       <Filter>Vendors\Assimp</Filter>
+    </None>
+    <None Include="..\Game\assets\shaders\fragmentTexture.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\Game\assets\shaders\vertexTexture.glsl">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
