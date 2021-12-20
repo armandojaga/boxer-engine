@@ -160,6 +160,7 @@
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp" />
     <ClCompile Include="src\core\rendering\Mesh.cpp" />
     <ClCompile Include="src\core\rendering\Model.cpp" />
+    <ClCompile Include="src\modules\ModuleCamera.cpp" />
     <ClCompile Include="src\modules\ModuleProgram.cpp" />
     <ClCompile Include="src\modules\ModuleResources.cpp" />
     <ClCompile Include="src\modules\ModuleTexture.cpp" />
@@ -224,7 +225,6 @@
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleCamera.cpp" />
     <ClCompile Include="src\modules\ModuleEditor.cpp" />
     <ClCompile Include="src\modules\ModuleInput.cpp" />
     <ClCompile Include="src\modules\ModuleRender.cpp" />
@@ -242,6 +242,7 @@
     <ClInclude Include="src\core\util\Cache.h" />
     <ClInclude Include="src\core\util\Files.h" />
     <ClInclude Include="src\core\logging\ImGuiLogger.h" />
+    <ClInclude Include="src\modules\ModuleCamera.h" />
     <ClInclude Include="src\modules\ModuleProgram.h" />
     <ClInclude Include="src\modules\ModuleResources.h" />
     <ClInclude Include="src\modules\ModuleTexture.h" />
@@ -413,7 +414,6 @@
     <ClInclude Include="vendors\MathGeoLib\include\Math\TransformOps.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Math\vec2d.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Time\Clock.h" />
-    <ClInclude Include="src\modules\ModuleCamera.h" />
     <ClInclude Include="src\modules\ModuleEditor.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="vendors\ImGui\imconfig.h" />
@@ -525,6 +525,8 @@
     <ClInclude Include="vendors\SDL\include\SDL_vulkan.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Game\assets\shaders\fragmentTexture.glsl" />
+    <None Include="..\Game\assets\shaders\vertexTexture.glsl" />
     <None Include="vendors\assimp\include\assimp\color4.inl" />
     <None Include="vendors\assimp\include\assimp\config.h.in" />
     <None Include="vendors\assimp\include\assimp\material.inl" />

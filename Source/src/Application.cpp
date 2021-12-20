@@ -57,7 +57,7 @@ bool Application::Init()
 
 update_status Application::Update()
 {
-    const double current = game_clock.ReadMs();
+    const float current = game_clock.ReadMs();
     delta = (current - prev) / 1000.0f;
     prev = current;
 

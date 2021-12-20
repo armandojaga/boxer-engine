@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
-#include "ModuleCameraAlvaro.h"
+#include "ModuleCamera.h"
 #include "ModuleDebugDraw.h"
 #include <SDL.h>
 
