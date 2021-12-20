@@ -9,15 +9,6 @@
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp">
       <Filter>Vendors\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleInput.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleRender.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleWindow.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="vendors\ImGui\imgui.cpp">
       <Filter>Vendors\ImGui</Filter>
     </ClCompile>
@@ -171,20 +162,8 @@
     <ClCompile Include="src\core\util\Timer.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleScene.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleDebugDraw.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp">
       <Filter>Core\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleProgram.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleTexture.cpp">
-      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="src\core\rendering\Model.cpp">
       <Filter>Core\Rendering</Filter>
@@ -192,14 +171,35 @@
     <ClCompile Include="src\core\rendering\Mesh.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\modules\ModuleCamera.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleDebugDraw.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\modules\ModuleEditor.cpp">
-      <Filter>Modules</Filter>
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleInput.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleProgram.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleRender.cpp">
+      <Filter>Modules\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\modules\ModuleResources.cpp">
-      <Filter>Modules</Filter>
+      <Filter>Modules\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleCamera.cpp">
-      <Filter>Modules</Filter>
+    <ClCompile Include="src\modules\ModuleScene.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleTexture.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleWindow.cpp">
+      <Filter>Modules\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,15 +214,6 @@
     </ClInclude>
     <ClInclude Include="vendors\ImGui\imgui_impl_sdl.h">
       <Filter>Vendors\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleInput.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleRender.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleWindow.h">
-      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="vendors\ImGui\imconfig.h">
       <Filter>Vendors\ImGui</Filter>
@@ -1013,17 +1004,11 @@
     <ClInclude Include="src\core\GameOptions.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleScene.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="vendors\debugdraw\debug_draw.hpp">
       <Filter>Vendors\DebugDraw</Filter>
     </ClInclude>
     <ClInclude Include="vendors\debugdraw\debugdraw.h">
       <Filter>Vendors\DebugDraw</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleDebugDraw.h">
-      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\FrameBuffer.h">
       <Filter>Core\Rendering</Filter>
@@ -1046,32 +1031,47 @@
     <ClInclude Include="src\core\ErrorHandler.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleTexture.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleProgram.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\rendering\Model.h">
       <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\Mesh.h">
       <Filter>Core\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleEditor.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleResources.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\util\StringUtils.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleCamera.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\logging\AssimpLogger.h">
       <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleCamera.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleDebugDraw.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleEditor.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleInput.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleProgram.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleRender.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleResources.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleScene.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleTexture.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleWindow.h">
+      <Filter>Modules\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1152,6 +1152,12 @@
     </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{08ea9f15-9e0f-49ca-8a06-f19f6a4d4d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Header Files">
+      <UniqueIdentifier>{5928f649-5de8-40af-9ce3-b4767a6e06b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Source Files">
+      <UniqueIdentifier>{784d97ca-46ad-4d1f-bf62-3838c3cb7044}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

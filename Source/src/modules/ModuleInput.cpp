@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleCamera.h"
 #include <SDL.h>
 
 #include "ModuleResources.h"
@@ -117,6 +118,10 @@ update_status ModuleInput::PreUpdate(float delta)
         case SDL_MOUSEWHEEL:
             mouse_wheel.x = sdlEvent.wheel.x;
             mouse_wheel.y = sdlEvent.wheel.y;
+            break;
+        default:
+            mouse_wheel.x = 0.0f;
+            mouse_wheel.y = 0.0f;
             break;
         }
     }
