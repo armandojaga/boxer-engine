@@ -21,7 +21,7 @@ public:
     ~ModuleInput() override;
 
     bool Init() override;
-    update_status PreUpdate() override;
+    update_status PreUpdate(float delta) override;
     bool CleanUp() override;
 
     [[nodiscard]] KeyState GetKey(int id) const

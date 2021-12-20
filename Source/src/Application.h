@@ -21,26 +21,26 @@ class ModuleDebugDraw;
 class Application
 {
 public:
-	Application();
-	~Application();
+    Application();
+    ~Application();
 
-	bool Init();
-	update_status Update();
-	bool CleanUp();
+    bool Init();
+    update_status Update();
+    bool CleanUp();
 
 public:
-	ModuleWindow* window = nullptr;
-	ModuleInput* input = nullptr;
-	ModuleResources* resources = nullptr;
-	ModuleProgram* program = nullptr;
-	ModuleTexture* textures = nullptr;
+    ModuleWindow* window = nullptr;
+    ModuleInput* input = nullptr;
+    ModuleResources* resources = nullptr;
+    ModuleProgram* program = nullptr;
+    ModuleTexture* textures = nullptr;
     ModuleCamera* camera = nullptr;
-	ModuleScene* scene = nullptr;
+    ModuleScene* scene = nullptr;
     ModuleRender* renderer = nullptr;
-	ModuleDebugDraw* debug_draw = nullptr;
-	ModuleEditor* editor = nullptr;
+    ModuleDebugDraw* debug_draw = nullptr;
+    ModuleEditor* editor = nullptr;
 
-	std::unique_ptr<BoxerEngine::Statistics> statistics;
+    std::unique_ptr<BoxerEngine::Statistics> statistics;
 
     [[nodiscard]] float GetDelta() const
     {
@@ -48,9 +48,9 @@ public:
     }
 
 private:
-	std::list<Module*> modules;
-	float delta{ 0.0f };
-	float prev{ 0.0f };
+    std::list<Module*> modules;
+    float delta{0.0f};
+    float prev{0.0f};
 };
 
 extern std::unique_ptr<Application> App;

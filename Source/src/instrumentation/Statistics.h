@@ -27,8 +27,11 @@ namespace BoxerEngine
 
         float fps_log[LOG_SIZE] = {};
         float ms_log[LOG_SIZE] = {};
-        
+
         int log_counter = 0;
+
+
+        //todo precalculate the max cap for sdl delay 1000/maxfps
 
     public:
         [[nodiscard]] float GetFramesPerSecond() const
@@ -76,7 +79,7 @@ namespace BoxerEngine
                 current_frame = 0;
                 historic_counter = SAMPLES;
             }
-            else if(historic_counter < SAMPLES)
+            else if (historic_counter < SAMPLES)
             {
                 historic_counter = current_frame;
             }
@@ -98,11 +101,11 @@ namespace BoxerEngine
                 fps = game_options.GetMaxFPS();
                 ms = 1000.0f / game_options.GetMaxFPS();
             }
-            
+
             ms_log[log_counter] = ms;
             fps_log[log_counter] = fps;
 
-            if(++log_counter >= LOG_SIZE)
+            if (++log_counter >= LOG_SIZE)
             {
                 log_counter = 0;
             }

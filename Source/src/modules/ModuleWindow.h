@@ -9,22 +9,22 @@ class Application;
 class ModuleWindow : public Module
 {
 public:
-	ModuleWindow();
+    ModuleWindow();
 
-	// Destructor
+    // Destructor
     ~ModuleWindow() override;
 
-	// Called before quitting
-	bool Init() override;
+    // Called before quitting
+    bool Init() override;
 
-	// Called before quitting
-	bool CleanUp() override;
+    // Called before quitting
+    bool CleanUp() override;
 
-	update_status PreUpdate() override;
+    update_status PreUpdate(float delta) override;
 
 public:
-	//The window we'll be rendering to
-	SDL_Window* window = nullptr;
+    //The window we'll be rendering to
+    SDL_Window* window = nullptr;
 };
 
 #endif // __ModuleWindow_H__

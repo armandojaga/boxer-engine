@@ -21,10 +21,9 @@ public:
     ~ModuleEditor() override;
 
     bool Init() override;
-    update_status PreUpdate() override;
-    update_status Update() override;
-
-    update_status PostUpdate() override;
+    update_status PreUpdate(float delta) override;
+    update_status Update(float delta) override;
+    update_status PostUpdate(float delta) override;
     bool CleanUp() override;
 
 private:

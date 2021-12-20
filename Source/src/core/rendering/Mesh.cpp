@@ -31,7 +31,7 @@ void BoxerEngine::Mesh::LoadEBO(const aiMesh* mesh)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     unsigned index_size = sizeof(unsigned) * mesh->mNumFaces * 3;
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_size, nullptr, GL_STATIC_DRAW);
-    unsigned* indices = (unsigned*)(glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY));
+    auto indices = static_cast<unsigned*>((glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY)));
     for (unsigned i = 0; i < mesh->mNumFaces; ++i)
     {
         assert(mesh->mFaces[i].mNumIndices == 3); // note: assume triangles = 3 indices per face
@@ -54,7 +54,7 @@ void BoxerEngine::Mesh::LoadVBO(const aiMesh* mesh)
     glBufferSubData(GL_ARRAY_BUFFER, 0, position_size, mesh->mVertices);
     unsigned uv_offset = position_size;
     unsigned uv_size = sizeof(float) * 2 * mesh->mNumVertices;
-    float2* uvs = (float2*)(glMapBufferRange(GL_ARRAY_BUFFER, uv_offset, uv_size, GL_MAP_WRITE_BIT));
+    auto uvs = static_cast<float2*>((glMapBufferRange(GL_ARRAY_BUFFER, uv_offset, uv_size, GL_MAP_WRITE_BIT)));
     for (unsigned i = 0; i < mesh->mNumVertices; ++i)
     {
         uvs[i] = float2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
@@ -70,7 +70,7 @@ void BoxerEngine::Mesh::CreateVAO()
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(0));
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 3 * num_vertices));
 }

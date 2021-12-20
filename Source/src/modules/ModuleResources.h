@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Module.h"
+
 enum class ResourceType
 {
     MODEL = 1,
@@ -14,12 +15,13 @@ enum class ResourceType
     SCRIPT,
     UNKNOWN
 };
+
 class ModuleResources : public Module
 {
 private:
     std::vector<std::pair<ResourceType, std::string>> supported_extensions = {
-    {ResourceType::TEXTURE, ".png"},
-    {ResourceType::MODEL, ".fbx"}
+        {ResourceType::TEXTURE, ".png"},
+        {ResourceType::MODEL, ".fbx"}
     };
 public:
     bool Init() override;

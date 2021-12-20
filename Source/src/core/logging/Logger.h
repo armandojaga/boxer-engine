@@ -51,15 +51,18 @@ namespace BoxerEngine
 
         void Unregister(Logger* logger)
         {
-            if(next == logger)
+            if (next == logger)
             {
-                if (next->next) {
+                if (next->next)
+                {
                     next = next->next;
                 }
-                else {
+                else
+                {
                     next = nullptr;
                 }
-            } else if(next)
+            }
+            else if (next)
             {
                 next->Unregister(logger);
             }

@@ -238,7 +238,7 @@ public:
         //std::printf("DDRenderInterfaceCoreGL ready!\n\n");
     }
 
-    ~DDRenderInterfaceCoreGL()
+    ~DDRenderInterfaceCoreGL() override
     {
         glDeleteProgram(linePointProgram);
         glDeleteProgram(textProgram);
@@ -432,7 +432,7 @@ public:
 
     static dd::GlyphTextureHandle GLToHandle(const GLuint id)
     {
-        const std::size_t temp = static_cast<std::size_t>(id);
+        const std::size_t temp = id;
         return reinterpret_cast<dd::GlyphTextureHandle>(temp);
     }
 
@@ -481,7 +481,7 @@ public:
 
     // The "model-view-projection" matrix for the scene.
     // In this demo, it consists of the camera's view and projection matrices only.
-    math::float4x4 mvpMatrix;
+    float4x4 mvpMatrix;
     unsigned width, height;
 
 private:
@@ -574,7 +574,7 @@ const char* DDRenderInterfaceCoreGL::textFragShaderSrc = "\n"
     "    out_FragColor.a = texture(u_glyphTexture, v_TexCoords).r;\n"
     "}\n";
 
-DDRenderInterfaceCoreGL* ModuleDebugDraw::implementation = 0;
+DDRenderInterfaceCoreGL* ModuleDebugDraw::implementation = nullptr;
 
 ModuleDebugDraw::ModuleDebugDraw()
 {
@@ -587,7 +587,7 @@ ModuleDebugDraw::~ModuleDebugDraw()
 bool ModuleDebugDraw::Init()
 {
     implementation = new DDRenderInterfaceCoreGL;
-    dd::initialize(implementation);
+    initialize(implementation);
     return true;
 }
 
@@ -597,12 +597,12 @@ bool ModuleDebugDraw::CleanUp()
     dd::shutdown();
 
     delete implementation;
-    implementation = 0;
+    implementation = nullptr;
 
     return true;
 }
 
-update_status ModuleDebugDraw::Update()
+update_status ModuleDebugDraw::Update(float delta)
 {
     dd::axisTriad(float4x4::identity, 0.1f, 1.0f);
     dd::xzSquareGrid(-15, 15, 0.0f, 1.0f, dd::colors::Green);

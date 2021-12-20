@@ -50,11 +50,12 @@ unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
         path = absolute(relativePath).string();
     }
     //use path from textures folder
-    if (path.empty()){
+    if (path.empty())
+    {
         const std::filesystem::path textPath = texture;
-        const std::filesystem::path projectTexture = 
+        const std::filesystem::path projectTexture =
             BoxerEngine::StringUtils::Concat(ASSETS_PATH, TEXTURES_DIR, textPath.filename().string());
-        
+
         if (BoxerEngine::Files::IsValidFilePath(projectTexture))
         {
             path = projectTexture.string();

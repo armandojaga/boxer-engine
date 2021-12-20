@@ -18,7 +18,7 @@ namespace BoxerEngine
         }
 
         template <class Head, class... Tail>
-        static size_t StrSize(const Head& head, Tail const&... tail)
+        static size_t StrSize(const Head& head, const Tail&... tail)
         {
             return StrSize(head) + StrSize(tail...);
         }
@@ -30,7 +30,7 @@ namespace BoxerEngine
         }
 
         template <class Head, class... Args>
-        static void StrAppend(std::string& out, const Head& head, Args const&... args)
+        static void StrAppend(std::string& out, const Head& head, const Args&... args)
         {
             out += head;
             StrAppend(out, args...);
@@ -38,7 +38,7 @@ namespace BoxerEngine
 
     public:
         template <class... Args>
-        static std::string Concat(Args const&... args)
+        static std::string Concat(const Args&... args)
         {
             size_t tot_size = StrSize(args...);
             std::string out;

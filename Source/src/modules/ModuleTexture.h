@@ -5,7 +5,6 @@
 class ModuleTexture : public Module
 {
 private:
-
 public:
     ModuleTexture() = default;
     ~ModuleTexture() override = default;
