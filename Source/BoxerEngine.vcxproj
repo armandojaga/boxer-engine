@@ -233,6 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\core\GameOptions.h" />
+    <ClInclude Include="src\core\logging\AssimpLogger.h" />
     <ClInclude Include="src\core\rendering\Bindable.h" />
     <ClInclude Include="src\core\rendering\FrameBuffer.h" />
     <ClInclude Include="src\core\rendering\Mesh.h" />

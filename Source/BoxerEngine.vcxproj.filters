@@ -1070,6 +1070,9 @@
     <ClInclude Include="src\modules\ModuleCamera.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\logging\AssimpLogger.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

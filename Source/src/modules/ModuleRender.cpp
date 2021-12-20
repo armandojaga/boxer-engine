@@ -10,6 +10,9 @@
 #include "core/ErrorHandler.h"
 #include "core/util/StringUtils.h"
 
+#include "core/logging/AssimpLogger.h"
+#include <assimp/DefaultLogger.hpp>
+
 // Called before render is available
 bool ModuleRender::Init()
 {
@@ -48,6 +51,21 @@ bool ModuleRender::Init()
     SDL_GetWindowSize(App->window->window, &width, &height);
     frame_buffer = std::make_unique<BoxerEngine::FrameBuffer>(width, height);
     model = std::make_unique<BoxerEngine::Model>();
+
+    // Assimp Logger
+    // Create a logger instance 
+    Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE);
+
+    // Select the kinds of messages you want to receive on this log stream
+    const unsigned int severity =
+        Assimp::Logger::Debugging |
+        Assimp::Logger::Info |
+        Assimp::Logger::Err |
+        Assimp::Logger::Warn;
+
+    // Attaching it to the default logger
+    Assimp::DefaultLogger::get()->attachStream(new AssimpLogger(), severity);
+
     return true;
 }
 
