@@ -229,10 +229,10 @@ void ModuleEditor::CreateMenu()
     }
 }
 
-void ModuleEditor::ShowConsole(bool* open) const
+void ModuleEditor::ShowConsole(bool open) const
 {
     ImGui::SetNextWindowSize(ImVec2(1100, 170), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Console", open))
+    if (!ImGui::Begin("Console", &open))
     {
         ImGui::End();
         return;
@@ -256,10 +256,10 @@ void ModuleEditor::ShowConsole(bool* open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowStats(bool* open) const
+void ModuleEditor::ShowStats(bool open) const
 {
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Statistics", open))
+    if (!ImGui::Begin("Statistics", &open))
     {
         ImGui::End();
         return;
@@ -286,10 +286,10 @@ void ModuleEditor::ShowStats(bool* open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowConfig(bool* open) const
+void ModuleEditor::ShowConfig(bool open) const
 {
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Config", open))
+    if (!ImGui::Begin("Config", &open))
     {
         ImGui::End();
         return;
@@ -323,10 +323,10 @@ void ModuleEditor::ShowConfig(bool* open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowHardware(bool* open) const
+void ModuleEditor::ShowHardware(bool open) const
 {
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Hardware", open))
+    if (!ImGui::Begin("Hardware", &open))
     {
         ImGui::End();
         return;
@@ -341,10 +341,10 @@ void ModuleEditor::ShowHardware(bool* open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowAbout(bool* open) const
+void ModuleEditor::ShowAbout(bool open) const
 {
     ImGui::SetNextWindowSize(ImVec2(605, 400), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("About", open))
+    if (!ImGui::Begin("About", &open))
     {
         ImGui::End();
         return;

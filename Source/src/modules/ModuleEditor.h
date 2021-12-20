@@ -28,12 +28,11 @@ public:
 
 private:
     void CreateMenu();
-    // TODO: A pointer to bool is more expensive than the bool itself
-    void ShowConsole(bool*) const;
-    void ShowStats(bool*) const;
-    void ShowConfig(bool*) const;
-    void ShowHardware(bool*) const;
-    void ShowAbout(bool*) const;
+    void ShowConsole(bool) const;
+    void ShowStats(bool) const;
+    void ShowConfig(bool) const;
+    void ShowHardware(bool) const;
+    void ShowAbout(bool) const;
     void ShowCameraSettings(bool open) const;
     void CreateScene();
 };
