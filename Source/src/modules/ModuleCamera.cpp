@@ -16,7 +16,7 @@ ModuleCamera::ModuleCamera()
       , FarDistance(0.0f)
       , Speed(2.0f)
       , RotationSpeed(1.0f)
-      , ZoomPosSpeed(0.1f)
+      , ZoomPosSpeed(50.0f)
       , ZoomFovSpeed(0.05f)
       , OrbitSpeed(0.1f)
       , OrbitAngle(0.0f)
@@ -159,6 +159,15 @@ void ModuleCamera::CameraInputs()
     TranslationInputs();
     RotationInputs();
     AspectInputs();
+
+    if (App->input->GetMouseWheel().y > 0)
+    {
+        App->camera->ZoomInPosition();
+    }
+    else if (App->input->GetMouseWheel().y < 0)
+    {
+        App->camera->ZoomOutPosition();
+    }
 }
 
 inline void ModuleCamera::TranslationInputs()
