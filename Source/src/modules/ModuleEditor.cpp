@@ -43,24 +43,29 @@ bool ModuleEditor::Init()
     // Font
     io.Fonts->AddFontFromFileTTF("fonts/JetBrainsMono-Light.ttf", 16);
 
-    // UI style
-    ImGui::StyleColorsLight();
     ImGuiStyle& style = ImGui::GetStyle();
     style.Alpha = 0.850f;
     style.DisabledAlpha = 0.60f;
-
-    ImVec4* colors = style.Colors;
-    colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 0.70f);
-    colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
-    colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
-    colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
-
     style.WindowRounding = 6.0f;
     style.ChildRounding = 6.0f;
     style.FrameRounding = 2.0f;
     style.PopupRounding = 6.0f;
     style.ScrollbarRounding = 6.0f;
     style.GrabRounding = 4.0f;
+
+    //TODO read from config file
+#ifdef LIGHT_THEME
+    // UI style
+    ImGui::StyleColorsLight();
+    ImVec4* colors = style.Colors;
+    colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 0.70f);
+    colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
+    colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
+    colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
+    game_options.SetSceneBackgroundColor(float3(0.9f));
+#else
+    game_options.SetSceneBackgroundColor(float3(0.1f));
+#endif
 
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->GetContext());
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);

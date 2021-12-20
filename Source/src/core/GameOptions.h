@@ -1,4 +1,5 @@
 #pragma once
+#include "Math/float3.h"
 
 namespace BoxerEngine
 {
@@ -9,6 +10,7 @@ namespace BoxerEngine
         bool fullscreen = false;
         int vsync = 0;
         bool display_debug_draw = false;
+        float3 scene_background_color = float3(0.0f);
 
     public:
         [[nodiscard]] float GetMaxFPS() const
@@ -49,6 +51,16 @@ namespace BoxerEngine
         [[nodiscard]] bool IsDisplayDebugDraw() const
         {
             return display_debug_draw;
+        }
+
+        void SetSceneBackgroundColor(const float3& sceneBackgroundColor)
+        {
+            scene_background_color = sceneBackgroundColor;
+        }
+
+        [[nodiscard]]const float3& GetSceneBackgroundColor() const
+        {
+            return scene_background_color;
         }
     };
 }
