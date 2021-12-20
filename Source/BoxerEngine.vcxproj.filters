@@ -198,7 +198,9 @@
     <ClCompile Include="src\modules\ModuleResources.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleCamera.cpp" />
+    <ClCompile Include="src\modules\ModuleCamera.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1065,7 +1067,12 @@
     <ClInclude Include="src\core\util\StringUtils.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleCamera.h" />
+    <ClInclude Include="src\modules\ModuleCamera.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\logging\AssimpLogger.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
