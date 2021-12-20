@@ -12,6 +12,7 @@ private:
     bool display_stats = true;
     bool display_config = true;
     bool display_hardware = true;
+    bool display_camera_settings = false;
     bool should_exit = false;
     mutable std::string license_content;
 
@@ -28,10 +29,12 @@ public:
 
 private:
     void CreateMenu();
+    // TODO: A pointer to bool is more expensive than the bool itself
     void ShowConsole(bool*) const;
     void ShowStats(bool*) const;
     void ShowConfig(bool*) const;
     void ShowHardware(bool*) const;
     void ShowAbout(bool*) const;
+    void ShowCameraSettings(bool open) const;
     void CreateScene();
 };
