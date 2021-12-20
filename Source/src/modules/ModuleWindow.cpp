@@ -58,7 +58,7 @@ bool ModuleWindow::CleanUp()
     return true;
 }
 
-update_status ModuleWindow::PreUpdate()
+update_status ModuleWindow::PreUpdate(float delta)
 {
     if (game_options.IsFullscreen())
     {

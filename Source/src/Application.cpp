@@ -61,21 +61,21 @@ update_status Application::Update()
     delta = (current - prev) / 1000.0f;
     prev = current;
 
-    update_status ret = update_status::UPDATE_CONTINUE;
+    auto ret = update_status::UPDATE_CONTINUE;
 
     for (auto it = modules.begin(); it != modules.end() && ret == update_status::UPDATE_CONTINUE; ++it)
     {
-        ret = (*it)->PreUpdate();
+        ret = (*it)->PreUpdate(delta);
     }
 
     for (auto it = modules.begin(); it != modules.end() && ret == update_status::UPDATE_CONTINUE; ++it)
     {
-        ret = (*it)->Update();
+        ret = (*it)->Update(delta);
     }
 
     for (auto it = modules.begin(); it != modules.end() && ret == update_status::UPDATE_CONTINUE; ++it)
     {
-        ret = (*it)->PostUpdate();
+        ret = (*it)->PostUpdate(delta);
     }
 
     return ret;

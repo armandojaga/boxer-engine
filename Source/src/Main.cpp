@@ -19,7 +19,7 @@ int main(int argc, char** argv)
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     int main_return = EXIT_FAILURE;
-    main_states state = main_states::MAIN_CREATION;
+    auto state = main_states::MAIN_CREATION;
 
     game_clock.Start(); //TODO autostart/label
 

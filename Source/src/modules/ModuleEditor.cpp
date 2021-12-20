@@ -68,7 +68,7 @@ bool ModuleEditor::Init()
     return true;
 }
 
-update_status ModuleEditor::PreUpdate()
+update_status ModuleEditor::PreUpdate(float delta)
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
@@ -103,7 +103,7 @@ update_status ModuleEditor::PreUpdate()
     return update_status::UPDATE_CONTINUE;
 }
 
-update_status ModuleEditor::Update()
+update_status ModuleEditor::Update(float delta)
 {
     //make sure we render the opened windows
     if (display_about) ShowAbout(&display_about);
@@ -121,7 +121,7 @@ update_status ModuleEditor::Update()
     return update_status::UPDATE_CONTINUE;
 }
 
-update_status ModuleEditor::PostUpdate()
+update_status ModuleEditor::PostUpdate(float delta)
 {
     ImGuiIO& io = ImGui::GetIO();
 
@@ -402,7 +402,7 @@ void ModuleEditor::ShowCameraSettings(bool open) const
     }
 
     float move_speed = App->camera->GetMoveSpeed();
-    if(ImGui::SliderFloat("Move Speed", &move_speed, 0.1f, 10.0f))
+    if (ImGui::SliderFloat("Move Speed", &move_speed, 0.1f, 10.0f))
     {
         App->camera->SetMoveSpeed(move_speed);
     }

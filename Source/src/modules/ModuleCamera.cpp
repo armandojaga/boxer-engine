@@ -6,7 +6,7 @@
 #include "GL/glew.h"
 #include "MathGeoLib.h"
 
-static const float DEGTORAD = math::pi / 180.0f;
+static const float DEGTORAD = pi / 180.0f;
 static const float EPSILON = 1e-5f;
 
 ModuleCamera::ModuleCamera()
@@ -44,12 +44,12 @@ bool ModuleCamera::Init()
     return true;
 }
 
-update_status ModuleCamera::PreUpdate()
+update_status ModuleCamera::PreUpdate(float delta)
 {
     return update_status::UPDATE_CONTINUE;
 }
 
-update_status ModuleCamera::Update()
+update_status ModuleCamera::Update(float delta)
 {
     CameraInputs();
     return update_status::UPDATE_CONTINUE;
@@ -63,7 +63,7 @@ bool ModuleCamera::CleanUp()
 float4x4 ModuleCamera::GetViewMatrix() const
 {
     // TODO: Return view matrix from roll, pitch & yaw values
-    Quat rotation = Quat();
+    auto rotation = Quat();
     rotation.RotateX(Pitch);
     rotation.RotateY(Yaw);
     rotation.RotateZ(Roll);

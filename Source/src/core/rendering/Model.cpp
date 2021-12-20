@@ -9,6 +9,8 @@
 #include "Mesh.h"
 #include "GL/glew.h"
 
+#include "assimp/scene.h"
+
 BoxerEngine::Model::Model() = default;
 
 BoxerEngine::Model::~Model()
@@ -48,8 +50,8 @@ void BoxerEngine::Model::LoadTextures(const aiScene* scene, const char* path)
     {
         if (scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &file) == AI_SUCCESS)
         {
-            if (const unsigned int textureId = App->textures->Load(file.data, path);
-                textureId != INVALID_ID)
+            const unsigned int textureId = App->textures->Load(file.data, path);
+            if (textureId != INVALID_ID)
             {
                 textures.push_back(textureId);
             }

@@ -76,7 +76,7 @@ bool ModuleRender::Start()
 }
 
 
-update_status ModuleRender::PreUpdate()
+update_status ModuleRender::PreUpdate(float delta)
 {
     glViewport(0, 0, width, height);
     glClearColor(0.9f, 0.9f, 0.9f, 1.0f);
@@ -86,7 +86,7 @@ update_status ModuleRender::PreUpdate()
 }
 
 // Called every draw update
-update_status ModuleRender::Update()
+update_status ModuleRender::Update(float delta)
 {
     App->program->UseProgram();
     const float4x4 modelMatrix = float4x4::identity;
@@ -111,7 +111,7 @@ update_status ModuleRender::Update()
     return update_status::UPDATE_CONTINUE;
 }
 
-update_status ModuleRender::PostUpdate()
+update_status ModuleRender::PostUpdate(float delta)
 {
     SDL_GL_SwapWindow(App->window->window);
     return update_status::UPDATE_CONTINUE;
@@ -135,7 +135,7 @@ void ModuleRender::Resize(const int width, const int height)
         this->height = height;
         frame_buffer->Resize(width, height);
         App->camera->SetAspectRatio(width, height);
-        Update();
+        Update(0);
     }
 }
 

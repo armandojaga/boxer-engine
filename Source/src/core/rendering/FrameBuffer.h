@@ -3,7 +3,7 @@
 
 namespace BoxerEngine
 {
-    class FrameBuffer final: public Bindable
+    class FrameBuffer final : public Bindable
     {
     private:
         unsigned int FBO = 0;
@@ -11,7 +11,8 @@ namespace BoxerEngine
         unsigned int DepthId = 0;
 
         bool binded = false;
-        int width, height;
+        int width{};
+        int height{};
 
     public:
         FrameBuffer(int w, int h);

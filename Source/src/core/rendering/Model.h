@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "assimp/scene.h"
+struct aiScene;
 
 namespace BoxerEngine
 {

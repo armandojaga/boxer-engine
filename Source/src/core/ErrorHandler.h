@@ -96,7 +96,8 @@ namespace BoxerEngine
                 _severity = "UNKNOWN";
                 break;
             }
-            if (severity != GL_DEBUG_SEVERITY_NOTIFICATION) {
+            if (severity != GL_DEBUG_SEVERITY_NOTIFICATION)
+            {
                 BE_LOG("[%s] <%s> (%s) %d: %s", _severity, _type, _source, id, msg);
             }
         }
