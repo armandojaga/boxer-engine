@@ -79,44 +79,20 @@ update_status ModuleEditor::PreUpdate(float delta)
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
 
-    //dockerspace
-    constexpr ImGuiWindowFlags dockspace_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
-        ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-        ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus |
-        ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_MenuBar;
-
-    const ImGuiViewport* viewport = ImGui::GetMainViewport();
-    ImGui::SetNextWindowPos(viewport->Pos);
-    ImGui::SetNextWindowSize(viewport->Size);
-    ImGui::SetNextWindowViewport(viewport->ID);
-
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
-
-    ImGui::Begin("Dockspace", nullptr, dockspace_flags);
-    ImGui::PopStyleVar(3);
-
-    const ImGuiID dockSpaceId = ImGui::GetID("DockspaceID");
-
-    ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
-
-    CreateMenu();
-
-    ImGui::End();
-
     return update_status::UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::Update(float delta)
 {
+    CreateDockerspace();
+
     //make sure we render the opened windows
-    if (display_about) ShowAbout(&display_about);
-    if (display_console) ShowConsole(&display_console);
-    if (display_stats) ShowStats(&display_stats);
-    if (display_config) ShowConfig(&display_config);
-    if (display_hardware) ShowHardware(&display_hardware);
-    if (display_camera_settings) ShowCameraSettings(&display_camera_settings);
+    if (display_about) ShowAbout();
+    if (display_console) ShowConsole();
+    if (display_stats) ShowStats();
+    if (display_config) ShowConfig();
+    if (display_hardware) ShowHardware();
+    if (display_camera_settings) ShowCameraSettings();
 
     CreateScene();
 
@@ -145,6 +121,35 @@ update_status ModuleEditor::PostUpdate(float delta)
     return update_status::UPDATE_CONTINUE;
 }
 
+void ModuleEditor::CreateDockerspace() const
+{
+    //dockerspace
+    constexpr ImGuiWindowFlags dockspace_flags = ImGuiWindowFlags_NoDocking | ImGuiWindowFlags_NoTitleBar |
+        ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+        ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus |
+        ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_MenuBar;
+
+    const ImGuiViewport* viewport = ImGui::GetMainViewport();
+    ImGui::SetNextWindowPos(viewport->Pos);
+    ImGui::SetNextWindowSize(viewport->Size);
+    ImGui::SetNextWindowViewport(viewport->ID);
+
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+    ImGui::Begin("Dockspace", nullptr, dockspace_flags);
+    ImGui::PopStyleVar(3);
+
+    const ImGuiID dockSpaceId = ImGui::GetID("DockspaceID");
+
+    ImGui::DockSpace(dockSpaceId, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_PassthruCentralNode);
+
+    CreateMenu();
+
+    ImGui::End();
+}
+
 bool ModuleEditor::CleanUp()
 {
     ImGui_ImplOpenGL3_Shutdown();
@@ -154,7 +159,7 @@ bool ModuleEditor::CleanUp()
     return true;
 }
 
-void ModuleEditor::CreateScene()
+void ModuleEditor::CreateScene() const
 {
     ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
@@ -173,7 +178,7 @@ void ModuleEditor::CreateScene()
     ImGui::PopStyleVar();
 }
 
-void ModuleEditor::CreateMenu()
+void ModuleEditor::CreateMenu() const
 {
     if (ImGui::BeginMainMenuBar())
     {
@@ -234,10 +239,10 @@ void ModuleEditor::CreateMenu()
     }
 }
 
-void ModuleEditor::ShowConsole(bool open) const
+void ModuleEditor::ShowConsole() const
 {
     ImGui::SetNextWindowSize(ImVec2(1100, 170), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Console", &open))
+    if (!ImGui::Begin("Console", &display_console))
     {
         ImGui::End();
         return;
@@ -261,10 +266,10 @@ void ModuleEditor::ShowConsole(bool open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowStats(bool open) const
+void ModuleEditor::ShowStats() const
 {
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Statistics", &open))
+    if (!ImGui::Begin("Statistics", &display_stats))
     {
         ImGui::End();
         return;
@@ -291,10 +296,10 @@ void ModuleEditor::ShowStats(bool open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowConfig(bool open) const
+void ModuleEditor::ShowConfig() const
 {
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Config", &open))
+    if (!ImGui::Begin("Config", &display_config))
     {
         ImGui::End();
         return;
@@ -328,10 +333,10 @@ void ModuleEditor::ShowConfig(bool open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowHardware(bool open) const
+void ModuleEditor::ShowHardware() const
 {
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Hardware", &open))
+    if (!ImGui::Begin("Hardware", &display_hardware))
     {
         ImGui::End();
         return;
@@ -346,10 +351,10 @@ void ModuleEditor::ShowHardware(bool open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowAbout(bool open) const
+void ModuleEditor::ShowAbout() const
 {
     ImGui::SetNextWindowSize(ImVec2(605, 400), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("About", &open))
+    if (!ImGui::Begin("About", &display_about))
     {
         ImGui::End();
         return;
@@ -367,7 +372,7 @@ void ModuleEditor::ShowAbout(bool open) const
     ImGui::SameLine();
     ImGui::TextColored(red, "<3");
     ImGui::SameLine();
-    ImGui::TextWrapped("by Armando");
+    ImGui::TextWrapped("by Armando and Alvaro");
 
     ImGui::Separator();
 
@@ -397,10 +402,10 @@ void ModuleEditor::ShowAbout(bool open) const
     ImGui::End();
 }
 
-void ModuleEditor::ShowCameraSettings(bool open) const
+void ModuleEditor::ShowCameraSettings() const
 {
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Camera Settings", &open))
+    if (!ImGui::Begin("Camera Settings", &display_camera_settings))
     {
         ImGui::End();
         return;

@@ -53,18 +53,18 @@ int main(int argc, char** argv)
             {
                 //FPS limit
                 // BoxerEngine::Timer clock;
-                float start = game_clock.ReadMs();
+                const float start = game_clock.ReadMs();
 
-                update_status update_return = App->Update();
+                const update_status update_return = App->Update();
 
                 App->statistics->calculate();
 
                 SDL_GL_SetSwapInterval(game_options.GetVsync());
 
                 const float elapsed = game_clock.ReadMs() - start;
-                if (1000.0f / game_options.GetMaxFPS() > elapsed)
+                if (game_options.GetFPSThreshold() > elapsed)
                 {
-                    SDL_Delay(1000.0f / game_options.GetMaxFPS() - elapsed);
+                    SDL_Delay(static_cast<Uint32>(game_options.GetFPSThreshold() - elapsed));
                 }
 
                 if (update_return == update_status::UPDATE_ERROR)
