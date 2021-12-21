@@ -27,17 +27,17 @@ namespace BoxerEngine
     {
         if (!stopped)
         {
-            return ((SDL_GetPerformanceCounter() - start) * 1000.0f) / frequency;
+            return (SDL_GetPerformanceCounter() - start) * ms_frequency_factor;
         }
-        return ((end - start) * 1000.0f) / frequency;
+        return (end - start) * ms_frequency_factor;
     }
 
     float Timer::ReadUs() const
     {
         if (!stopped)
         {
-            return ((SDL_GetPerformanceCounter() - start) * 1000000.0f) / frequency;
+            return (SDL_GetPerformanceCounter() - start) * us_frequency_factor;
         }
-        return ((end - start) * 1000000.0f) / frequency;
+        return (end - start) * us_frequency_factor;
     }
 }
