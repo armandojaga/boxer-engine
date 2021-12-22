@@ -70,4 +70,6 @@ private:
     float2 mouse_position = float2::zero;
     float2 mouse_motion = float2::zero;
     float2 mouse_wheel = float2::zero;
+
+    void ResetInputs();
 };

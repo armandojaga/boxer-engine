@@ -410,20 +410,20 @@ void ModuleEditor::ShowCameraSettings() const
         return;
     }
 
-    float move_speed = App->camera->GetMoveSpeed();
-    if (ImGui::SliderFloat("Move Speed", &move_speed, 0.1f, 10.0f))
+    int move_speed = App->camera->GetMoveSpeed();
+    if (ImGui::SliderInt("Move Speed", &move_speed, 0, 10))
     {
         App->camera->SetMoveSpeed(move_speed);
     }
 
-    float rotation_speed = App->camera->GetRotationSpeed();
-    if (ImGui::SliderFloat("Rotation Speed", &rotation_speed, 0.1f, 10.0f))
+    int rotation_speed = App->camera->GetRotationSpeed();
+    if (ImGui::SliderInt("Rotation Speed", &rotation_speed, 0, 10))
     {
         App->camera->SetRotationSpeed(rotation_speed);
     }
 
-    float zoom_speed = App->camera->GetZoomPosSpeed();
-    if (ImGui::SliderFloat("Zoom Speed", &zoom_speed, 0.1f, 5.0f))
+    int zoom_speed = App->camera->GetZoomPosSpeed();
+    if (ImGui::SliderInt("Zoom Speed", &zoom_speed, 1, 100))
     {
         App->camera->SetZoomPosSpeed(zoom_speed);
     }

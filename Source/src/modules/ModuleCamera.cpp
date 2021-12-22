@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
+#include "ModuleRender.h"
 
 #include "GL/glew.h"
 #include "MathGeoLib.h"
@@ -159,15 +160,6 @@ void ModuleCamera::CameraInputs()
     TranslationInputs();
     RotationInputs();
     AspectInputs();
-
-    if (App->input->GetMouseWheel().y > 0)
-    {
-        App->camera->ZoomInPosition();
-    }
-    else if (App->input->GetMouseWheel().y < 0)
-    {
-        App->camera->ZoomOutPosition();
-    }
 }
 
 inline void ModuleCamera::TranslationInputs()
@@ -190,6 +182,15 @@ inline void ModuleCamera::TranslationInputs()
     if (App->input->IsKeyPressed(SDL_SCANCODE_A))
     {
         Position -= CameraFrustum.WorldRight() * GetSpeed(MoveType::TRANSLATION);
+    }
+
+    if (App->input->GetMouseWheel().y > 0)
+    {
+        ZoomInPosition();
+    }
+    else if (App->input->GetMouseWheel().y < 0)
+    {
+        ZoomOutPosition();
     }
 
     SetPosition(Position);
@@ -264,21 +265,21 @@ inline void ModuleCamera::RotationInputs()
 //
 void ModuleCamera::OrbitModule()
 {
-    //     const Model* model = App->renderer->GetCurrentModel();
-    //     if (model == nullptr)
-    //     {
-    //         return;
-    //     }
-    //     const float3 moduleOrigin = model->GetOrigin();
-    //
-    //     // Radius is the distance to the module in xz plane
-    //     float2 distanceXZ = float2(Position.x - moduleOrigin.x, Position.z - moduleOrigin.z);
-    //     const float radius = sqrt((distanceXZ.x * distanceXZ.x) + (distanceXZ.y * distanceXZ.y));
-    //
-    //     OrbitAngle += GetSpeed(MoveType::ORBIT);
-    //     const float3 position = float3(sin(OrbitAngle * DEGTORAD) * radius, Position.y, cos(OrbitAngle * DEGTORAD) * radius);
-    //     SetPosition(position);
-    //     Look(moduleOrigin);
+         const std::unique_ptr<BoxerEngine::Model> model = App->renderer->GetModel();
+         if (model == nullptr)
+         {
+             return;
+         }
+         const float3 moduleOrigin = model->GetOrigin();
+    
+         // Radius is the distance to the module in xz plane
+         float2 distanceXZ = float2(Position.x - moduleOrigin.x, Position.z - moduleOrigin.z);
+         const float radius = sqrt((distanceXZ.x * distanceXZ.x) + (distanceXZ.y * distanceXZ.y));
+    
+         OrbitAngle += GetSpeed(MoveType::ORBIT);
+         const float3 position = float3(sin(OrbitAngle * DEGTORAD) * radius, Position.y, cos(OrbitAngle * DEGTORAD) * radius);
+         SetPosition(position);
+         Look(moduleOrigin);
 }
 
 void ModuleCamera::ZoomInPosition()
