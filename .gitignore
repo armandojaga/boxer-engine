@@ -344,3 +344,6 @@ MigrationBackup/
 .ionide/
 Source/VTune Profiler Results/
 Source/.idea/
+
+# ImGui
+Game/imgui.ini
