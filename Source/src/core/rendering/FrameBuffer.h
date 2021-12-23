@@ -6,11 +6,10 @@ namespace BoxerEngine
     class FrameBuffer final : public Bindable
     {
     private:
-        unsigned int FBO = 0;
-        unsigned int TexId = 0;
-        unsigned int DepthId = 0;
+        unsigned int fbo_id = 0;
+        unsigned int texture_id = 0;
+        unsigned int rbo_id = 0;
 
-        bool binded = false;
         int width{};
         int height{};
 
@@ -19,39 +18,22 @@ namespace BoxerEngine
         ~FrameBuffer() override;
 
         void Resize(int width, int height);
-        void Invalidate();
 
         void Bind() override;
         void Unbind() override;
 
         [[nodiscard]] unsigned GetFrameBufferId() const
         {
-            return FBO;
-        }
-
-        void SetFrameBuffer(const unsigned fbo)
-        {
-            FBO = fbo;
+            return fbo_id;
         }
 
         [[nodiscard]] unsigned GetTextureId() const
         {
-            return TexId;
+            return texture_id;
         }
 
-        void SetTextureId(const unsigned texId)
-        {
-            TexId = texId;
-        }
-
-        [[nodiscard]] unsigned GetDepthId() const
-        {
-            return DepthId;
-        }
-
-        void SetDepthId(const unsigned depthId)
-        {
-            DepthId = depthId;
-        }
+    private:
+        void Reset();
+        void Create();
     };
 }
