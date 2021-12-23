@@ -159,7 +159,9 @@
   <ItemGroup>
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp" />
     <ClCompile Include="src\core\rendering\Mesh.cpp" />
+    <ClCompile Include="src\core\rendering\Mesh_A.cpp" />
     <ClCompile Include="src\core\rendering\Model.cpp" />
+    <ClCompile Include="src\core\rendering\Model_A.cpp" />
     <ClCompile Include="src\modules\ModuleCamera.cpp" />
     <ClCompile Include="src\modules\ModuleProgram.cpp" />
     <ClCompile Include="src\modules\ModuleResources.cpp" />
@@ -237,7 +239,9 @@
     <ClInclude Include="src\core\rendering\Bindable.h" />
     <ClInclude Include="src\core\rendering\FrameBuffer.h" />
     <ClInclude Include="src\core\rendering\Mesh.h" />
+    <ClInclude Include="src\core\rendering\Mesh_A.h" />
     <ClInclude Include="src\core\rendering\Model.h" />
+    <ClInclude Include="src\core\rendering\Model_A.h" />
     <ClInclude Include="src\core\util\StringUtils.h" />
     <ClInclude Include="src\instrumentation\MemoryLeaks.h" />
     <ClInclude Include="src\core\util\Cache.h" />

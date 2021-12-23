@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
+#include "core/rendering/Model_A.h"
 
 #include "GL/glew.h"
 #include "MathGeoLib.h"
@@ -265,7 +266,7 @@ inline void ModuleCamera::RotationInputs()
 //
 void ModuleCamera::OrbitModule()
 {
-         const std::unique_ptr<BoxerEngine::Model> model = App->renderer->GetModel();
+         const std::shared_ptr<Model_A> model = App->renderer->GetModel();
          if (model == nullptr)
          {
              return;

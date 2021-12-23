@@ -201,6 +201,12 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp">
       <Filter>Modules\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\rendering\Mesh_A.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\rendering\Model_A.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1072,6 +1078,12 @@
     </ClInclude>
     <ClInclude Include="src\modules\ModuleWindow.h">
       <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Mesh_A.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Model_A.h">
+      <Filter>Core\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
