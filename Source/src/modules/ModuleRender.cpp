@@ -13,6 +13,11 @@
 #include "core/logging/AssimpLogger.h"
 #include <assimp/DefaultLogger.hpp>
 
+ModuleRender::~ModuleRender()
+{
+    delete frame_buffer;
+}
+
 // Called before render is available
 bool ModuleRender::Init()
 {
@@ -49,8 +54,8 @@ bool ModuleRender::Init()
 #endif
 
     SDL_GetWindowSize(App->window->window, &width, &height);
-    frame_buffer = std::make_unique<BoxerEngine::FrameBuffer>(width, height);
-    model = std::make_unique<BoxerEngine::Model>();
+    frame_buffer = new BoxerEngine::FrameBuffer(width, height);
+    model = std::make_shared<Model_A>();
 
     // Assimp Logger
     // Create a logger instance 
@@ -98,7 +103,7 @@ update_status ModuleRender::Update(float delta)
     App->program->SetUniform("view", view);
     App->program->SetUniform("projection", projection);
 
-    App->renderer->GetFrameBuffer().Bind();
+    App->renderer->GetFrameBuffer()->Bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if (game_options.IsDisplayDebugDraw())
@@ -108,7 +113,7 @@ update_status ModuleRender::Update(float delta)
     App->program->UseProgram();
     App->renderer->GetModel()->Draw();
 
-    App->renderer->GetFrameBuffer().Unbind();
+    App->renderer->GetFrameBuffer()->Unbind();
     return update_status::UPDATE_CONTINUE;
 }
 

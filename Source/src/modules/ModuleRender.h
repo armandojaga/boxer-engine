@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "GL/glew.h"
 #include "core/rendering/FrameBuffer.h"
-#include "core/rendering/Model.h"
+#include "core/rendering/Model_A.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -14,7 +14,7 @@ class ModuleRender : public Module
 {
 public:
     ModuleRender() = default;
-    ~ModuleRender() override = default;
+    ~ModuleRender() override;
 
     bool Init() override;
     bool Start() override;
@@ -25,19 +25,20 @@ public:
     void Resize(int width, int height);
     [[nodiscard]] void* GetContext() const;
 
-    [[nodiscard]] BoxerEngine::FrameBuffer& GetFrameBuffer() const
-    {
-        return *frame_buffer;
-    }
-
-    [[nodiscard]] const std::unique_ptr<BoxerEngine::Model>& GetModel() const
+    [[nodiscard]] const std::shared_ptr<Model_A>& GetModel() const
     {
         return model;
+    }
+
+    [[nodiscard]] BoxerEngine::FrameBuffer* GetFrameBuffer() const
+    {
+        return frame_buffer;
     }
 
 private:
     void* context{};
     int width{}, height{};
-    std::unique_ptr<BoxerEngine::FrameBuffer> frame_buffer;
-    std::unique_ptr<BoxerEngine::Model> model;
+    BoxerEngine::FrameBuffer* frame_buffer;
+    std::shared_ptr<Model_A> model;
+
 };

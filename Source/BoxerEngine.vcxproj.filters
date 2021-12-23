@@ -202,6 +202,12 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c" />
+    <ClCompile Include="src\core\rendering\Mesh_A.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\rendering\Model_A.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1079,6 +1085,12 @@
     </ClInclude>
     <ClInclude Include="src\core\bepch.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Mesh_A.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Model_A.h">
+      <Filter>Core\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

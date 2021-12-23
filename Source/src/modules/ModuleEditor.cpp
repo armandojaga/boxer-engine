@@ -171,7 +171,7 @@ void ModuleEditor::CreateScene() const
     App->renderer->Resize(x, y);
 
     // to actually render inside the scene window
-    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer().GetTextureId()), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
+    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer()->GetTextureId()), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
 
     ImGui::End();
     ImGui::PopStyleVar();
