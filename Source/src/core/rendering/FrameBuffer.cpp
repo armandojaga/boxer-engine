@@ -34,7 +34,7 @@ void BoxerEngine::FrameBuffer::Reset()
     {
         glDeleteFramebuffers(GL_FRAMEBUFFER, &fbo_id);
         glDeleteTextures(1, &texture_id);
-        glDeleteTextures(1, &rbo_id);
+        glDeleteRenderbuffers(1, &rbo_id);
         texture_id = 0;
         rbo_id = 0;
         Unbind();
