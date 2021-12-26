@@ -77,14 +77,13 @@ void BoxerEngine::Mesh::CreateVAO()
 
 void BoxerEngine::Mesh::Draw(const std::vector<unsigned int>& model_textures) const
 {
-    glActiveTexture(GL_TEXTURE0);
-
+    constexpr int textureUnit = 0;
     if (!model_textures.empty())
     {
-        glBindTexture(GL_TEXTURE_2D, model_textures[texture]);
+        glBindTextureUnit(textureUnit, model_textures[texture]);
     }
 
-    App->program->SetUniform("texture", 0);
+    App->program->SetUniform("texture", textureUnit);
 
     glBindVertexArray(vao);
 
