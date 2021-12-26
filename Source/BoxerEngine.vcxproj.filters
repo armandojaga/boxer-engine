@@ -1076,6 +1076,7 @@
     </ClInclude>
     <ClInclude Include="src\core\util\UUID.h">
       <Filter>Core\Util</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\bepch.h">
       <Filter>Core</Filter>
     </ClInclude>
