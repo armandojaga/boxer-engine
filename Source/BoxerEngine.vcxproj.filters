@@ -57,9 +57,6 @@
     <ClCompile Include="vendors\MathGeoLib\include\Math\float4x4.cpp">
       <Filter>Vendors\MathGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c">
-      <Filter>Vendors\MathGeoLib\Math</Filter>
-    </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3_cpp.cpp">
       <Filter>Vendors\MathGeoLib\Math</Filter>
     </ClCompile>
@@ -156,9 +153,6 @@
     <ClCompile Include="vendors\MathGeoLib\include\Time\Clock.cpp">
       <Filter>Vendors\MathGeoLib\Time</Filter>
     </ClCompile>
-    <ClCompile Include="vendors\DevIL\include\IL\luadevil.c">
-      <Filter>Vendors\DevIL</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\logging\ConsoleLogger.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
@@ -204,6 +198,10 @@
     <ClCompile Include="src\core\util\UUID.cpp">
       <Filter>Core\Util</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\bepch.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1078,6 +1076,8 @@
     </ClInclude>
     <ClInclude Include="src\core\util\UUID.h">
       <Filter>Core\Util</Filter>
+    <ClInclude Include="src\core\bepch.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

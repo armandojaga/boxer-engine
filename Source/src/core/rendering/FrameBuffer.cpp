@@ -44,29 +44,30 @@ void BoxerEngine::FrameBuffer::Reset()
 void BoxerEngine::FrameBuffer::Create()
 {
     //create frame buffer
-    glGenFramebuffers(1, &fbo_id);
+    glCreateFramebuffers(1, &fbo_id);
     Bind();
 
+    //TODO consider rendering to screen size instead of viewport size
     //create associated texture
     glCreateTextures(GL_TEXTURE_2D, 1, &texture_id);
-    glBindTexture(GL_TEXTURE_2D, texture_id);
+    
+    glTextureParameteri(texture_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTextureParameteri(texture_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTextureParameteri(texture_id, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    glTextureParameteri(texture_id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTextureParameteri(texture_id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture_id, 0);
+    glTextureStorage2D(texture_id, 1, GL_RGB8, width, height);
 
-    //create render buffer
+    glNamedFramebufferTexture(fbo_id, GL_COLOR_ATTACHMENT0, texture_id, 0);
+
+    //create render buffer (depth)
     glCreateRenderbuffers(1, &rbo_id);
-    glBindRenderbuffer(GL_RENDERBUFFER, rbo_id);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo_id);
+    glNamedRenderbufferStorage(rbo_id, GL_DEPTH24_STENCIL8, width, height);
+    glNamedFramebufferRenderbuffer(fbo_id, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo_id);
 
     //check if creation was successful
-    assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
+    assert(glCheckNamedFramebufferStatus(rbo_id, GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 
     Unbind();
 }
