@@ -163,7 +163,7 @@
       <Filter>UI\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\core\util\Timer.cpp">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClCompile>
     <ClCompile Include="src\modules\ModuleScene.cpp">
       <Filter>Modules</Filter>
@@ -194,6 +194,9 @@
     </ClCompile>
     <ClCompile Include="src\modules\ModuleCamera.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\util\UUID.cpp">
+      <Filter>Core\Util</Filter>
     </ClCompile>
     <ClCompile Include="src\core\bepch.cpp">
       <Filter>Core</Filter>
@@ -1000,10 +1003,10 @@
       <Filter>Logging</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Timer.h">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Files.h">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\instrumentation\Statistics.h">
       <Filter>Instrumentation</Filter>
@@ -1030,7 +1033,7 @@
       <Filter>UI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Cache.h">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\Bindable.h">
       <Filter>Core\Rendering</Filter>
@@ -1063,7 +1066,7 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\StringUtils.h">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\modules\ModuleCamera.h">
       <Filter>Modules</Filter>
@@ -1071,6 +1074,8 @@
     <ClInclude Include="src\core\logging\AssimpLogger.h">
       <Filter>Logging</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\util\UUID.h">
+      <Filter>Core\Util</Filter>
     <ClInclude Include="src\core\bepch.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -1078,9 +1083,6 @@
   <ItemGroup>
     <Filter Include="Modules">
       <UniqueIdentifier>{c98c3398-cea2-4a8b-9073-0ea272f2dbad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Util">
-      <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Vendors">
       <UniqueIdentifier>{7245133f-7871-47b7-912a-f9d8eec3ce74}</UniqueIdentifier>
@@ -1153,6 +1155,9 @@
     </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{08ea9f15-9e0f-49ca-8a06-f19f6a4d4d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Util">
+      <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
