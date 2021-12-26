@@ -167,7 +167,6 @@ void ModuleEditor::CreateScene() const
 
     const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
     float x = viewportPanelSize.x, y = viewportPanelSize.y;
-    glViewport(0, 0, x, y);
 
     App->renderer->Resize(x, y);
 

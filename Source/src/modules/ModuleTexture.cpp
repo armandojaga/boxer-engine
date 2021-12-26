@@ -28,7 +28,7 @@ bool ModuleTexture::CleanUp()
 unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
 {
     unsigned int textureId(INVALID_ID);
-    unsigned int image;
+    unsigned int image{};
 
     std::filesystem::path relativePath;
     if (modelPath)
@@ -66,23 +66,26 @@ unsigned int ModuleTexture::Load(const char* texture, const char* modelPath)
     {
         ilGenImages(1, &image);
         ilBindImage(image);
-        if (bool success = ilLoadImage(path.c_str()))
+        if (ilLoadImage(path.c_str()))
         {
-            success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+            const bool success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
             if (!success)
             {
                 return INVALID_ID;
             }
-            glGenTextures(1, &textureId);
-            glBindTexture(GL_TEXTURE_2D, textureId);
 
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH),
-                         ilGetInteger(IL_IMAGE_HEIGHT), 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE,
-                         ilGetData());
+            const int width = ilGetInteger(IL_IMAGE_WIDTH);
+            const int height = ilGetInteger(IL_IMAGE_HEIGHT);
 
-            glGenerateMipmap(GL_TEXTURE_2D);
+            glCreateTextures(GL_TEXTURE_2D, 1, &textureId);
+
+            glTextureParameteri(textureId, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTextureParameteri(textureId, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+            glTextureStorage2D(textureId, 1, ilGetInteger(IL_IMAGE_BPP), width, height);
+            glTextureSubImage2D(textureId, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
+
+            glGenerateTextureMipmap(textureId);
         }
         ilDeleteImages(1, &image);
     }
