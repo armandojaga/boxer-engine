@@ -1,11 +1,11 @@
 #include "Model_A.h"
+#include "Application.h"
+#include "modules/ModuleTexture.h"
 
 #include "Globals.h"
 #include "GL/glew.h"
-#include <IL/il.h>
-#include <IL/ilu.h>
 #include "Math/float3.h"
-#include <assimp/DefaultLogger.hpp>
+
 #include <algorithm>
 
 Model_A::Model_A(const char* file)
@@ -70,14 +70,6 @@ Mesh_A Model_A::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     std::vector<unsigned int> indices;
     std::vector<Texture_A> textures;
 
-    // Store the first values to be able to compare them later
-    //AABB.xBounds.min = mesh->mVertices[0].x;
-    //AABB.xBounds.max = mesh->mVertices[0].x;
-    //AABB.yBounds.min = mesh->mVertices[0].y;
-    //AABB.yBounds.max = mesh->mVertices[0].y;
-    //AABB.zBounds.min = mesh->mVertices[0].z;
-    //AABB.zBounds.max = mesh->mVertices[0].z;
-
     // process vertex positions, normals and texture coordinates
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -89,19 +81,13 @@ Mesh_A Model_A::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         vector.y = mesh->mVertices[i].y;
         vector.z = mesh->mVertices[i].z;
         vertex.Position = vector;
-         
-        //AABB.xBounds.min = std::min(AABB.xBounds.min, vector.x);
-        //AABB.xBounds.max = std::max(AABB.xBounds.max, vector.x);
-        //AABB.yBounds.min = std::min(AABB.yBounds.min, vector.y);
-        //AABB.yBounds.max = std::max(AABB.yBounds.max, vector.y);
-        //AABB.zBounds.min = std::min(AABB.zBounds.min, vector.z);
-        //AABB.zBounds.max = std::max(AABB.zBounds.max, vector.z);
 
         // Normals
         vector.x = mesh->mNormals[i].x;
         vector.y = mesh->mNormals[i].y;
         vector.z = mesh->mNormals[i].z;
         vertex.Normal = vector;
+
         // Texture coords (Mesh couln'd have any)
         if (mesh->mTextureCoords[0])
         {
@@ -159,18 +145,21 @@ std::vector<Texture_A> Model_A::LoadMaterialTextures(aiMaterial* mat, aiTextureT
                 break;
             }
         }
+
         if (skip)
         {
             continue;
         }
+
         // if texture hasn't been loaded already, load it
         Texture_A texture;
-        const int texId = TextureFromFile(str.C_Str(), Directory);
+        const int texId = App->textures->Load(str.C_Str());
         if (texId < 0)
         {
             BE_LOG("Cannot Load Texture: %s", str.C_Str());
             continue;
         }
+
         texture.Id = (unsigned)texId;
         texture.Type = typeName;
         texture.Path = str.C_Str();
@@ -187,70 +176,4 @@ void Model_A::Draw()
 	{
         Meshes[i].Draw();
 	}
-}
-
-int Model_A::TextureFromFile(const char* path, const std::string& directory) const
-{
-    ILuint texid;
-
-    if (ilGetInteger(IL_VERSION_NUM) < IL_VERSION)
-    {
-        BE_LOG("[ERROR] Wrong DevIl version. Cannot load texture");
-        return -1;
-    }
-
-    ilInit();
-    ilGenImages(1, &texid);
-    ilBindImage(texid);
-    std::string textureRelativePath = std::string(path);
-    std::string textureName = textureRelativePath.substr(textureRelativePath.find_last_of("/\\") + 1);
-
-    std::vector<std::string> searchPaths;
-    searchPaths.push_back(directory + "\\" + textureRelativePath);
-    searchPaths.push_back(directory + "\\" + textureName);
-    searchPaths.push_back(std::string(TEXTURES_DIR) + "\\" + textureName);
-    
-    ILboolean success = IL_FALSE;
-
-    for (int i = 0; i < searchPaths.size() && !success; ++i)
-    {
-        BE_LOG("Try to load texture in: %s", searchPaths[i].c_str());
-        success = ilLoadImage(searchPaths[i].c_str());
-    }
-
-    if (!success)
-    {
-        return -1;
-    }
-
-    success = ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE); 
-    if (success != IL_TRUE)
-    {
-        return -1;
-    }
-
-    ILinfo ImageInfo;
-    iluGetImageInfo(&ImageInfo);
-    if (ImageInfo.Origin == IL_ORIGIN_LOWER_LEFT)
-    {
-        iluFlipImage();
-    }
-
-    glActiveTexture(GL_TEXTURE0);
-
-    GLuint textureId;
-    glGenTextures(1, &textureId);
-    glBindTexture(GL_TEXTURE_2D, textureId);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-	// Texture specification 
-    glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH),
-        ilGetInteger(IL_IMAGE_HEIGHT), 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE, ilGetData());
-
-    // Texture parameters
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);   // We will use linear interpolation for magnification filter
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);   // We will use linear interpolation for minifying filter
-
-    ilDeleteImages(1, &texid); // Because we have already copied image data into texture data we can release memory used by image
-    return textureId;
 }

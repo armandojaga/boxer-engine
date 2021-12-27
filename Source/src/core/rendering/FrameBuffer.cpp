@@ -38,7 +38,7 @@ void BoxerEngine::FrameBuffer::Invalidate()
         DepthId = 0;
         Unbind();
     }
-
+    
     glGenFramebuffers(1, &FBO);
     Bind();
 
