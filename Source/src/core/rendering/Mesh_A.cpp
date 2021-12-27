@@ -31,13 +31,9 @@ void Mesh_A::SetupMesh()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex_A), (void*)0);
 
-    // Vertex normals
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex_A), (void*)offsetof(Vertex_A, Normal));
-
     // Vertex texture coords
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex_A), (void*)offsetof(Vertex_A, TexCoords));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex_A), (void*)offsetof(Vertex_A, TexCoords));
 
     glBindVertexArray(0);
 }
@@ -49,22 +45,25 @@ void Mesh_A::Draw()
     for (unsigned int i = 0; i < Textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
+
         // activate proper Texture unit before binding
         // retrieve Texture number (the N in diffuse_TextureN)
         std::string number;
         std::string name = Textures[i].Type;
-        if (name == "Texture_A_diffuse")
+        if (name == "texture_diffuse")
         {
             number = std::to_string(diffuseNr++);
         }
-        else if (name == "Texture_A_specular")
+        else if (name == "texture_specular")
         {
             number = std::to_string(specularNr++);
         }
         App->program->SetUniform((name + number), (int)i);
         glBindTexture(GL_TEXTURE_2D, Textures[i].Id);
     }
+
     glActiveTexture(GL_TEXTURE0);
+
     // draw mesh
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, Indices.size(), GL_UNSIGNED_INT, 0);
