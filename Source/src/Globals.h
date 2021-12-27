@@ -25,7 +25,7 @@ enum class update_status
 
 #define LICENSE_PATH "../licenses/LICENSE.TXT"
 
-#define INVALID_ID (-1)
+constexpr int INVALID_ID = 0;
 
 // Configuration -----------
 #define SCREEN_WIDTH 1280

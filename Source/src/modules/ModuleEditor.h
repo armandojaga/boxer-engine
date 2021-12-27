@@ -7,13 +7,13 @@ class ModuleEditor : public Module
 {
 private:
     BoxerEngine::ConsolePanel* console;
-    bool display_about = false;
-    bool display_console = true;
-    bool display_stats = true;
-    bool display_config = true;
-    bool display_hardware = true;
-    bool display_camera_settings = false;
-    bool should_exit = false;
+    mutable bool display_about = false;
+    mutable bool display_console = true;
+    mutable bool display_stats = true;
+    mutable bool display_config = true;
+    mutable bool display_hardware = true;
+    mutable bool display_camera_settings = false;
+    mutable bool should_exit = false;
     mutable std::string license_content;
 
 public:
@@ -27,13 +27,13 @@ public:
     bool CleanUp() override;
 
 private:
-    void CreateMenu();
-    // TODO: A pointer to bool is more expensive than the bool itself
-    void ShowConsole(bool*) const;
-    void ShowStats(bool*) const;
-    void ShowConfig(bool*) const;
-    void ShowHardware(bool*) const;
-    void ShowAbout(bool*) const;
-    void ShowCameraSettings(bool open) const;
-    void CreateScene();
+    void CreateDockerspace() const;
+    void CreateMenu() const ;
+    void ShowConsole() const;
+    void ShowStats() const;
+    void ShowConfig() const;
+    void ShowHardware() const;
+    void ShowAbout() const;
+    void ShowCameraSettings() const;
+    void CreateScene() const;
 };

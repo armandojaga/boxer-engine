@@ -48,9 +48,6 @@
     <ClCompile Include="vendors\MathGeoLib\include\Math\float4x4.cpp">
       <Filter>Vendors\MathGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c">
-      <Filter>Vendors\MathGeoLib\Math</Filter>
-    </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3_cpp.cpp">
       <Filter>Vendors\MathGeoLib\Math</Filter>
     </ClCompile>
@@ -147,9 +144,6 @@
     <ClCompile Include="vendors\MathGeoLib\include\Time\Clock.cpp">
       <Filter>Vendors\MathGeoLib\Time</Filter>
     </ClCompile>
-    <ClCompile Include="vendors\DevIL\include\IL\luadevil.c">
-      <Filter>Vendors\DevIL</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\logging\ConsoleLogger.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
@@ -160,7 +154,7 @@
       <Filter>UI\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\core\util\Timer.cpp">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClCompile>
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp">
       <Filter>Core\Rendering</Filter>
@@ -207,6 +201,13 @@
     <ClCompile Include="src\core\rendering\Model_A.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\util\UUID.cpp">
+      <Filter>Core\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\bepch.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -999,10 +1000,10 @@
       <Filter>Logging</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Timer.h">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Files.h">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\instrumentation\Statistics.h">
       <Filter>Instrumentation</Filter>
@@ -1023,7 +1024,7 @@
       <Filter>UI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Cache.h">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\Bindable.h">
       <Filter>Core\Rendering</Filter>
@@ -1072,6 +1073,8 @@
     </ClInclude>
     <ClInclude Include="src\modules\ModuleScene.h">
       <Filter>Modules\Header Files</Filter>
+    <ClInclude Include="src\core\util\StringUtils.h">
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\modules\ModuleTexture.h">
       <Filter>Modules\Header Files</Filter>
@@ -1085,13 +1088,16 @@
     <ClInclude Include="src\core\rendering\Model_A.h">
       <Filter>Core\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\util\UUID.h">
+      <Filter>Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\bepch.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
       <UniqueIdentifier>{c98c3398-cea2-4a8b-9073-0ea272f2dbad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Util">
-      <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Vendors">
       <UniqueIdentifier>{7245133f-7871-47b7-912a-f9d8eec3ce74}</UniqueIdentifier>
@@ -1170,6 +1176,8 @@
     </Filter>
     <Filter Include="Modules\Source Files">
       <UniqueIdentifier>{784d97ca-46ad-4d1f-bf62-3838c3cb7044}</UniqueIdentifier>
+    <Filter Include="Core\Util">
+      <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
