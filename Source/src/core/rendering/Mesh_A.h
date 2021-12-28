@@ -7,32 +7,32 @@
 
 struct Vertex_A
 {
-    float3 Position;
-    float3 Normal;
-    float2 TexCoords;
+    float3 position;
+    float3 normal;
+    float2 tex_coords;
 };
 
 struct Texture_A
 {
-    unsigned int Id;
-    std::string Type;
-    std::string Path;
+    unsigned int id;
+    std::string type;
+    std::string path;
 };
 
 class Mesh_A
 {
 public:
     // mesh data
-    std::vector<Vertex_A>       Vertices;
-    std::vector<unsigned int>   Indices;
-    std::vector<Texture_A>      Textures;
+    std::vector<Vertex_A>       vertices;
+    std::vector<unsigned int>   indices;
+    std::vector<Texture_A>      textures;
 
     Mesh_A(std::vector<Vertex_A> vertices, std::vector<unsigned int> indices, std::vector<Texture_A> textures);
     void Draw();
 
-    size_t GetNumVertices() const  { return Vertices.size(); }
-    size_t GetNumIndices()  const  { return Indices.size(); }
-    size_t GetNumTextures() const  { return Textures.size(); }
+    size_t GetNumVertices() const  { return vertices.size(); }
+    size_t GetNumIndices()  const  { return indices.size(); }
+    size_t GetNumTextures() const  { return textures.size(); }
 
 private:
     //  render data

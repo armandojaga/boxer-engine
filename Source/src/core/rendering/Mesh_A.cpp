@@ -5,11 +5,11 @@
 #include "Application.h"
 #include "modules/ModuleProgram.h"
 
-Mesh_A::Mesh_A(std::vector<Vertex_A> vertices, std::vector<unsigned int> indices, std::vector<Texture_A> textures)
+Mesh_A::Mesh_A(std::vector<Vertex_A> ver, std::vector<unsigned int> ind, std::vector<Texture_A> tex)
 {
-    Vertices = vertices;
-    Indices = indices;
-    Textures = textures;
+    vertices = ver;
+    indices = ind;
+    textures = tex;
 
     SetupMesh();
 }
@@ -22,10 +22,10 @@ void Mesh_A::SetupMesh()
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(Vertex_A), &Vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex_A), &vertices[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned int),
-        &Indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
+        &indices[0], GL_STATIC_DRAW);
 
     // Vertex positions
     glEnableVertexAttribArray(0);
@@ -33,7 +33,7 @@ void Mesh_A::SetupMesh()
 
     // Vertex texture coords
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex_A), (void*)offsetof(Vertex_A, TexCoords));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex_A), (void*)offsetof(Vertex_A, tex_coords));
 
     glBindVertexArray(0);
 }
@@ -42,14 +42,14 @@ void Mesh_A::Draw()
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
-    for (unsigned int i = 0; i < Textures.size(); i++)
+    for (unsigned int i = 0; i < textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
 
         // activate proper Texture unit before binding
         // retrieve Texture number (the N in diffuse_TextureN)
         std::string number;
-        std::string name = Textures[i].Type;
+        std::string name = textures[i].type;
         if (name == "texture_diffuse")
         {
             number = std::to_string(diffuseNr++);
@@ -59,13 +59,13 @@ void Mesh_A::Draw()
             number = std::to_string(specularNr++);
         }
         App->program->SetUniform((name + number), (int)i);
-        glBindTexture(GL_TEXTURE_2D, Textures[i].Id);
+        glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
 
     glActiveTexture(GL_TEXTURE0);
 
     // draw mesh
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, Indices.size(), GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }

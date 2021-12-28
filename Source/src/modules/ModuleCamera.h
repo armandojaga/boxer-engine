@@ -31,10 +31,10 @@ public:
     [[nodiscard]] float GetAspectRatio() const;
     [[nodiscard]] float GetHorizontalFovDegrees() const;
 
-    [[nodiscard]] float GetMoveSpeed() const { return Speed; };
-    [[nodiscard]] float GetZoomPosSpeed() const { return ZoomPosSpeed; };
-    [[nodiscard]] float GetRotationSpeed() const { return RotationSpeed; };
-    [[nodiscard]] float GetOrbitSpeed() const { return OrbitSpeed; };
+    [[nodiscard]] float GetMoveSpeed() const { return move_speed; };
+    [[nodiscard]] float GetZoomPosSpeed() const { return zoom_pos_speed; };
+    [[nodiscard]] float GetRotationSpeed() const { return rotation_speed; };
+    [[nodiscard]] float GetOrbitSpeed() const { return orbit_speed; };
 
     void SetPosition(const float3& position);
     void Rotate(float pitch, float yaw, float roll);
@@ -43,10 +43,10 @@ public:
     void SetPlaneDistances(float nearDist, float farDist);
     void SetDefaultValues();
 
-    void SetMoveSpeed(const float speed) { Speed = speed; };
-    void SetZoomPosSpeed(const float speed) { ZoomPosSpeed = speed; };
-    void SetRotationSpeed(const float speed) { RotationSpeed = speed; };
-    void SetOrbitSpeed(const float speed) { OrbitSpeed = speed; };
+    void SetMoveSpeed(const float speed) { move_speed = speed; };
+    void SetZoomPosSpeed(const float speed) { zoom_pos_speed = speed; };
+    void SetRotationSpeed(const float speed) { rotation_speed = speed; };
+    void SetOrbitSpeed(const float speed) { orbit_speed = speed; };
 
     void Look(const float3& position);
     void LookModule();
@@ -54,33 +54,33 @@ public:
     void ZoomOutPosition();
 
 private:
-    Frustum CameraFrustum;
+    Frustum camera_frustum;
 
     // Projection
-    float AspectRatio;
-    float HorizontalFovDegree;
-    float NearDistance;
-    float FarDistance;
+    float aspect_ratio;
+    float horizontal_fov_degree;
+    float near_distance;
+    float far_distance;
 
     // Speed
-    float Speed;
-    float RotationSpeed;
-    float ZoomPosSpeed;
-    float ZoomFovSpeed;
-    float OrbitSpeed;
+    float move_speed;
+    float rotation_speed;
+    float zoom_pos_speed;
+    float zoom_fov_speed;
+    float orbit_speed;
 
-    float OrbitAngle;
+    float orbit_angle;
 
     // Rotation (WIP)
-    float Roll;
-    float Pitch;
-    float Yaw;
+    float roll;
+    float pitch;
+    float yaw;
     void SetRotationMatrix();
-    float4x4 RotationMatrix;
-    float4x4 TranslationMatrix;
+    float4x4 rotation_matrix;
+    float4x4 translation_matrix;
 
-    float3 LookPosition;
-    float3 Position;
+    float3 look_position;
+    float3 position;
 
     void CameraInputs();
     void TranslationInputs();
