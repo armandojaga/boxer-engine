@@ -16,11 +16,11 @@ ModuleCamera::ModuleCamera()
       , HorizontalFovDegree(0.0f)
       , NearDistance(0.0f)
       , FarDistance(0.0f)
-      , Speed(2.0f)
-      , RotationSpeed(1.0f)
+      , Speed(15.0f)
+      , RotationSpeed(15.0f)
       , ZoomPosSpeed(50.0f)
       , ZoomFovSpeed(0.05f)
-      , OrbitSpeed(0.1f)
+      , OrbitSpeed(25.0f)
       , OrbitAngle(0.0f)
       , Roll(0.0f)
       , Pitch(0.0f)
@@ -208,6 +208,7 @@ inline void ModuleCamera::AspectInputs()
     {
         ZoomInFOV();
     }
+    
     SetHorizontalFovInDegrees(HorizontalFovDegree);
 }
 
@@ -220,12 +221,14 @@ inline void ModuleCamera::RotationInputs()
         // Deprecate below
         Rotate(GetSpeed(MoveType::ROTATION), 0.0f);
     }
+
     if (App->input->IsKeyPressed(SDL_SCANCODE_DOWN))
     {
         Pitch -= GetSpeed(MoveType::ROTATION);
         // Deprecate below
         Rotate(-GetSpeed(MoveType::ROTATION), 0.0f);
     }
+
     if (App->input->IsKeyPressed(SDL_SCANCODE_LEFT))
     {
         Yaw += GetSpeed(MoveType::ROTATION);
@@ -263,7 +266,6 @@ inline void ModuleCamera::RotationInputs()
     }
 }
 
-//
 void ModuleCamera::OrbitModule()
 {
          const std::shared_ptr<Model_A> model = App->renderer->GetModel();
@@ -278,6 +280,7 @@ void ModuleCamera::OrbitModule()
          const float radius = sqrt((distanceXZ.x * distanceXZ.x) + (distanceXZ.y * distanceXZ.y));
     
          OrbitAngle += GetSpeed(MoveType::ORBIT);
+         BE_LOG("Orbit angle: %.2f", OrbitAngle);
          const float3 position = float3(sin(OrbitAngle * DEGTORAD) * radius, Position.y, cos(OrbitAngle * DEGTORAD) * radius);
          SetPosition(position);
          Look(moduleOrigin);

@@ -55,11 +55,13 @@ public:
 
 private:
     Frustum CameraFrustum;
+
     // Projection
     float AspectRatio;
     float HorizontalFovDegree;
     float NearDistance;
     float FarDistance;
+
     // Speed
     float Speed;
     float RotationSpeed;
@@ -68,6 +70,7 @@ private:
     float OrbitSpeed;
 
     float OrbitAngle;
+
     // Rotation (WIP)
     float Roll;
     float Pitch;
