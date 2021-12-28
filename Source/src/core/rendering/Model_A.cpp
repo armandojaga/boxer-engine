@@ -9,7 +9,7 @@
 #include <algorithm>
 
 Model_A::Model_A(const char* file)
-	: Position(0.0f, 0.0f, 0.0f)
+	: position(0.0f, 0.0f, 0.0f)
 {
 	Load(file);
 }
@@ -36,7 +36,7 @@ void Model_A::Load(const char* file)
 		return;
 	}
 	const std::string path = file;
-	Directory = path.substr(0, path.find_last_of('\\'));
+	directory = path.substr(0, path.find_last_of('\\'));
 
     BE_LOG("Scene Summary");
     BE_LOG("Meshes: %d", scene->mNumMeshes);
@@ -55,7 +55,7 @@ void Model_A::ProcessNode(aiNode* node, const aiScene* scene)
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-		Meshes.push_back(ProcessMesh(mesh, scene));
+		meshes.push_back(ProcessMesh(mesh, scene));
 	}
 	// then do the same for each of its children
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -80,13 +80,13 @@ Mesh_A Model_A::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     	vector.x = mesh->mVertices[i].x;
         vector.y = mesh->mVertices[i].y;
         vector.z = mesh->mVertices[i].z;
-        vertex.Position = vector;
+        vertex.position = vector;
 
         // Normals
         vector.x = mesh->mNormals[i].x;
         vector.y = mesh->mNormals[i].y;
         vector.z = mesh->mNormals[i].z;
-        vertex.Normal = vector;
+        vertex.normal = vector;
 
         // Texture coords (Mesh couln'd have any)
         if (mesh->mTextureCoords[0])
@@ -94,11 +94,11 @@ Mesh_A Model_A::ProcessMesh(aiMesh* mesh, const aiScene* scene)
             float2 vec;
             vec.x = mesh->mTextureCoords[0][i].x;
             vec.y = mesh->mTextureCoords[0][i].y;
-            vertex.TexCoords = vec;
+            vertex.tex_coords = vec;
         }
         else
         {
-            vertex.TexCoords = float2(0.0f, 0.0f);
+            vertex.tex_coords = float2(0.0f, 0.0f);
         }
         vertices.push_back(vertex);
     }
@@ -136,11 +136,11 @@ std::vector<Texture_A> Model_A::LoadMaterialTextures(aiMaterial* mat, aiTextureT
         bool skip = false;
 
         //Check if the texture has already loaded
-        for (unsigned int j = 0; j < TexturesLoaded.size(); j++)
+        for (unsigned int j = 0; j < textures_loaded.size(); j++)
         {
-            if (std::strcmp(TexturesLoaded[j].Path.data(), str.C_Str()) == 0)
+            if (std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
             {
-                textures.push_back(TexturesLoaded[j]);
+                textures.push_back(textures_loaded[j]);
                 skip = true;
                 break;
             }
@@ -160,11 +160,11 @@ std::vector<Texture_A> Model_A::LoadMaterialTextures(aiMaterial* mat, aiTextureT
             continue;
         }
 
-        texture.Id = (unsigned)texId;
-        texture.Type = typeName;
-        texture.Path = str.C_Str();
+        texture.id = (unsigned)texId;
+        texture.type = typeName;
+        texture.path = str.C_Str();
         textures.push_back(texture);
-        TexturesLoaded.push_back(texture); // add to loaded textures
+        textures_loaded.push_back(texture); // add to loaded textures
     }
 
     return textures;
@@ -172,8 +172,8 @@ std::vector<Texture_A> Model_A::LoadMaterialTextures(aiMaterial* mat, aiTextureT
 
 void Model_A::Draw()
 {
-	for (unsigned int i = 0; i < Meshes.size(); i++)
+	for (unsigned int i = 0; i < meshes.size(); i++)
 	{
-        Meshes[i].Draw();
+        meshes[i].Draw();
 	}
 }

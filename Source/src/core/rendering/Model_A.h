@@ -19,25 +19,24 @@ public:
 
     void Draw();
 
-	bool IsValid() { return (!Directory.empty() && Meshes.size() != 0 && TexturesLoaded.size() != 0); }
-    const std::vector<Mesh_A>& GetMeshes() const { return Meshes; }
-    const std::string& GetDirectory() const { return Directory; }
+	bool IsValid() { return (!directory.empty() && meshes.size() != 0 && textures_loaded.size() != 0); }
+    const std::vector<Mesh_A>& GetMeshes() const { return meshes; }
+    const std::string& GetDirectory() const { return directory; }
 
-	const float3& GetOrigin() const { return Position; }
-    void SetOrigin(const float3& position) { Position = position; }
+	const float3& GetOrigin() const { return position; }
+    void SetOrigin(const float3& pos) { position = pos; }
 
     void Load(const char* file);
 
 private:
     // model data
-    std::vector<Mesh_A> Meshes;
-    std::string Directory;
-    std::vector<Texture_A> TexturesLoaded;
-    float3 Position;
+    std::vector<Mesh_A> meshes;
+    std::string directory;
+    std::vector<Texture_A> textures_loaded;
+    float3 position;
 
     void ProcessNode(aiNode* node, const aiScene* scene);
     Mesh_A ProcessMesh(aiMesh* mesh, const aiScene* scene);
     std::vector<Texture_A> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
-    int TextureFromFile(const char* path, const std::string& directory) const;
 };
 
