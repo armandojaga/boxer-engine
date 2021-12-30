@@ -25,7 +25,7 @@ public:
     void Resize(int width, int height);
     [[nodiscard]] void* GetContext() const;
 
-    [[nodiscard]] const std::shared_ptr<Model_A>& GetModel() const
+    [[nodiscard]] const Model_A* GetModel() const
     {
         return model;
     }
@@ -35,10 +35,17 @@ public:
         return frame_buffer;
     }
 
+    void LoadModel(const char* filPath)
+    {
+        delete model;
+        model = new Model_A();
+        model->Load(filPath);
+    }
+
 private:
     void* context{};
     int width{}, height{};
     BoxerEngine::FrameBuffer* frame_buffer;
-    std::shared_ptr<Model_A> model;
+    Model_A* model = nullptr;
 
 };
