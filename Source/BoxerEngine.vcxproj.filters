@@ -195,12 +195,6 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp">
       <Filter>Modules\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\rendering\Mesh_A.cpp">
-      <Filter>Core\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\rendering\Model_A.cpp">
-      <Filter>Core\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\util\UUID.cpp">
       <Filter>Core\Util</Filter>
     </ClCompile>
@@ -208,6 +202,12 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c" />
+    <ClCompile Include="src\core\rendering\Mesh_A.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\rendering\Model_A.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1045,7 +1045,7 @@
       <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\StringUtils.h">
-      <Filter>Util</Filter>
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\core\logging\AssimpLogger.h">
       <Filter>Logging</Filter>
@@ -1073,6 +1073,7 @@
     </ClInclude>
     <ClInclude Include="src\modules\ModuleScene.h">
       <Filter>Modules\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\util\StringUtils.h">
       <Filter>Core\Util</Filter>
     </ClInclude>
@@ -1082,17 +1083,17 @@
     <ClInclude Include="src\modules\ModuleWindow.h">
       <Filter>Modules\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\rendering\Mesh_A.h">
-      <Filter>Core\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\rendering\Model_A.h">
-      <Filter>Core\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\util\UUID.h">
       <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\core\bepch.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Mesh_A.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Model_A.h">
+      <Filter>Core\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1147,14 +1148,14 @@
     <Filter Include="Vendors\MathGeoLib\Algorithm\Random">
       <UniqueIdentifier>{f340fb0f-fa55-4172-89a9-2cbc34f3e16b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vendors\DebugDraw">
+      <UniqueIdentifier>{800e839f-592b-4ee8-bc11-22b66149f852}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Instrumentation">
       <UniqueIdentifier>{1804d9ac-2391-4b39-97c1-e40bf9734fa9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{c0abde9a-4e76-4bd9-9a0b-f138ea04ab0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vendors\DebugDraw">
-      <UniqueIdentifier>{800e839f-592b-4ee8-bc11-22b66149f852}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Rendering">
       <UniqueIdentifier>{826cf4e3-3ba7-47fc-898e-ce9eac655d7b}</UniqueIdentifier>
@@ -1171,11 +1172,15 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{08ea9f15-9e0f-49ca-8a06-f19f6a4d4d44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Util">
+      <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Modules\Header Files">
       <UniqueIdentifier>{5928f649-5de8-40af-9ce3-b4767a6e06b0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Modules\Source Files">
       <UniqueIdentifier>{784d97ca-46ad-4d1f-bf62-3838c3cb7044}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Core\Util">
       <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
     </Filter>
