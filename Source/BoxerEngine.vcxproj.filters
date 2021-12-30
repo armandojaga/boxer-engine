@@ -1074,6 +1074,9 @@
     <ClInclude Include="src\modules\ModuleScene.h">
       <Filter>Modules\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\util\StringUtils.h">
+      <Filter>Core\Util</Filter>
+    </ClInclude>
     <ClInclude Include="src\modules\ModuleTexture.h">
       <Filter>Modules\Header Files</Filter>
     </ClInclude>
@@ -1177,6 +1180,9 @@
     </Filter>
     <Filter Include="Modules\Source Files">
       <UniqueIdentifier>{784d97ca-46ad-4d1f-bf62-3838c3cb7044}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Util">
+      <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
