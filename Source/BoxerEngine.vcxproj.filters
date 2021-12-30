@@ -9,15 +9,6 @@
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp">
       <Filter>Vendors\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleInput.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleRender.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleWindow.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="vendors\ImGui\imgui.cpp">
       <Filter>Vendors\ImGui</Filter>
     </ClCompile>
@@ -165,20 +156,8 @@
     <ClCompile Include="src\core\util\Timer.cpp">
       <Filter>Core\Util</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleScene.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleDebugDraw.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp">
       <Filter>Core\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleProgram.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="src\modules\ModuleTexture.cpp">
-      <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="src\core\rendering\Model.cpp">
       <Filter>Core\Rendering</Filter>
@@ -186,14 +165,35 @@
     <ClCompile Include="src\core\rendering\Mesh.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\modules\ModuleCamera.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleDebugDraw.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="src\modules\ModuleEditor.cpp">
-      <Filter>Modules</Filter>
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleInput.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleProgram.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleRender.cpp">
+      <Filter>Modules\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\modules\ModuleResources.cpp">
-      <Filter>Modules</Filter>
+      <Filter>Modules\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\modules\ModuleCamera.cpp">
-      <Filter>Modules</Filter>
+    <ClCompile Include="src\modules\ModuleScene.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleTexture.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleWindow.cpp">
+      <Filter>Modules\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\util\UUID.cpp">
       <Filter>Core\Util</Filter>
@@ -202,6 +202,12 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c" />
+    <ClCompile Include="src\core\rendering\Mesh_A.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\rendering\Model_A.cpp">
+      <Filter>Core\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -215,15 +221,6 @@
     </ClInclude>
     <ClInclude Include="vendors\ImGui\imgui_impl_sdl.h">
       <Filter>Vendors\ImGui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleInput.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleRender.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleWindow.h">
-      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="vendors\ImGui\imconfig.h">
       <Filter>Vendors\ImGui</Filter>
@@ -1014,17 +1011,11 @@
     <ClInclude Include="src\core\GameOptions.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleScene.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="vendors\debugdraw\debug_draw.hpp">
       <Filter>Vendors\DebugDraw</Filter>
     </ClInclude>
     <ClInclude Include="vendors\debugdraw\debugdraw.h">
       <Filter>Vendors\DebugDraw</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleDebugDraw.h">
-      <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\FrameBuffer.h">
       <Filter>Core\Rendering</Filter>
@@ -1047,38 +1038,62 @@
     <ClInclude Include="src\core\ErrorHandler.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleTexture.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="src\modules\ModuleProgram.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\rendering\Model.h">
       <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\Mesh.h">
       <Filter>Core\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\util\StringUtils.h">
+      <Filter>Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\logging\AssimpLogger.h">
+      <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleCamera.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleDebugDraw.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\modules\ModuleEditor.h">
-      <Filter>Modules</Filter>
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleInput.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleProgram.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleRender.h">
+      <Filter>Modules\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\modules\ModuleResources.h">
-      <Filter>Modules</Filter>
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleScene.h">
+      <Filter>Modules\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\StringUtils.h">
       <Filter>Core\Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\modules\ModuleCamera.h">
-      <Filter>Modules</Filter>
+    <ClInclude Include="src\modules\ModuleTexture.h">
+      <Filter>Modules\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\logging\AssimpLogger.h">
-      <Filter>Logging</Filter>
+    <ClInclude Include="src\modules\ModuleWindow.h">
+      <Filter>Modules\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\UUID.h">
       <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\core\bepch.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Mesh_A.h">
+      <Filter>Core\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\rendering\Model_A.h">
+      <Filter>Core\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1133,14 +1148,14 @@
     <Filter Include="Vendors\MathGeoLib\Algorithm\Random">
       <UniqueIdentifier>{f340fb0f-fa55-4172-89a9-2cbc34f3e16b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vendors\DebugDraw">
+      <UniqueIdentifier>{800e839f-592b-4ee8-bc11-22b66149f852}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Instrumentation">
       <UniqueIdentifier>{1804d9ac-2391-4b39-97c1-e40bf9734fa9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{c0abde9a-4e76-4bd9-9a0b-f138ea04ab0d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Vendors\DebugDraw">
-      <UniqueIdentifier>{800e839f-592b-4ee8-bc11-22b66149f852}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Rendering">
       <UniqueIdentifier>{826cf4e3-3ba7-47fc-898e-ce9eac655d7b}</UniqueIdentifier>
@@ -1156,6 +1171,15 @@
     </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{08ea9f15-9e0f-49ca-8a06-f19f6a4d4d44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Util">
+      <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Header Files">
+      <UniqueIdentifier>{5928f649-5de8-40af-9ce3-b4767a6e06b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Source Files">
+      <UniqueIdentifier>{784d97ca-46ad-4d1f-bf62-3838c3cb7044}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Util">
       <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>

@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "ModuleRender.h"
+#include "ModuleCamera.h"
 #include <SDL.h>
 
 #include "ModuleResources.h"
@@ -86,7 +87,9 @@ update_status ModuleInput::PreUpdate(float delta)
             mouse_button = KeyState::KEY_IDLE;
     }
 
-    while (SDL_PollEvent(&sdlEvent) != 0)
+    // Needed for sdlEvent initialization
+    SDL_PollEvent(&sdlEvent);
+    do
     {
         switch (sdlEvent.type)
         {
@@ -94,10 +97,10 @@ update_status ModuleInput::PreUpdate(float delta)
             return update_status::UPDATE_STOP;
 
         case SDL_DROPFILE:
-            {
-                App->resources->HandleResource(sdlEvent.drop.file);
-            }
-            break;
+        {
+            App->resources->HandleResource(sdlEvent.drop.file);
+        }
+        break;
 
         case SDL_MOUSEBUTTONDOWN:
             mouse_buttons[sdlEvent.button.button - 1] = KeyState::KEY_DOWN;
@@ -118,8 +121,12 @@ update_status ModuleInput::PreUpdate(float delta)
             mouse_wheel.x = sdlEvent.wheel.x;
             mouse_wheel.y = sdlEvent.wheel.y;
             break;
+
+        default:
+            ResetInputs();
+            break;
         }
-    }
+    } while (SDL_PollEvent(&sdlEvent) != 0);
 
     return update_status::UPDATE_CONTINUE;
 }
@@ -130,4 +137,10 @@ bool ModuleInput::CleanUp()
     BE_LOG("Quitting SDL input event subsystem");
     SDL_QuitSubSystem(SDL_INIT_EVENTS);
     return true;
+}
+
+inline void ModuleInput::ResetInputs()
+{
+    mouse_wheel.x = 0.0f;
+    mouse_wheel.y = 0.0f;
 }

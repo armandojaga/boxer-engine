@@ -10,9 +10,14 @@ in vec2 coords;
 
 /* Uniforms */
 /* Texture */
-uniform sampler2D texture;
+uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_diffuse2;
+uniform sampler2D texture_diffuse3;
+
+uniform sampler2D texture_specular1;
+uniform sampler2D texture_specular2;
 
 void main()
 {
-    color = texture2D(texture, coords);
+    color = texture2D(texture_diffuse1, coords);
 }

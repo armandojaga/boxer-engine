@@ -10,10 +10,6 @@ namespace BoxerEngine
 
     class Model
     {
-    private:
-        std::vector<unsigned int> textures;
-        std::vector<Mesh*> meshes;
-
     public:
         Model();
         ~Model();
@@ -22,6 +18,9 @@ namespace BoxerEngine
         void Draw() const;
 
     private:
+        std::vector<unsigned int> textures;
+        std::vector<Mesh*> meshes;
+
         void LoadTextures(const aiScene*, const char*);
         void ClearModel();
         void LoadMeshes(const aiScene*);

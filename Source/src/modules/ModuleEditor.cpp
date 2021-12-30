@@ -171,7 +171,7 @@ void ModuleEditor::CreateScene() const
     App->renderer->Resize(x, y);
 
     // to actually render inside the scene window
-    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer().GetTextureId()), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
+    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer()->GetTextureId()), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
 
     ImGui::End();
     ImGui::PopStyleVar();
@@ -410,20 +410,26 @@ void ModuleEditor::ShowCameraSettings() const
         return;
     }
 
-    float move_speed = App->camera->GetMoveSpeed();
-    if (ImGui::SliderFloat("Move Speed", &move_speed, 0.1f, 10.0f))
+    int move_speed = App->camera->GetMoveSpeed();
+    if (ImGui::SliderInt("Move Speed", &move_speed, 0, 100))
     {
         App->camera->SetMoveSpeed(move_speed);
     }
 
-    float rotation_speed = App->camera->GetRotationSpeed();
-    if (ImGui::SliderFloat("Rotation Speed", &rotation_speed, 0.1f, 10.0f))
+    int rotation_speed = App->camera->GetRotationSpeed();
+    if (ImGui::SliderInt("Rotation Speed", &rotation_speed, 0, 100))
     {
         App->camera->SetRotationSpeed(rotation_speed);
     }
 
-    float zoom_speed = App->camera->GetZoomPosSpeed();
-    if (ImGui::SliderFloat("Zoom Speed", &zoom_speed, 0.1f, 5.0f))
+    int orbit_speed = App->camera->GetOrbitSpeed();
+    if (ImGui::SliderInt("Orbit Speed", &orbit_speed, 0, 100))
+    {
+        App->camera->SetOrbitSpeed(orbit_speed);
+    }
+
+    int zoom_speed = App->camera->GetZoomPosSpeed();
+    if (ImGui::SliderInt("Zoom Speed", &zoom_speed, 1, 100))
     {
         App->camera->SetZoomPosSpeed(zoom_speed);
     }
