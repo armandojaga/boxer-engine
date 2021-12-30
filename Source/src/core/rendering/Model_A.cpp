@@ -14,10 +14,6 @@ Model_A::Model_A(const char* file)
 	Load(file);
 }
 
-Model_A::~Model_A()
-{
-}
-
 /*
  * OTHER ASSIMP POSTPROCESS USEFULL OPTIONS ARE:
  * aiProcess_GenNormals
@@ -36,7 +32,7 @@ void Model_A::Load(const char* file)
 		return;
 	}
 	const std::string path = file;
-	directory = path.substr(0, path.find_last_of('\\'));
+    directory = path.substr(0, path.find_last_of('\\'));
 
     BE_LOG("Scene Summary");
     BE_LOG("Meshes: %d", scene->mNumMeshes);
@@ -170,7 +166,7 @@ std::vector<Texture_A> Model_A::LoadMaterialTextures(aiMaterial* mat, aiTextureT
     return textures;
 }
 
-void Model_A::Draw()
+void Model_A::Draw() const
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
 	{

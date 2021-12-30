@@ -28,7 +28,7 @@ public:
     std::vector<Texture_A>      textures;
 
     Mesh_A(std::vector<Vertex_A> vertices, std::vector<unsigned int> indices, std::vector<Texture_A> textures);
-    void Draw();
+    void Draw() const;
 
     size_t GetNumVertices() const  { return vertices.size(); }
     size_t GetNumIndices()  const  { return indices.size(); }

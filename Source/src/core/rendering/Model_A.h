@@ -15,9 +15,9 @@ class Model_A
 public:
     Model_A() = default;
     Model_A(const char* file);
-    ~Model_A();
+    ~Model_A() = default;
 
-    void Draw();
+    void Draw() const;
 
 	bool IsValid() { return (!directory.empty() && meshes.size() != 0 && textures_loaded.size() != 0); }
     const std::vector<Mesh_A>& GetMeshes() const { return meshes; }

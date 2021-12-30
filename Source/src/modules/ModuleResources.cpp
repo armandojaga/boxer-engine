@@ -22,7 +22,7 @@ void ModuleResources::HandleResource(const char* path)
     switch (type)
     {
     case ResourceType::MODEL:
-        App->renderer->GetModel()->Load(path);
+        App->renderer->LoadModel(path);
         break;
     // case ResourceType::TEXTURE:
     //
