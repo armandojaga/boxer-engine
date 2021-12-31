@@ -55,7 +55,7 @@ bool ModuleRender::Init()
 
     SDL_GetWindowSize(App->window->window, &width, &height);
     frame_buffer = new BoxerEngine::FrameBuffer(width, height);
-    model = new Model_A();
+    model = new BoxerEngine::Model_A();
 
     // Assimp Logger
     // Create a logger instance 

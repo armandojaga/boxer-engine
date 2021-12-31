@@ -268,7 +268,7 @@ inline void ModuleCamera::RotationInputs()
 
 void ModuleCamera::OrbitModule()
 {
-         const Model_A* model = App->renderer->GetModel();
+         const BoxerEngine::Model_A* model = App->renderer->GetModel();
          if (model == nullptr)
          {
              return;
