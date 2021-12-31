@@ -55,21 +55,21 @@ bool ModuleRender::Init()
 
     SDL_GetWindowSize(App->window->window, &width, &height);
     frame_buffer = new BoxerEngine::FrameBuffer(width, height);
-    model = new Model_A();
+    model = new Model();
 
     // Assimp Logger
     // Create a logger instance 
-    Assimp::DefaultLogger::create("", Assimp::Logger::VERBOSE);
+    DefaultLogger::create("", Logger::VERBOSE);
 
     // Select the kinds of messages you want to receive on this log stream
     const unsigned int severity =
-        Assimp::Logger::Debugging |
-        Assimp::Logger::Info |
-        Assimp::Logger::Err |
-        Assimp::Logger::Warn;
+        Logger::Debugging |
+        Logger::Info |
+        Logger::Err |
+        Logger::Warn;
 
     // Attaching it to the default logger
-    Assimp::DefaultLogger::get()->attachStream(new AssimpLogger(), severity);
+    DefaultLogger::get()->attachStream(new AssimpLogger(), severity);
 
     return true;
 }

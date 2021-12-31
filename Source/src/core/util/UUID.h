@@ -4,7 +4,7 @@
 
 namespace BoxerEngine
 {
-    typedef unsigned long long UID; //64 bits positive number (size_t)
+    using UID = unsigned long long; //64 bits positive number (size_t)
 
     //seed with big state space
     static std::mt19937_64 CreateMersenneTwisterEngine64()
