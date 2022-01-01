@@ -97,10 +97,10 @@ update_status ModuleInput::PreUpdate(float delta)
             return update_status::UPDATE_STOP;
 
         case SDL_DROPFILE:
-        {
-            App->resources->HandleResource(sdlEvent.drop.file);
-        }
-        break;
+            {
+                App->resources->HandleResource(sdlEvent.drop.file);
+            }
+            break;
 
         case SDL_MOUSEBUTTONDOWN:
             mouse_buttons[sdlEvent.button.button - 1] = KeyState::KEY_DOWN;
@@ -126,7 +126,8 @@ update_status ModuleInput::PreUpdate(float delta)
             ResetInputs();
             break;
         }
-    } while (SDL_PollEvent(&sdlEvent) != 0);
+    }
+    while (SDL_PollEvent(&sdlEvent) != 0);
 
     return update_status::UPDATE_CONTINUE;
 }

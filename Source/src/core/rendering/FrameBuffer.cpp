@@ -50,7 +50,7 @@ void BoxerEngine::FrameBuffer::Create()
     //TODO consider rendering to screen size instead of viewport size
     //create associated texture
     glCreateTextures(GL_TEXTURE_2D, 1, &texture_id);
-    
+
     glTextureParameteri(texture_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTextureParameteri(texture_id, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTextureParameteri(texture_id, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);

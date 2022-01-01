@@ -31,7 +31,9 @@ namespace BoxerEngine
     template <typename K, typename V>
     V BoxerEngine::Cache<K, V>::Get(const K& key) const
     {
+        // ReSharper disable CppUseAssociativeContains
         if(cache.find(key) != cache.end())
+        // ReSharper restore CppUseAssociativeContains
         {
             return cache[key];
         }

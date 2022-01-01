@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "GL/glew.h"
 #include "core/rendering/FrameBuffer.h"
-#include "core/rendering/Model_A.h"
+#include "core/rendering/Model.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -25,7 +25,7 @@ public:
     void Resize(int width, int height);
     [[nodiscard]] void* GetContext() const;
 
-    [[nodiscard]] const Model_A* GetModel() const
+    [[nodiscard]] const Model* GetModel() const
     {
         return model;
     }
@@ -38,7 +38,7 @@ public:
     void LoadModel(const char* filPath)
     {
         delete model;
-        model = new Model_A();
+        model = new Model();
         model->Load(filPath);
     }
 
@@ -46,6 +46,5 @@ private:
     void* context{};
     int width{}, height{};
     BoxerEngine::FrameBuffer* frame_buffer;
-    Model_A* model = nullptr;
-
+    Model* model = nullptr;
 };

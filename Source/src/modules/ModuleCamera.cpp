@@ -3,7 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
-#include "core/rendering/Model_A.h"
+#include "core/rendering/Model.h"
 
 #include "GL/glew.h"
 #include "MathGeoLib.h"
@@ -13,20 +13,20 @@ static const float EPSILON = 1e-5f;
 
 ModuleCamera::ModuleCamera()
     : aspect_ratio(0.0f)
-    , horizontal_fov_degree(0.0f)
-    , near_distance(0.0f)
-    , far_distance(0.0f)
-    , move_speed(15.0f)
-    , rotation_speed(15.0f)
-    , zoom_pos_speed(50.0f)
-    , zoom_fov_speed(0.05f)
-    , orbit_speed(25.0f)
-    , orbit_angle(0.0f)
-    , roll(0.0f)
-    , pitch(0.0f)
-    , yaw(0.0f)
-    , look_position(float3::zero)
-    , position(float3::zero)
+      , horizontal_fov_degree(0.0f)
+      , near_distance(0.0f)
+      , far_distance(0.0f)
+      , move_speed(15.0f)
+      , rotation_speed(15.0f)
+      , zoom_pos_speed(50.0f)
+      , zoom_fov_speed(0.05f)
+      , orbit_speed(25.0f)
+      , orbit_angle(0.0f)
+      , roll(0.0f)
+      , pitch(0.0f)
+      , yaw(0.0f)
+      , look_position(float3::zero)
+      , position(float3::zero)
 {
 }
 
@@ -208,7 +208,7 @@ inline void ModuleCamera::AspectInputs()
     {
         ZoomInFOV();
     }
-    
+
     SetHorizontalFovInDegrees(horizontal_fov_degree);
 }
 
@@ -268,23 +268,23 @@ inline void ModuleCamera::RotationInputs()
 
 void ModuleCamera::OrbitModule()
 {
-         const Model_A* model = App->renderer->GetModel();
-         if (model == nullptr)
-         {
-             return;
-         }
-         const float3 moduleOrigin = model->GetOrigin();
-    
-         // Radius is the distance to the module in xz plane
-         float2 distanceXZ = float2(position.x - moduleOrigin.x, position.z - moduleOrigin.z);
-         const float radius = sqrt((distanceXZ.x * distanceXZ.x) + (distanceXZ.y * distanceXZ.y));
-    
-         orbit_angle += GetSpeed(MoveType::ORBIT);
-         const float3 pos = float3(sin(orbit_angle * DEGTORAD) * radius,
-                                   position.y,
-                                   cos(orbit_angle * DEGTORAD) * radius);
-         SetPosition(pos);
-         Look(moduleOrigin);
+    const Model* model = App->renderer->GetModel();
+    if (model == nullptr)
+    {
+        return;
+    }
+    const float3 moduleOrigin = model->GetOrigin();
+
+    // Radius is the distance to the module in xz plane
+    auto distanceXZ = float2(position.x - moduleOrigin.x, position.z - moduleOrigin.z);
+    const float radius = sqrt((distanceXZ.x * distanceXZ.x) + (distanceXZ.y * distanceXZ.y));
+
+    orbit_angle += GetSpeed(MoveType::ORBIT);
+    const auto pos = float3(sin(orbit_angle * DEGTORAD) * radius,
+                            position.y,
+                            cos(orbit_angle * DEGTORAD) * radius);
+    SetPosition(pos);
+    Look(moduleOrigin);
 }
 
 void ModuleCamera::ZoomInPosition()

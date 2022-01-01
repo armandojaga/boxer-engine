@@ -28,7 +28,7 @@ public:
 
 private:
     void CreateDockerspace() const;
-    void CreateMenu() const ;
+    void CreateMenu() const;
     void ShowConsole() const;
     void ShowStats() const;
     void ShowConfig() const;

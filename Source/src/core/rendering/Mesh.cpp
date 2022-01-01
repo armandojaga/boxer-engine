@@ -1,92 +1,71 @@
 #include "Mesh.h"
-
+#include "Globals.h"
+#include "GL/glew.h"
 
 #include "Application.h"
-#include "GL/glew.h"
-#include "Math/float2.h"
-#include "modules/ModuleRender.h"
-#include "modules/ModuleCamera.h"
 #include "modules/ModuleProgram.h"
 
-BoxerEngine::Mesh::Mesh() = default;
-
-BoxerEngine::Mesh::~Mesh()
+Mesh::Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex)
 {
-    glDeleteBuffers(1, &ebo);
-    glDeleteBuffers(1, &vbo);
-    glDeleteVertexArrays(1, &vao);
-};
+    vertices = ver;
+    indices = ind;
+    textures = tex;
 
-void BoxerEngine::Mesh::LoadMesh(const aiMesh* mesh)
-{
-    LoadVBO(mesh);
-    LoadEBO(mesh);
-    CreateVAO();
-    texture = mesh->mMaterialIndex;
+    SetupMesh();
 }
 
-void BoxerEngine::Mesh::LoadEBO(const aiMesh* mesh)
+void Mesh::SetupMesh()
 {
-    glGenBuffers(1, &ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    unsigned index_size = sizeof(unsigned) * mesh->mNumFaces * 3;
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_size, nullptr, GL_STATIC_DRAW);
-    auto indices = static_cast<unsigned*>((glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY)));
-    for (unsigned i = 0; i < mesh->mNumFaces; ++i)
-    {
-        assert(mesh->mFaces[i].mNumIndices == 3); // note: assume triangles = 3 indices per face
-        *(indices++) = mesh->mFaces[i].mIndices[0];
-        *(indices++) = mesh->mFaces[i].mIndices[1];
-        *(indices++) = mesh->mFaces[i].mIndices[2];
-    }
-    glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
-    num_indices = mesh->mNumFaces * 3;
-}
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
 
-void BoxerEngine::Mesh::LoadVBO(const aiMesh* mesh)
-{
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    unsigned vertex_size = (sizeof(float) * 3 + sizeof(float) * 2);
-    unsigned buffer_size = vertex_size * mesh->mNumVertices;
-    glBufferData(GL_ARRAY_BUFFER, buffer_size, nullptr, GL_STATIC_DRAW);
-    unsigned position_size = sizeof(float) * 3 * mesh->mNumVertices;
-    glBufferSubData(GL_ARRAY_BUFFER, 0, position_size, mesh->mVertices);
-    unsigned uv_offset = position_size;
-    unsigned uv_size = sizeof(float) * 2 * mesh->mNumVertices;
-    auto uvs = static_cast<float2*>((glMapBufferRange(GL_ARRAY_BUFFER, uv_offset, uv_size, GL_MAP_WRITE_BIT)));
-    for (unsigned i = 0; i < mesh->mNumVertices; ++i)
-    {
-        uvs[i] = float2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
-    }
-    glUnmapBuffer(GL_ARRAY_BUFFER);
-    num_vertices = mesh->mNumVertices;
-}
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
+                 &indices[0], GL_STATIC_DRAW);
 
-void BoxerEngine::Mesh::CreateVAO()
-{
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    // Vertex positions
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, static_cast<void*>(0));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), static_cast<void*>(0));
+
+    // Vertex texture coords
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(sizeof(float) * 3 * num_vertices));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex_coords));
+
+    glBindVertexArray(0);
 }
 
-void BoxerEngine::Mesh::Draw(const std::vector<unsigned int>& model_textures) const
+void Mesh::Draw() const
 {
-    constexpr int textureUnit = 0;
-    if (!model_textures.empty())
+    unsigned int diffuseNr = 1;
+    unsigned int specularNr = 1;
+    for (unsigned int i = 0; i < textures.size(); i++)
     {
-        glBindTextureUnit(textureUnit, model_textures[texture]);
+        glActiveTexture(GL_TEXTURE0 + i);
+
+        // activate proper Texture unit before binding
+        // retrieve Texture number (the N in diffuse_TextureN)
+        std::string number;
+        std::string name = textures[i].type;
+        if (name == "texture_diffuse")
+        {
+            number = std::to_string(diffuseNr++);
+        }
+        else if (name == "texture_specular")
+        {
+            number = std::to_string(specularNr++);
+        }
+        App->program->SetUniform((name + number), static_cast<int>(i));
+        glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
 
-    App->program->SetUniform("texture", textureUnit);
+    glActiveTexture(GL_TEXTURE0);
 
-    glBindVertexArray(vao);
-
-    glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, nullptr);
+    // draw mesh
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 }

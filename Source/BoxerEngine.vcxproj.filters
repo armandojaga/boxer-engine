@@ -159,12 +159,6 @@
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\rendering\Model.cpp">
-      <Filter>Core\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\rendering\Mesh.cpp">
-      <Filter>Core\Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="src\modules\ModuleCamera.cpp">
       <Filter>Modules\Source Files</Filter>
     </ClCompile>
@@ -202,10 +196,10 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c" />
-    <ClCompile Include="src\core\rendering\Mesh_A.cpp">
+    <ClCompile Include="src\core\rendering\Mesh.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\rendering\Model_A.cpp">
+    <ClCompile Include="src\core\rendering\Model.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1021,7 +1015,7 @@
       <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\widgets\AxisSlider.h">
-      <Filter>UI\widgets</Filter>
+      <Filter>UI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Cache.h">
       <Filter>Core\Util</Filter>
@@ -1037,12 +1031,6 @@
     </ClInclude>
     <ClInclude Include="src\core\ErrorHandler.h">
       <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\rendering\Model.h">
-      <Filter>Core\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\rendering\Mesh.h">
-      <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\StringUtils.h">
       <Filter>Core\Util</Filter>
@@ -1089,10 +1077,10 @@
     <ClInclude Include="src\core\bepch.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\rendering\Mesh_A.h">
+    <ClInclude Include="src\core\rendering\Mesh.h">
       <Filter>Core\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\rendering\Model_A.h">
+    <ClInclude Include="src\core\rendering\Model.h">
       <Filter>Core\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1166,9 +1154,6 @@
     <Filter Include="UI\Components">
       <UniqueIdentifier>{8a267a5f-5060-4ee5-b50c-e70d4cf31796}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\widgets">
-      <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{08ea9f15-9e0f-49ca-8a06-f19f6a4d4d44}</UniqueIdentifier>
     </Filter>
@@ -1183,6 +1168,9 @@
     </Filter>
     <Filter Include="Core\Util">
       <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Widgets">
+      <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
