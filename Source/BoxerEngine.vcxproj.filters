@@ -196,18 +196,11 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c" />
-    <ClCompile Include="src\core\rendering\Model_A.cpp" />
     <ClCompile Include="src\core\rendering\Mesh.cpp">
-      <Filter>Core\Rendering\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\rendering\Mesh_A.cpp">
-      <Filter>Core\Rendering\Geometry</Filter>
+      <Filter>Core\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="src\core\rendering\Model.cpp">
-      <Filter>Core\Rendering\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\rendering\Model_A.cpp">
-      <Filter>Core\Rendering\Geometry</Filter>
+      <Filter>Core\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="src\core\rendering\BoundingBox.cpp">
       <Filter>Core\Rendering\Geometry</Filter>
@@ -1025,7 +1018,7 @@
       <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\widgets\AxisSlider.h">
-      <Filter>UI\widgets</Filter>
+      <Filter>UI\Widgets</Filter>
     </ClInclude>
     <ClInclude Include="src\core\util\Cache.h">
       <Filter>Core\Util</Filter>
@@ -1088,16 +1081,10 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\Mesh.h">
-      <Filter>Core\Rendering\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\rendering\Mesh_A.h">
-      <Filter>Core\Rendering\Geometry</Filter>
+      <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\Model.h">
-      <Filter>Core\Rendering\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\rendering\Model_A.h">
-      <Filter>Core\Rendering\Geometry</Filter>
+      <Filter>Core\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="src\core\rendering\BoundingBox.h">
       <Filter>Core\Rendering\Geometry</Filter>
@@ -1173,9 +1160,6 @@
     <Filter Include="UI\Components">
       <UniqueIdentifier>{8a267a5f-5060-4ee5-b50c-e70d4cf31796}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI\widgets">
-      <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shaders">
       <UniqueIdentifier>{08ea9f15-9e0f-49ca-8a06-f19f6a4d4d44}</UniqueIdentifier>
     </Filter>
@@ -1193,6 +1177,9 @@
     </Filter>
     <Filter Include="Core\Rendering\Geometry">
       <UniqueIdentifier>{9f8b83d7-dfdc-4bc5-8f57-d970cec4b712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Widgets">
+      <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

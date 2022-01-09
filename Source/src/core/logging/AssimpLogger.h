@@ -15,12 +15,12 @@ public:
     }
 
     // Destructor
-    ~AssimpLogger()
+    ~AssimpLogger() override
     {
     }
 
     // Using our own logger
-    void write(const char* message)
+    void write(const char* message) override
     {
         BE_LOG("AssimpLogger says: %s", message);
     }

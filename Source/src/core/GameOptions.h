@@ -4,7 +4,7 @@
 namespace BoxerEngine
 {
     class GameOptions
-    {        
+    {
     private:
         float max_fps = 250.0f;
         bool fullscreen = false;
