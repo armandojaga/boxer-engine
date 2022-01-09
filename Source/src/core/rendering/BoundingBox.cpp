@@ -6,6 +6,14 @@ namespace BoxerEngine
 {
 	BoundingBox::BoundingBox()
 	{
+		// Each face has 4 indices that are bounding box corners
+		faces.push_back({ 0,1,2,3 });
+		faces.push_back({ 1,3,5,7 });
+		faces.push_back({ 0,2,4,6 });
+		faces.push_back({ 4,5,6,7 });
+
+		// This patterns define how to draw bounding box edges
+		edges = { 0,1, 0,2, 0,3, 1,2, 1,3, 2,3 };
 	}
 
 	BoundingBox::BoundingBox(BB_TYPE type, const vec& minPoint, const vec& maxPoint)
@@ -18,6 +26,21 @@ namespace BoxerEngine
 			case BB_TYPE::OBB:
 				break;
 		}
+
+		faces.push_back({ 0,1,2,3 });
+		faces.push_back({ 1,3,5,7 });
+		faces.push_back({ 0,2,4,6 });
+		faces.push_back({ 4,5,6,7 });
+		edges = { 0,1,0,2,0,3,1,2,1,3,2,3 };
+
+		// Debug
+		for (int i = 0; i < 8; ++i)
+		{
+			BE_LOG("Corner #%d", i);
+			BE_LOG("Corner x value: %f", axis_aligned->CornerPoint(i).x);
+			BE_LOG("Corner y value: %f", axis_aligned->CornerPoint(i).y);
+			BE_LOG("Corner z value: %f", axis_aligned->CornerPoint(i).z);
+		}
 	}
 
 	BoundingBox::~BoundingBox()
@@ -28,13 +51,21 @@ namespace BoxerEngine
 	void BoundingBox::Draw() const
 	{
 		vec corners[8];
-		axis_aligned->GetCornerPoints(corners);
 
-		for (int i = 1; i <= 8; ++i)
+		axis_aligned->GetCornerPoints(corners);
+		
+		for (int i = 0; i < faces.size(); ++i)
 		{
 			glBegin(GL_LINES);
-			glVertex2f(corners[i-1].x, corners[i-1].y);
-			glVertex2f(corners[i].x, corners[i].y);
+
+			for (int j = 0 ; j < edges.size(); ++j)
+			{
+				glVertex3f(
+					corners[faces[i][edges[j]]].x,
+					corners[faces[i][edges[j]]].y,
+					corners[faces[i][edges[j]]].z);
+			}
+			
 			glEnd();
 		}
 	}

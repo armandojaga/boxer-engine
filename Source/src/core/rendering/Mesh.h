@@ -4,6 +4,7 @@
 #include <vector>
 #include "Math/float3.h"
 #include "Math/float2.h"
+#include "core/rendering/BoundingBox.h"
 
 struct Vertex
 {
@@ -22,12 +23,10 @@ struct Texture
 class Mesh
 {
 public:
-    // mesh data
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
+
 
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+    Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, BoxerEngine::BoundingBox bbox);
     void Draw() const;
 
     [[nodiscard]] size_t GetNumVertices() const { return vertices.size(); }
@@ -35,6 +34,12 @@ public:
     [[nodiscard]] size_t GetNumTextures() const { return textures.size(); }
 
 private:
+    // mesh data
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+    std::vector<Texture> textures;
+    BoxerEngine::BoundingBox bounding_box;
+
     //  render data
     unsigned int VAO;
     unsigned int VBO;

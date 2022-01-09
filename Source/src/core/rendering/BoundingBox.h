@@ -27,6 +27,8 @@ namespace BoxerEngine
 
 	private:
 		AABB* axis_aligned = nullptr;
+		std::vector<std::vector<int>> faces;
+		std::vector<int> edges;
 	};
 }
 

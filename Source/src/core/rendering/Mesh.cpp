@@ -14,6 +14,16 @@ Mesh::Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<T
     SetupMesh();
 }
 
+Mesh::Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, BoxerEngine::BoundingBox bbox)
+{
+    vertices = ver;
+    indices = ind;
+    textures = tex;
+    bounding_box = bbox;
+
+    SetupMesh();
+}
+
 void Mesh::SetupMesh()
 {
     glGenVertexArrays(1, &VAO);
@@ -68,4 +78,6 @@ void Mesh::Draw() const
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
+
+    bounding_box.Draw();
 }
