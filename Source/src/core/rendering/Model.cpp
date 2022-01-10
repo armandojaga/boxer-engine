@@ -130,8 +130,8 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         std::vector<Texture> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
-    BoxerEngine::BoundingBox bbox(BoxerEngine::BB_TYPE::AABB, minPoint, maxPoint);
-    return Mesh(vertices, indices, textures, bbox);
+    
+    return Mesh(vertices, indices, textures, minPoint, maxPoint);
 }
 
 std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)

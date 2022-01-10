@@ -26,7 +26,7 @@ public:
 
 
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, BoxerEngine::BoundingBox bbox);
+    Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, float3 minPoint, float3 maxPoint);
     void Draw() const;
 
     [[nodiscard]] size_t GetNumVertices() const { return vertices.size(); }
@@ -38,7 +38,7 @@ private:
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
-    BoxerEngine::BoundingBox bounding_box;
+    std::unique_ptr<BoxerEngine::BoundingBox> bounding_box;
 
     //  render data
     unsigned int VAO;

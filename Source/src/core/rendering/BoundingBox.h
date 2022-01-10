@@ -29,6 +29,10 @@ namespace BoxerEngine
 		AABB* axis_aligned = nullptr;
 		std::vector<std::vector<int>> faces;
 		std::vector<int> edges;
+
+		void Setup(BB_TYPE type = BB_TYPE::AABB,
+			const vec& minPoint = float3(0.0, 0.0, 0.0),
+			const vec& maxPoint = float3(0.0, 0.0, 0.0));
 	};
 }
 
