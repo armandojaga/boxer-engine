@@ -51,13 +51,10 @@ namespace BoxerEngine
 	void BoundingBox::Draw() const
 	{
 		vec corners[8];
-
 		axis_aligned->GetCornerPoints(corners);
-		
 		for (int i = 0; i < faces.size(); ++i)
 		{
 			glBegin(GL_LINES);
-
 			for (int j = 0 ; j < edges.size(); ++j)
 			{
 				glVertex3f(
