@@ -10,6 +10,17 @@ Mesh::Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<T
     vertices = ver;
     indices = ind;
     textures = tex;
+    bounding_box = std::make_unique<BoxerEngine::BoundingBox>();
+
+    SetupMesh();
+}
+
+Mesh::Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, float3 minPoint, float3 maxPoint)
+{
+    vertices = ver;
+    indices = ind;
+    textures = tex;
+    bounding_box = std::make_unique<BoxerEngine::BoundingBox>(BoxerEngine::BB_TYPE::AABB, minPoint, maxPoint);
 
     SetupMesh();
 }
@@ -68,4 +79,6 @@ void Mesh::Draw() const
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
+
+    bounding_box->Draw();
 }

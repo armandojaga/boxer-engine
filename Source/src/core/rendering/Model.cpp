@@ -5,7 +5,6 @@
 #include "Globals.h"
 #include "Math/float3.h"
 
-
 Model::Model(const char* file)
     : position(0.0f, 0.0f, 0.0f)
 {
@@ -64,6 +63,13 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
 
+    vec minPoint;
+    vec maxPoint;
+    minPoint.x = mesh->mVertices[0].x;
+    minPoint.y = mesh->mVertices[0].y;
+    minPoint.z = mesh->mVertices[0].z;
+    maxPoint = minPoint;
+
     // process vertex positions, normals and texture coordinates
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -75,6 +81,14 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         vector.y = mesh->mVertices[i].y;
         vector.z = mesh->mVertices[i].z;
         vertex.position = vector;
+
+        // Bounding Box
+        minPoint.x = std::min(vector.x, minPoint.x);
+        minPoint.y = std::min(vector.y, minPoint.y);
+        minPoint.z = std::min(vector.z, minPoint.z);
+        maxPoint.x = std::max(vector.x, maxPoint.x);
+        maxPoint.y = std::max(vector.y, maxPoint.y);
+        maxPoint.z = std::max(vector.z, maxPoint.z);
 
         // Normals
         vector.x = mesh->mNormals[i].x;
@@ -116,8 +130,8 @@ Mesh Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         std::vector<Texture> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
     }
-
-    return Mesh(vertices, indices, textures);
+    
+    return Mesh(vertices, indices, textures, minPoint, maxPoint);
 }
 
 std::vector<Texture> Model::LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)

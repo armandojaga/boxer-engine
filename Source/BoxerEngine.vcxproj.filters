@@ -202,6 +202,9 @@
     <ClCompile Include="src\core\rendering\Model.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\rendering\BoundingBox.cpp">
+      <Filter>Core\Rendering\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1083,6 +1086,9 @@
     <ClInclude Include="src\core\rendering\Model.h">
       <Filter>Core\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\rendering\BoundingBox.h">
+      <Filter>Core\Rendering\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1168,6 +1174,9 @@
     </Filter>
     <Filter Include="Core\Util">
       <UniqueIdentifier>{afdc2dc0-2acd-44c7-86d4-eae02e7077e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Rendering\Geometry">
+      <UniqueIdentifier>{9f8b83d7-dfdc-4bc5-8f57-d970cec4b712}</UniqueIdentifier>
     </Filter>
     <Filter Include="UI\Widgets">
       <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>

@@ -169,6 +169,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\rendering\BoundingBox.cpp" />
     <ClCompile Include="src\core\bepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -279,6 +280,7 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\rendering\BoundingBox.h" />
     <ClInclude Include="src\core\bepch.h" />
     <ClInclude Include="src\core\GameOptions.h" />
     <ClInclude Include="src\core\logging\AssimpLogger.h" />
