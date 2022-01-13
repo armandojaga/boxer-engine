@@ -31,3 +31,5 @@
 #include "Application.h"
 #include "modules/Module.h"
 #include "rendering/Bindable.h"
+
+#include <optick.h>

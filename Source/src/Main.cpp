@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include <SDL.h>
+#include <optick.h>
 
 enum class main_states
 {
@@ -25,6 +26,7 @@ int main(int argc, char** argv)
 
     while (state != main_states::MAIN_EXIT)
     {
+        OPTICK_FRAME("GameLoop");
         switch (state)
         {
         case main_states::MAIN_CREATION:

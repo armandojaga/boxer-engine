@@ -1089,6 +1089,12 @@
     <ClInclude Include="src\core\rendering\BoundingBox.h">
       <Filter>Core\Rendering\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="vendors\optick\include\optick.config.h">
+      <Filter>Vendors\Optick</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\optick\include\optick.h">
+      <Filter>Vendors\Optick</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1180,6 +1186,9 @@
     </Filter>
     <Filter Include="UI\Widgets">
       <UniqueIdentifier>{8e620f12-250d-4a24-a78c-3ca347d86922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\Optick">
+      <UniqueIdentifier>{fb9446f1-13ad-43ff-87fb-9c37798bd4b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
