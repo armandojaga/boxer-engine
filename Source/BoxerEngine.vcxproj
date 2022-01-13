@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;_CONSOLE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
@@ -121,8 +121,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;$(ProjectDir)vendors\optick\lib\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;OptickCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -153,7 +153,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDIr)vendors\optick\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
@@ -164,8 +164,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;$(ProjectDir)vendors\optick\lib\x64\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;OptickCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -489,6 +489,8 @@
     <ClInclude Include="vendors\DevIL\include\IL\ilut_config.h" />
     <ClInclude Include="vendors\DevIL\include\IL\ilu_region.h" />
     <ClInclude Include="vendors\DevIL\include\IL\il_wrap.h" />
+    <ClInclude Include="vendors\optick\include\optick.config.h" />
+    <ClInclude Include="vendors\optick\include\optick.h" />
     <ClInclude Include="vendors\SDL\include\begin_code.h" />
     <ClInclude Include="vendors\SDL\include\close_code.h" />
     <ClInclude Include="vendors\SDL\include\SDL.h" />
