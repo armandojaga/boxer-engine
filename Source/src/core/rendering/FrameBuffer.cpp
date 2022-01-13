@@ -1,10 +1,10 @@
 #include "FrameBuffer.h"
 
-#include "Application.h"
 #include "Globals.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
 #include "GL/glew.h"
+#include <optick.h>
 
 BoxerEngine::FrameBuffer::FrameBuffer(int w, int h) : width(w), height(h)
 {
@@ -29,6 +29,7 @@ void BoxerEngine::FrameBuffer::Resize(const int width, const int height)
 
 void BoxerEngine::FrameBuffer::Reset()
 {
+    OPTICK_CATEGORY(OPTICK_FUNC, Optick::Category::Rendering);
     BE_LOG("Invalidating frame buffer, w: %d, h: %d", width, height);
     if (fbo_id)
     {
@@ -43,6 +44,7 @@ void BoxerEngine::FrameBuffer::Reset()
 
 void BoxerEngine::FrameBuffer::Create()
 {
+    OPTICK_CATEGORY("Create FrameBuffer", Optick::Category::Rendering);
     //create frame buffer
     glCreateFramebuffers(1, &fbo_id);
     Bind();

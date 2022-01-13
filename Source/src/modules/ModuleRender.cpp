@@ -13,6 +13,8 @@
 #include "core/logging/AssimpLogger.h"
 #include <assimp/DefaultLogger.hpp>
 
+#include <optick.h>
+
 ModuleRender::~ModuleRender()
 {
     delete frame_buffer;
@@ -94,6 +96,7 @@ update_status ModuleRender::PreUpdate(float delta)
 // Called every draw update
 update_status ModuleRender::Update(float delta)
 {
+    OPTICK_EVENT();
     App->program->UseProgram();
     const float4x4 modelMatrix = float4x4::identity;
     const float4x4& view = App->camera->GetViewMatrix();
