@@ -4,6 +4,7 @@
 #include <cstdarg>
 #include <cstdio>
 #include <Windows.h>
+#include <ctime>
 
 namespace BoxerEngine
 {
@@ -13,11 +14,12 @@ namespace BoxerEngine
         static char tmp_string2[4096];
         static va_list ap;
 
+
         // Construct the string from variable arguments
         va_start(ap, format);
         vsprintf_s(tmp_string, 4096, format, ap);
         va_end(ap);
-        sprintf_s(tmp_string2, 4096, "\n%s(%d) : %s", file, line, tmp_string);
+        sprintf_s(tmp_string2, 4096, "\n%s : %s", GetCurrentDateTime(), tmp_string);
         Debug(tmp_string2);
     }
 

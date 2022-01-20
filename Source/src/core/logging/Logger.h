@@ -73,6 +73,17 @@ namespace BoxerEngine
     protected:
         virtual void Log(const char* str, LogLevel& level) = 0;
 
+        [[nodiscard]] static const char* GetCurrentDateTime()
+        {
+            static char buffer[48];
+            const time_t now = std::time(nullptr);
+            std::tm ltm{};
+            localtime_s(&ltm, &now);
+            //2022/01/18 11:52:00
+            strftime(buffer, sizeof(buffer), "%F %T %z", &ltm);
+            return buffer;
+        }
+
     private:
         void _log(const char* str, LogLevel level)
         {

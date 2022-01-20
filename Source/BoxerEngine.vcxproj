@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;_CONSOLE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDir)vendors\yaml-cpp\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
@@ -121,8 +121,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;$(ProjectDir)vendors\optick\lib\x64\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;OptickCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;$(ProjectDir)vendors\optick\lib\x64\debug;%(AdditionalLibraryDirectories);$(ProjectDir)vendors\yaml-cpp\lib\x64\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;OptickCore.lib;yaml-cpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -153,7 +153,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDIr)vendors\optick\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\yaml-cpp\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
@@ -164,8 +164,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;$(ProjectDir)vendors\optick\lib\x64\release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;OptickCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;$(ProjectDir)vendors\optick\lib\x64\release;%(AdditionalLibraryDirectories);$(ProjectDir)vendors\yaml-cpp\lib\x64\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;OptickCore.lib;yaml-cpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -577,6 +577,43 @@
     <ClInclude Include="vendors\SDL\include\SDL_version.h" />
     <ClInclude Include="vendors\SDL\include\SDL_video.h" />
     <ClInclude Include="vendors\SDL\include\SDL_vulkan.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\anchor.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\binary.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\contrib\anchordict.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\contrib\graphbuilder.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\depthguard.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\dll.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emitfromevents.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emitter.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emitterdef.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emittermanip.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emitterstyle.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\eventhandler.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\exceptions.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\mark.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\convert.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\impl.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\iterator.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\iterator_fwd.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\memory.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\node.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\node_data.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\node_iterator.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\node_ref.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\emit.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\impl.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\iterator.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\node.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\parse.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\ptr.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\type.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\noexcept.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\null.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\ostream_wrapper.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\parser.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\stlemitter.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\traits.h" />
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\yaml.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\assets\shaders\fragmentTexture.glsl" />

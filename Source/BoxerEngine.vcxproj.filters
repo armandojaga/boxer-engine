@@ -195,7 +195,6 @@
     <ClCompile Include="src\core\bepch.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c" />
     <ClCompile Include="src\core\rendering\Mesh.cpp">
       <Filter>Core\Rendering</Filter>
     </ClCompile>
@@ -204,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="src\core\rendering\BoundingBox.cpp">
       <Filter>Core\Rendering\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c">
+      <Filter>Vendors\MathGeoLib\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1095,6 +1097,117 @@
     <ClInclude Include="vendors\optick\include\optick.h">
       <Filter>Vendors\Optick</Filter>
     </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\anchor.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\binary.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\depthguard.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\dll.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emitfromevents.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emitter.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emitterdef.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emittermanip.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\emitterstyle.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\eventhandler.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\exceptions.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\mark.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\noexcept.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\null.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\ostream_wrapper.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\parser.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\stlemitter.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\traits.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\yaml.h">
+      <Filter>Vendors\Yaml</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\contrib\anchordict.h">
+      <Filter>Vendors\Yaml\Contrib</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\contrib\graphbuilder.h">
+      <Filter>Vendors\Yaml\Contrib</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\impl.h">
+      <Filter>Vendors\Yaml\Node\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\iterator.h">
+      <Filter>Vendors\Yaml\Node\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\iterator_fwd.h">
+      <Filter>Vendors\Yaml\Node\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\memory.h">
+      <Filter>Vendors\Yaml\Node\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\node.h">
+      <Filter>Vendors\Yaml\Node\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\node_data.h">
+      <Filter>Vendors\Yaml\Node\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\node_iterator.h">
+      <Filter>Vendors\Yaml\Node\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\detail\node_ref.h">
+      <Filter>Vendors\Yaml\Node\Detail</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\convert.h">
+      <Filter>Vendors\Yaml\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\emit.h">
+      <Filter>Vendors\Yaml\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\impl.h">
+      <Filter>Vendors\Yaml\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\iterator.h">
+      <Filter>Vendors\Yaml\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\node.h">
+      <Filter>Vendors\Yaml\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\parse.h">
+      <Filter>Vendors\Yaml\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\ptr.h">
+      <Filter>Vendors\Yaml\Node</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\type.h">
+      <Filter>Vendors\Yaml\Node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1189,6 +1302,18 @@
     </Filter>
     <Filter Include="Vendors\Optick">
       <UniqueIdentifier>{fb9446f1-13ad-43ff-87fb-9c37798bd4b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\Yaml">
+      <UniqueIdentifier>{ab4e8209-3eba-4fa4-bcf3-4772f40a7e82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\Yaml\Contrib">
+      <UniqueIdentifier>{f3d631d2-b907-40dd-aaca-a76cfb3ebdf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\Yaml\Node">
+      <UniqueIdentifier>{ceedf2a6-e7c2-4806-8059-669d1421119c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\Yaml\Node\Detail">
+      <UniqueIdentifier>{96b1b5a5-b152-4c94-8e06-651f1d266503}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
