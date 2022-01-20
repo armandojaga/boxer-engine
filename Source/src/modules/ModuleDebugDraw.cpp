@@ -2,6 +2,7 @@
 #include "ModuleDebugDraw.h"
 
 #define DEBUG_DRAW_IMPLEMENTATION
+#define DEBUG_DRAW_CXX11_SUPPORTED
 #include "Application.h"
 #include "debugdraw.h"     // Debug Draw API. Notice that we need the DEBUG_DRAW_IMPLEMENTATION macro here!
 #include "imgui.h"

@@ -19,6 +19,7 @@
 #include <cstdio>
 #include <random>
 #include <tuple>
+#include <ctime>
 
 #include <thread>
 #include <future>
@@ -27,9 +28,10 @@
 #include <Windows.h>
 #include "Psapi.h"
 
+#include <optick.h>
+#include <imgui.h>
+
 #include "Globals.h"
 #include "Application.h"
 #include "modules/Module.h"
 #include "rendering/Bindable.h"
-
-#include <optick.h>
