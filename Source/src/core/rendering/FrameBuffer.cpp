@@ -30,7 +30,7 @@ void BoxerEngine::FrameBuffer::Resize(const int width, const int height)
 void BoxerEngine::FrameBuffer::Reset()
 {
     OPTICK_CATEGORY(OPTICK_FUNC, Optick::Category::Rendering);
-    BE_LOG("Invalidating frame buffer, w: %d, h: %d", width, height);
+    BE_LOG("Resetting frame buffer, w: %d, h: %d", width, height);
     if (fbo_id)
     {
         glDeleteFramebuffers(GL_FRAMEBUFFER, &fbo_id);

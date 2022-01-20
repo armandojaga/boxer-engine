@@ -1015,7 +1015,7 @@ struct FontCharSet
     FontChar chars[MaxChars];
 };
 
-#if DEBUG_DRAW_CXX11_SUPPORTED
+#ifdef DEBUG_DRAW_CXX11_SUPPORTED
     #define DD_ALIGNED_BUFFER(name) alignas(16) static const std::uint8_t name[]
 #else // !C++11
     #if defined(__GNUC__) // Clang & GCC
