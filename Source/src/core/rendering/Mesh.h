@@ -23,8 +23,6 @@ struct Texture
 class Mesh
 {
 public:
-
-
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, float3 minPoint, float3 maxPoint);
     void Draw() const;
