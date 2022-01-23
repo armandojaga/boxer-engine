@@ -17,8 +17,8 @@
 #include "core/util/Files.h"
 #include "ui/widgets/AxisSlider.h"
 
-
-ModuleEditor::ModuleEditor() : console(new BoxerEngine::ConsolePanel())
+ModuleEditor::ModuleEditor() 
+    : console(new BoxerEngine::ConsolePanel())
 {
 }
 
@@ -70,6 +70,14 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->GetContext());
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
+    prefs = static_cast<BoxerEngine::EditorPrefs*>(App->pref_manager->GetEditorPreferences());
+    display_about = prefs->GetDisplayAbout();
+    display_console = prefs->GetDisplayConsole();
+    display_stats = prefs->GetDisplayStats();
+    display_config = prefs->GetDisplayConfig();
+    display_hardware = prefs->GetDisplayHardware();
+    display_camera_settings = prefs->GetDisplayCameraSettings();
+    
     return true;
 }
 
@@ -313,11 +321,11 @@ void ModuleEditor::ShowConfig() const
     ImGui::Checkbox("##vsync", &vsync);
     game_options.SetVsync(vsync);
 
-    bool fullscreen = game_options.IsFullscreen();
+    bool fullscreen = prefs->IsFullscreen();//game_options.IsFullscreen();
     ImGui::TextWrapped("Fullscreen");
     ImGui::SameLine();
     ImGui::Checkbox("##fullscreen", &fullscreen);
-    game_options.SetFullscreen(fullscreen);
+    prefs->SetFullscreen(fullscreen);
 
     bool displayDebugDraw = game_options.IsDisplayDebugDraw();
     ImGui::TextWrapped("Display debug draw");

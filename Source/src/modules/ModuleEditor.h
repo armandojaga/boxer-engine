@@ -2,11 +2,13 @@
 
 #include "Module.h"
 #include "ui/components/ConsolePanel.h"
+#include "core/preferences/src/EditorPrefs.h"
 
 class ModuleEditor : public Module
 {
 private:
     BoxerEngine::ConsolePanel* console;
+    BoxerEngine::EditorPrefs* prefs = nullptr;
     mutable bool display_about = false;
     mutable bool display_console = true;
     mutable bool display_stats = true;

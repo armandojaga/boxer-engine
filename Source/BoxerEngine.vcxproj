@@ -169,6 +169,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\preferences\src\RenderPrefs.cpp" />
+    <ClCompile Include="src\core\file system\FileManager.cpp" />
+    <ClCompile Include="src\core\preferences\src\EditorPrefs.cpp" />
+    <ClCompile Include="src\core\preferences\PreferenceManager.cpp" />
     <ClCompile Include="src\core\rendering\BoundingBox.cpp" />
     <ClCompile Include="src\core\bepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -278,8 +282,14 @@
     <ClCompile Include="src\modules\ModuleInput.cpp" />
     <ClCompile Include="src\modules\ModuleRender.cpp" />
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
+    <ClCompile Include="src\core\util\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\preferences\src\RenderPrefs.h" />
+    <ClInclude Include="src\core\file system\FileManager.h" />
+    <ClInclude Include="src\core\preferences\src\EditorPrefs.h" />
+    <ClInclude Include="src\core\preferences\Prefs.h" />
+    <ClInclude Include="src\core\preferences\PreferenceManager.h" />
     <ClInclude Include="src\core\rendering\BoundingBox.h" />
     <ClInclude Include="src\core\bepch.h" />
     <ClInclude Include="src\core\GameOptions.h" />
@@ -614,6 +624,7 @@
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\stlemitter.h" />
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\traits.h" />
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\yaml.h" />
+    <ClInclude Include="src\core\util\Yaml.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\assets\shaders\fragmentTexture.glsl" />
