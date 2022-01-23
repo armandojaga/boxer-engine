@@ -23,7 +23,7 @@ bool ModuleWindow::Init()
         //Create window
         constexpr int width = SCREEN_WIDTH;
         constexpr int height = SCREEN_HEIGHT;
-        Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI  | SDL_WINDOW_MAXIMIZED;
+        Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MAXIMIZED;
 
         if (game_options.IsFullscreen())
         {

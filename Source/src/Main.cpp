@@ -15,7 +15,7 @@ enum class main_states
 
 std::unique_ptr<Application> App = nullptr;
 
-void printBanner()
+void PrintBanner()
 {
     BE_LOG(" ######                              #######                               ");
     BE_LOG(" #     #  ####  #    # ###### #####  #       #    #  ####  # #    # ###### ");
@@ -30,7 +30,7 @@ int main(int argc, char** argv)
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    printBanner();
+    PrintBanner();
 
     int main_return = EXIT_FAILURE;
     auto state = main_states::MAIN_CREATION;
@@ -109,6 +109,6 @@ int main(int argc, char** argv)
         }
     }
 
-    BE_LOG("Bye :)");
+    BE_LOG("Bye :)\n");
     return main_return;
 }

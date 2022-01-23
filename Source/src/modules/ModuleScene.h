@@ -1,13 +1,17 @@
 #pragma once
 #include "Module.h"
+#include "core/Scene.h"
 
 class ModuleScene : public Module
 {
-private:
 public:
     ModuleScene() = default;
     ~ModuleScene() override;
 
     bool Init() override;
-    bool CleanUp() override;
+    bool Start() override;
+    update_status Update(float delta) override;
+
+private:
+    BoxerEngine::Scene* scene = nullptr;
 };
