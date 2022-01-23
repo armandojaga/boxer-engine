@@ -28,8 +28,6 @@ BoxerEngine::PreferenceManager::~PreferenceManager()
 
 void BoxerEngine::PreferenceManager::LoadConfigurationFile()
 {
-	std::vector<YAML::Node> nodes_vec = YAML::LoadAllFromFile(CONFIG_PATH);
-
 	for (auto node : nodes_vec)
 	{
 		for (auto it : preferences)
@@ -53,12 +51,23 @@ void BoxerEngine::PreferenceManager::LoadConfigurationFile()
 			{
 				continue;
 			}
-			it->LoadConfig(node[section_name]);
+			it->SetConfigData(node[section_name]);
 		}
 	}
 }
 
-Prefs* BoxerEngine::PreferenceManager::GetPreferenceDataByType(PreferenceType type)
+void BoxerEngine::PreferenceManager::SaveConfigurationFile()
+{
+	YAML::Node output;
+	for (auto it : preferences)
+	{
+		it->GetConfigData(output);
+	}
+	std::ofstream fout(CONFIG_PATH);
+	fout << output;
+}
+
+Prefs* BoxerEngine::PreferenceManager::GetPreferenceDataByType(PreferenceType type) const
 {
 	for (auto it : preferences)
 	{

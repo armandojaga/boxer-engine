@@ -6,7 +6,7 @@ EditorPrefs::EditorPrefs() : Prefs(PreferenceType::EDITOR)
 {
 }
 
-void EditorPrefs::LoadConfig(const YAML::Node& yNode)
+void EditorPrefs::SetConfigData(const YAML::Node& yNode)
 {
 	for (auto it = yNode.begin(); it != yNode.end(); ++it)
 	{
@@ -67,6 +67,15 @@ void EditorPrefs::LoadConfig(const YAML::Node& yNode)
 	}
 }
 
-void EditorPrefs::SaveConfig()
+void EditorPrefs::GetConfigData(YAML::Node& output_node)
 {
+	output_node["editor"]["display_about"] = display_about;
+	output_node["editor"]["display_console"] = display_console;
+	output_node["editor"]["display_stats"] = display_stats;
+	output_node["editor"]["display_config"] = display_config;
+	output_node["editor"]["display_hardware"] = display_hardware;
+	output_node["editor"]["display_camera_settings"] = display_camera_settings;
+	output_node["editor"]["fullscreen"] = fullscreen;
+	output_node["editor"]["display_debug_draw"] = display_debug_draw;
+	output_node["editor"]["theme"] = light_theme ? "light" : "dark";
 }

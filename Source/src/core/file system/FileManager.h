@@ -10,7 +10,7 @@ namespace BoxerEngine
 		public:
 			~FileManager();
 			[[nodiscard]] std::ifstream* Load(std::filesystem::path file_path);
-			void Save();
+			void Save(std::ostream data, std::filesystem::path file_path);
 			void Remove();
 			void Copy();
 			void AppendToFile();

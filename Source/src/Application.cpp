@@ -92,5 +92,7 @@ bool Application::CleanUp()
         ret = (*it)->CleanUp();
     }
 
+    pref_manager->SaveConfigurationFile();
+
     return ret;
 }

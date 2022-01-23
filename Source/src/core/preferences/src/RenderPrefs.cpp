@@ -7,7 +7,7 @@ RenderPrefs::RenderPrefs() : Prefs(PreferenceType::RENDER)
 {
 }
 
-void RenderPrefs::LoadConfig(const YAML::Node& yNode)
+void RenderPrefs::SetConfigData(const YAML::Node& yNode)
 {
 
 	//for (YAML::const_iterator it = yNode.begin(); it != yNode.end(); ++it) {
@@ -21,6 +21,6 @@ void RenderPrefs::LoadConfig(const YAML::Node& yNode)
 	//}
 }
 
-void RenderPrefs::SaveConfig()
+void RenderPrefs::GetConfigData(YAML::Node& output_node)
 {
 }

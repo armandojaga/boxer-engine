@@ -18,8 +18,8 @@ namespace BoxerEngine
 		public:
 			Prefs(PreferenceType pType) { type = pType; }
 			virtual ~Prefs() = default;
-			virtual void LoadConfig(const YAML::Node& yNode) = 0;
-			virtual void SaveConfig() = 0;
+			virtual void SetConfigData(const YAML::Node& input_node) = 0;
+			virtual void GetConfigData(YAML::Node& output_node) = 0;
 			virtual PreferenceType GetType() { return type; }
 
 		private:

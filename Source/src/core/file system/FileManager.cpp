@@ -16,8 +16,9 @@ std::ifstream* FileManager::Load(std::filesystem::path file_path)
 	return &rfile;
 }
 
-void FileManager::Save()
+void FileManager::Save(std::ostream data, std::filesystem::path file_path)
 {
+
 }
 
 void FileManager::Remove()

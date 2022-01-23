@@ -10,8 +10,8 @@ namespace BoxerEngine
 	public:
         EditorPrefs();
 		~EditorPrefs() = default;
-		void LoadConfig(const YAML::Node& yNode) override;
-		void SaveConfig() override;
+		void SetConfigData(const YAML::Node& node) override;
+		void GetConfigData(YAML::Node& output_node) override;
 
         void SetDisplayDebugDraw(const bool displayDebugDraw)
         {

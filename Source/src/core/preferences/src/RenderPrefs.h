@@ -9,10 +9,8 @@ namespace BoxerEngine
     public:
         RenderPrefs();
         ~RenderPrefs() = default;
-        void LoadConfig(const YAML::Node& yNode) override;
-        void SaveConfig() override;
-
-
+        void SetConfigData(const YAML::Node& yNode) override;
+        void GetConfigData(YAML::Node& output_node) override;
     };
 }
 

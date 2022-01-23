@@ -14,14 +14,14 @@ namespace BoxerEngine
 			PreferenceManager();
 			~PreferenceManager();
 			void LoadConfigurationFile();
-			Prefs* GetPreferenceDataByType(PreferenceType type);
+			void SaveConfigurationFile();
+			Prefs* GetPreferenceDataByType(PreferenceType type) const;
 			Prefs* GetEditorPreferences() const;
 
 		private:
 			std::vector<Prefs*> preferences;
+			std::vector<YAML::Node> nodes_vec = YAML::LoadAllFromFile(CONFIG_PATH);
 			FileManager file_manager;
-			std::vector<std::pair<std::string, std::string>> pref_data;
-
 			EditorPrefs* editor;
 			//RenderPrefs* render;
 	};
