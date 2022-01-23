@@ -53,24 +53,30 @@ bool ModuleEditor::Init()
     style.ScrollbarRounding = 6.0f;
     style.GrabRounding = 4.0f;
 
-    //TODO read from config file
-#ifdef LIGHT_THEME
-    // UI style
-    ImGui::StyleColorsLight();
-    ImVec4* colors = style.Colors;
-    colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 0.70f);
-    colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
-    colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
-    colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
-    game_options.SetSceneBackgroundColor(float3(0.9f));
-#else
-    game_options.SetSceneBackgroundColor(float3(0.1f));
-#endif
+    // Get preferences from configuration file
+    prefs = static_cast<BoxerEngine::EditorPrefs*>(App->pref_manager->GetEditorPreferences());
+
+    // TODO: Store theme settings in config file
+    if (prefs->IsLightTheme())
+    {
+        // UI style
+        ImGui::StyleColorsLight();
+        ImVec4* colors = style.Colors;
+        colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 0.70f);
+        colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
+        colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
+        colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
+        game_options.SetSceneBackgroundColor(float3(0.9f));
+    }
+    else
+    {
+        game_options.SetSceneBackgroundColor(float3(0.1f));
+    }
 
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->GetContext());
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
-    prefs = static_cast<BoxerEngine::EditorPrefs*>(App->pref_manager->GetEditorPreferences());
+
     display_about = prefs->GetDisplayAbout();
     display_console = prefs->GetDisplayConsole();
     display_stats = prefs->GetDisplayStats();
@@ -327,11 +333,11 @@ void ModuleEditor::ShowConfig() const
     ImGui::Checkbox("##fullscreen", &fullscreen);
     prefs->SetFullscreen(fullscreen);
 
-    bool displayDebugDraw = game_options.IsDisplayDebugDraw();
+    bool displayDebugDraw = prefs->IsDisplayDebugDraw();
     ImGui::TextWrapped("Display debug draw");
     ImGui::SameLine();
     ImGui::Checkbox("##debugdraw", &displayDebugDraw);
-    game_options.SetDisplayDebugDraw(displayDebugDraw);
+    prefs->SetDisplayDebugDraw(displayDebugDraw);
 
     // float3 values = float3::zero;
     // std::string label = "Camera";

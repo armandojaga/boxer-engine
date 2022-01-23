@@ -34,12 +34,31 @@ void BoxerEngine::PreferenceManager::LoadConfigurationFile()
 	{
 		for (auto it : preferences)
 		{
-			it->LoadConfig(node);
+			std::string section_name;
+			switch (it->GetType())
+			{
+				case PreferenceType::EDITOR:
+					section_name = "editor";
+					break;
+
+				case PreferenceType::RENDER:
+					section_name = "render";
+					break;
+
+				case PreferenceType::CAMERA:
+					section_name = "camera";
+					break;
+			}
+			if (!node[section_name].IsDefined())
+			{
+				continue;
+			}
+			it->LoadConfig(node[section_name]);
 		}
 	}
 }
 
-Prefs* BoxerEngine::PreferenceManager::GetPreferenceData(PreferenceType type)
+Prefs* BoxerEngine::PreferenceManager::GetPreferenceDataByType(PreferenceType type)
 {
 	for (auto it : preferences)
 	{
@@ -48,6 +67,7 @@ Prefs* BoxerEngine::PreferenceManager::GetPreferenceData(PreferenceType type)
 			return it;
 		}
 	}
+	return nullptr;
 }
 
 Prefs* BoxerEngine::PreferenceManager::GetEditorPreferences() const

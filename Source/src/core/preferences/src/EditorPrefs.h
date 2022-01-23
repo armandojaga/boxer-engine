@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Prefs.h"
+#include "Math/float3.h"
 
 namespace BoxerEngine
 {
@@ -11,6 +12,26 @@ namespace BoxerEngine
 		~EditorPrefs() = default;
 		void LoadConfig(const YAML::Node& yNode) override;
 		void SaveConfig() override;
+
+        void SetDisplayDebugDraw(const bool displayDebugDraw)
+        {
+            display_debug_draw = displayDebugDraw;
+        }
+
+        [[nodiscard]] bool IsDisplayDebugDraw() const
+        {
+            return display_debug_draw;
+        }
+
+        void SetSceneBackgroundColor(const float3& sceneBackgroundColor)
+        {
+            scene_background_color = sceneBackgroundColor;
+        }
+
+        [[nodiscard]] const float3& GetSceneBackgroundColor() const
+        {
+            return scene_background_color;
+        }
 
         [[nodiscard]] float GetMaxFPS() const
         {
@@ -109,7 +130,14 @@ namespace BoxerEngine
             return display_camera_settings;
         }
 
-	private:
+        [[nodiscard]] bool IsLightTheme() const
+        {
+            return light_theme;
+        }
+
+    private:
+        bool display_debug_draw = false;
+        float3 scene_background_color = float3(0.0f);
         mutable bool display_about = false;
         bool display_console = true;
         bool display_stats = true;
@@ -120,6 +148,7 @@ namespace BoxerEngine
 		bool fullscreen = false;
 		int vsync = 0;
 		float fps_threshold = 1000.0f / max_fps;
+        bool light_theme = true;
 	};
 }
 

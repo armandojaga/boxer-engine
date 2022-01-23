@@ -5,6 +5,7 @@
 #include "GL/glew.h"
 #include "core/rendering/FrameBuffer.h"
 #include "core/rendering/Model.h"
+#include "core/preferences/src/EditorPrefs.h"
 
 struct SDL_Texture;
 struct SDL_Renderer;
@@ -46,5 +47,6 @@ private:
     void* context{};
     int width{}, height{};
     BoxerEngine::FrameBuffer* frame_buffer;
+    BoxerEngine::EditorPrefs* prefs = nullptr;
     Model* model = nullptr;
 };

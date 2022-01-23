@@ -51,6 +51,19 @@ void EditorPrefs::LoadConfig(const YAML::Node& yNode)
 			fullscreen = it->second.as<bool>();
 			continue;
 		}
+
+		if (it->first.as<std::string>()._Equal("display_debug_draw"))
+		{
+			display_debug_draw = it->second.as<bool>();
+			continue;
+		}
+
+		// TODO: Store theme settings in config file
+		if (it->first.as<std::string>()._Equal("theme"))
+		{
+			light_theme = it->second.as<std::string>()._Equal("light");
+			continue;
+		}
 	}
 }
 

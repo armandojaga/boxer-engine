@@ -14,7 +14,7 @@ namespace BoxerEngine
 			PreferenceManager();
 			~PreferenceManager();
 			void LoadConfigurationFile();
-			Prefs* GetPreferenceData(PreferenceType type);
+			Prefs* GetPreferenceDataByType(PreferenceType type);
 			Prefs* GetEditorPreferences() const;
 
 		private:
