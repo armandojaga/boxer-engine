@@ -225,6 +225,28 @@
     <ClCompile Include="src\components\LightComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\components\ScenePanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\HierarchyPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\Panel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\StatisticsPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\HardwarePanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\ConfigurationPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\AboutPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\InspectorPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1249,6 +1271,28 @@
     <ClInclude Include="src\components\LightComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\ui\components\ScenePanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\HierarchyPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\Panel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\StatisticsPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\HardwarePanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\ConfigurationPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\AboutPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\InspectorPanel.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

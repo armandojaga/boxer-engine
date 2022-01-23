@@ -6,19 +6,14 @@ const std::string& BoxerEngine::Scene::GetSceneId() const
     return id;
 }
 
-BoxerEngine::Scene::Scene() : root(new Entity())
+BoxerEngine::Scene::Scene()
 {
-    root->Clear(); //empty entity with no default components
-    root->SetName("Untitled");
-    id = UUID::GenerateUUIDv4();
+    InitRoot();
 }
 
 BoxerEngine::Scene::~Scene()
 {
-    root->Clear();
-    delete root;
-    id = "";
-    root = nullptr;
+    Clear();
 }
 
 void BoxerEngine::Scene::Init()
@@ -39,8 +34,28 @@ void BoxerEngine::Scene::Update()
 BoxerEngine::Entity* BoxerEngine::Scene::CreateEntity()
 {
     const auto e = new Entity(root);
-    root->AddChild(e);
+    if (root) //root can be nullptr when creating a new empty scene
+    {
+        root->AddChild(e);
+    }
     return e;
+}
+
+void BoxerEngine::Scene::InitRoot()
+{
+    //TODO do we need to add the default camera here?
+    root = new Entity();
+    root->Clear(); //empty entity with no default components
+    root->SetName("Untitled");
+    id = UUID::GenerateUUIDv4();
+}
+
+void BoxerEngine::Scene::Clear()
+{
+    root->Clear();
+    delete root;
+    id = "";
+    root = nullptr;
 }
 
 

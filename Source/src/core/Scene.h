@@ -14,6 +14,8 @@ namespace BoxerEngine
         void Update();
 
         Entity* CreateEntity();
+        void InitRoot();
+        void Clear();
 
         void SetSceneId(const std::string&);
         [[nodiscard]] const std::string& GetSceneId() const;

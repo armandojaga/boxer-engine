@@ -197,6 +197,8 @@
     <ClCompile Include="src\modules\ModuleProgram.cpp" />
     <ClCompile Include="src\modules\ModuleResources.cpp" />
     <ClCompile Include="src\modules\ModuleTexture.cpp" />
+    <ClCompile Include="src\ui\components\AboutPanel.cpp" />
+    <ClCompile Include="src\ui\components\ConfigurationPanel.cpp" />
     <ClCompile Include="src\ui\components\ConsolePanel.cpp" />
     <ClCompile Include="src\core\logging\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
@@ -204,6 +206,12 @@
     <ClCompile Include="src\modules\ModuleScene.cpp" />
     <ClCompile Include="src\core\util\Timer.cpp" />
     <ClCompile Include="src\components\TransformComponent.cpp" />
+    <ClCompile Include="src\ui\components\HardwarePanel.cpp" />
+    <ClCompile Include="src\ui\components\HierarchyPanel.cpp" />
+    <ClCompile Include="src\ui\components\InspectorPanel.cpp" />
+    <ClCompile Include="src\ui\components\Panel.cpp" />
+    <ClCompile Include="src\ui\components\ScenePanel.cpp" />
+    <ClCompile Include="src\ui\components\StatisticsPanel.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_opengl3.cpp" />
@@ -310,6 +318,8 @@
     <ClInclude Include="src\modules\ModuleProgram.h" />
     <ClInclude Include="src\modules\ModuleResources.h" />
     <ClInclude Include="src\modules\ModuleTexture.h" />
+    <ClInclude Include="src\ui\components\AboutPanel.h" />
+    <ClInclude Include="src\ui\components\ConfigurationPanel.h" />
     <ClInclude Include="src\ui\components\ConsolePanel.h" />
     <ClInclude Include="src\core\logging\ConsoleLogger.h" />
     <ClInclude Include="src\core\ErrorHandler.h" />
@@ -319,6 +329,12 @@
     <ClInclude Include="src\modules\ModuleDebugDraw.h" />
     <ClInclude Include="src\modules\ModuleScene.h" />
     <ClInclude Include="src\core\util\Timer.h" />
+    <ClInclude Include="src\ui\components\HardwarePanel.h" />
+    <ClInclude Include="src\ui\components\HierarchyPanel.h" />
+    <ClInclude Include="src\ui\components\InspectorPanel.h" />
+    <ClInclude Include="src\ui\components\Panel.h" />
+    <ClInclude Include="src\ui\components\ScenePanel.h" />
+    <ClInclude Include="src\ui\components\StatisticsPanel.h" />
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />
     <ClInclude Include="src\components\TransformComponent.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
