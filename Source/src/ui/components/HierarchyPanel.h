@@ -13,6 +13,6 @@ namespace BoxerEngine
         void Update() override;
 
         void CreateEmptyEntity();
-        void UpdateHierarchyTree(const Entity* entity);
+        void UpdateHierarchyTree(Entity* entity);
     };
 }

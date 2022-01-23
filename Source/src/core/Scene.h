@@ -22,7 +22,7 @@ namespace BoxerEngine
 
         [[nodiscard]] bool IsLoaded() const;
 
-        [[nodiscard]] const Entity* GetRoot() const;
+        [[nodiscard]] Entity* GetRoot() const;
 
     private:
         std::string id;

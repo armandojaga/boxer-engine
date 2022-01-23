@@ -1,6 +1,8 @@
 #include "bepch.h"
 #include "Scene.h"
 
+#include "util/StringUtils.h"
+
 const std::string& BoxerEngine::Scene::GetSceneId() const
 {
     return id;
@@ -34,6 +36,7 @@ void BoxerEngine::Scene::Update()
 BoxerEngine::Entity* BoxerEngine::Scene::CreateEntity()
 {
     const auto e = new Entity(root);
+    e->SetName(StringUtils::Concat("New Entity (", std::to_string(root->GetChildren().size()), ")"));
     if (root) //root can be nullptr when creating a new empty scene
     {
         root->AddChild(e);
@@ -69,7 +72,7 @@ bool BoxerEngine::Scene::IsLoaded() const
     return loaded;
 }
 
-const BoxerEngine::Entity* BoxerEngine::Scene::GetRoot() const
+BoxerEngine::Entity* BoxerEngine::Scene::GetRoot() const
 {
     return root;
 }
