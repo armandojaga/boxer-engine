@@ -6,6 +6,7 @@ namespace BoxerEngine
 {
 	enum class PreferenceType
 	{
+		GLOBALS,
 		EDITOR,
 		CAMERA,
 		GAME,

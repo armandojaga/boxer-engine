@@ -1,7 +1,9 @@
 #include "PreferenceManager.h"
 
 #include "src/EditorPrefs.h"
-//#include "src/RenderPrefs.h"
+#include "src/RenderPrefs.h"
+#include "src/GlobalPrefs.h"
+#include "src/CameraPrefs.h"
 #include "Globals.h"
 
 using namespace BoxerEngine;
@@ -11,9 +13,14 @@ PreferenceManager::PreferenceManager()
 	preferences.reserve((size_t)PreferenceType::TYPES_AMOUNT);
 	
 	editor = new EditorPrefs();
-	//render = new RenderPrefs();
+	globals = new GlobalPrefs();
+	render = new RenderPrefs();
+	camera = new CameraPrefs();
+
+	preferences.emplace_back(globals);
+	preferences.emplace_back(render);
 	preferences.emplace_back(editor);
-	//preferences.emplace_back(render);
+	preferences.emplace_back(camera);
 
 	LoadConfigurationFile();
 }
@@ -35,6 +42,10 @@ void BoxerEngine::PreferenceManager::LoadConfigurationFile()
 			std::string section_name;
 			switch (it->GetType())
 			{
+				case PreferenceType::GLOBALS:
+					section_name = "globals";
+					break;
+
 				case PreferenceType::EDITOR:
 					section_name = "editor";
 					break;
