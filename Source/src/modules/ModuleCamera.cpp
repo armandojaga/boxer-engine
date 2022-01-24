@@ -13,20 +13,20 @@ static const float EPSILON = 1e-5f;
 
 ModuleCamera::ModuleCamera()
     : aspect_ratio(0.0f)
-      , horizontal_fov_degree(0.0f)
-      , near_distance(0.0f)
-      , far_distance(0.0f)
-      , move_speed(15.0f)
-      , rotation_speed(15.0f)
-      , zoom_pos_speed(50.0f)
-      , zoom_fov_speed(0.05f)
-      , orbit_speed(25.0f)
-      , orbit_angle(0.0f)
-      , roll(0.0f)
-      , pitch(0.0f)
-      , yaw(0.0f)
-      , look_position(float3::zero)
-      , position(float3::zero)
+    , horizontal_fov_degree(0.0f)
+    , near_distance(0.0f)
+    , far_distance(0.0f)
+    , move_speed(15.0f)
+    , rotation_speed(15.0f)
+    , zoom_pos_speed(50.0f)
+    , zoom_fov_speed(0.05f)
+    , orbit_speed(25.0f)
+    , orbit_angle(0.0f)
+    , roll(0.0f)
+    , pitch(0.0f)
+    , yaw(0.0f)
+    , look_position(float3::zero)
+    , position(float3::zero)
 {
 }
 
@@ -34,10 +34,19 @@ ModuleCamera::~ModuleCamera() = default;
 
 bool ModuleCamera::Init()
 {
+    prefs = static_cast<BoxerEngine::CameraPrefs*>(App->pref_manager->GetPreferenceDataByType(BoxerEngine::PreferenceType::CAMERA));
+    near_distance = prefs->GetNearDistance();
+    far_distance = prefs->GetFarDistance();
+    move_speed = prefs->GetMoveSpeed();
+    rotation_speed = prefs->GetRotationSpeed();
+    zoom_pos_speed = prefs->GetZoomSpeed();
+    orbit_speed = prefs->GetOrbitSpeed();
+    horizontal_fov_degree = prefs->GetFov();
+
     camera_frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
     SetAspectRatio(SCREEN_WIDTH, SCREEN_HEIGHT);
-    SetHorizontalFovInDegrees(90.0f);
-    SetPlaneDistances(0.1f, 200.0f);
+    SetHorizontalFovInDegrees(horizontal_fov_degree);
+    SetPlaneDistances(near_distance, far_distance);
     SetPosition(float3(8.0f, 8.0f, 8.0f));
     const float3x3 rotation = float3x3::identity;
     camera_frustum.SetFront(rotation.WorldZ());
@@ -59,6 +68,13 @@ update_status ModuleCamera::Update(float delta)
 
 bool ModuleCamera::CleanUp()
 {
+    prefs->SetFarDistance(far_distance);
+    prefs->SetMoveSpeed(move_speed);
+    prefs->SetNearDistance(near_distance);
+    prefs->SetOrbitSpeed(orbit_speed);
+    prefs->SetRotationSpeed(rotation_speed);
+    prefs->SetZoomSpeed(zoom_pos_speed);
+    prefs->SetFov(horizontal_fov_degree);
     return true;
 }
 
