@@ -64,6 +64,12 @@ void EditorPrefs::SetConfigData(const YAML::Node& yNode)
 			light_theme = it->second.as<std::string>()._Equal("light");
 			continue;
 		}
+
+		if (it->first.as<std::string>()._Equal("vsync"))
+		{
+			vsync = it->second.as<int>();
+			continue;
+		}
 	}
 }
 
@@ -78,4 +84,5 @@ void EditorPrefs::GetConfigData(YAML::Node& output_node)
 	output_node["editor"]["fullscreen"] = fullscreen;
 	output_node["editor"]["display_debug_draw"] = display_debug_draw;
 	output_node["editor"]["theme"] = light_theme ? "light" : "dark";
+	output_node["editor"]["vsync"] = vsync;
 }

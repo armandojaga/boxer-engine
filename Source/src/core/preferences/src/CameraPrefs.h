@@ -12,13 +12,13 @@ namespace BoxerEngine
             void SetConfigData(const YAML::Node& yNode) override;
             void GetConfigData(YAML::Node& output_node) override;
 
-            unsigned int GetMoveSpeed() const { return move_speed; }
-            unsigned int GetRotationSpeed() const { return rotation_speed; }
-            unsigned int GetOrbitSpeed() const { return orbit_speed; }
-            unsigned int GetZoomSpeed() const { return zoom_speed; }
-            float GetFov() const { return fov; }
-            float GetNearDistance() const { return near_distance; }
-            float GetFarDistance() const { return far_distance; }
+            [[nodiscard]] unsigned int GetMoveSpeed() const { return move_speed; }
+            [[nodiscard]] unsigned int GetRotationSpeed() const { return rotation_speed; }
+            [[nodiscard]] unsigned int GetOrbitSpeed() const { return orbit_speed; }
+            [[nodiscard]] unsigned int GetZoomSpeed() const { return zoom_speed; }
+            [[nodiscard]] float GetFov() const { return fov; }
+            [[nodiscard]] float GetNearDistance() const { return near_distance; }
+            [[nodiscard]] float GetFarDistance() const { return far_distance; }
 
             void SetMoveSpeed(unsigned int val) { move_speed = val; }
             void SetRotationSpeed(unsigned int val) { rotation_speed = val; }

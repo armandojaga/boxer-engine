@@ -321,11 +321,11 @@ void ModuleEditor::ShowConfig() const
     ImGui::SliderFloat("##FPSSlider", &maxFps, 24.0f, 250.0f, "FPS %.1f");
     game_options.SetMaxFPS(maxFps);
 
-    bool vsync = game_options.GetVsync();
+    bool vsync = prefs->GetVsync();
     ImGui::TextWrapped("Vsync");
     ImGui::SameLine();
     ImGui::Checkbox("##vsync", &vsync);
-    game_options.SetVsync(vsync);
+    prefs->SetVsync(vsync);
 
     bool fullscreen = prefs->IsFullscreen();//game_options.IsFullscreen();
     ImGui::TextWrapped("Fullscreen");

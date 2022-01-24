@@ -22,12 +22,6 @@ void RenderPrefs::SetConfigData(const YAML::Node& yNode)
 			fps_threshold = it->second.as<float>();
 			continue;
 		}
-
-		if (it->first.as<std::string>()._Equal("vsync"))
-		{
-			vsync = it->second.as<int>();
-			continue;
-		}
 	}
 }
 
@@ -35,5 +29,4 @@ void RenderPrefs::GetConfigData(YAML::Node& output_node)
 {
 	output_node["render"]["max_fps"] = max_fps;
 	output_node["render"]["fps_threshold"] = fps_threshold;
-	output_node["render"]["vsync"] = vsync;
 }
