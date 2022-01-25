@@ -24,7 +24,7 @@ enum class update_status
 #define SHADERS_DIR "shaders/"
 
 #define LICENSE_PATH "../licenses/LICENSE.TXT"
-#define CONFIG_PATH "../Source/be.cfg"
+#define CONFIG_PATH "./data/config/be.cfg"
 
 constexpr int INVALID_ID = 0;
 

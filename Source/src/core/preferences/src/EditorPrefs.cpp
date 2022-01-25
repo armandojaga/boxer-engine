@@ -66,6 +66,12 @@ void EditorPrefs::SetConfigData(const YAML::Node& yNode)
 			continue;
 		}
 
+		if (it->first.as<std::string>()._Equal("scene_background_color"))
+		{
+			scene_background_color = it->second.as<float>();
+			continue;
+		}
+
 		if (it->first.as<std::string>()._Equal("vsync"))
 		{
 			vsync = it->second.as<int>();
@@ -86,4 +92,5 @@ void EditorPrefs::GetConfigData(YAML::Node& output_node)
 	output_node[group_name]["display_debug_draw"] = display_debug_draw;
 	output_node[group_name]["theme"] = light_theme ? "light" : "dark";
 	output_node[group_name]["vsync"] = vsync;
+	output_node[group_name]["scene_background_color"] = scene_background_color;
 }

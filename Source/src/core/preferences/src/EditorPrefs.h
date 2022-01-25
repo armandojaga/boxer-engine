@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../Prefs.h"
-#include "Math/float3.h"
 
 namespace BoxerEngine
 {
@@ -23,12 +22,12 @@ namespace BoxerEngine
             return display_debug_draw;
         }
 
-        void SetSceneBackgroundColor(const float3& sceneBackgroundColor)
+        void SetSceneBackgroundColor(const float& sceneBackgroundColor)
         {
             scene_background_color = sceneBackgroundColor;
         }
 
-        [[nodiscard]] const float3& GetSceneBackgroundColor() const
+        [[nodiscard]] const float& GetSceneBackgroundColor() const
         {
             return scene_background_color;
         }
@@ -137,7 +136,7 @@ namespace BoxerEngine
 
     private:
         bool display_debug_draw = false;
-        float3 scene_background_color = float3(0.0f);
+        float scene_background_color = 0.9f;
         mutable bool display_about = false;
         bool display_console = true;
         bool display_stats = true;

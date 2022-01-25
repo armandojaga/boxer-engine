@@ -87,7 +87,7 @@ bool ModuleRender::Start()
 
 update_status ModuleRender::PreUpdate(float delta)
 {
-    const float3& bgColor = game_options.GetSceneBackgroundColor();
+    const float3& bgColor = float3(prefs->GetSceneBackgroundColor());
     glViewport(0, 0, width, height);
     glClearColor(bgColor.x, bgColor.y, bgColor.z, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

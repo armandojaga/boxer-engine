@@ -66,11 +66,6 @@ bool ModuleEditor::Init()
         colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
         colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
         colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
-        game_options.SetSceneBackgroundColor(float3(0.9f));
-    }
-    else
-    {
-        game_options.SetSceneBackgroundColor(float3(0.1f));
     }
 
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->GetContext());
@@ -112,7 +107,7 @@ update_status ModuleEditor::Update(float delta)
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
+    
     return update_status::UPDATE_CONTINUE;
 }
 
@@ -327,7 +322,7 @@ void ModuleEditor::ShowConfig() const
     ImGui::Checkbox("##vsync", &vsync);
     prefs->SetVsync(vsync);
 
-    bool fullscreen = prefs->IsFullscreen();//game_options.IsFullscreen();
+    bool fullscreen = prefs->IsFullscreen();
     ImGui::TextWrapped("Fullscreen");
     ImGui::SameLine();
     ImGui::Checkbox("##fullscreen", &fullscreen);

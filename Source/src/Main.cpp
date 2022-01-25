@@ -74,8 +74,6 @@ int main(int argc, char** argv)
 
                 App->statistics->calculate();
 
-                SDL_GL_SetSwapInterval(game_options.GetVsync());
-
                 const float elapsed = game_clock.ReadMs() - start;
                 if (game_options.GetFPSThreshold() > elapsed)
                 {
