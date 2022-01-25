@@ -276,6 +276,12 @@
     <ClCompile Include="src\components\CameraComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\components\MeshComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\ModelComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1354,6 +1360,13 @@
       <Filter>Vendors\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\components\CameraComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ComponentModel.h" />
+    <ClInclude Include="src\components\MeshComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\ModelComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
   </ItemGroup>

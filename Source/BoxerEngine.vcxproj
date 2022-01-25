@@ -171,6 +171,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\MeshComponent.cpp" />
+    <ClCompile Include="src\components\ModelComponent.cpp" />
     <ClCompile Include="src\core\preferences\editor\CameraPreferences.cpp" />
     <ClCompile Include="src\core\preferences\editor\GlobalPreferences.cpp" />
     <ClCompile Include="src\core\preferences\editor\RenderPreferences.cpp" />
@@ -305,6 +307,9 @@
     <ClCompile Include="src\core\util\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\MeshComponent.h" />
+    <ClInclude Include="src\components\ModelComponent.h" />
+    <ClInclude Include="src\components\ComponentModel.h" />
     <ClInclude Include="src\core\preferences\editor\CameraPreferences.h" />
     <ClInclude Include="src\core\preferences\editor\GlobalPreferences.h" />
     <ClInclude Include="src\core\preferences\editor\RenderPreferences.h" />
