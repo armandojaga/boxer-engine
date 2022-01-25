@@ -43,8 +43,9 @@ public:
     }
 
 private:
-    void* context = nullptr;
-    int width = 0, height = 0;
-    BoxerEngine::FrameBuffer* frame_buffer = nullptr;
+    void* context{};
+    int width{}, height{};
+    BoxerEngine::FrameBuffer* frame_buffer;
+    BoxerEngine::EditorPreferences* prefs = nullptr;
     Model* model = nullptr;
 };

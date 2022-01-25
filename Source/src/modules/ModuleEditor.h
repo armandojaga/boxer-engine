@@ -16,15 +16,17 @@ public:
     ModuleEditor();
     ~ModuleEditor() override;
 
+
     bool Init() override;
     update_status PreUpdate(float delta) override;
     update_status Update(float delta) override;
     update_status PostUpdate(float delta) override;
     bool CleanUp() override;
 
-    static void SetActiveEntity(BoxerEngine::Entity* const entity);
+    static void SetActiveEntity(BoxerEngine::Entity* entity);
 
 private:
+    void UpdateTheme() const;
     void CreateDockerspace() const;
     void CreateMenu() const;
     void ShowCameraSettings() const;
@@ -43,4 +45,5 @@ private:
     mutable bool should_exit = false;
 
     std::vector<std::shared_ptr<BoxerEngine::Panel>> panels{};
+    BoxerEngine::EditorPreferences* preferences = nullptr;
 };

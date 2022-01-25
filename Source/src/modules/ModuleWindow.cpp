@@ -13,6 +13,8 @@ bool ModuleWindow::Init()
     BE_LOG("Init SDL window");
     bool ret = true;
 
+    prefs = static_cast<BoxerEngine::EditorPreferences*>(App->preferences->GetEditorPreferences());
+
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
         BE_LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -25,7 +27,7 @@ bool ModuleWindow::Init()
         constexpr int height = SCREEN_HEIGHT;
         Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_MAXIMIZED;
 
-        if (game_options.IsFullscreen())
+        if (prefs->IsFullscreen())
         {
             flags |= SDL_WINDOW_FULLSCREEN;
         }
@@ -60,7 +62,7 @@ bool ModuleWindow::CleanUp()
 
 update_status ModuleWindow::PreUpdate(float delta)
 {
-    if (game_options.IsFullscreen())
+    if (prefs->IsFullscreen())
     {
         SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
     }
@@ -68,5 +70,8 @@ update_status ModuleWindow::PreUpdate(float delta)
     {
         SDL_SetWindowFullscreen(window, 0);
     }
+
+    SDL_GL_SetSwapInterval(prefs->GetVsync());
+
     return update_status::UPDATE_CONTINUE;
 }

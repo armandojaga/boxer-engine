@@ -1,0 +1,33 @@
+#pragma once
+
+#include "Preferences.h"
+#include "core/file system/FileManager.h"
+
+namespace BoxerEngine
+{
+    class GlobalPreferences;
+    class EditorPreferences;
+    class RenderPreferences;
+    class CameraPreferences;
+
+    class PreferenceManager
+    {
+    public:
+        PreferenceManager();
+        ~PreferenceManager();
+        void LoadConfigurationFile() const;
+        void SaveConfigurationFile() const;
+        [[nodiscard]] Preferences* GetPreferenceDataByType(Preferences::Type type) const;
+        [[nodiscard]] Preferences* GetEditorPreferences() const;
+
+    private:
+        std::vector<Preferences*> preferences{};
+        std::vector<YAML::Node> nodes_vec = YAML::LoadAllFromFile(CONFIG_PATH);
+        FileManager file_manager;
+
+        GlobalPreferences* globals = nullptr;
+        EditorPreferences* editor = nullptr;
+        RenderPreferences* render = nullptr;
+        CameraPreferences* camera = nullptr;
+    };
+}

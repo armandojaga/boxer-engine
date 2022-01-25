@@ -3,7 +3,7 @@
 
 namespace BoxerEngine
 {
-    class CameraComponent: public Component
+    class CameraComponent : public Component
     {
     public:
         inline static Type type = Type::CAMERA;

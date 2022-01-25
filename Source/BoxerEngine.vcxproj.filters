@@ -207,6 +207,27 @@
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c">
       <Filter>Vendors\MathGeoLib\Math</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\util\Yaml.cpp">
+      <Filter>Core\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\preferences\PreferenceManager.cpp">
+      <Filter>Core\Preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\preferences\editor\EditorPreferences.cpp">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\file system\FileManager.cpp">
+      <Filter>Core\File System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\preferences\editor\RenderPreferences.cpp">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\preferences\editor\CameraPreferences.cpp">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\preferences\editor\GlobalPreferences.cpp">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\Entity.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -258,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
+    <ClInclude Include="src\modules\Module.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="vendors\ImGui\imgui_impl_opengl3.h">
       <Filter>Vendors\ImGui</Filter>
@@ -1273,6 +1295,31 @@
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\type.h">
       <Filter>Vendors\Yaml\Node</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\util\Yaml.h">
+      <Filter>Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\preferences\PreferenceManager.h">
+      <Filter>Core\Preferences</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\preferences\Preferences.h">
+      <Filter>Core\Preferences</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\preferences\editor\EditorPreferences.h">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\file system\FileManager.h">
+      <Filter>Core\File System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\preferences\editor\RenderPreferences.h">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\preferences\editor\GlobalPreferences.h">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\preferences\editor\CameraPreferences.h">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\modules\Module.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -1421,6 +1468,15 @@
     </Filter>
     <Filter Include="Vendors\Yaml\Node\Detail">
       <UniqueIdentifier>{96b1b5a5-b152-4c94-8e06-651f1d266503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Preferences">
+      <UniqueIdentifier>{d2983340-a2b4-4b60-93b9-0803918a6d0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Preferences\Source">
+      <UniqueIdentifier>{2a8e4c6c-11bd-41c3-aa3a-57ef855c26bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\File System">
+      <UniqueIdentifier>{8e7b2780-2e38-4517-a69d-93ed292981ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

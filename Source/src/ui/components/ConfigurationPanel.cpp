@@ -1,5 +1,6 @@
 #include "core/bepch.h"
 #include "ConfigurationPanel.h"
+#include "core/preferences/editor/EditorPreferences.h"
 
 BoxerEngine::ConfigurationPanel::ConfigurationPanel() : Panel("Configuration", true)
 {
@@ -7,6 +8,8 @@ BoxerEngine::ConfigurationPanel::ConfigurationPanel() : Panel("Configuration", t
 
 void BoxerEngine::ConfigurationPanel::Update()
 {
+    prefs = static_cast<EditorPreferences*>(App->preferences->GetEditorPreferences());
+
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin(GetTitle().c_str(), &visible))
     {
@@ -17,23 +20,23 @@ void BoxerEngine::ConfigurationPanel::Update()
     ImGui::SliderFloat("##FPSSlider", &maxFps, 24.0f, 250.0f, "FPS %.1f");
     game_options.SetMaxFPS(maxFps);
 
-    bool vsync = game_options.GetVsync();
+    bool vsync = prefs->GetVsync();
     ImGui::TextWrapped("Vsync");
     ImGui::SameLine();
     ImGui::Checkbox("##vsync", &vsync);
-    game_options.SetVsync(vsync);
+    prefs->SetVsync(vsync);
 
-    bool fullscreen = game_options.IsFullscreen();
+    bool fullscreen = prefs->IsFullscreen();
     ImGui::TextWrapped("Fullscreen");
     ImGui::SameLine();
     ImGui::Checkbox("##fullscreen", &fullscreen);
-    game_options.SetFullscreen(fullscreen);
+    prefs->SetFullscreen(fullscreen);
 
-    bool displayDebugDraw = game_options.IsDisplayDebugDraw();
+    bool displayDebugDraw = prefs->IsDisplayDebugDraw();
     ImGui::TextWrapped("Display debug draw");
     ImGui::SameLine();
     ImGui::Checkbox("##debugdraw", &displayDebugDraw);
-    game_options.SetDisplayDebugDraw(displayDebugDraw);
+    prefs->SetDisplayDebugDraw(displayDebugDraw);
 
     // float3 values = float3::zero;
     // std::string label = "Camera";

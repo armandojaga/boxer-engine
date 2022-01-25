@@ -11,7 +11,7 @@ namespace BoxerEngine
     public:
         enum class Type
         {
-            UNDEFINED,
+            UNDEFINED = 0,
             TRANSFORM,
             LIGHT,
             CAMERA,
@@ -20,7 +20,8 @@ namespace BoxerEngine
             BOUNDING_BOX,
             AUDIO,
             ANIMATION,
-            SCRIPT
+            SCRIPT,
+            COUNT
         };
 
         explicit Component(Entity*);

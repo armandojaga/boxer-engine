@@ -117,6 +117,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>bepch.h</ForcedIncludeFiles>
+      <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -158,6 +159,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>bepch.h</ForcedIncludeFiles>
+      <AdditionalOptions>/Zm1000 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -169,6 +171,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\preferences\editor\CameraPreferences.cpp" />
+    <ClCompile Include="src\core\preferences\editor\GlobalPreferences.cpp" />
+    <ClCompile Include="src\core\preferences\editor\RenderPreferences.cpp" />
+    <ClCompile Include="src\core\file system\FileManager.cpp" />
+    <ClCompile Include="src\core\preferences\editor\EditorPreferences.cpp" />
+    <ClCompile Include="src\core\preferences\PreferenceManager.cpp" />
     <ClCompile Include="src\components\CameraComponent.cpp" />
     <ClCompile Include="src\components\Component.cpp" />
     <ClCompile Include="src\components\LightComponent.cpp" />
@@ -294,8 +302,16 @@
     <ClCompile Include="src\modules\ModuleInput.cpp" />
     <ClCompile Include="src\modules\ModuleRender.cpp" />
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
+    <ClCompile Include="src\core\util\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\preferences\editor\CameraPreferences.h" />
+    <ClInclude Include="src\core\preferences\editor\GlobalPreferences.h" />
+    <ClInclude Include="src\core\preferences\editor\RenderPreferences.h" />
+    <ClInclude Include="src\core\file system\FileManager.h" />
+    <ClInclude Include="src\core\preferences\editor\EditorPreferences.h" />
+    <ClInclude Include="src\core\preferences\Preferences.h" />
+    <ClInclude Include="src\core\preferences\PreferenceManager.h" />
     <ClInclude Include="src\components\CameraComponent.h" />
     <ClInclude Include="src\components\LightComponent.h" />
     <ClInclude Include="src\core\events\Event.h" />
@@ -647,6 +663,7 @@
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\stlemitter.h" />
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\traits.h" />
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\yaml.h" />
+    <ClInclude Include="src\core\util\Yaml.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\assets\shaders\fragmentTexture.glsl" />

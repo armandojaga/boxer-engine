@@ -59,6 +59,8 @@ bool ModuleRender::Init()
     frame_buffer = new BoxerEngine::FrameBuffer(width, height);
     model = new Model();
 
+    prefs = static_cast<BoxerEngine::EditorPreferences*>(App->preferences->GetEditorPreferences());
+
     // Assimp Logger
     // Create a logger instance 
     DefaultLogger::create("", Logger::VERBOSE);
@@ -85,7 +87,7 @@ bool ModuleRender::Start()
 
 update_status ModuleRender::PreUpdate(float delta)
 {
-    const float3& bgColor = game_options.GetSceneBackgroundColor();
+    const auto& bgColor = float3(prefs->GetSceneBackgroundColor());
     glViewport(0, 0, width, height);
     glClearColor(bgColor.x, bgColor.y, bgColor.z, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -109,7 +111,7 @@ update_status ModuleRender::Update(float delta)
     App->renderer->GetFrameBuffer()->Bind();
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if (game_options.IsDisplayDebugDraw())
+    if (prefs->IsDisplayDebugDraw())
     {
         App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), width, height);
     }

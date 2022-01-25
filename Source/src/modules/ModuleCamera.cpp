@@ -5,7 +5,6 @@
 #include "ModuleRender.h"
 #include "core/rendering/Model.h"
 
-#include "GL/glew.h"
 #include "MathGeoLib.h"
 
 static const float DEGTORAD = pi / 180.0f;
@@ -34,10 +33,19 @@ ModuleCamera::~ModuleCamera() = default;
 
 bool ModuleCamera::Init()
 {
+    camera_preferences = static_cast<BoxerEngine::CameraPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::CAMERA));
+    near_distance = camera_preferences->GetNearDistance();
+    far_distance = camera_preferences->GetFarDistance();
+    move_speed = camera_preferences->GetMoveSpeed();
+    rotation_speed = camera_preferences->GetRotationSpeed();
+    zoom_pos_speed = camera_preferences->GetZoomSpeed();
+    orbit_speed = camera_preferences->GetOrbitSpeed();
+    horizontal_fov_degree = camera_preferences->GetFOV();
+
     camera_frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
     SetAspectRatio(SCREEN_WIDTH, SCREEN_HEIGHT);
-    SetHorizontalFovInDegrees(90.0f);
-    SetPlaneDistances(0.1f, 200.0f);
+    SetHorizontalFovInDegrees(horizontal_fov_degree);
+    SetPlaneDistances(near_distance, far_distance);
     SetPosition(float3(8.0f, 8.0f, 8.0f));
     const float3x3 rotation = float3x3::identity;
     camera_frustum.SetFront(rotation.WorldZ());
@@ -59,6 +67,13 @@ update_status ModuleCamera::Update(float delta)
 
 bool ModuleCamera::CleanUp()
 {
+    camera_preferences->SetFarDistance(far_distance);
+    camera_preferences->SetMoveSpeed(move_speed);
+    camera_preferences->SetNearDistance(near_distance);
+    camera_preferences->SetOrbitSpeed(orbit_speed);
+    camera_preferences->SetRotationSpeed(rotation_speed);
+    camera_preferences->SetZoomSpeed(zoom_pos_speed);
+    camera_preferences->SetFOV(horizontal_fov_degree);
     return true;
 }
 

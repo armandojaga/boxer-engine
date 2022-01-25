@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include <SDL.h>
+#include "core/preferences/editor/EditorPreferences.h"
 
 class Application;
 
@@ -25,6 +26,8 @@ public:
 public:
     //The window we'll be rendering to
     SDL_Window* window = nullptr;
+private:
+    BoxerEngine::EditorPreferences* prefs = nullptr;
 };
 
 #endif // __ModuleWindow_H__

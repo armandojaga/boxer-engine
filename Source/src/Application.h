@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "Globals.h"
+#include "core/preferences/PreferenceManager.h"
 #include "modules/Module.h"
 #include "instrumentation/Statistics.h"
 
@@ -41,6 +42,7 @@ public:
     ModuleEditor* editor = nullptr;
 
     std::unique_ptr<BoxerEngine::Statistics> statistics;
+    std::unique_ptr<BoxerEngine::PreferenceManager> preferences;
 
     [[nodiscard]] float GetDelta() const
     {

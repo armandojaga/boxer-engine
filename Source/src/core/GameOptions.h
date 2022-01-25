@@ -7,10 +7,6 @@ namespace BoxerEngine
     {
     private:
         float max_fps = 250.0f;
-        bool fullscreen = false;
-        int vsync = 0;
-        bool display_debug_draw = false;
-        float3 scene_background_color = float3(0.0f);
         float fps_threshold = 1000.0f / max_fps;
 
     public:
@@ -29,46 +25,6 @@ namespace BoxerEngine
         [[nodiscard]] float GetFPSThreshold() const
         {
             return fps_threshold;
-        }
-
-        [[nodiscard]] bool IsFullscreen() const
-        {
-            return fullscreen;
-        }
-
-        void SetFullscreen(const bool fullscreen)
-        {
-            this->fullscreen = fullscreen;
-        }
-
-        void SetVsync(const int vsync)
-        {
-            this->vsync = vsync;
-        }
-
-        [[nodiscard]] int GetVsync() const
-        {
-            return vsync;
-        }
-
-        void SetDisplayDebugDraw(const bool displayDebugDraw)
-        {
-            display_debug_draw = displayDebugDraw;
-        }
-
-        [[nodiscard]] bool IsDisplayDebugDraw() const
-        {
-            return display_debug_draw;
-        }
-
-        void SetSceneBackgroundColor(const float3& sceneBackgroundColor)
-        {
-            scene_background_color = sceneBackgroundColor;
-        }
-
-        [[nodiscard]] const float3& GetSceneBackgroundColor() const
-        {
-            return scene_background_color;
         }
     };
 }
