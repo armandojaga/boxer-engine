@@ -48,7 +48,6 @@ void BoxerEngine::InspectorPanel::Update()
     }
     ImGui::SameLine();
     std::string buffer = currentEntity->GetName();
-    ImGui::Text("Name");
     ImGui::SameLine();
     if (ImGui::InputText("###rename", &buffer, ImGuiInputTextFlags_AutoSelectAll))
     {
@@ -57,7 +56,9 @@ void BoxerEngine::InspectorPanel::Update()
     ImGui::Separator();
     for (const auto component : currentEntity->GetComponents())
     {
-        const bool nodeOpen = ImGui::TreeNodeEx(component->GetName(), ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_DefaultOpen);
+        const bool nodeOpen = ImGui::TreeNodeEx(component->GetName(),
+                                                ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick |
+                                                ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Selected);
         if (component->GetType() != Component::Type::TRANSFORM) //can not remove the transform
         {
             ImGui::SameLine();

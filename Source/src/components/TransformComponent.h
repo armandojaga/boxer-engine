@@ -15,6 +15,10 @@ namespace BoxerEngine
         void UpdateUI() override;
 
         [[nodiscard]] const char* GetName() const override;
+
+        [[nodiscard]] const float3& GetPosition() const;
+        [[nodiscard]] const float3& GetRotation() const;
+        [[nodiscard]] const float3& GetScale() const;
     private:
         float3 position{0.0f};
         float3 rotation{0.0f};
