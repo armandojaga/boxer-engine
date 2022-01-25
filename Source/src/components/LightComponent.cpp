@@ -6,6 +6,11 @@ BoxerEngine::LightComponent::LightComponent(Entity* parent): Component(type, par
 {
 }
 
+void BoxerEngine::LightComponent::UpdateUI()
+{
+    ImGui::Text("Light here");
+}
+
 float3 BoxerEngine::LightComponent::GetColor() const
 {
     return color;
@@ -14,4 +19,9 @@ float3 BoxerEngine::LightComponent::GetColor() const
 float BoxerEngine::LightComponent::GetIntensity() const
 {
     return intensity;
+}
+
+const char* BoxerEngine::LightComponent::GetName() const 
+{
+    return "Light";
 }

@@ -13,6 +13,8 @@ namespace BoxerEngine
         ~TransformComponent() override = default;
 
         void UpdateUI() override;
+
+        [[nodiscard]] const char* GetName() const override;
     private:
         float3 position{0.0f};
         float3 rotation{0.0f};

@@ -14,13 +14,15 @@ namespace BoxerEngine
         void Update();
 
         Entity* CreateEntity();
+        void InitRoot();
+        void Clear();
 
         void SetSceneId(const std::string&);
         [[nodiscard]] const std::string& GetSceneId() const;
 
         [[nodiscard]] bool IsLoaded() const;
 
-        [[nodiscard]] const Entity* GetRoot() const;
+        [[nodiscard]] Entity* GetRoot() const;
 
     private:
         std::string id;

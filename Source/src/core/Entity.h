@@ -34,11 +34,14 @@ namespace BoxerEngine
         void RemoveChild(UID entityId);
 
         template <typename C>
+        bool Has();
+        template <typename C>
         C* CreateComponent();
         template <typename C>
         [[nodiscard]] C* GetComponent() const;
         template <typename C>
         void RemoveComponent();
+        void RemoveComponent(UID id);
 
         void Enable();
         void Disable();
@@ -60,14 +63,14 @@ namespace BoxerEngine
 
         [[nodiscard]] bool Has(UID entityId);
         Entity* GetEntity(const std::function<bool(Entity*)>& predicate);
-
-        template <typename C>
-        bool Has()
-        {
-            auto type = [&](const auto c) { return c->GetType() == C::type; };
-            return std::find_if(std::begin(components), std::end(components), type) != std::end(components);
-        }
     };
+
+    template <typename C>
+    bool Entity::Has()
+    {
+        auto type = [&](const auto c) { return c->GetType() == C::type; };
+        return std::find_if(std::begin(components), std::end(components), type) != std::end(components);
+    }
 
     template <typename C>
     C* Entity::CreateComponent()

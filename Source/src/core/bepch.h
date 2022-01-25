@@ -30,8 +30,12 @@
 
 #include <optick.h>
 #include <imgui.h>
+#include <imgui_stdlib.h>
 
 #include "Globals.h"
 #include "Application.h"
 #include "modules/Module.h"
 #include "rendering/Bindable.h"
+#include "Entity.h"
+#include "components/Component.h"
+#include "ui/components/Panel.h"

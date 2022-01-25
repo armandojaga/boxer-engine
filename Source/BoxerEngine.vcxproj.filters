@@ -225,6 +225,36 @@
     <ClCompile Include="src\components\LightComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\ui\components\ScenePanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\HierarchyPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\Panel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\StatisticsPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\HardwarePanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\ConfigurationPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\AboutPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\InspectorPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGui\imgui_stdlib.cpp">
+      <Filter>Vendors\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\CameraComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1247,6 +1277,36 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="src\components\LightComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\ScenePanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\HierarchyPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\Panel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\StatisticsPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\HardwarePanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\ConfigurationPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\AboutPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\InspectorPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGui\imgui_stdlib.h">
+      <Filter>Vendors\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\CameraComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -19,6 +19,24 @@ update_status ModuleScene::Update(float delta)
     return update_status::UPDATE_CONTINUE;
 }
 
+void ModuleScene::CreateEmptyScene()
+{
+    scene->Clear();
+    scene->InitRoot();
+    scene->Init();
+    scene->Start();
+}
+
+BoxerEngine::Entity* ModuleScene::CreateEmptyEntity()
+{
+    return scene->CreateEntity();
+}
+
+BoxerEngine::Scene* ModuleScene::GetScene() const
+{
+    return scene;
+}
+
 ModuleScene::~ModuleScene()
 {
     delete scene;

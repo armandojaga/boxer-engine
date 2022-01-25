@@ -32,4 +32,4 @@ constexpr int INVALID_ID = 0;
 #define SCREEN_HEIGHT 720
 #define TITLE "Boxer Engine"
 #define GLSL_VERSION "#version 460"
-#define BOXER_ENGINE_VERSION "0.1"
+#define BOXER_ENGINE_VERSION "Alpah 2"

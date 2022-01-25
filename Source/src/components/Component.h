@@ -43,6 +43,8 @@ namespace BoxerEngine
         void SetType(Type type);
         [[nodiscard]] Type GetType() const;
 
+        [[nodiscard]] virtual const char* GetName() const = 0;
+
     protected:
         bool enabled = true;
         Type type = Type::UNDEFINED;

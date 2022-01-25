@@ -94,7 +94,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;LIGHT_THEME;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_CONSOLE;_DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_CONSOLE;_DEBUG</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -110,7 +110,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;LIGHT_THEME;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;_CONSOLE</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;_CONSOLE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDir)vendors\yaml-cpp\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -131,7 +131,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;LIGHT_THEME;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -151,7 +151,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;LIGHT_THEME;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\yaml-cpp\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -169,6 +169,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\CameraComponent.cpp" />
     <ClCompile Include="src\components\Component.cpp" />
     <ClCompile Include="src\components\LightComponent.cpp" />
     <ClCompile Include="src\core\events\EventManager.cpp" />
@@ -197,6 +198,8 @@
     <ClCompile Include="src\modules\ModuleProgram.cpp" />
     <ClCompile Include="src\modules\ModuleResources.cpp" />
     <ClCompile Include="src\modules\ModuleTexture.cpp" />
+    <ClCompile Include="src\ui\components\AboutPanel.cpp" />
+    <ClCompile Include="src\ui\components\ConfigurationPanel.cpp" />
     <ClCompile Include="src\ui\components\ConsolePanel.cpp" />
     <ClCompile Include="src\core\logging\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
@@ -204,10 +207,17 @@
     <ClCompile Include="src\modules\ModuleScene.cpp" />
     <ClCompile Include="src\core\util\Timer.cpp" />
     <ClCompile Include="src\components\TransformComponent.cpp" />
+    <ClCompile Include="src\ui\components\HardwarePanel.cpp" />
+    <ClCompile Include="src\ui\components\HierarchyPanel.cpp" />
+    <ClCompile Include="src\ui\components\InspectorPanel.cpp" />
+    <ClCompile Include="src\ui\components\Panel.cpp" />
+    <ClCompile Include="src\ui\components\ScenePanel.cpp" />
+    <ClCompile Include="src\ui\components\StatisticsPanel.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="vendors\ImGui\imgui_stdlib.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_tables.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="src\core\logging\ConsoleLogger.cpp" />
@@ -286,6 +296,7 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\CameraComponent.h" />
     <ClInclude Include="src\components\LightComponent.h" />
     <ClInclude Include="src\core\events\Event.h" />
     <ClInclude Include="src\core\events\EventManager.h" />
@@ -310,6 +321,8 @@
     <ClInclude Include="src\modules\ModuleProgram.h" />
     <ClInclude Include="src\modules\ModuleResources.h" />
     <ClInclude Include="src\modules\ModuleTexture.h" />
+    <ClInclude Include="src\ui\components\AboutPanel.h" />
+    <ClInclude Include="src\ui\components\ConfigurationPanel.h" />
     <ClInclude Include="src\ui\components\ConsolePanel.h" />
     <ClInclude Include="src\core\logging\ConsoleLogger.h" />
     <ClInclude Include="src\core\ErrorHandler.h" />
@@ -319,6 +332,12 @@
     <ClInclude Include="src\modules\ModuleDebugDraw.h" />
     <ClInclude Include="src\modules\ModuleScene.h" />
     <ClInclude Include="src\core\util\Timer.h" />
+    <ClInclude Include="src\ui\components\HardwarePanel.h" />
+    <ClInclude Include="src\ui\components\HierarchyPanel.h" />
+    <ClInclude Include="src\ui\components\InspectorPanel.h" />
+    <ClInclude Include="src\ui\components\Panel.h" />
+    <ClInclude Include="src\ui\components\ScenePanel.h" />
+    <ClInclude Include="src\ui\components\StatisticsPanel.h" />
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />
     <ClInclude Include="src\components\TransformComponent.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
@@ -404,6 +423,7 @@
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\wglew.h" />
+    <ClInclude Include="vendors\ImGui\imgui_stdlib.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK2D.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\Random\LCG.h" />
