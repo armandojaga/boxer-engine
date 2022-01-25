@@ -4,6 +4,7 @@ using namespace BoxerEngine;
 
 CameraPrefs::CameraPrefs() : Prefs(PreferenceType::CAMERA)
 {
+	group_name = "camera";
 }
 
 void CameraPrefs::SetConfigData(const YAML::Node& yNode)

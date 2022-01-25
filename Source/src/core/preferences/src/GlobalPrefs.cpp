@@ -4,6 +4,7 @@ using namespace BoxerEngine;
 
 GlobalPrefs::GlobalPrefs() : Prefs(PreferenceType::GLOBALS)
 {
+	group_name = "globals";
 }
 
 void GlobalPrefs::SetConfigData(const YAML::Node& yNode)
@@ -26,6 +27,6 @@ void GlobalPrefs::SetConfigData(const YAML::Node& yNode)
 
 void GlobalPrefs::GetConfigData(YAML::Node& output_node)
 {
-	output_node["globals"]["title"] = title;
-	output_node["globals"]["version"] = version;
+	output_node[group_name]["title"] = title;
+	output_node[group_name]["version"] = version;
 }

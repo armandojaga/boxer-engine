@@ -4,6 +4,7 @@ using namespace BoxerEngine;
 
 EditorPrefs::EditorPrefs() : Prefs(PreferenceType::EDITOR)
 {
+	group_name = "editor";
 }
 
 void EditorPrefs::SetConfigData(const YAML::Node& yNode)
@@ -75,14 +76,14 @@ void EditorPrefs::SetConfigData(const YAML::Node& yNode)
 
 void EditorPrefs::GetConfigData(YAML::Node& output_node)
 {
-	output_node["editor"]["display_about"] = display_about;
-	output_node["editor"]["display_console"] = display_console;
-	output_node["editor"]["display_stats"] = display_stats;
-	output_node["editor"]["display_config"] = display_config;
-	output_node["editor"]["display_hardware"] = display_hardware;
-	output_node["editor"]["display_camera_settings"] = display_camera_settings;
-	output_node["editor"]["fullscreen"] = fullscreen;
-	output_node["editor"]["display_debug_draw"] = display_debug_draw;
-	output_node["editor"]["theme"] = light_theme ? "light" : "dark";
-	output_node["editor"]["vsync"] = vsync;
+	output_node[group_name]["display_about"] = display_about;
+	output_node[group_name]["display_console"] = display_console;
+	output_node[group_name]["display_stats"] = display_stats;
+	output_node[group_name]["display_config"] = display_config;
+	output_node[group_name]["display_hardware"] = display_hardware;
+	output_node[group_name]["display_camera_settings"] = display_camera_settings;
+	output_node[group_name]["fullscreen"] = fullscreen;
+	output_node[group_name]["display_debug_draw"] = display_debug_draw;
+	output_node[group_name]["theme"] = light_theme ? "light" : "dark";
+	output_node[group_name]["vsync"] = vsync;
 }

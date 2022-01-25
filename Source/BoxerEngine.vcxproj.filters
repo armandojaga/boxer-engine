@@ -222,8 +222,10 @@
     <ClCompile Include="src\core\preferences\src\RenderPrefs.cpp">
       <Filter>Core\Preferences\Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\preferences\src\GlobalPrefs.cpp" />
     <ClCompile Include="src\core\preferences\src\CameraPrefs.cpp">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\preferences\src\GlobalPrefs.cpp">
       <Filter>Core\Preferences\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1247,12 +1249,10 @@
     <ClInclude Include="src\core\preferences\src\GlobalPrefs.h">
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
-    <ClInclude Include="src\Globals.h">
-      <Filter>Core\Preferences\Source</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\preferences\src\CameraPrefs.h">
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
+    <ClInclude Include="src\Globals.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

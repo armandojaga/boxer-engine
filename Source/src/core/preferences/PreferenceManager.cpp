@@ -39,30 +39,11 @@ void BoxerEngine::PreferenceManager::LoadConfigurationFile()
 	{
 		for (auto it : preferences)
 		{
-			std::string section_name;
-			switch (it->GetType())
-			{
-				case PreferenceType::GLOBALS:
-					section_name = "globals";
-					break;
-
-				case PreferenceType::EDITOR:
-					section_name = "editor";
-					break;
-
-				case PreferenceType::RENDER:
-					section_name = "render";
-					break;
-
-				case PreferenceType::CAMERA:
-					section_name = "camera";
-					break;
-			}
-			if (!node[section_name].IsDefined())
+			if (!node[it->GetGroupName()].IsDefined())
 			{
 				continue;
 			}
-			it->SetConfigData(node[section_name]);
+			it->SetConfigData(node[it->GetGroupName()]);
 		}
 	}
 }

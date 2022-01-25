@@ -5,6 +5,7 @@ using namespace BoxerEngine;
 
 RenderPrefs::RenderPrefs() : Prefs(PreferenceType::RENDER)
 {
+	group_name = "render";
 }
 
 void RenderPrefs::SetConfigData(const YAML::Node& yNode)
@@ -27,6 +28,6 @@ void RenderPrefs::SetConfigData(const YAML::Node& yNode)
 
 void RenderPrefs::GetConfigData(YAML::Node& output_node)
 {
-	output_node["render"]["max_fps"] = max_fps;
-	output_node["render"]["fps_threshold"] = fps_threshold;
+	output_node[group_name]["max_fps"] = max_fps;
+	output_node[group_name]["fps_threshold"] = fps_threshold;
 }

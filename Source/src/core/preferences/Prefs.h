@@ -22,9 +22,13 @@ namespace BoxerEngine
 			virtual void SetConfigData(const YAML::Node& input_node) = 0;
 			virtual void GetConfigData(YAML::Node& output_node) = 0;
 			virtual PreferenceType GetType() { return type; }
+			virtual const std::string& GetGroupName() const { return group_name; }
 
 		private:
 			PreferenceType type;
+
+		protected:
+			std::string group_name = "";
 	};
 }
 
