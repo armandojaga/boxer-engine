@@ -282,6 +282,7 @@
     <ClCompile Include="src\components\ModelComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\preferences\editor\ResourcesPreferences.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1076,9 +1077,6 @@
     <ClInclude Include="src\core\util\Timer.h">
       <Filter>Core\Util</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\util\Files.h">
-      <Filter>Core\Util</Filter>
-    </ClInclude>
     <ClInclude Include="src\instrumentation\Statistics.h">
       <Filter>Instrumentation</Filter>
     </ClInclude>
@@ -1369,6 +1367,19 @@
     <ClInclude Include="src\components\ModelComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\events\FileDroppedEventPayload.h">
+      <Filter>Core\Events\Event Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\events\SelectionChangeEventPayload.h">
+      <Filter>Core\Events\Event Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\events\TransformChangedEventPayload.h">
+      <Filter>Core\Events\Event Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\util\Files.h">
+      <Filter>Core\File System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\preferences\editor\ResourcesPreferences.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1490,6 +1501,9 @@
     </Filter>
     <Filter Include="Core\File System">
       <UniqueIdentifier>{8e7b2780-2e38-4517-a69d-93ed292981ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Events\Event Structures">
+      <UniqueIdentifier>{fbd8a183-190f-4912-b689-6b924f8d1ead}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

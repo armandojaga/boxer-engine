@@ -347,3 +347,4 @@ Source/.idea/
 
 # ImGui
 Game/imgui.ini
+Game/data/config/be.cfg

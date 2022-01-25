@@ -1,6 +1,14 @@
 #include "FileManager.h"
+#include "../../Globals.h"
+#include "core/events/Event.h"
+#include "core/events/EventManager.h"
+#include <functional>
 
 using namespace BoxerEngine;
+
+BoxerEngine::FileManager::FileManager()
+{
+}
 
 FileManager::~FileManager()
 {
@@ -20,11 +28,11 @@ void FileManager::Save(std::ostream data, std::filesystem::path file_path)
 {
 }
 
-void FileManager::Remove()
+void FileManager::Remove(const std::filesystem::path& source)
 {
 }
 
-void FileManager::Copy()
+void FileManager::Copy(const std::filesystem::path& source, const std::filesystem::path& destination)
 {
 }
 

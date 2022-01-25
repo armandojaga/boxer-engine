@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Module.h"
+#include "core/preferences/editor/ResourcesPreferences.h"
 
 enum class ResourceType
 {
@@ -23,10 +24,12 @@ private:
         {ResourceType::TEXTURE, ".png"},
         {ResourceType::MODEL, ".fbx"}
     };
+    BoxerEngine::ResourcesPreferences* preferences = nullptr;
+
 public:
     bool Init() override;
     bool CleanUp() override;
 
-    void HandleResource(const char* path);
+    void HandleResource(const std::filesystem::path& path);
     ResourceType GetType(const std::filesystem::path& file);
 };

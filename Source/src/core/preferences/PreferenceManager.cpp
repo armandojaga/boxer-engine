@@ -1,15 +1,20 @@
 #include "PreferenceManager.h"
 
-
 #include "Globals.h"
 #include "editor/CameraPreferences.h"
 #include "editor/EditorPreferences.h"
 #include "editor/GlobalPreferences.h"
 #include "editor/RenderPreferences.h"
+#include "editor/ResourcesPreferences.h"
 
 using namespace BoxerEngine;
 
-PreferenceManager::PreferenceManager() : globals(new GlobalPreferences()), editor(new EditorPreferences()), render(new RenderPreferences()), camera(new CameraPreferences())
+PreferenceManager::PreferenceManager() 
+    : globals(new GlobalPreferences()) 
+    , editor(new EditorPreferences()) 
+    , render(new RenderPreferences()) 
+    , camera(new CameraPreferences())
+    , resources(new ResourcesPreferences())
 {
     preferences.reserve(static_cast<size_t>(Preferences::Type::COUNT));
 
@@ -17,6 +22,7 @@ PreferenceManager::PreferenceManager() : globals(new GlobalPreferences()), edito
     preferences.emplace_back(render);
     preferences.emplace_back(editor);
     preferences.emplace_back(camera);
+    preferences.emplace_back(resources);
 
     LoadConfigurationFile();
 }

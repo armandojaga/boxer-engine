@@ -9,6 +9,7 @@ namespace BoxerEngine
     class EditorPreferences;
     class RenderPreferences;
     class CameraPreferences;
+    class ResourcesPreferences;
 
     class PreferenceManager
     {
@@ -23,11 +24,11 @@ namespace BoxerEngine
     private:
         std::vector<Preferences*> preferences{};
         std::vector<YAML::Node> nodes_vec = YAML::LoadAllFromFile(CONFIG_PATH);
-        FileManager file_manager;
 
         GlobalPreferences* globals = nullptr;
         EditorPreferences* editor = nullptr;
         RenderPreferences* render = nullptr;
         CameraPreferences* camera = nullptr;
+        ResourcesPreferences* resources = nullptr;
     };
 }

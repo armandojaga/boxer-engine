@@ -3,11 +3,26 @@
 #include "Application.h"
 #include "ModuleRender.h"
 #include "core/util/Files.h"
+#include "core/events/Event.h"
+#include "core/events/EventManager.h"
+#include "core/file system/FileManager.h"
+
 // #include <algorithm>
+using namespace BoxerEngine;
 
 bool ModuleResources::Init()
 {
-    return Module::Init();
+    preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetEditorPreferences());
+
+    std::function handleAddedFile = [&](Event& evt)
+    {
+        const auto& e = evt.GetEventData<FileDroppedEventPayload>();
+        BE_LOG("File dropped: %s", e.GetPath().c_str());
+        HandleResource(e.GetPath());
+    };
+    EventManager::GetInstance().Subscribe(Event::Type::FILE_DROPPED, handleAddedFile);
+
+    return true;
 }
 
 bool ModuleResources::CleanUp()
@@ -15,18 +30,23 @@ bool ModuleResources::CleanUp()
     return Module::CleanUp();
 }
 
-void ModuleResources::HandleResource(const char* path)
+void ModuleResources::HandleResource(const std::filesystem::path& path)
 {
     ResourceType type = GetType(path);
     switch (type)
     {
     case ResourceType::MODEL:
-        App->renderer->LoadModel(path);
         break;
-    // case ResourceType::TEXTURE:
-    //
-    //     break;
+    case ResourceType::TEXTURE:
+        break;
+    case ResourceType::AUDIO:
+        break;
+    case ResourceType::VIDEO:
+        break;
+    case ResourceType::SCRIPT:
+        break;
     }
+
 }
 
 ResourceType ModuleResources::GetType(const std::filesystem::path& path)

@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\preferences\editor\ResourcesPreferences.cpp" />
     <ClCompile Include="src\components\MeshComponent.cpp" />
     <ClCompile Include="src\components\ModelComponent.cpp" />
     <ClCompile Include="src\core\preferences\editor\CameraPreferences.cpp" />
@@ -307,6 +308,9 @@
     <ClCompile Include="src\core\util\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\preferences\editor\ResourcesPreferences.h" />
+    <ClInclude Include="src\core\events\FileDroppedEventPayload.h" />
+    <ClInclude Include="src\core\events\SelectionChangeEventPayload.h" />
     <ClInclude Include="src\components\MeshComponent.h" />
     <ClInclude Include="src\components\ModelComponent.h" />
     <ClInclude Include="src\components\ComponentModel.h" />
@@ -361,6 +365,7 @@
     <ClInclude Include="src\ui\components\StatisticsPanel.h" />
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />
     <ClInclude Include="src\components\TransformComponent.h" />
+    <ClInclude Include="src\core\events\TransformChangedEventPayload.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="vendors\assimp\include\assimp\anim.h" />
