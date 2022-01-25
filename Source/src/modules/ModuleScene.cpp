@@ -2,13 +2,42 @@
 
 bool ModuleScene::Init()
 {
-    return Module::Init();
+    scene = new BoxerEngine::Scene();
+    scene->Init();
+    return true;
 }
 
-bool ModuleScene::CleanUp()
+bool ModuleScene::Start()
 {
-    return Module::CleanUp();
+    scene->Start();
+    return true;
 }
 
+update_status ModuleScene::Update(float delta)
+{
+    scene->Update();
+    return update_status::UPDATE_CONTINUE;
+}
 
-ModuleScene::~ModuleScene() = default;
+void ModuleScene::CreateEmptyScene()
+{
+    scene->Clear();
+    scene->InitRoot();
+    scene->Init();
+    scene->Start();
+}
+
+BoxerEngine::Entity* ModuleScene::CreateEmptyEntity()
+{
+    return scene->CreateEntity();
+}
+
+BoxerEngine::Scene* ModuleScene::GetScene() const
+{
+    return scene;
+}
+
+ModuleScene::~ModuleScene()
+{
+    delete scene;
+};

@@ -228,10 +228,59 @@
     <ClCompile Include="src\core\preferences\src\GlobalPrefs.cpp">
       <Filter>Core\Preferences\Source</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Entity.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\Component.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\TransformComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\events\EventManager.cpp">
+      <Filter>Core\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Scene.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\LightComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\ScenePanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\HierarchyPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\Panel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\StatisticsPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\HardwarePanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\ConfigurationPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\AboutPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ui\components\InspectorPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGui\imgui_stdlib.cpp">
+      <Filter>Vendors\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\CameraComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\modules\Module.h" />
+    <ClInclude Include="src\Globals.h" />
     <ClInclude Include="vendors\ImGui\imgui_impl_opengl3.h">
       <Filter>Vendors\ImGui</Filter>
     </ClInclude>
@@ -1117,6 +1166,24 @@
     <ClInclude Include="vendors\optick\include\optick.h">
       <Filter>Vendors\Optick</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\Entity.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Scene.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\Component.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\events\Event.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\events\EventManager.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\TransformComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\anchor.h">
       <Filter>Vendors\Yaml</Filter>
     </ClInclude>
@@ -1253,6 +1320,42 @@
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
     <ClInclude Include="src\Globals.h" />
+    <ClInclude Include="src\modules\Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\LightComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\ScenePanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\HierarchyPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\Panel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\StatisticsPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\HardwarePanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\ConfigurationPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\AboutPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\InspectorPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGui\imgui_stdlib.h">
+      <Filter>Vendors\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\CameraComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1347,6 +1450,12 @@
     </Filter>
     <Filter Include="Vendors\Optick">
       <UniqueIdentifier>{fb9446f1-13ad-43ff-87fb-9c37798bd4b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Components">
+      <UniqueIdentifier>{ee0be01f-2242-4634-a963-8b1770b69d05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Events">
+      <UniqueIdentifier>{d8b151ba-fd85-4d76-a379-3891fb912e33}</UniqueIdentifier>
     </Filter>
     <Filter Include="Vendors\Yaml">
       <UniqueIdentifier>{ab4e8209-3eba-4fa4-bcf3-4772f40a7e82}</UniqueIdentifier>
@@ -1452,8 +1561,5 @@
     <None Include="be.cfg">
       <Filter>Core\Preferences</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="licenses\LICENSE.TXT" />
   </ItemGroup>
 </Project>

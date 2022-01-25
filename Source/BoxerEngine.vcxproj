@@ -177,6 +177,11 @@
     <ClCompile Include="src\core\file system\FileManager.cpp" />
     <ClCompile Include="src\core\preferences\src\EditorPrefs.cpp" />
     <ClCompile Include="src\core\preferences\PreferenceManager.cpp" />
+    <ClCompile Include="src\components\CameraComponent.cpp" />
+    <ClCompile Include="src\components\Component.cpp" />
+    <ClCompile Include="src\components\LightComponent.cpp" />
+    <ClCompile Include="src\core\events\EventManager.cpp" />
+    <ClCompile Include="src\core\Entity.cpp" />
     <ClCompile Include="src\core\rendering\BoundingBox.cpp" />
     <ClCompile Include="src\core\bepch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -195,21 +200,32 @@
     <ClCompile Include="src\core\rendering\FrameBuffer.cpp" />
     <ClCompile Include="src\core\rendering\Mesh.cpp" />
     <ClCompile Include="src\core\rendering\Model.cpp" />
+    <ClCompile Include="src\core\Scene.cpp" />
     <ClCompile Include="src\core\util\UUID.cpp" />
     <ClCompile Include="src\modules\ModuleCamera.cpp" />
     <ClCompile Include="src\modules\ModuleProgram.cpp" />
     <ClCompile Include="src\modules\ModuleResources.cpp" />
     <ClCompile Include="src\modules\ModuleTexture.cpp" />
+    <ClCompile Include="src\ui\components\AboutPanel.cpp" />
+    <ClCompile Include="src\ui\components\ConfigurationPanel.cpp" />
     <ClCompile Include="src\ui\components\ConsolePanel.cpp" />
     <ClCompile Include="src\core\logging\ImGuiLogger.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\modules\ModuleDebugDraw.cpp" />
     <ClCompile Include="src\modules\ModuleScene.cpp" />
     <ClCompile Include="src\core\util\Timer.cpp" />
+    <ClCompile Include="src\components\TransformComponent.cpp" />
+    <ClCompile Include="src\ui\components\HardwarePanel.cpp" />
+    <ClCompile Include="src\ui\components\HierarchyPanel.cpp" />
+    <ClCompile Include="src\ui\components\InspectorPanel.cpp" />
+    <ClCompile Include="src\ui\components\Panel.cpp" />
+    <ClCompile Include="src\ui\components\ScenePanel.cpp" />
+    <ClCompile Include="src\ui\components\StatisticsPanel.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="vendors\ImGui\imgui_stdlib.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_tables.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="src\core\logging\ConsoleLogger.cpp" />
@@ -296,14 +312,21 @@
     <ClInclude Include="src\core\preferences\src\EditorPrefs.h" />
     <ClInclude Include="src\core\preferences\Prefs.h" />
     <ClInclude Include="src\core\preferences\PreferenceManager.h" />
+    <ClInclude Include="src\components\CameraComponent.h" />
+    <ClInclude Include="src\components\LightComponent.h" />
+    <ClInclude Include="src\core\events\Event.h" />
+    <ClInclude Include="src\core\events\EventManager.h" />
     <ClInclude Include="src\core\rendering\BoundingBox.h" />
+    <ClInclude Include="src\components\Component.h" />
     <ClInclude Include="src\core\bepch.h" />
+    <ClInclude Include="src\core\Entity.h" />
     <ClInclude Include="src\core\GameOptions.h" />
     <ClInclude Include="src\core\logging\AssimpLogger.h" />
     <ClInclude Include="src\core\rendering\Bindable.h" />
     <ClInclude Include="src\core\rendering\FrameBuffer.h" />
     <ClInclude Include="src\core\rendering\Mesh.h" />
     <ClInclude Include="src\core\rendering\Model.h" />
+    <ClInclude Include="src\core\Scene.h" />
     <ClInclude Include="src\core\util\StringUtils.h" />
     <ClInclude Include="src\core\util\UUID.h" />
     <ClInclude Include="src\instrumentation\MemoryLeaks.h" />
@@ -314,6 +337,8 @@
     <ClInclude Include="src\modules\ModuleProgram.h" />
     <ClInclude Include="src\modules\ModuleResources.h" />
     <ClInclude Include="src\modules\ModuleTexture.h" />
+    <ClInclude Include="src\ui\components\AboutPanel.h" />
+    <ClInclude Include="src\ui\components\ConfigurationPanel.h" />
     <ClInclude Include="src\ui\components\ConsolePanel.h" />
     <ClInclude Include="src\core\logging\ConsoleLogger.h" />
     <ClInclude Include="src\core\ErrorHandler.h" />
@@ -323,7 +348,14 @@
     <ClInclude Include="src\modules\ModuleDebugDraw.h" />
     <ClInclude Include="src\modules\ModuleScene.h" />
     <ClInclude Include="src\core\util\Timer.h" />
+    <ClInclude Include="src\ui\components\HardwarePanel.h" />
+    <ClInclude Include="src\ui\components\HierarchyPanel.h" />
+    <ClInclude Include="src\ui\components\InspectorPanel.h" />
+    <ClInclude Include="src\ui\components\Panel.h" />
+    <ClInclude Include="src\ui\components\ScenePanel.h" />
+    <ClInclude Include="src\ui\components\StatisticsPanel.h" />
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />
+    <ClInclude Include="src\components\TransformComponent.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="vendors\assimp\include\assimp\anim.h" />
@@ -407,6 +439,7 @@
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\wglew.h" />
+    <ClInclude Include="vendors\ImGui\imgui_stdlib.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK2D.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\Random\LCG.h" />
@@ -660,9 +693,6 @@
     <None Include="vendors\SDL\include\SDL_config.h.cmake" />
     <None Include="vendors\SDL\include\SDL_config.h.in" />
     <None Include="vendors\SDL\include\SDL_config_macosx.h.orig" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="licenses\LICENSE.TXT" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

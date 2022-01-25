@@ -1,12 +1,10 @@
 #include "ModuleEditor.h"
 
-#include <iostream>
 #include <SDL.h>
 
 #include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
-#include "ModuleDebugDraw.h"
 #include "ModuleCamera.h"
 
 #include "debugdraw.h"
@@ -14,18 +12,38 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
 #include "ModuleProgram.h"
-#include "core/util/Files.h"
-#include "ui/widgets/AxisSlider.h"
+#include "ModuleScene.h"
+#include "core/events/Event.h"
+#include "core/events/EventManager.h"
+#include "ui/components/StatisticsPanel.h"
 
-ModuleEditor::ModuleEditor() 
-    : console(new BoxerEngine::ConsolePanel())
+
+ModuleEditor::ModuleEditor()
 {
-}
+    scenePanel = std::make_shared<BoxerEngine::ScenePanel>();
+    hierarchyPanel = std::make_shared<BoxerEngine::HierarchyPanel>();
+    inspectorPanel = std::make_shared<BoxerEngine::InspectorPanel>();
+    consolePanel = std::make_shared<BoxerEngine::ConsolePanel>();
+    configurationPanel = std::make_shared<BoxerEngine::ConfigurationPanel>();
+    statisticsPanel = std::make_shared<BoxerEngine::StatisticsPanel>();
+    hardwarePanel = std::make_shared<BoxerEngine::HardwarePanel>();
+    aboutPanel = std::make_shared<BoxerEngine::AboutPanel>();
+
+    panels.push_back(aboutPanel);
+    panels.push_back(hardwarePanel);
+    panels.push_back(statisticsPanel);
+    panels.push_back(consolePanel);
+    panels.push_back(configurationPanel);
+    panels.push_back(inspectorPanel);
+    panels.push_back(hierarchyPanel);
+    panels.push_back(scenePanel);
+};
 
 ModuleEditor::~ModuleEditor()
 {
-    delete console;
-}
+    panels.erase(std::begin(panels), std::end(panels));
+    panels.clear();
+};
 
 bool ModuleEditor::Init()
 {
@@ -95,16 +113,16 @@ update_status ModuleEditor::Update(float delta)
 {
     CreateDockerspace();
 
+    for (const auto panel : panels)
+    {
+        if (panel->IsVisible())
+        {
+            panel->Update();
+        }
+    }
+
     //make sure we render the opened windows
-    if (display_about) ShowAbout();
-    if (display_console) ShowConsole();
-    if (display_stats) ShowStats();
-    if (display_config) ShowConfig();
-    if (display_hardware) ShowHardware();
     if (display_camera_settings) ShowCameraSettings();
-
-    CreateScene();
-
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     
@@ -168,22 +186,11 @@ bool ModuleEditor::CleanUp()
     return true;
 }
 
-void ModuleEditor::CreateScene() const
+void ModuleEditor::SetActiveEntity(BoxerEngine::Entity* const entity)
 {
-    ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-    ImGui::Begin("Scene");
-
-    const ImVec2 viewportPanelSize = ImGui::GetContentRegionAvail();
-    float x = viewportPanelSize.x, y = viewportPanelSize.y;
-
-    App->renderer->Resize(x, y);
-
-    // to actually render inside the scene window
-    ImGui::Image(reinterpret_cast<void*>(App->renderer->GetFrameBuffer()->GetTextureId()), ImVec2{x, y}, ImVec2{0, 1}, ImVec2{1, 0});
-
-    ImGui::End();
-    ImGui::PopStyleVar();
+    BoxerEngine::Event selectionChanged(BoxerEngine::Event::Type::SELECTION_CHANGED);
+    selectionChanged.SetEventData<BoxerEngine::SelectionChangedEventPayload>(entity);
+    BoxerEngine::EventManager::GetInstance().Publish(selectionChanged);
 }
 
 void ModuleEditor::CreateMenu() const
@@ -201,16 +208,16 @@ void ModuleEditor::CreateMenu() const
         }
         if (ImGui::BeginMenu("View"))
         {
-            if (ImGui::MenuItem("Console"))
+            if (ImGui::MenuItem(consolePanel->GetTitle().c_str()))
             {
                 logger.Debug("Open console");
-                display_console = true;
+                consolePanel->SetVisible(true);
             }
             ImGui::Separator();
             if (ImGui::MenuItem("Stats"))
             {
                 logger.Debug("Open stats");
-                display_stats = true;
+                statisticsPanel->SetVisible(true);
             }
             ImGui::Separator();
             if (ImGui::MenuItem("Camera"))
@@ -225,12 +232,12 @@ void ModuleEditor::CreateMenu() const
             if (ImGui::MenuItem("Hardware"))
             {
                 logger.Debug("Open hardware");
-                display_hardware = true;
+                hardwarePanel->SetVisible(true);
             }
-            if (ImGui::MenuItem("Config"))
+            if (ImGui::MenuItem(configurationPanel->GetTitle().c_str()))
             {
                 logger.Debug("Open config");
-                display_config = true;
+                configurationPanel->SetVisible(true);
             }
             ImGui::EndMenu();
         }
@@ -239,175 +246,12 @@ void ModuleEditor::CreateMenu() const
             if (ImGui::MenuItem("About"))
             {
                 logger.Debug("Open about");
-                display_about = true;
+                aboutPanel->SetVisible(true);
             }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();
     }
-}
-
-void ModuleEditor::ShowConsole() const
-{
-    ImGui::SetNextWindowSize(ImVec2(1100, 170), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Console", &display_console))
-    {
-        ImGui::End();
-        return;
-    }
-
-    ImGui::BeginChild("ConsoleScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-    if (ImGui::BeginPopupContextWindow())
-    {
-        if (ImGui::Selectable("Clear"))
-        {
-            console->Clear();
-        }
-        ImGui::EndPopup();
-    }
-    console->Display();
-    if (ImGui::GetScrollY() >= ImGui::GetScrollMaxY())
-    {
-        ImGui::SetScrollHereY(1.0f);
-    }
-    ImGui::EndChild();
-    ImGui::End();
-}
-
-void ModuleEditor::ShowStats() const
-{
-    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Statistics", &display_stats))
-    {
-        ImGui::End();
-        return;
-    }
-    static int counter = 0;
-    static float fps = App->statistics->GetFramesPerSecond();
-    static float ms = App->statistics->GetFrameSpeed();
-    if (counter >= 10)
-    {
-        fps = App->statistics->GetFramesPerSecond();
-        ms = App->statistics->GetFrameSpeed();
-        counter = 0;
-    }
-    ++counter;
-    ImGui::TextWrapped("Memory used: %d MB", App->statistics->GetUsedMemory() / 1000000);
-    char fpsOverlay[32];
-    sprintf(fpsOverlay, "FPS %.2f", fps);
-    float fpsLimit = App->statistics->GetFramesPerSecond() + 10.0f;
-    ImGui::PlotHistogram("##framerate", *App->statistics->GetFPSLog(), IM_ARRAYSIZE(*App->statistics->GetFPSLog()), 0, fpsOverlay, 0.0f, fpsLimit, ImVec2(310, 100));
-
-    char msOverlay[32];
-    sprintf(msOverlay, "%.2f ms", ms);
-    ImGui::PlotHistogram("##framespeed", *App->statistics->GetMSLog(), IM_ARRAYSIZE(*App->statistics->GetMSLog()), 0, msOverlay, 0.0f, 40.0f, ImVec2(310, 100));
-    ImGui::End();
-}
-
-void ModuleEditor::ShowConfig() const
-{
-    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Config", &display_config))
-    {
-        ImGui::End();
-        return;
-    }
-    float maxFps = game_options.GetMaxFPS();
-    ImGui::SliderFloat("##FPSSlider", &maxFps, 24.0f, 250.0f, "FPS %.1f");
-    game_options.SetMaxFPS(maxFps);
-
-    bool vsync = prefs->GetVsync();
-    ImGui::TextWrapped("Vsync");
-    ImGui::SameLine();
-    ImGui::Checkbox("##vsync", &vsync);
-    prefs->SetVsync(vsync);
-
-    bool fullscreen = prefs->IsFullscreen();
-    ImGui::TextWrapped("Fullscreen");
-    ImGui::SameLine();
-    ImGui::Checkbox("##fullscreen", &fullscreen);
-    prefs->SetFullscreen(fullscreen);
-
-    bool displayDebugDraw = prefs->IsDisplayDebugDraw();
-    ImGui::TextWrapped("Display debug draw");
-    ImGui::SameLine();
-    ImGui::Checkbox("##debugdraw", &displayDebugDraw);
-    prefs->SetDisplayDebugDraw(displayDebugDraw);
-
-    // float3 values = float3::zero;
-    // std::string label = "Camera";
-    // BoxerEngine::AxisSlider::Build(label, values);
-
-    ImGui::End();
-}
-
-void ModuleEditor::ShowHardware() const
-{
-    ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("Hardware", &display_hardware))
-    {
-        ImGui::End();
-        return;
-    }
-    ImGui::TextWrapped("System memory: %.1f GB", SDL_GetSystemRAM() / 1000.0f);
-    ImGui::TextWrapped("CPU cores: %d", SDL_GetCPUCount());
-    ImGui::Separator();
-    ImGui::TextWrapped("GPU Vendor: %s", glGetString(GL_VENDOR));
-    ImGui::TextWrapped("Renderer: %s", glGetString(GL_RENDERER));
-    ImGui::TextWrapped("OpenGL: %s", glGetString(GL_VERSION));
-    ImGui::TextWrapped("GLSL: %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
-    ImGui::End();
-}
-
-void ModuleEditor::ShowAbout() const
-{
-    ImGui::SetNextWindowSize(ImVec2(605, 400), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin("About", &display_about))
-    {
-        ImGui::End();
-        return;
-    }
-    ImVec4 red(1.0f, 0.0f, 0.0f, 1.0f);
-    ImGui::TextWrapped("Boxer Engine - version %s", BOXER_ENGINE_VERSION);
-
-    ImGui::Separator();
-
-    ImGui::TextWrapped("Boxer is another name for the actual flat engines in vehicles, widely used by Subaru");
-
-    ImGui::Separator();
-
-    ImGui::TextWrapped("Made with");
-    ImGui::SameLine();
-    ImGui::TextColored(red, "<3");
-    ImGui::SameLine();
-    ImGui::TextWrapped("by Armando and Alvaro");
-
-    ImGui::Separator();
-
-    ImGui::TextWrapped("Libraries");
-
-    ImGui::Indent();
-    ImGui::BulletText("Assimp v 143");
-    ImGui::BulletText("DevIL v 1.8.0");
-    ImGui::BulletText("Glew v 2.1.0");
-    ImGui::BulletText("ImGui v 1.86 WIP");
-    ImGui::BulletText("MathGeoLib v 1.5");
-    ImGui::BulletText("SDL v 2.0.16");
-    ImGui::Unindent();
-
-    ImGui::Separator();
-
-    ImGui::TextWrapped("License");
-
-    ImGui::BeginChild("LicenseScrollingRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-    if (license_content.empty())
-    {
-        license_content = BoxerEngine::Files::ReadFile(LICENSE_PATH);
-    }
-
-    ImGui::TextWrapped(license_content.c_str());
-    ImGui::EndChild();
-    ImGui::End();
 }
 
 void ModuleEditor::ShowCameraSettings() const
