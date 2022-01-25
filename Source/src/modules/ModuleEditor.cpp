@@ -12,6 +12,9 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
 #include "ModuleProgram.h"
+#include "ModuleScene.h"
+#include "core/events/Event.h"
+#include "core/events/EventManager.h"
 #include "ui/components/StatisticsPanel.h"
 
 
@@ -172,6 +175,13 @@ bool ModuleEditor::CleanUp()
     ImGui::DestroyContext();
 
     return true;
+}
+
+void ModuleEditor::SetActiveEntity(BoxerEngine::Entity* const entity)
+{
+    BoxerEngine::Event selectionChanged(BoxerEngine::Event::Type::SELECTION_CHANGED);
+    selectionChanged.SetEventData<BoxerEngine::SelectionChangedEventPayload>(entity);
+    BoxerEngine::EventManager::GetInstance().Publish(selectionChanged);
 }
 
 void ModuleEditor::CreateMenu() const

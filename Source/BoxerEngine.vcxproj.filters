@@ -246,7 +246,15 @@
     <ClCompile Include="src\ui\components\AboutPanel.cpp">
       <Filter>UI\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\ui\components\InspectorPanel.cpp" />
+    <ClCompile Include="src\ui\components\InspectorPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGui\imgui_stdlib.cpp">
+      <Filter>Vendors\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\CameraComponent.cpp">
+      <Filter>Core\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1292,7 +1300,15 @@
     <ClInclude Include="src\ui\components\AboutPanel.h">
       <Filter>UI\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\ui\components\InspectorPanel.h" />
+    <ClInclude Include="src\ui\components\InspectorPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGui\imgui_stdlib.h">
+      <Filter>Vendors\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\CameraComponent.h">
+      <Filter>Core\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

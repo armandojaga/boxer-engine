@@ -8,23 +8,17 @@ namespace BoxerEngine
     //event payloads created here because std::variant does not like forward declarations
     struct SelectionChangedEventPayload
     {
-        SelectionChangedEventPayload(const UID oldId, const UID newId): old_id(oldId), new_id(newId)
+        explicit SelectionChangedEventPayload(Entity* selected): selected(selected)
         {
         }
 
-        [[nodiscard]] UID GetOldId() const
+        [[nodiscard]] Entity* GetSelected() const
         {
-            return old_id;
-        }
-
-        [[nodiscard]] UID GetNewId() const
-        {
-            return old_id;
+            return selected;
         }
 
     private:
-        UID old_id;
-        UID new_id;
+        Entity* selected;
     };
 
     struct TransformChangedEventPayload

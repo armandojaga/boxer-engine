@@ -22,6 +22,8 @@ public:
     update_status PostUpdate(float delta) override;
     bool CleanUp() override;
 
+    static void SetActiveEntity(BoxerEngine::Entity* const entity);
+
 private:
     void CreateDockerspace() const;
     void CreateMenu() const;

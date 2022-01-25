@@ -7,8 +7,10 @@ BoxerEngine::TransformComponent::TransformComponent(Entity* parent): Component(t
 
 void BoxerEngine::TransformComponent::UpdateUI()
 {
-    BE_LOG("Transform component update ui");
-    if (ImGui::CollapsingHeader("Transform"))
-    {
-    }
+    ImGui::Text("Transform here");
+}
+
+const char* BoxerEngine::TransformComponent::GetName() const
+{
+    return "Transform";
 }

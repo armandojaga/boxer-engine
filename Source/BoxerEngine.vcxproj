@@ -169,6 +169,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\components\CameraComponent.cpp" />
     <ClCompile Include="src\components\Component.cpp" />
     <ClCompile Include="src\components\LightComponent.cpp" />
     <ClCompile Include="src\core\events\EventManager.cpp" />
@@ -216,6 +217,7 @@
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="vendors\ImGui\imgui_stdlib.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_tables.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="src\core\logging\ConsoleLogger.cpp" />
@@ -294,6 +296,7 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\components\CameraComponent.h" />
     <ClInclude Include="src\components\LightComponent.h" />
     <ClInclude Include="src\core\events\Event.h" />
     <ClInclude Include="src\core\events\EventManager.h" />
@@ -420,6 +423,7 @@
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\wglew.h" />
+    <ClInclude Include="vendors\ImGui\imgui_stdlib.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK2D.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\Random\LCG.h" />

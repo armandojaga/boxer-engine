@@ -129,6 +129,15 @@ void BoxerEngine::Entity::RemoveChild(UID entityId)
     );
 }
 
+void BoxerEngine::Entity::RemoveComponent(UID id)
+{
+    auto isSameComponentId = [&](const auto c) { return c->GetId() ==  id; };
+    components.erase(
+        std::remove_if(std::begin(components), std::end(components), isSameComponentId),
+        components.end()
+    );
+}
+
 void BoxerEngine::Entity::Enable()
 {
     enabled = true;

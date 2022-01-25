@@ -14,5 +14,8 @@ namespace BoxerEngine
 
         void CreateEmptyEntity();
         void UpdateHierarchyTree(Entity* entity);
+    private:
+        Entity* to_rename = nullptr;
+        Entity* activeEntity = nullptr;
     };
 }

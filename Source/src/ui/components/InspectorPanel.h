@@ -10,5 +10,8 @@ namespace BoxerEngine
         ~InspectorPanel() override = default;
 
         void Update() override;
+
+    private:
+        Entity* currentEntity = nullptr;
     };
 }

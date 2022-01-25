@@ -5,6 +5,7 @@
 #include "ModuleCamera.h"
 #include <SDL.h>
 
+#include "imgui_impl_sdl.h"
 #include "ModuleResources.h"
 #include "core/util/Files.h"
 
@@ -91,6 +92,7 @@ update_status ModuleInput::PreUpdate(float delta)
     SDL_PollEvent(&sdlEvent);
     do
     {
+        ImGui_ImplSDL2_ProcessEvent(&sdlEvent);
         switch (sdlEvent.type)
         {
         case SDL_QUIT:

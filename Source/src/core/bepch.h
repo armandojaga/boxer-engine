@@ -30,6 +30,7 @@
 
 #include <optick.h>
 #include <imgui.h>
+#include <imgui_stdlib.h>
 
 #include "Globals.h"
 #include "Application.h"

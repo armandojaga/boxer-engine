@@ -2,6 +2,7 @@
 #include "HierarchyPanel.h"
 
 #include "core/util/StringUtils.h"
+#include "modules/ModuleEditor.h"
 #include "modules/ModuleScene.h"
 
 BoxerEngine::HierarchyPanel::HierarchyPanel() : Panel("Hierarchy", true)
@@ -11,22 +12,13 @@ BoxerEngine::HierarchyPanel::HierarchyPanel() : Panel("Hierarchy", true)
 void BoxerEngine::HierarchyPanel::Update()
 {
     ImGui::SetNextWindowSize(ImVec2(300, 170), ImGuiCond_FirstUseEver);
-    if (ImGui::Begin(GetTitle().c_str(), &visible))
+    if (!ImGui::Begin(GetTitle().c_str(), &visible))
     {
-        ImGui::PushID("hierarchyGlobalContextualMenu");
-        if (ImGui::BeginPopupContextWindow())
-        {
-            if (ImGui::Selectable("Create Empty"))
-            {
-                App->scene->CreateEmptyEntity();
-                //TODO select this object
-            }
-            ImGui::EndPopup();
-        }
-        ImGui::PopID();
-        UpdateHierarchyTree(App->scene->GetScene()->GetRoot());
         ImGui::End();
+        return;
     }
+    UpdateHierarchyTree(App->scene->GetScene()->GetRoot());
+    ImGui::End();
 }
 
 void BoxerEngine::HierarchyPanel::CreateEmptyEntity()
@@ -40,14 +32,12 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
     const auto children = entity->GetChildren();
     constexpr ImGuiTreeNodeFlags baseFlags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick;
     ImGuiTreeNodeFlags nodeFlags = baseFlags;
-    bool selected = true;
-    //TODO how to determine currently selected entity?
 
     if (entity == App->scene->GetScene()->GetRoot())
     {
         nodeFlags |= ImGuiTreeNodeFlags_DefaultOpen;
     }
-    if (selected)
+    if (activeEntity == entity)
     {
         nodeFlags |= ImGuiTreeNodeFlags_Selected;
     }
@@ -56,7 +46,13 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
         nodeFlags |= ImGuiTreeNodeFlags_Leaf;
     }
 
-    bool nodeOpen = ImGui::TreeNodeEx(entity->GetName().c_str(), nodeFlags);
+    const bool nodeOpen = ImGui::TreeNodeEx(entity->GetName().c_str(), nodeFlags);
+
+    if (ImGui::IsItemClicked())
+    {
+        App->editor->SetActiveEntity(entity);
+        activeEntity = entity;
+    }
 
     ImGui::PushID(entity->GetName().c_str());
     if (ImGui::BeginPopupContextItem(entity->GetName().c_str()))
@@ -66,8 +62,10 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
             auto e = App->scene->CreateEmptyEntity();
             e->SetParent(entity);
             e->SetName(StringUtils::Concat("New Entity (", std::to_string(entity->GetChildren().size()), ")"));
-            //TODO select this object
+            App->editor->SetActiveEntity(e);
+            activeEntity = e;
         }
+
         ImGui::EndPopup();
     }
     ImGui::PopID();
