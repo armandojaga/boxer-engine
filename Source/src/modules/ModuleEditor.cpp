@@ -7,16 +7,13 @@
 #include "ModuleWindow.h"
 #include "ModuleCamera.h"
 
-#include "debugdraw.h"
-
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
 #include "ModuleProgram.h"
-#include "ModuleScene.h"
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
 #include "ui/components/StatisticsPanel.h"
-#include "core/preferences/src/EditorPrefs.h"
+#include "core/preferences/editor/EditorPreferences.h"
 
 ModuleEditor::ModuleEditor()
 {
@@ -71,26 +68,15 @@ bool ModuleEditor::Init()
     style.ScrollbarRounding = 6.0f;
     style.GrabRounding = 4.0f;
 
-    // Get preferences from configuration file
-    prefs = static_cast<BoxerEngine::EditorPrefs*>(App->pref_manager->GetEditorPreferences());
-
-    // TODO: Store theme settings in config file
-    if (prefs->IsLightTheme())
-    {
-        // UI style
-        ImGui::StyleColorsLight();
-        ImVec4* colors = style.Colors;
-        colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 0.70f);
-        colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
-        colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
-        colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
-    }
-
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->GetContext());
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
-    display_camera_settings = prefs->GetDisplayCameraSettings();
-    
+    // Get preferences from configuration
+    preferences = static_cast<BoxerEngine::EditorPreferences*>(App->preferences->GetEditorPreferences());
+    display_camera_settings = preferences->GetDisplayCameraSettings();
+
+    UpdateTheme();
+
     return true;
 }
 
@@ -119,7 +105,7 @@ update_status ModuleEditor::Update(float delta)
     if (display_camera_settings) ShowCameraSettings();
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    
+
     return update_status::UPDATE_CONTINUE;
 }
 
@@ -140,6 +126,27 @@ update_status ModuleEditor::PostUpdate(float delta)
         return update_status::UPDATE_STOP;
     }
     return update_status::UPDATE_CONTINUE;
+}
+
+void ModuleEditor::UpdateTheme() const
+{
+    if (preferences->IsLightTheme())
+    {
+        // UI style
+        ImGuiStyle& style = ImGui::GetStyle();
+        ImGui::StyleColorsLight();
+        ImVec4* colors = style.Colors;
+        colors[ImGuiCol_WindowBg] = ImVec4(0.94f, 0.94f, 0.94f, 0.70f);
+        colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
+        colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
+        colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
+        preferences->SetSceneBackgroundColor(0.9f);
+    }
+    else
+    {
+        ImGui::StyleColorsDark();
+        preferences->SetSceneBackgroundColor(0.1f);
+    }
 }
 
 void ModuleEditor::CreateDockerspace() const
@@ -232,6 +239,17 @@ void ModuleEditor::CreateMenu() const
             {
                 logger.Debug("Open config");
                 configurationPanel->SetVisible(true);
+            }
+            ImGui::EndMenu();
+        }
+        if (ImGui::BeginMenu("Theme"))
+        {
+            bool lightTheme = preferences->IsLightTheme();
+            if (ImGui::MenuItem("Light", nullptr, &lightTheme))
+            {
+                logger.Debug("Selecting light mode");
+                preferences->SetLightTheme(lightTheme);
+                UpdateTheme();
             }
             ImGui::EndMenu();
         }

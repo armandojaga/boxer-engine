@@ -2,12 +2,10 @@
 
 namespace BoxerEngine
 {
-	class Yaml
-	{
-	public:
-		void Parse();
-		void Serialize();
-	};
+    class Yaml
+    {
+    public:
+        void Parse();
+        void Serialize();
+    };
 }
-
-

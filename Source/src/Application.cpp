@@ -13,9 +13,9 @@
 
 using namespace std;
 
-Application::Application() 
+Application::Application()
     : statistics(std::make_unique<BoxerEngine::Statistics>())
-    , pref_manager(std::make_unique<BoxerEngine::PreferenceManager>())
+      , preferences(std::make_unique<BoxerEngine::PreferenceManager>())
 {
     // Order matters: they will Init/start/update in this order
     modules.push_back(window = new ModuleWindow());
@@ -92,7 +92,7 @@ bool Application::CleanUp()
         ret = (*it)->CleanUp();
     }
 
-    pref_manager->SaveConfigurationFile();
+    preferences->SaveConfigurationFile();
 
     return ret;
 }

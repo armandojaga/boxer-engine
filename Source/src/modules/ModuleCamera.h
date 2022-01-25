@@ -4,7 +4,7 @@
 #include "Globals.h"
 #include "Math/float4x4.h"
 #include "MathGeoLib.h"
-#include "../core/preferences/src/CameraPrefs.h"
+#include "core/preferences/editor/CameraPreferences.h"
 
 enum class MoveType
 {
@@ -56,7 +56,7 @@ public:
 
 private:
     Frustum camera_frustum;
-    BoxerEngine::CameraPrefs* prefs;
+    BoxerEngine::CameraPreferences* camera_preferences = nullptr;
     // Projection
     float aspect_ratio;
     float horizontal_fov_degree;

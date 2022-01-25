@@ -5,14 +5,6 @@ namespace BoxerEngine
 {
     class FrameBuffer final : public Bindable
     {
-    private:
-        unsigned int fbo_id = 0;
-        unsigned int texture_id = 0;
-        unsigned int rbo_id = 0;
-
-        int width{};
-        int height{};
-
     public:
         FrameBuffer(int w, int h);
         ~FrameBuffer() override;
@@ -33,6 +25,13 @@ namespace BoxerEngine
         }
 
     private:
+        unsigned int fbo_id = 0;
+        unsigned int texture_id = 0;
+        unsigned int rbo_id = 0;
+
+        int width{};
+        int height{};
+
         void Reset();
         void Create();
     };

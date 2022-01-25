@@ -171,11 +171,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\core\preferences\src\CameraPrefs.cpp" />
-    <ClCompile Include="src\core\preferences\src\GlobalPrefs.cpp" />
-    <ClCompile Include="src\core\preferences\src\RenderPrefs.cpp" />
+    <ClCompile Include="src\core\preferences\editor\CameraPreferences.cpp" />
+    <ClCompile Include="src\core\preferences\editor\GlobalPreferences.cpp" />
+    <ClCompile Include="src\core\preferences\editor\RenderPreferences.cpp" />
     <ClCompile Include="src\core\file system\FileManager.cpp" />
-    <ClCompile Include="src\core\preferences\src\EditorPrefs.cpp" />
+    <ClCompile Include="src\core\preferences\editor\EditorPreferences.cpp" />
     <ClCompile Include="src\core\preferences\PreferenceManager.cpp" />
     <ClCompile Include="src\components\CameraComponent.cpp" />
     <ClCompile Include="src\components\Component.cpp" />
@@ -305,12 +305,12 @@
     <ClCompile Include="src\core\util\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\core\preferences\src\CameraPrefs.h" />
-    <ClInclude Include="src\core\preferences\src\GlobalPrefs.h" />
-    <ClInclude Include="src\core\preferences\src\RenderPrefs.h" />
+    <ClInclude Include="src\core\preferences\editor\CameraPreferences.h" />
+    <ClInclude Include="src\core\preferences\editor\GlobalPreferences.h" />
+    <ClInclude Include="src\core\preferences\editor\RenderPreferences.h" />
     <ClInclude Include="src\core\file system\FileManager.h" />
-    <ClInclude Include="src\core\preferences\src\EditorPrefs.h" />
-    <ClInclude Include="src\core\preferences\Prefs.h" />
+    <ClInclude Include="src\core\preferences\editor\EditorPreferences.h" />
+    <ClInclude Include="src\core\preferences\Preferences.h" />
     <ClInclude Include="src\core\preferences\PreferenceManager.h" />
     <ClInclude Include="src\components\CameraComponent.h" />
     <ClInclude Include="src\components\LightComponent.h" />
@@ -668,7 +668,6 @@
   <ItemGroup>
     <None Include="..\Game\assets\shaders\fragmentTexture.glsl" />
     <None Include="..\Game\assets\shaders\vertexTexture.glsl" />
-    <None Include="be.cfg" />
     <None Include="vendors\assimp\include\assimp\color4.inl" />
     <None Include="vendors\assimp\include\assimp\config.h.in" />
     <None Include="vendors\assimp\include\assimp\material.inl" />

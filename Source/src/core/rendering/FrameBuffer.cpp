@@ -2,7 +2,6 @@
 
 #include "Globals.h"
 #include "imgui_impl_opengl3.h"
-#include "imgui_impl_sdl.h"
 #include "GL/glew.h"
 #include <optick.h>
 
@@ -38,6 +37,7 @@ void BoxerEngine::FrameBuffer::Reset()
         glDeleteRenderbuffers(1, &rbo_id);
         texture_id = 0;
         rbo_id = 0;
+        fbo_id = 0;
         Unbind();
     }
 }

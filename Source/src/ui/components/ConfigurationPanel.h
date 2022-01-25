@@ -12,6 +12,6 @@ namespace BoxerEngine
         void Update() override;
 
     private:
-        BoxerEngine::EditorPrefs* prefs = nullptr;
+        EditorPreferences* prefs = nullptr;
     };
 }

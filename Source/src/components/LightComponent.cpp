@@ -21,7 +21,7 @@ float BoxerEngine::LightComponent::GetIntensity() const
     return intensity;
 }
 
-const char* BoxerEngine::LightComponent::GetName() const 
+const char* BoxerEngine::LightComponent::GetName() const
 {
     return "Light";
 }

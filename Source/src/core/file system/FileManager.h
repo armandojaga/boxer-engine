@@ -5,17 +5,16 @@
 
 namespace BoxerEngine
 {
-	class FileManager
-	{
-		public:
-			~FileManager();
-			[[nodiscard]] std::ifstream* Load(std::filesystem::path file_path);
-			void Save(std::ostream data, std::filesystem::path file_path);
-			void Remove();
-			void Copy();
-			void AppendToFile();
-		private:
-			std::ifstream rfile;
-	};
+    class FileManager
+    {
+    public:
+        ~FileManager();
+        [[nodiscard]] std::ifstream* Load(std::filesystem::path file_path);
+        void Save(std::ostream data, std::filesystem::path file_path);
+        void Remove();
+        void Copy();
+        void AppendToFile();
+    private:
+        std::ifstream rfile;
+    };
 }
-

@@ -213,19 +213,19 @@
     <ClCompile Include="src\core\preferences\PreferenceManager.cpp">
       <Filter>Core\Preferences</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\preferences\src\EditorPrefs.cpp">
+    <ClCompile Include="src\core\preferences\editor\EditorPreferences.cpp">
       <Filter>Core\Preferences\Source</Filter>
     </ClCompile>
     <ClCompile Include="src\core\file system\FileManager.cpp">
       <Filter>Core\File System</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\preferences\src\RenderPrefs.cpp">
+    <ClCompile Include="src\core\preferences\editor\RenderPreferences.cpp">
       <Filter>Core\Preferences\Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\preferences\src\CameraPrefs.cpp">
+    <ClCompile Include="src\core\preferences\editor\CameraPreferences.cpp">
       <Filter>Core\Preferences\Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\preferences\src\GlobalPrefs.cpp">
+    <ClCompile Include="src\core\preferences\editor\GlobalPreferences.cpp">
       <Filter>Core\Preferences\Source</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Entity.cpp">
@@ -1301,22 +1301,22 @@
     <ClInclude Include="src\core\preferences\PreferenceManager.h">
       <Filter>Core\Preferences</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\preferences\Prefs.h">
+    <ClInclude Include="src\core\preferences\Preferences.h">
       <Filter>Core\Preferences</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\preferences\src\EditorPrefs.h">
+    <ClInclude Include="src\core\preferences\editor\EditorPreferences.h">
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
     <ClInclude Include="src\core\file system\FileManager.h">
       <Filter>Core\File System</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\preferences\src\RenderPrefs.h">
+    <ClInclude Include="src\core\preferences\editor\RenderPreferences.h">
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\preferences\src\GlobalPrefs.h">
+    <ClInclude Include="src\core\preferences\editor\GlobalPreferences.h">
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\preferences\src\CameraPrefs.h">
+    <ClInclude Include="src\core\preferences\editor\CameraPreferences.h">
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
     <ClInclude Include="src\Globals.h" />
@@ -1557,9 +1557,6 @@
     </None>
     <None Include="..\Game\assets\shaders\vertexTexture.glsl">
       <Filter>Shaders</Filter>
-    </None>
-    <None Include="be.cfg">
-      <Filter>Core\Preferences</Filter>
     </None>
   </ItemGroup>
 </Project>

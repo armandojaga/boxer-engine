@@ -1,6 +1,6 @@
 #include "core/bepch.h"
 #include "ConfigurationPanel.h"
-#include "core/preferences/src/EditorPrefs.h"
+#include "core/preferences/editor/EditorPreferences.h"
 
 BoxerEngine::ConfigurationPanel::ConfigurationPanel() : Panel("Configuration", true)
 {
@@ -8,7 +8,7 @@ BoxerEngine::ConfigurationPanel::ConfigurationPanel() : Panel("Configuration", t
 
 void BoxerEngine::ConfigurationPanel::Update()
 {
-    prefs = static_cast<BoxerEngine::EditorPrefs*>(App->pref_manager->GetEditorPreferences());
+    prefs = static_cast<EditorPreferences*>(App->preferences->GetEditorPreferences());
 
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin(GetTitle().c_str(), &visible))

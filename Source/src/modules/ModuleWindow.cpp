@@ -13,7 +13,7 @@ bool ModuleWindow::Init()
     BE_LOG("Init SDL window");
     bool ret = true;
 
-    prefs = static_cast<BoxerEngine::EditorPrefs*>(App->pref_manager->GetEditorPreferences());
+    prefs = static_cast<BoxerEngine::EditorPreferences*>(App->preferences->GetEditorPreferences());
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
     {
@@ -72,6 +72,6 @@ update_status ModuleWindow::PreUpdate(float delta)
     }
 
     SDL_GL_SetSwapInterval(prefs->GetVsync());
-    
+
     return update_status::UPDATE_CONTINUE;
 }

@@ -1,77 +1,74 @@
 #include "PreferenceManager.h"
 
-#include "src/EditorPrefs.h"
-#include "src/RenderPrefs.h"
-#include "src/GlobalPrefs.h"
-#include "src/CameraPrefs.h"
+
 #include "Globals.h"
+#include "editor/CameraPreferences.h"
+#include "editor/EditorPreferences.h"
+#include "editor/GlobalPreferences.h"
+#include "editor/RenderPreferences.h"
 
 using namespace BoxerEngine;
 
-PreferenceManager::PreferenceManager()
+PreferenceManager::PreferenceManager() : globals(new GlobalPreferences()), editor(new EditorPreferences()), render(new RenderPreferences()), camera(new CameraPreferences())
 {
-	preferences.reserve((size_t)PreferenceType::TYPES_AMOUNT);
-	
-	editor = new EditorPrefs();
-	globals = new GlobalPrefs();
-	render = new RenderPrefs();
-	camera = new CameraPrefs();
+    preferences.reserve(static_cast<size_t>(Preferences::Type::COUNT));
 
-	preferences.emplace_back(globals);
-	preferences.emplace_back(render);
-	preferences.emplace_back(editor);
-	preferences.emplace_back(camera);
+    preferences.emplace_back(globals);
+    preferences.emplace_back(render);
+    preferences.emplace_back(editor);
+    preferences.emplace_back(camera);
 
-	LoadConfigurationFile();
+    LoadConfigurationFile();
 }
 
-BoxerEngine::PreferenceManager::~PreferenceManager()
+PreferenceManager::~PreferenceManager()
 {
-	for (auto it : preferences)
-	{
-		delete it;
-	}
+    for (const auto it : preferences)
+    {
+        delete it;
+    }
+    preferences.clear();
 }
 
-void BoxerEngine::PreferenceManager::LoadConfigurationFile()
+void PreferenceManager::LoadConfigurationFile() const
 {
-	for (auto node : nodes_vec)
-	{
-		for (auto it : preferences)
-		{
-			if (!node[it->GetGroupName()].IsDefined())
-			{
-				continue;
-			}
-			it->SetConfigData(node[it->GetGroupName()]);
-		}
-	}
+    for (auto node : nodes_vec)
+    {
+        for (auto it : preferences)
+        {
+            if (!node[it->GetGroupName()].IsDefined())
+            {
+                continue;
+            }
+            it->SetConfigurationData(node[it->GetGroupName()]);
+        }
+    }
 }
 
-void BoxerEngine::PreferenceManager::SaveConfigurationFile()
+void PreferenceManager::SaveConfigurationFile() const
 {
-	YAML::Node output;
-	for (auto it : preferences)
-	{
-		it->GetConfigData(output);
-	}
-	std::ofstream fout(CONFIG_PATH);
-	fout << output;
+    YAML::Node output;
+    for (const auto it : preferences)
+    {
+        it->GetConfigurationData(output);
+    }
+    std::ofstream fout(CONFIG_PATH);
+    fout << output;
 }
 
-Prefs* BoxerEngine::PreferenceManager::GetPreferenceDataByType(PreferenceType type) const
+Preferences* PreferenceManager::GetPreferenceDataByType(const Preferences::Type type) const
 {
-	for (auto it : preferences)
-	{
-		if (it->GetType() == type)
-		{
-			return it;
-		}
-	}
-	return nullptr;
+    for (const auto it : preferences)
+    {
+        if (it->GetType() == type)
+        {
+            return it;
+        }
+    }
+    return nullptr;
 }
 
-Prefs* BoxerEngine::PreferenceManager::GetEditorPreferences() const
+Preferences* PreferenceManager::GetEditorPreferences() const
 {
-	return editor;
+    return editor;
 }
