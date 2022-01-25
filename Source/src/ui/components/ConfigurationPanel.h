@@ -10,5 +10,8 @@ namespace BoxerEngine
         ~ConfigurationPanel() override = default;
 
         void Update() override;
+
+    private:
+        BoxerEngine::EditorPrefs* prefs = nullptr;
     };
 }

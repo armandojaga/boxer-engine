@@ -16,7 +16,7 @@
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
 #include "ui/components/StatisticsPanel.h"
-
+#include "core/preferences/src/EditorPrefs.h"
 
 ModuleEditor::ModuleEditor()
 {
@@ -89,12 +89,6 @@ bool ModuleEditor::Init()
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer->GetContext());
     ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
-
-    display_about = prefs->GetDisplayAbout();
-    display_console = prefs->GetDisplayConsole();
-    display_stats = prefs->GetDisplayStats();
-    display_config = prefs->GetDisplayConfig();
-    display_hardware = prefs->GetDisplayHardware();
     display_camera_settings = prefs->GetDisplayCameraSettings();
     
     return true;
