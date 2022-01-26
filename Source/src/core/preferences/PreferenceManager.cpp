@@ -24,7 +24,11 @@ PreferenceManager::PreferenceManager()
     preferences.emplace_back(camera);
     preferences.emplace_back(resources);
 
-    LoadConfigurationFile();
+    if (file_manager.CreateFileIfNew(CONFIG_PATH))
+    {
+        nodes_vec = YAML::LoadAllFromFile(CONFIG_PATH);
+        LoadConfigurationFile();
+    }
 }
 
 PreferenceManager::~PreferenceManager()

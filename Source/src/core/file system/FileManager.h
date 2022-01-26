@@ -3,8 +3,6 @@
 #include <fstream>
 #include <filesystem>
 
-#include "core/util/Files.h"
-
 namespace BoxerEngine
 {
     class FileManager
@@ -17,6 +15,8 @@ namespace BoxerEngine
         void Remove(const std::filesystem::path& source);
         void Copy(const std::filesystem::path& source, const std::filesystem::path& destination);
         bool CopyNew(const std::filesystem::path& source, const std::filesystem::path& destination);
+        bool CreatePathIfNew(const std::filesystem::path& path);
+        bool CreateFileIfNew(const std::filesystem::path& file_path);
         void AppendToFile();
 
     private:

@@ -3,6 +3,7 @@
 #include <functional>
 
 #include "../../Globals.h"
+#include "core/util/Files.h"
 #include "core/events/EventManager.h"
 
 using namespace BoxerEngine;
@@ -53,6 +54,28 @@ bool BoxerEngine::FileManager::CopyNew(const fs::path& source, const fs::path& d
     }
 
     fs::copy(source, destination);
+    return true;
+}
+
+bool BoxerEngine::FileManager::CreatePathIfNew(const fs::path& path)
+{
+    return fs::exists(path) || fs::create_directories(path);
+}
+
+bool BoxerEngine::FileManager::CreateFileIfNew(const fs::path& file_path)
+{
+    if (Files::IsValidFilePath(file_path))
+    {
+        return true;
+    }
+    
+    if (!CreatePathIfNew(file_path.parent_path()))
+    {
+        return false;
+    }
+
+    std::ofstream file(file_path);
+    file.close();
     return true;
 }
 
