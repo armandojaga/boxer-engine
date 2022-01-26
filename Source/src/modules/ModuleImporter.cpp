@@ -25,3 +25,8 @@ bool ModuleImporter::Init()
     EventManager::GetInstance().Subscribe(Event::Type::FILE_ADDED, handleAddedFile);
     return true;
 }
+
+bool ModuleImporter::CleanUp()
+{
+    return Module::CleanUp();
+}
