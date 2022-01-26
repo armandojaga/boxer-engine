@@ -8,7 +8,7 @@ BoxerEngine::ProjectPanel::ProjectPanel() : Panel("Project", true)
 void BoxerEngine::ProjectPanel::Update()
 {
     ImGui::SetNextWindowSize(ImVec2(1100, 170), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin(GetTitle().c_str(), &visible))
+    if (!ImGui::Begin(StringUtils::Concat(ICON_MD_FOLDER_SPECIAL, GetTitle()).c_str(), &visible))
     {
         ImGui::End();
         return;
