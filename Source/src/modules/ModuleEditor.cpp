@@ -27,6 +27,7 @@ ModuleEditor::ModuleEditor()
     statisticsPanel = std::make_shared<BoxerEngine::StatisticsPanel>();
     hardwarePanel = std::make_shared<BoxerEngine::HardwarePanel>();
     aboutPanel = std::make_shared<BoxerEngine::AboutPanel>();
+    projectPanel = std::make_shared<BoxerEngine::ProjectPanel>();
 
     panels.push_back(aboutPanel);
     panels.push_back(hardwarePanel);
@@ -36,6 +37,7 @@ ModuleEditor::ModuleEditor()
     panels.push_back(inspectorPanel);
     panels.push_back(hierarchyPanel);
     panels.push_back(scenePanel);
+    panels.push_back(projectPanel);
 };
 
 ModuleEditor::~ModuleEditor()

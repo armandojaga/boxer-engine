@@ -219,6 +219,7 @@
     <ClCompile Include="src\ui\components\HierarchyPanel.cpp" />
     <ClCompile Include="src\ui\components\InspectorPanel.cpp" />
     <ClCompile Include="src\ui\components\Panel.cpp" />
+    <ClCompile Include="src\ui\components\ProjectPanel.cpp" />
     <ClCompile Include="src\ui\components\ScenePanel.cpp" />
     <ClCompile Include="src\ui\components\StatisticsPanel.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
@@ -352,6 +353,7 @@
     <ClInclude Include="src\ui\components\HierarchyPanel.h" />
     <ClInclude Include="src\ui\components\InspectorPanel.h" />
     <ClInclude Include="src\ui\components\Panel.h" />
+    <ClInclude Include="src\ui\components\ProjectPanel.h" />
     <ClInclude Include="src\ui\components\ScenePanel.h" />
     <ClInclude Include="src\ui\components\StatisticsPanel.h" />
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />

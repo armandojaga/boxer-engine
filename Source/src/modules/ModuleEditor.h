@@ -9,6 +9,7 @@
 #include "ui/components/InspectorPanel.h"
 #include "ui/components/ScenePanel.h"
 #include "ui/components/StatisticsPanel.h"
+#include "ui/components/ProjectPanel.h"
 
 class ModuleEditor : public Module
 {
@@ -40,6 +41,7 @@ private:
     std::shared_ptr<BoxerEngine::StatisticsPanel> statisticsPanel = nullptr;
     std::shared_ptr<BoxerEngine::HardwarePanel> hardwarePanel = nullptr;
     std::shared_ptr<BoxerEngine::AboutPanel> aboutPanel = nullptr;
+    std::shared_ptr<BoxerEngine::ProjectPanel> projectPanel = nullptr;
 
     mutable bool display_camera_settings = false;
     mutable bool should_exit = false;
