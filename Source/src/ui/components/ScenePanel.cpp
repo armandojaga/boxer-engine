@@ -11,7 +11,7 @@ void BoxerEngine::ScenePanel::Update()
 {
     ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
-    if (!ImGui::Begin(GetTitle().c_str(), &visible))
+    if (!ImGui::Begin(StringUtils::Concat(ICON_MD_VIEW_MODULE, GetTitle()).c_str(), &visible))
     {
         ImGui::End();
         return;

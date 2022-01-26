@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;_CONSOLE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDir)vendors\yaml-cpp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDir)vendors\yaml-cpp\include;$(ProjectDir)vendors\IconFontCppHeaders\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
@@ -154,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\yaml-cpp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\yaml-cpp\include;$(ProjectDir)vendors\IconFontCppHeaders\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
@@ -439,6 +439,7 @@
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\wglew.h" />
+    <ClInclude Include="vendors\IconFontCppHeaders\include\IconsMaterialDesign.h" />
     <ClInclude Include="vendors\ImGui\imgui_stdlib.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK2D.h" />

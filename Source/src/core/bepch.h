@@ -32,9 +32,12 @@
 #include <imgui.h>
 #include <imgui_stdlib.h>
 
+#include <IconsMaterialDesign.h>
+
 #include "Globals.h"
 #include "Application.h"
 #include "modules/Module.h"
+#include "core/util/StringUtils.h"
 #include "rendering/Bindable.h"
 #include "Entity.h"
 #include "components/Component.h"

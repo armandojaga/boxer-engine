@@ -1,7 +1,7 @@
 #include "core/bepch.h"
 #include "StatisticsPanel.h"
 
-BoxerEngine::StatisticsPanel::StatisticsPanel(): Panel("Statistics", true)
+BoxerEngine::StatisticsPanel::StatisticsPanel(): Panel("Statistics", false)
 {
 }
 

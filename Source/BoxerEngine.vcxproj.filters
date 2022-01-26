@@ -1356,6 +1356,9 @@
     <ClInclude Include="src\components\CameraComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
+    <ClInclude Include="vendors\IconFontCppHeaders\include\IconsMaterialDesign.h">
+      <Filter>Vendors\IconFontCppHeaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1477,6 +1480,9 @@
     </Filter>
     <Filter Include="Core\File System">
       <UniqueIdentifier>{8e7b2780-2e38-4517-a69d-93ed292981ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\IconFontCppHeaders">
+      <UniqueIdentifier>{a132f2e1-8e4a-49b5-990e-1fcfa155ed4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
