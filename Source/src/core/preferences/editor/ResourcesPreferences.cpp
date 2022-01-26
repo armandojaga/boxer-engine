@@ -1,6 +1,7 @@
 
-#include "ResourcesPreferences.h"
+#include <cassert>
 
+#include "ResourcesPreferences.h"
 
 using namespace BoxerEngine;
 

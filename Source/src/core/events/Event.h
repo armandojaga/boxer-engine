@@ -3,18 +3,20 @@
 #include "core/util/UUID.h"
 #include "Math/float3x3.h"
 
+//event payloads created here because std::variant does not like forward declarations
+#include "SelectionChangeEventPayload.h"
+#include "TransformChangedEventPayload.h"
+#include "FileAddedEventPayload.h"
+#include "AssetsChangedEventPayload.h"
+
 namespace BoxerEngine
 {
-    //event payloads created here because std::variant does not like forward declarations
-    #include "SelectionChangeEventPayload.h"
-    #include "TransformChangedEventPayload.h"
-    #include "FileDroppedEventPayload.h"
-
     //std::monostate is added just so we can have an empty std::variant
     using EventData = std::variant<std::monostate,
         SelectionChangedEventPayload,
         TransformChangedEventPayload,
-        FileDroppedEventPayload>;
+        FileAddedEventPayload, 
+        AssetsChangedEventPayload>;
 
     class Event
     {
@@ -24,7 +26,8 @@ namespace BoxerEngine
             UNDEFINED = 0,
             SELECTION_CHANGED,
             TRANSFORM_CHANGED,
-            FILE_DROPPED,
+            FILE_ADDED,
+            ASSETS_CHANGED,
             COUNT
         };
 

@@ -171,6 +171,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\importers\MeshImporter.cpp" />
+    <ClCompile Include="src\modules\ModuleImporter.cpp" />
     <ClCompile Include="src\core\preferences\editor\ResourcesPreferences.cpp" />
     <ClCompile Include="src\components\MeshComponent.cpp" />
     <ClCompile Include="src\components\ModelComponent.cpp" />
@@ -308,12 +310,15 @@
     <ClCompile Include="src\core\util\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\importers\MeshImporter.h" />
+    <ClInclude Include="src\importers\Importer.h" />
+    <ClInclude Include="src\modules\ModuleImporter.h" />
+    <ClInclude Include="src\core\events\AssetsChangedEventPayload.h" />
     <ClInclude Include="src\core\preferences\editor\ResourcesPreferences.h" />
-    <ClInclude Include="src\core\events\FileDroppedEventPayload.h" />
+    <ClInclude Include="src\core\events\FileAddedEventPayload.h" />
     <ClInclude Include="src\core\events\SelectionChangeEventPayload.h" />
     <ClInclude Include="src\components\MeshComponent.h" />
     <ClInclude Include="src\components\ModelComponent.h" />
-    <ClInclude Include="src\components\ComponentModel.h" />
     <ClInclude Include="src\core\preferences\editor\CameraPreferences.h" />
     <ClInclude Include="src\core\preferences\editor\GlobalPreferences.h" />
     <ClInclude Include="src\core\preferences\editor\RenderPreferences.h" />

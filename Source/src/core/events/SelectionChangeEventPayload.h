@@ -1,16 +1,21 @@
 #pragma once
 
-struct SelectionChangedEventPayload
+#include "core/Entity.h"
+
+namespace BoxerEngine
 {
-    explicit SelectionChangedEventPayload(BoxerEngine::Entity* selected) : selected(selected)
+    struct SelectionChangedEventPayload
     {
-    }
+        explicit SelectionChangedEventPayload(Entity* selected) : selected(selected)
+        {
+        }
 
-    [[nodiscard]] BoxerEngine::Entity* GetSelected() const
-    {
-        return selected;
-    }
+        [[nodiscard]] Entity* GetSelected() const
+        {
+            return selected;
+        }
 
-private:
-    BoxerEngine::Entity* selected;
-};
+    private:
+        Entity* selected;
+    };
+}

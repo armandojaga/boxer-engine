@@ -282,7 +282,13 @@
     <ClCompile Include="src\components\ModelComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\preferences\editor\ResourcesPreferences.cpp" />
+    <ClCompile Include="src\core\preferences\editor\ResourcesPreferences.cpp">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\modules\ModuleImporter.cpp">
+      <Filter>Modules\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\importers\MeshImporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1360,14 +1366,13 @@
     <ClInclude Include="src\components\CameraComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\components\ComponentModel.h" />
     <ClInclude Include="src\components\MeshComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
     <ClInclude Include="src\components\ModelComponent.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\events\FileDroppedEventPayload.h">
+    <ClInclude Include="src\core\events\FileAddedEventPayload.h">
       <Filter>Core\Events\Event Structures</Filter>
     </ClInclude>
     <ClInclude Include="src\core\events\SelectionChangeEventPayload.h">
@@ -1379,7 +1384,17 @@
     <ClInclude Include="src\core\util\Files.h">
       <Filter>Core\File System</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\preferences\editor\ResourcesPreferences.h" />
+    <ClInclude Include="src\core\preferences\editor\ResourcesPreferences.h">
+      <Filter>Core\Preferences\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\events\AssetsChangedEventPayload.h">
+      <Filter>Core\Events\Event Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\ModuleImporter.h">
+      <Filter>Modules\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\importers\Importer.h" />
+    <ClInclude Include="src\importers\MeshImporter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
