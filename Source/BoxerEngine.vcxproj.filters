@@ -289,10 +289,27 @@
       <Filter>Modules\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\importers\MeshImporter.cpp" />
+    <ClCompile Include="src\ui\components\ProjectPanel.cpp">
+      <Filter>UI\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\GraphEditor.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\ImCurveEdit.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\ImGradient.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\ImSequencer.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\modules\Module.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="vendors\ImGui\imgui_impl_opengl3.h">
       <Filter>Vendors\ImGui</Filter>
@@ -1395,6 +1412,33 @@
     </ClInclude>
     <ClInclude Include="src\importers\Importer.h" />
     <ClInclude Include="src\importers\MeshImporter.h" />
+    <ClInclude Include="vendors\IconFontCppHeaders\include\IconsMaterialDesign.h">
+      <Filter>Vendors\IconFontCppHeaders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ui\components\ProjectPanel.h">
+      <Filter>UI\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\modules\Module.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImZoomSlider.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\GraphEditor.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImCurveEdit.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImGradient.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImGuizmo.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImSequencer.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1519,6 +1563,12 @@
     </Filter>
     <Filter Include="Core\Events\Event Structures">
       <UniqueIdentifier>{fbd8a183-190f-4912-b689-6b924f8d1ead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\IconFontCppHeaders">
+      <UniqueIdentifier>{a132f2e1-8e4a-49b5-990e-1fcfa155ed4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\ImGuizmo">
+      <UniqueIdentifier>{ba46aa72-4c92-4bd3-9622-a0cabd7130bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

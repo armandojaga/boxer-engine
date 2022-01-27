@@ -11,7 +11,7 @@ void BoxerEngine::ConfigurationPanel::Update()
     prefs = static_cast<EditorPreferences*>(App->preferences->GetEditorPreferences());
 
     ImGui::SetNextWindowSize(ImVec2(325, 260), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin(GetTitle().c_str(), &visible))
+    if (!ImGui::Begin(StringUtils::Concat(ICON_MD_SETTINGS, GetTitle()).c_str(), &visible))
     {
         ImGui::End();
         return;

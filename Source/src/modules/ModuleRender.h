@@ -48,4 +48,5 @@ private:
     BoxerEngine::FrameBuffer* frame_buffer;
     BoxerEngine::EditorPreferences* prefs = nullptr;
     Model* model = nullptr;
+    BoxerEngine::Entity* active_entity = nullptr;
 };

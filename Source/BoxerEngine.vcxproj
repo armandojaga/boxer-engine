@@ -112,7 +112,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;_DEBUG;_CONSOLE</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDir)vendors\yaml-cpp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDir)vendors\yaml-cpp\include;$(ProjectDir)vendors\IconFontCppHeaders\include;$(ProjectDir)vendors\ImGuizmo</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
@@ -154,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;NOMINMAX;_SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\yaml-cpp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src;$(ProjectDir)vendors\glew-2.1.0\include;$(ProjectDir)vendors\SDL\include;$(ProjectDir)vendors\MathGeoLib\include;$(ProjectDir)vendors\DevIL\include;$(ProjectDir)vendors\ImGui;$(ProjectDir)vendors\debugdraw;$(ProjectDir)vendors\assimp\include;$(ProjectDIr)vendors\optick\include;$(ProjectDir)vendors\yaml-cpp\include;$(ProjectDir)vendors\IconFontCppHeaders\include;$(ProjectDir)vendors\ImGuizmo</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>bepch.h</PrecompiledHeaderFile>
@@ -224,8 +224,14 @@
     <ClCompile Include="src\ui\components\HierarchyPanel.cpp" />
     <ClCompile Include="src\ui\components\InspectorPanel.cpp" />
     <ClCompile Include="src\ui\components\Panel.cpp" />
+    <ClCompile Include="src\ui\components\ProjectPanel.cpp" />
     <ClCompile Include="src\ui\components\ScenePanel.cpp" />
     <ClCompile Include="src\ui\components\StatisticsPanel.cpp" />
+    <ClCompile Include="vendors\ImGuizmo\GraphEditor.cpp" />
+    <ClCompile Include="vendors\ImGuizmo\ImCurveEdit.cpp" />
+    <ClCompile Include="vendors\ImGuizmo\ImGradient.cpp" />
+    <ClCompile Include="vendors\ImGuizmo\ImGuizmo.cpp" />
+    <ClCompile Include="vendors\ImGuizmo\ImSequencer.cpp" />
     <ClCompile Include="vendors\ImGui\imgui.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_draw.cpp" />
     <ClCompile Include="vendors\ImGui\imgui_impl_opengl3.cpp" />
@@ -366,6 +372,7 @@
     <ClInclude Include="src\ui\components\HierarchyPanel.h" />
     <ClInclude Include="src\ui\components\InspectorPanel.h" />
     <ClInclude Include="src\ui\components\Panel.h" />
+    <ClInclude Include="src\ui\components\ProjectPanel.h" />
     <ClInclude Include="src\ui\components\ScenePanel.h" />
     <ClInclude Include="src\ui\components\StatisticsPanel.h" />
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />
@@ -454,6 +461,13 @@
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\wglew.h" />
+    <ClInclude Include="vendors\IconFontCppHeaders\include\IconsMaterialDesign.h" />
+    <ClInclude Include="vendors\ImGuizmo\GraphEditor.h" />
+    <ClInclude Include="vendors\ImGuizmo\ImCurveEdit.h" />
+    <ClInclude Include="vendors\ImGuizmo\ImGradient.h" />
+    <ClInclude Include="vendors\ImGuizmo\ImGuizmo.h" />
+    <ClInclude Include="vendors\ImGuizmo\ImSequencer.h" />
+    <ClInclude Include="vendors\ImGuizmo\ImZoomSlider.h" />
     <ClInclude Include="vendors\ImGui\imgui_stdlib.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK.h" />
     <ClInclude Include="vendors\MathGeoLib\include\Algorithm\GJK2D.h" />
