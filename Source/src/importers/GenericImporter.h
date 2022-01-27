@@ -4,11 +4,11 @@
 
 namespace BoxerEngine
 {
-	class MeshImporter : public Importer
+	class GenericImporter : public Importer
 	{
-		~MeshImporter() override = default;
+	public:
+		GenericImporter();
 		void ImportAsset(const std::filesystem::path& asset_path) override;
 	};
 }
-
 

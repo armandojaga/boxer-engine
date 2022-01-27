@@ -2,6 +2,7 @@
 
 #include "Module.h"
 #include "importers/Importer.h"
+#include "core/preferences/editor/ResourcesPreferences.h"
 
 class ModuleImporter : public Module
 {
@@ -11,7 +12,10 @@ public:
 	bool CleanUp() override;
 
 private:
+	void ImportAsset(const std::filesystem::path& asset_path, const  BoxerEngine::ResourceType asset_type);
+	BoxerEngine::ImporterType ToImporterType(const  BoxerEngine::ResourceType type);
+
 	BoxerEngine::ResourcesPreferences* preferences;
-	BoxerEngine::Importer* importer;
+	std::vector<std::pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>> importers;
 };
 
