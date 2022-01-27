@@ -15,9 +15,6 @@ namespace BoxerEngine
 		~SceneImporter() override = default;
 		void ImportAsset(const std::filesystem::path& asset_path);
 		void ProcessRoot(aiNode* node, const aiScene* scene);
-
-	private:
-		BoxerEngine::ResourcesPreferences* preferences = nullptr;
 	};
 }
 

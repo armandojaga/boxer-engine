@@ -6,16 +6,19 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include "core/util/UUID.h"
+
 namespace BoxerEngine
 {
 	class MeshImporter final : public Importer
 	{
-	public:
-		MeshImporter() = default;
-		~MeshImporter() override = default;
-		void ImportAsset(const std::filesystem::path& mesh_path) override;
-		void ImportMesh(aiMesh* mesh);
-	private:
-		void ProcessRoot(aiNode* node, const aiScene* scene); // Function for debug
+		friend class SceneImporter;
+
+		public:
+			MeshImporter() = default;
+			~MeshImporter() override = default;
+			void ImportAsset(const std::filesystem::path& mesh_path) override;
+		private:
+			void ImportMesh(aiMesh* mesh, const std::string& mesh_uid);
 	};
 }

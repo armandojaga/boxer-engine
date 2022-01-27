@@ -18,5 +18,8 @@ namespace BoxerEngine
 		Importer() = default;
 		virtual ~Importer() = default;
 		virtual void ImportAsset(const std::filesystem::path& asset_path) = 0;
+
+	protected:
+		BoxerEngine::ResourcesPreferences* preferences = nullptr;
 	};
 }

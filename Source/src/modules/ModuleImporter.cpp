@@ -61,8 +61,11 @@ BoxerEngine::ImporterType ModuleImporter::ToImporterType(const BoxerEngine::Reso
     BoxerEngine::ImporterType iType;
     switch (type)
     {
-    case BoxerEngine::ResourceType::MODEL:
+    case BoxerEngine::ResourceType::SCENE:
         iType = BoxerEngine::ImporterType::SCENE;
+        break;
+    case BoxerEngine::ResourceType::MESH:
+        iType = BoxerEngine::ImporterType::MESH;
         break;
     case BoxerEngine::ResourceType::TEXTURE:
     case BoxerEngine::ResourceType::AUDIO:

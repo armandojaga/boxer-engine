@@ -33,7 +33,7 @@ void SceneImporter::ProcessRoot(aiNode* node, const aiScene* scene)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        mesh_importer.ImportMesh(mesh);
+        mesh_importer.ImportMesh(mesh, UUID::GenerateUUIDv4()); // Store in scene.yaml
     }
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)

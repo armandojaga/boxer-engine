@@ -4,7 +4,8 @@
 #include <yaml-cpp/yaml.h>
 
 #include "core/file system/FileManager.h"
-#include "core/util/UUID.h"
+#include "core/preferences/PreferenceManager.h"
+#include "core/preferences/editor/ResourcesPreferences.h"
 
 using namespace BoxerEngine;
 
@@ -20,36 +21,18 @@ void MeshImporter::ImportAsset(const std::filesystem::path& mesh_path)
         return;
     }
 
-    BE_LOG("Scene Summary");
-    BE_LOG("Meshes: %d", scene->mNumMeshes);
-    BE_LOG("Materials: %d", scene->mNumMaterials);
-    BE_LOG("Textures: %d", scene->mNumTextures);
-    BE_LOG("Cameras: %d", scene->mNumCameras);
-    BE_LOG("Animations: %d", scene->mNumAnimations);
-    BE_LOG("Lights: %d", scene->mNumLights);
-
-    ProcessRoot(scene->mRootNode, scene);
-}
-
-void MeshImporter::ProcessRoot(aiNode* node, const aiScene* scene)
-{
-    // process all the node's meshes (if any)
-    for (unsigned int i = 0; i < node->mNumMeshes; i++)
+    if (scene->HasMeshes())
     {
-        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        //meshes.push_back(ProcessMesh(mesh, scene));
-        MeshImporter::ImportMesh(mesh);
-    }
-    // then do the same for each of its children
-    for (unsigned int i = 0; i < node->mNumChildren; i++)
-    {
-        ProcessRoot(node->mChildren[i], scene);
+        // This only import one mesh.
+        // For multiple imports consider use SceneImporter
+        ImportMesh(scene->mMeshes[0], UUID::GenerateUUIDv4());
     }
 }
 
-void MeshImporter::ImportMesh(aiMesh* mesh)
+void MeshImporter::ImportMesh(aiMesh* mesh, const std::string& mesh_uid)
 {
     YAML::Node yaml_node;
+    preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
 
     yaml_node["min_point"]["x"] = mesh->mVertices[0].x;
     yaml_node["min_point"]["y"] = mesh->mVertices[0].y;
@@ -100,7 +83,7 @@ void MeshImporter::ImportMesh(aiMesh* mesh)
             yaml_node["indices"][i]["face#, %d", i][j] = face.mIndices[j];
         }
     }
-    std::string mesh_name = "./library/meshes/" + UUID::GenerateUUIDv4();
+    std::string mesh_name(preferences->GetLibraryPath(ResourceType::MESH) + mesh_uid);
     std::ofstream fout(mesh_name);
     fout << yaml_node;
 }
