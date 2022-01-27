@@ -33,6 +33,7 @@ namespace BoxerEngine
         virtual void Update();
         virtual void UpdateUI();
         virtual void DisplayGizmos();
+        virtual void Draw();
 
         void SetId(UID id);
         [[nodiscard]] UID GetId() const;

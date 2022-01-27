@@ -22,7 +22,8 @@ namespace BoxerEngine
         void Init();
         void Start();
         void Update();
-        void DisplayGizmos(); // draw the gizmos
+        void DisplayGizmos() const; // draw the gizmos
+        void Draw() const;
 
         void SetParent(Entity* parent);
         [[nodiscard]] Entity* GetParent() const;

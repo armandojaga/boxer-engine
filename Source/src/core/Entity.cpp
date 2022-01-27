@@ -56,7 +56,7 @@ void BoxerEngine::Entity::Update()
     }
 }
 
-void BoxerEngine::Entity::DisplayGizmos()
+void BoxerEngine::Entity::DisplayGizmos() const
 {
     for (const auto& component : components)
     {
@@ -66,6 +66,19 @@ void BoxerEngine::Entity::DisplayGizmos()
     for (const auto child : children)
     {
         child->DisplayGizmos();
+    }
+}
+
+void BoxerEngine::Entity::Draw() const
+{
+    for (const auto& component : components)
+    {
+        component->Draw();
+    }
+
+    for (const auto child : children)
+    {
+        child->Draw();
     }
 }
 

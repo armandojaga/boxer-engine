@@ -15,6 +15,7 @@
 
 #include <optick.h>
 
+#include "ModuleScene.h"
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
 
@@ -128,6 +129,10 @@ update_status ModuleRender::Update(float delta)
             active_entity->DisplayGizmos();
         }
     }
+
+    //draw entities
+    App->scene->GetScene()->GetRoot()->Draw();
+
     App->program->UseProgram();
     App->renderer->GetModel()->Draw();
 
