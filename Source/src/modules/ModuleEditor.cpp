@@ -95,6 +95,7 @@ update_status ModuleEditor::PreUpdate(float delta)
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplSDL2_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
 
     return update_status::UPDATE_CONTINUE;
 }

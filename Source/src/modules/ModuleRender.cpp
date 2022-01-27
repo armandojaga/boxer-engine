@@ -15,6 +15,9 @@
 
 #include <optick.h>
 
+#include "core/events/Event.h"
+#include "core/events/EventManager.h"
+
 ModuleRender::~ModuleRender()
 {
     delete frame_buffer;
@@ -75,6 +78,13 @@ bool ModuleRender::Init()
     // Attaching it to the default logger
     DefaultLogger::get()->attachStream(new AssimpLogger(), severity);
 
+    std::function setActiveEntity = [&](BoxerEngine::Event& evt)
+    {
+        const auto& e = evt.GetEventData<BoxerEngine::SelectionChangedEventPayload>();
+        active_entity = e.GetSelected();
+    };
+    BoxerEngine::EventManager::GetInstance().Subscribe(BoxerEngine::Event::Type::SELECTION_CHANGED, setActiveEntity);
+
     return true;
 }
 
@@ -114,6 +124,9 @@ update_status ModuleRender::Update(float delta)
     if (prefs->IsDisplayDebugDraw())
     {
         App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), width, height);
+        if (active_entity) {
+            active_entity->DisplayGizmos();
+        }
     }
     App->program->UseProgram();
     App->renderer->GetModel()->Draw();

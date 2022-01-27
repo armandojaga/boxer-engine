@@ -42,6 +42,8 @@ void BoxerEngine::AboutPanel::Update()
     ImGui::BulletText("MathGeoLib v 1.5");
     ImGui::BulletText("SDL v 2.0.16");
     ImGui::BulletText("Yaml-cpp v 0.7.0");
+    ImGui::BulletText("IconFontCppHeaders");
+    ImGui::BulletText("ImGuizmo v1.83");
     ImGui::Unindent();
 
     ImGui::Separator();

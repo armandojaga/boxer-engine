@@ -279,6 +279,21 @@
     <ClCompile Include="src\ui\components\ProjectPanel.cpp">
       <Filter>UI\Components</Filter>
     </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\GraphEditor.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\ImCurveEdit.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\ImGradient.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\ImGuizmo.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="vendors\ImGuizmo\ImSequencer.cpp">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1367,6 +1382,24 @@
     <ClInclude Include="src\modules\Module.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImZoomSlider.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\GraphEditor.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImCurveEdit.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImGradient.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImGuizmo.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuizmo\ImSequencer.h">
+      <Filter>Vendors\ImGuizmo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1491,6 +1524,9 @@
     </Filter>
     <Filter Include="Vendors\IconFontCppHeaders">
       <UniqueIdentifier>{a132f2e1-8e4a-49b5-990e-1fcfa155ed4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\ImGuizmo">
+      <UniqueIdentifier>{ba46aa72-4c92-4bd3-9622-a0cabd7130bb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
