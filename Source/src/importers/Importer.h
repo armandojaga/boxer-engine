@@ -1,5 +1,7 @@
 #pragma once
 
+#include <filesystem>
+
 namespace BoxerEngine
 {
 	enum class ImporterType
@@ -12,7 +14,8 @@ namespace BoxerEngine
 	class Importer
 	{
 	public:
-		virtual ~Importer() = 0;
+		Importer() = default;
+		virtual ~Importer() = default;
 		virtual void ImportAsset(const std::filesystem::path& asset_path) = 0;
 	};
 }

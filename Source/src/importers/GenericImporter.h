@@ -7,7 +7,8 @@ namespace BoxerEngine
 	class GenericImporter : public Importer
 	{
 	public:
-		GenericImporter();
+		GenericImporter() = default;
+		~GenericImporter() override = default;
 		void ImportAsset(const std::filesystem::path& asset_path) override;
 	};
 }

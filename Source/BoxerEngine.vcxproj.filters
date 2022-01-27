@@ -288,7 +288,6 @@
     <ClCompile Include="src\modules\ModuleImporter.cpp">
       <Filter>Modules\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\importers\MeshImporter.cpp" />
     <ClCompile Include="src\ui\components\ProjectPanel.cpp">
       <Filter>UI\Components</Filter>
     </ClCompile>
@@ -307,6 +306,13 @@
     <ClCompile Include="vendors\ImGuizmo\ImSequencer.cpp">
       <Filter>Vendors\ImGuizmo</Filter>
     </ClCompile>
+    <ClCompile Include="src\importers\MeshImporter.cpp">
+      <Filter>Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\importers\GenericImporter.cpp">
+      <Filter>Importers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\importers\SceneImporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1410,8 +1416,6 @@
     <ClInclude Include="src\modules\ModuleImporter.h">
       <Filter>Modules\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\importers\Importer.h" />
-    <ClInclude Include="src\importers\MeshImporter.h" />
     <ClInclude Include="vendors\IconFontCppHeaders\include\IconsMaterialDesign.h">
       <Filter>Vendors\IconFontCppHeaders</Filter>
     </ClInclude>
@@ -1439,6 +1443,16 @@
     <ClInclude Include="vendors\ImGuizmo\ImSequencer.h">
       <Filter>Vendors\ImGuizmo</Filter>
     </ClInclude>
+    <ClInclude Include="src\importers\Importer.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\importers\MeshImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\importers\GenericImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\importers\SceneImporter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1569,6 +1583,9 @@
     </Filter>
     <Filter Include="Vendors\ImGuizmo">
       <UniqueIdentifier>{ba46aa72-4c92-4bd3-9622-a0cabd7130bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Importers">
+      <UniqueIdentifier>{ded1989f-1adc-41cc-b7ed-9e68998a5845}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
