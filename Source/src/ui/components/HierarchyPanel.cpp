@@ -1,7 +1,6 @@
 #include "core/bepch.h"
 #include "HierarchyPanel.h"
 
-#include "core/util/StringUtils.h"
 #include "modules/ModuleEditor.h"
 #include "modules/ModuleScene.h"
 
@@ -12,7 +11,7 @@ BoxerEngine::HierarchyPanel::HierarchyPanel() : Panel("Hierarchy", true)
 void BoxerEngine::HierarchyPanel::Update()
 {
     ImGui::SetNextWindowSize(ImVec2(300, 170), ImGuiCond_FirstUseEver);
-    if (!ImGui::Begin(GetTitle().c_str(), &visible))
+    if (!ImGui::Begin(StringUtils::Concat(ICON_MD_SOURCE, GetTitle()).c_str(), &visible))
     {
         ImGui::End();
         return;
@@ -45,8 +44,8 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
     {
         nodeFlags |= ImGuiTreeNodeFlags_Leaf;
     }
-
-    const bool nodeOpen = ImGui::TreeNodeEx(entity->GetName().c_str(), nodeFlags);
+    const std::string icon = entity == App->scene->GetScene()->GetRoot() ? ICON_MD_TOKEN : ICON_MD_HEXAGON;
+    const bool nodeOpen = ImGui::TreeNodeEx(StringUtils::Concat(icon, entity->GetName()).c_str(), nodeFlags);
 
     if (ImGui::IsItemClicked())
     {
@@ -54,7 +53,7 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
         activeEntity = entity;
     }
 
-    ImGui::PushID(entity->GetName().c_str());
+    ImGui::PushID(entity);
     if (ImGui::BeginPopupContextItem(entity->GetName().c_str()))
     {
         if (ImGui::Selectable("Create Empty"))
