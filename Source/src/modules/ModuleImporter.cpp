@@ -8,12 +8,15 @@
 
 #include "importers/GenericImporter.h"
 #include "importers/MeshImporter.h"
+#include "importers/SceneImporter.h"
 
 ModuleImporter::ModuleImporter()
 {
     BoxerEngine::GenericImporter* gen = new BoxerEngine::GenericImporter();
     BoxerEngine::MeshImporter* mesh = new BoxerEngine::MeshImporter();
+    BoxerEngine::SceneImporter* scene = new BoxerEngine::SceneImporter();
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::GENERIC, static_cast<BoxerEngine::Importer*>(gen)));
+    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MESH, static_cast<BoxerEngine::Importer*>(mesh)));
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MESH, static_cast<BoxerEngine::Importer*>(mesh)));
 }
 
@@ -59,7 +62,7 @@ BoxerEngine::ImporterType ModuleImporter::ToImporterType(const BoxerEngine::Reso
     switch (type)
     {
     case BoxerEngine::ResourceType::MODEL:
-        iType = BoxerEngine::ImporterType::MESH;
+        iType = BoxerEngine::ImporterType::SCENE;
         break;
     case BoxerEngine::ResourceType::TEXTURE:
     case BoxerEngine::ResourceType::AUDIO:

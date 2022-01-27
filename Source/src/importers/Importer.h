@@ -7,6 +7,7 @@ namespace BoxerEngine
 	enum class ImporterType
 	{
 		GENERIC = 0,
+		SCENE,
 		MESH,
 		COUNT
 	};

@@ -1,12 +1,10 @@
 #include "MeshImporter.h"
 #include <Globals.h>
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
 #include <yaml-cpp/yaml.h>
 
 #include "core/file system/FileManager.h"
+#include "core/util/UUID.h"
 
 using namespace BoxerEngine;
 
@@ -53,11 +51,13 @@ void MeshImporter::ImportMesh(aiMesh* mesh)
 {
     YAML::Node yaml_node;
 
-    yaml_node["min_point"]["x"] = std::min(mesh->mVertices[0].x, yaml_node["min_point"]["x"].as<float>());
-    yaml_node["min_point"]["y"] = std::min(mesh->mVertices[0].y, yaml_node["min_point"]["y"].as<float>());
-    yaml_node["min_point"]["z"] = std::min(mesh->mVertices[0].z, yaml_node["min_point"]["z"].as<float>());
+    yaml_node["min_point"]["x"] = mesh->mVertices[0].x;
+    yaml_node["min_point"]["y"] = mesh->mVertices[0].y;
+    yaml_node["min_point"]["z"] = mesh->mVertices[0].z;
 
-    yaml_node["max_point"] = yaml_node["min_point"];
+    yaml_node["max_point"]["x"] = mesh->mVertices[0].x;
+    yaml_node["max_point"]["y"] = mesh->mVertices[0].y;
+    yaml_node["max_point"]["z"] = mesh->mVertices[0].z;
 
     // process vertex positions, normals and texture coordinates
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -85,43 +85,10 @@ void MeshImporter::ImportMesh(aiMesh* mesh)
         yaml_node["min_point"]["y"] = std::min(mesh->mVertices[i].y, yaml_node["min_point"]["y"].as<float>());
         yaml_node["min_point"]["z"] = std::min(mesh->mVertices[i].z, yaml_node["min_point"]["z"].as<float>());
 
-        yaml_node["max_point"]["x"] = std::min(mesh->mVertices[i].x, yaml_node["max_point"]["x"].as<float>());
-        yaml_node["max_point"]["y"] = std::min(mesh->mVertices[i].y, yaml_node["max_point"]["y"].as<float>());
-        yaml_node["max_point"]["z"] = std::min(mesh->mVertices[i].z, yaml_node["max_point"]["z"].as<float>());
-        
-        //// Position
-        //vector.x = mesh->mVertices[i].x;
-        //vector.y = mesh->mVertices[i].y;
-        //vector.z = mesh->mVertices[i].z;
-        //vertex.position = vector;
-        //
-        // Bounding Boxs
-       /* minPoint.x = std::min(vector.x, minPoint.x);
-        minPoint.y = std::min(vector.y, minPoint.y);
-        minPoint.z = std::min(vector.z, minPoint.z);
-        maxPoint.x = std::max(vector.x, maxPoint.x);
-        maxPoint.y = std::max(vector.y, maxPoint.y);
-        maxPoint.z = std::max(vector.z, maxPoint.z);*/
-        //
-        //// Normals
-        //vector.x = mesh->mNormals[i].x;
-        //vector.y = mesh->mNormals[i].y;
-        //vector.z = mesh->mNormals[i].z;
-        //vertex.normal = vector;
-        //
-        //// Texture coords (Mesh couln'd have any)
-        //if (mesh->mTextureCoords[0])
-        //{
-        //    float2 vec;
-        //    vec.x = mesh->mTextureCoords[0][i].x;
-        //    vec.y = mesh->mTextureCoords[0][i].y;
-        //    vertex.tex_coords = vec;
-        //}
-        //else
-        //{
-        //    vertex.tex_coords = float2(0.0f, 0.0f);
-        //}
-        //vertices.push_back(vertex);
+        yaml_node["max_point"]["x"] = std::max(mesh->mVertices[i].x, yaml_node["max_point"]["x"].as<float>());
+        yaml_node["max_point"]["y"] = std::max(mesh->mVertices[i].y, yaml_node["max_point"]["y"].as<float>());
+        yaml_node["max_point"]["z"] = std::max(mesh->mVertices[i].z, yaml_node["max_point"]["z"].as<float>());
+       
     }
 
     // process indices
@@ -130,10 +97,10 @@ void MeshImporter::ImportMesh(aiMesh* mesh)
         aiFace face = mesh->mFaces[i];
         for (unsigned int j = 0; j < face.mNumIndices; j++)
         {
-            yaml_node["indices"][i]["face#" + j] = face.mIndices[j];
+            yaml_node["indices"][i]["face#, %d", i][j] = face.mIndices[j];
         }
     }
-    
-    std::ofstream fout("./library/meshes/mesh.be");
+    std::string mesh_name = "./library/meshes/" + UUID::GenerateUUIDv4();
+    std::ofstream fout(mesh_name);
     fout << yaml_node;
 }

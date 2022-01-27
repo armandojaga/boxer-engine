@@ -13,33 +13,77 @@ void ResourcesPreferences::SetConfigurationData(const YAML::Node& node)
 {
     for (auto it = node.begin(); it != node.end(); ++it)
     {
-        if (it->first.as<std::string>()._Equal("meshes_path"))
+        // Assets path
+        if (it->first.as<std::string>()._Equal("scene_assets"))
         {
-            meshes_path = it->second.as<std::string>();
+            scene_assets = it->second.as<std::string>();
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("textures_path"))
+        if (it->first.as<std::string>()._Equal("meshes_assets"))
         {
-            textures_path = it->second.as<std::string>();
+            meshes_assets = it->second.as<std::string>();
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("audio_path"))
+        if (it->first.as<std::string>()._Equal("textures_assets"))
         {
-            audio_path = it->second.as<std::string>();
+            textures_assets = it->second.as<std::string>();
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("video_path"))
+        if (it->first.as<std::string>()._Equal("audio_assets"))
         {
-            video_path = it->second.as<std::string>();
+            audio_assets = it->second.as<std::string>();
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("script_path"))
+        if (it->first.as<std::string>()._Equal("video_assets"))
         {
-            script_path = it->second.as<std::string>();
+            video_assets = it->second.as<std::string>();
+            continue;
+        }
+
+        if (it->first.as<std::string>()._Equal("script_assets"))
+        {
+            script_assets = it->second.as<std::string>();
+            continue;
+        }
+
+        // Library path
+        if (it->first.as<std::string>()._Equal("scene_library"))
+        {
+            meshes_library = it->second.as<std::string>();
+            continue;
+        }
+
+        if (it->first.as<std::string>()._Equal("meshes_library"))
+        {
+            meshes_library = it->second.as<std::string>();
+            continue;
+        }
+
+        if (it->first.as<std::string>()._Equal("textures_library"))
+        {
+            textures_library = it->second.as<std::string>();
+            continue;
+        }
+
+        if (it->first.as<std::string>()._Equal("audio_library"))
+        {
+            audio_library = it->second.as<std::string>();
+            continue;
+        }
+
+        if (it->first.as<std::string>()._Equal("video_library"))
+        {
+            video_library = it->second.as<std::string>();
+            continue;
+        }
+
+        if (it->first.as<std::string>()._Equal("script_library"))
+        {
+            script_library = it->second.as<std::string>();
             continue;
         }
     }
@@ -47,27 +91,58 @@ void ResourcesPreferences::SetConfigurationData(const YAML::Node& node)
 
 void ResourcesPreferences::GetConfigurationData(YAML::Node& node)
 {
-    node[group_name]["meshes_path"] = meshes_path;
-    node[group_name]["textures_path"] = textures_path;
-    node[group_name]["audio_path"] = audio_path;
-    node[group_name]["video_path"] = video_path;
-    node[group_name]["script_path"] = script_path;
+    node[group_name]["scene_assets"] = meshes_assets;
+    node[group_name]["meshes_assets"] = meshes_assets;
+    node[group_name]["textures_assets"] = textures_assets;
+    node[group_name]["audio_assets"] = audio_assets;
+    node[group_name]["video_assets"] = video_assets;
+    node[group_name]["script_assets"] = script_assets;
+
+    node[group_name]["scene_library"] = meshes_library;
+    node[group_name]["meshes_library"] = meshes_library;
+    node[group_name]["textures_library"] = textures_library;
+    node[group_name]["audio_library"] = audio_library;
+    node[group_name]["video_library"] = video_library;
+    node[group_name]["script_library"] = script_library;
 }
 
-const char* BoxerEngine::ResourcesPreferences::GetResourcePath(ResourceType type)
+const char* BoxerEngine::ResourcesPreferences::GetAssetsPath(ResourceType type)
 {
     switch (type)
     {
-    case ResourceType::MODEL:
-        return meshes_path.c_str();
+    case ResourceType::SCENE:
+        return scene_assets.c_str();    
+    case ResourceType::MESH:
+        return meshes_assets.c_str();
     case ResourceType::TEXTURE:
-        return textures_path.c_str();
+        return textures_assets.c_str();
     case ResourceType::AUDIO:
-        return audio_path.c_str();
+        return audio_assets.c_str();
     case ResourceType::VIDEO:
-        return video_path.c_str();
+        return video_assets.c_str();
     case ResourceType::SCRIPT:
-        return script_path.c_str();
+        return script_assets.c_str();
+    case ResourceType::UNKNOWN:
+        assert(false);
+    }
+}
+
+const char* BoxerEngine::ResourcesPreferences::GetLibraryPath(ResourceType type)
+{
+    switch (type)
+    {
+    case ResourceType::SCENE:
+        return scene_library.c_str();
+    case ResourceType::MESH:
+        return meshes_library.c_str();
+    case ResourceType::TEXTURE:
+        return textures_library.c_str();
+    case ResourceType::AUDIO:
+        return audio_library.c_str();
+    case ResourceType::VIDEO:
+        return video_library.c_str();
+    case ResourceType::SCRIPT:
+        return script_library.c_str();
     case ResourceType::UNKNOWN:
         assert(false);
     }

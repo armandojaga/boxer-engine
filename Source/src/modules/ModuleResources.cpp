@@ -35,7 +35,7 @@ void ModuleResources::HandleResource(const std::filesystem::path& path)
         BE_LOG("Unknown resource type recevied, nothing to be done");
         return;
     }
-    std::filesystem::path destination = preferences->GetResourcePath(type);
+    std::filesystem::path destination = preferences->GetAssetsPath(type);
 
     if (file_manager.CopyNew(path, destination.append(path.filename().c_str())))
     {

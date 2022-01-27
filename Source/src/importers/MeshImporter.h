@@ -2,9 +2,9 @@
 
 #include "Importer.h"
 
-class aiMesh;
-class aiNode; //Debug
-class aiScene; //Debug
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 namespace BoxerEngine
 {
