@@ -27,6 +27,7 @@ ModuleEditor::ModuleEditor()
     statisticsPanel = std::make_shared<BoxerEngine::StatisticsPanel>();
     hardwarePanel = std::make_shared<BoxerEngine::HardwarePanel>();
     aboutPanel = std::make_shared<BoxerEngine::AboutPanel>();
+    projectPanel = std::make_shared<BoxerEngine::ProjectPanel>();
 
     panels.push_back(aboutPanel);
     panels.push_back(hardwarePanel);
@@ -36,6 +37,7 @@ ModuleEditor::ModuleEditor()
     panels.push_back(inspectorPanel);
     panels.push_back(hierarchyPanel);
     panels.push_back(scenePanel);
+    panels.push_back(projectPanel);
 };
 
 ModuleEditor::~ModuleEditor()
@@ -56,13 +58,13 @@ bool ModuleEditor::Init()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard; // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // Enable Docking
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable; // Enable Multi-Viewport / Platform Windows
-    
+
     // Fonts
     ImFontConfig config;
     config.MergeMode = true;
     config.GlyphMinAdvanceX = 16.0f;
     config.PixelSnapH = true;
-    static constexpr ImWchar mdRange[] = { ICON_MIN_MD, ICON_MAX_MD, 0 };
+    static constexpr ImWchar mdRange[] = {ICON_MIN_MD, ICON_MAX_MD, 0};
     io.Fonts->AddFontFromFileTTF("fonts/JetBrainsMono-Light.ttf", 16.0f);
     io.Fonts->AddFontFromFileTTF(BoxerEngine::StringUtils::Concat("fonts/", FONT_ICON_FILE_NAME_MD).c_str(), 16.0f, &config, mdRange);
 
