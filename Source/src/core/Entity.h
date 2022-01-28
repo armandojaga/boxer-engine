@@ -22,7 +22,8 @@ namespace BoxerEngine
         void Init();
         void Start();
         void Update();
-        void DisplayGizmos(); // draw the gizmos
+        void DisplayGizmos() const; // draw the gizmos
+        void Draw() const;
 
         void SetParent(Entity* parent);
         [[nodiscard]] Entity* GetParent() const;
@@ -32,6 +33,7 @@ namespace BoxerEngine
         [[nodiscard]] Entity* GetEntity(UID entityId);
         [[nodiscard]] Entity* GetEntity(const std::string& entityName);
         void RemoveChild(UID entityId);
+        bool IsChildOf(UID entityId);
 
         template <typename C>
         bool Has();

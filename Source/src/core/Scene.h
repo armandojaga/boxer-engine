@@ -23,10 +23,14 @@ namespace BoxerEngine
         [[nodiscard]] bool IsLoaded() const;
 
         [[nodiscard]] Entity* GetRoot() const;
+        void SetDirty(bool isDirty);
+        [[nodiscard]] bool IsDirty() const;
+        [[nodiscard]] bool IsEmpty() const;
 
     private:
         std::string id;
         Entity* root = nullptr;
         bool loaded = false;
+        bool dirty = false;
     };
 }

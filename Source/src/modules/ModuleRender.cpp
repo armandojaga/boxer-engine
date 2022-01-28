@@ -15,6 +15,7 @@
 
 #include <optick.h>
 
+#include "ModuleScene.h"
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
 
@@ -124,10 +125,15 @@ update_status ModuleRender::Update(float delta)
     if (prefs->IsDisplayDebugDraw())
     {
         App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), width, height);
-        if (active_entity) {
+        if (active_entity)
+        {
             active_entity->DisplayGizmos();
         }
     }
+
+    //draw entities
+    App->scene->GetScene()->GetRoot()->Draw();
+
     App->program->UseProgram();
     App->renderer->GetModel()->Draw();
 

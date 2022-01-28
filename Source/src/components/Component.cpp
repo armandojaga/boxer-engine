@@ -29,6 +29,10 @@ void BoxerEngine::Component::DisplayGizmos()
 {
 }
 
+void BoxerEngine::Component::Draw()
+{
+}
+
 void BoxerEngine::Component::Enable()
 {
     enabled = true;
