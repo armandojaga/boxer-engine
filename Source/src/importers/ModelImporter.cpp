@@ -1,14 +1,14 @@
 
-#include "SceneImporter.h"
+#include "ModelImporter.h"
 #include "MeshImporter.h"
 
 using namespace BoxerEngine;
 
-void SceneImporter::ImportAsset(const std::filesystem::path& scene_path)
+void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
 {
-    BE_LOG("Loading Module: %s", scene_path);
+    BE_LOG("Loading Module: %s", model_path);
     Assimp::Importer import;
-    const aiScene* scene = import.ReadFile(scene_path.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene* scene = import.ReadFile(model_path.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
@@ -27,17 +27,25 @@ void SceneImporter::ImportAsset(const std::filesystem::path& scene_path)
     ProcessRoot(scene->mRootNode, scene);
 }
 
-void SceneImporter::ProcessRoot(aiNode* node, const aiScene* scene)
+void ModelImporter::ProcessRoot(aiNode* node, const aiScene* scene)
 {
     MeshImporter mesh_importer;
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        mesh_importer.ImportMesh(mesh, UUID::GenerateUUIDv4()); // Store in scene.yaml
+        mesh_importer.ImportMesh(mesh, UUID::GenerateUUIDv4());
     }
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
         ProcessRoot(node->mChildren[i], scene);
     }
+}
+
+void BoxerEngine::Modelmporter::ImportAsset(const std::filesystem::path& asset_path)
+{
+}
+
+void BoxerEngine::Modelmporter::ProcessRoot(aiNode* node, const aiScene* scene)
+{
 }

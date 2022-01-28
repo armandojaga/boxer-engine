@@ -12,7 +12,7 @@ namespace BoxerEngine
 {
 	class MeshImporter final : public Importer
 	{
-		friend class SceneImporter;
+		friend class ModelImporter;
 
 		public:
 			MeshImporter() = default;

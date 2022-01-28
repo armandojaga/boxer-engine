@@ -8,11 +8,11 @@
 
 namespace BoxerEngine
 {
-	class SceneImporter final : public Importer
+	class Modelmporter final : public Importer
 	{
 	public:
-		SceneImporter() = default;
-		~SceneImporter() override = default;
+		ModelImporter();
+		~ModelImporter();
 		void ImportAsset(const std::filesystem::path& asset_path);
 		void ProcessRoot(aiNode* node, const aiScene* scene);
 	};

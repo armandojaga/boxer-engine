@@ -13,7 +13,8 @@ class ModuleResources : public Module
 private:
     std::vector<std::pair<BoxerEngine::ResourceType, std::string>> supported_extensions = {
         {BoxerEngine::ResourceType::TEXTURE, ".png"},
-        {BoxerEngine::ResourceType::MODEL, ".fbx"}
+        {BoxerEngine::ResourceType::MODEL, ".fbx"},
+        {BoxerEngine::ResourceType::SCENE, ".beta"}
     };
     BoxerEngine::ResourcesPreferences* preferences = nullptr;
     BoxerEngine::FileManager file_manager;

@@ -171,7 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\importers\SceneImporter.cpp" />
+    <ClCompile Include="src\importers\ModelImporter.cpp" />
     <ClCompile Include="src\importers\GenericImporter.cpp" />
     <ClCompile Include="src\importers\MeshImporter.cpp" />
     <ClCompile Include="src\modules\ModuleImporter.cpp" />
@@ -318,7 +318,7 @@
     <ClCompile Include="src\core\util\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\importers\SceneImporter.h" />
+    <ClInclude Include="src\importers\ModelImporter.h" />
     <ClInclude Include="src\importers\GenericImporter.h" />
     <ClInclude Include="src\importers\MeshImporter.h" />
     <ClInclude Include="src\importers\Importer.h" />

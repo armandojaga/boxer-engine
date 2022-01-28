@@ -6,11 +6,13 @@ namespace BoxerEngine
 	enum class ResourceType
 	{
 		SCENE = 1,
+		MODEL,
 		MESH,
 		TEXTURE,
 		AUDIO,
 		VIDEO,
 		SCRIPT,
+		SKYBOX,
 		UNKNOWN
 	};
 

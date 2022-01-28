@@ -312,7 +312,9 @@
     <ClCompile Include="src\importers\GenericImporter.cpp">
       <Filter>Importers</Filter>
     </ClCompile>
-    <ClCompile Include="src\importers\SceneImporter.cpp" />
+    <ClCompile Include="src\importers\ModelImporter.cpp">
+      <Filter>Importers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1452,7 +1454,9 @@
     <ClInclude Include="src\importers\GenericImporter.h">
       <Filter>Importers</Filter>
     </ClInclude>
-    <ClInclude Include="src\importers\SceneImporter.h" />
+    <ClInclude Include="src\importers\ModelImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

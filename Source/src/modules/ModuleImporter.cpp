@@ -14,9 +14,9 @@ ModuleImporter::ModuleImporter()
 {
     BoxerEngine::GenericImporter* gen = new BoxerEngine::GenericImporter();
     BoxerEngine::MeshImporter* mesh = new BoxerEngine::MeshImporter();
-    BoxerEngine::SceneImporter* scene = new BoxerEngine::SceneImporter();
+    BoxerEngine::SceneImporter* module = new BoxerEngine::SceneImporter();
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::GENERIC, static_cast<BoxerEngine::Importer*>(gen)));
-    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MESH, static_cast<BoxerEngine::Importer*>(mesh)));
+    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MODULE, static_cast<BoxerEngine::Importer*>(scene)));
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MESH, static_cast<BoxerEngine::Importer*>(mesh)));
 }
 
