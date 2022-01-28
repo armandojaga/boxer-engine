@@ -39,6 +39,8 @@ void BoxerEngine::TextureImporter::ImportMaterial(aiMaterial* material, const st
     material_ticket["id"] = uuid;
     ImportTexturesByType(material, aiTextureType::aiTextureType_DIFFUSE, material_ticket, model_path);
     ImportTexturesByType(material, aiTextureType::aiTextureType_SPECULAR, material_ticket, model_path);
+    ImportTexturesByType(material, aiTextureType::aiTextureType_NORMALS, material_ticket, model_path);
+    ImportTexturesByType(material, aiTextureType::aiTextureType_AMBIENT_OCCLUSION, material_ticket, model_path);
     SaveToFile(material_ticket, uuid);
 }
 
@@ -57,13 +59,46 @@ std::string BoxerEngine::TextureImporter::TextureTypeToString(aiTextureType type
 {
     switch (type)
     {
-    case aiTextureType::aiTextureType_DIFFUSE:
-        return "texture_diffuse";
-
-    case aiTextureType::aiTextureType_SPECULAR:
-        return "texture_specular";
-    default:
-        return std::string();
+    case aiTextureType_NONE:
+        return "none";
+    case aiTextureType_DIFFUSE:
+        return "diffuse";
+    case aiTextureType_SPECULAR:
+        return "specular";
+    case aiTextureType_AMBIENT:
+        return "ambient";
+    case aiTextureType_EMISSIVE:
+        return "emissive";
+    case aiTextureType_HEIGHT:
+         return "height";
+    case aiTextureType_NORMALS:
+        return "normals";
+    case aiTextureType_SHININESS:
+        return "shininess";
+    case aiTextureType_OPACITY:
+        return "opacity";
+    case aiTextureType_DISPLACEMENT:
+        return "displacement";
+    case aiTextureType_LIGHTMAP:
+        return "lightmap";
+    case aiTextureType_REFLECTION:
+        return "reflection";
+    case aiTextureType_BASE_COLOR:
+        return "base_color";
+    case aiTextureType_NORMAL_CAMERA:
+        return "normal_camera";
+    case aiTextureType_EMISSION_COLOR:
+        return "emission_color";
+    case aiTextureType_METALNESS:
+        return "metalness";
+    case aiTextureType_DIFFUSE_ROUGHNESS:
+        return "diffuse_roughness";
+    case aiTextureType_AMBIENT_OCCLUSION:
+        return "ambient_occlusion";
+    case aiTextureType_UNKNOWN:
+        return "unknown";
+    case _aiTextureType_Force32Bit:
+        return "force_32bit";
     }
 }
 
