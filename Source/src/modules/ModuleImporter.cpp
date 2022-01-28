@@ -9,15 +9,18 @@
 #include "importers/GenericImporter.h"
 #include "importers/MeshImporter.h"
 #include "importers/ModelImporter.h"
+#include "importers/TextureImporter.h"
 
 ModuleImporter::ModuleImporter()
 {
     BoxerEngine::GenericImporter* gen = new BoxerEngine::GenericImporter();
     BoxerEngine::MeshImporter* mesh = new BoxerEngine::MeshImporter();
     BoxerEngine::ModelImporter* model = new BoxerEngine::ModelImporter();
+    BoxerEngine::TextureImporter* texture = new BoxerEngine::TextureImporter();
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::GENERIC, static_cast<BoxerEngine::Importer*>(gen)));
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MODEL, static_cast<BoxerEngine::Importer*>(model)));
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MESH, static_cast<BoxerEngine::Importer*>(mesh)));
+    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::TEXTURE, static_cast<BoxerEngine::Importer*>(texture)));
 }
 
 bool ModuleImporter::Init()
@@ -71,6 +74,8 @@ BoxerEngine::ImporterType ModuleImporter::ToImporterType(const BoxerEngine::Reso
         iType = BoxerEngine::ImporterType::MESH;
         break;
     case BoxerEngine::ResourceType::TEXTURE:
+        iType = BoxerEngine::ImporterType::TEXTURE;
+        break;
     case BoxerEngine::ResourceType::AUDIO:
     case BoxerEngine::ResourceType::VIDEO:
     case BoxerEngine::ResourceType::SCRIPT:

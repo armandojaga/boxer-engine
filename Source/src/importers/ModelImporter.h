@@ -14,7 +14,7 @@ namespace BoxerEngine
 		ModelImporter() = default;
 		~ModelImporter() override = default;
 		void ImportAsset(const std::filesystem::path& asset_path);
-		void ImportModel(aiNode* node, const aiScene* scene, YAML::Node& ticket);
-		void SaveToFile(YAML::Node& ticket, const std::string& uuid) override;
+		void ImportModel(const aiScene* scene, YAML::Node& ticket, const std::filesystem::path& model_path);
+		void SaveToFile(YAML::Node& ticket, const std::string& file_name) override;
 	};
 }

@@ -229,6 +229,7 @@
     <ClCompile Include="src\ui\components\ProjectPanel.cpp" />
     <ClCompile Include="src\ui\components\ScenePanel.cpp" />
     <ClCompile Include="src\ui\components\StatisticsPanel.cpp" />
+    <ClCompile Include="src\importers\TextureImporter.cpp" />
     <ClCompile Include="vendors\ImGuizmo\GraphEditor.cpp" />
     <ClCompile Include="vendors\ImGuizmo\ImCurveEdit.cpp" />
     <ClCompile Include="vendors\ImGuizmo\ImGradient.cpp" />
@@ -382,6 +383,7 @@
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />
     <ClInclude Include="src\components\TransformComponent.h" />
     <ClInclude Include="src\core\events\TransformChangedEventPayload.h" />
+    <ClInclude Include="src\importers\TextureImporter.h" />
     <ClInclude Include="vendors\assimp\include\assimp\aabb.h" />
     <ClInclude Include="vendors\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="vendors\assimp\include\assimp\anim.h" />

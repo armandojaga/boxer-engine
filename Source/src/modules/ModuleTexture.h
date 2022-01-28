@@ -11,5 +11,5 @@ public:
 
     bool Init() override;
     bool CleanUp() override;
-    unsigned int Load(const char*, const char* = nullptr);
+    unsigned int Load(const char*);
 };

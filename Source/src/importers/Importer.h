@@ -14,6 +14,7 @@ namespace BoxerEngine
 		SCENE,
 		MODEL,
 		MESH,
+		TEXTURE,
 		COUNT
 	};
 

@@ -20,21 +20,23 @@ void MeshImporter::ImportAsset(const std::filesystem::path& mesh_path)
         return;
     }
 
-    // Just load the first mesh
+    // Loads one mesh
     // For multiple ones, consider using ModelImport
     ImportMesh(scene->mMeshes[0], UUID::GenerateUUIDv4());
 }
 
-void BoxerEngine::MeshImporter::SaveToFile(YAML::Node& ticket, const std::string& uuid)
+void BoxerEngine::MeshImporter::SaveToFile(YAML::Node& ticket, const std::string& file_name)
 {
     preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
-    std::string mesh_name(preferences->GetLibraryPath(ResourceType::MESH) + uuid);
+    std::string mesh_name(preferences->GetLibraryPath(ResourceType::MESH) + file_name);
     std::ofstream fout(mesh_name);
     fout << ticket;
 }
-void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid)
+void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid, const std::string& material_id)
 {
     YAML::Node ticket;
+    ticket["mesh_id"] = uuid;
+    ticket["material"] = material_id;
     PopulateTicket(mesh, ticket);
     SaveToFile(ticket, uuid);
 }
