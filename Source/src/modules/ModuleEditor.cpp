@@ -11,6 +11,7 @@
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
 #include "ModuleProgram.h"
+#include "ModuleScene.h"
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
 #include "ui/components/StatisticsPanel.h"
@@ -211,6 +212,22 @@ void ModuleEditor::CreateMenu() const
     {
         if (ImGui::BeginMenu("File"))
         {
+            if (ImGui::MenuItem("New scene"))
+            {
+                logger.Debug("Exiting");
+                App->scene->CreateEmptyScene();
+                SetActiveEntity(nullptr);
+            }
+            if (ImGui::MenuItem("Open scene"))
+            {
+                logger.Debug("opening");
+            }
+            ImGui::Separator();
+            if (ImGui::MenuItem("Save"))
+            {
+                logger.Debug("Saving");
+            }
+            ImGui::Separator();
             if (ImGui::MenuItem("Exit"))
             {
                 logger.Debug("Exiting");

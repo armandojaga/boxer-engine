@@ -12,8 +12,9 @@ public:
     bool Start() override;
     update_status Update(float delta) override;
 
-    void CreateEmptyScene();
-    BoxerEngine::Entity* CreateEmptyEntity();
+    void CreateEmptyScene() const;
+    BoxerEngine::Entity* CreateEmptyEntity() const;
+    void RemoveEntity(BoxerEngine::Entity* entity) const;
 
     [[nodiscard]] BoxerEngine::Scene* GetScene() const;
 

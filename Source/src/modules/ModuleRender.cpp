@@ -125,7 +125,8 @@ update_status ModuleRender::Update(float delta)
     if (prefs->IsDisplayDebugDraw())
     {
         App->debug_draw->Draw(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), width, height);
-        if (active_entity) {
+        if (active_entity)
+        {
             active_entity->DisplayGizmos();
         }
     }

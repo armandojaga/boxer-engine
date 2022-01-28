@@ -33,6 +33,7 @@ namespace BoxerEngine
         [[nodiscard]] Entity* GetEntity(UID entityId);
         [[nodiscard]] Entity* GetEntity(const std::string& entityName);
         void RemoveChild(UID entityId);
+        bool IsChildOf(UID entityId);
 
         template <typename C>
         bool Has();

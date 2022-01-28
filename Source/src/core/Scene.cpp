@@ -41,12 +41,12 @@ BoxerEngine::Entity* BoxerEngine::Scene::CreateEntity()
     {
         root->AddChild(e);
     }
+    dirty = true;
     return e;
 }
 
 void BoxerEngine::Scene::InitRoot()
 {
-    //TODO do we need to add the default camera here?
     root = new Entity();
     root->Clear(); //empty entity with no default components
     root->SetName("Untitled");
@@ -75,4 +75,19 @@ bool BoxerEngine::Scene::IsLoaded() const
 BoxerEngine::Entity* BoxerEngine::Scene::GetRoot() const
 {
     return root;
+}
+
+void BoxerEngine::Scene::SetDirty(const bool isDirty)
+{
+    dirty = isDirty;
+}
+
+bool BoxerEngine::Scene::IsDirty() const
+{
+    return dirty;
+}
+
+bool BoxerEngine::Scene::IsEmpty() const
+{
+    return root == nullptr || root->GetChildren().empty();
 }
