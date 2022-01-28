@@ -43,8 +43,8 @@ void ModelImporter::ImportModel(aiNode* node, const aiScene* scene, YAML::Node& 
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        ticket["node"][i];
-        ImportModel(node->mChildren[i], scene, ticket);
+        YAML::Node yNode = ticket[i];
+        ImportModel(node->mChildren[i], scene, yNode);
     }
 }
 
