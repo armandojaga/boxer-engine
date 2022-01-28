@@ -142,6 +142,19 @@ void BoxerEngine::Entity::RemoveChild(UID entityId)
     );
 }
 
+bool BoxerEngine::Entity::IsChildOf(UID entityId)
+{
+    if (!GetParent())
+    {
+        return false;
+    }
+    if (GetParent()->GetId() == entityId)
+    {
+        return true;
+    }
+    return GetParent()->IsChildOf(entityId);
+}
+
 void BoxerEngine::Entity::RemoveComponent(UID id)
 {
     auto isSameComponentId = [&](const auto c) { return c->GetId() == id; };

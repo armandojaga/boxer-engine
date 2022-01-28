@@ -18,7 +18,6 @@ BoxerEngine::InspectorPanel::InspectorPanel(): Panel("Inspector", true)
     std::function setNewActiveEntity = [&](Event& evt)
     {
         const auto& e = evt.GetEventData<SelectionChangedEventPayload>();
-        BE_LOG("Setting new active item for inspector: %s", e.GetSelected()->GetName().c_str());
         currentEntity = e.GetSelected();
     };
     EventManager::GetInstance().Subscribe(Event::Type::SELECTION_CHANGED, setNewActiveEntity);
@@ -26,6 +25,10 @@ BoxerEngine::InspectorPanel::InspectorPanel(): Panel("Inspector", true)
 
 void BoxerEngine::InspectorPanel::Update()
 {
+    if (currentEntity == nullptr)
+    {
+        return;
+    }
     ImGui::SetNextWindowSize(ImVec2(200, 170), ImGuiCond_FirstUseEver);
     if (!ImGui::Begin(StringUtils::Concat(ICON_MD_INFO, GetTitle()).c_str(), &visible) || !currentEntity || currentEntity == App->scene->GetScene()->GetRoot())
     {

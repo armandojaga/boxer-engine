@@ -8,6 +8,11 @@ BoxerEngine::HierarchyPanel::HierarchyPanel() : Panel("Hierarchy", true)
 {
 }
 
+void BoxerEngine::HierarchyPanel::CreateEmptyEntity()
+{
+    App->scene->CreateEmptyEntity();
+}
+
 void BoxerEngine::HierarchyPanel::Update()
 {
     ImGui::SetNextWindowSize(ImVec2(300, 170), ImGuiCond_FirstUseEver);
@@ -18,11 +23,6 @@ void BoxerEngine::HierarchyPanel::Update()
     }
     UpdateHierarchyTree(App->scene->GetScene()->GetRoot());
     ImGui::End();
-}
-
-void BoxerEngine::HierarchyPanel::CreateEmptyEntity()
-{
-    App->scene->CreateEmptyEntity();
 }
 
 //updating only the tree of an entity improves performance when only it changes
@@ -36,7 +36,7 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
     {
         nodeFlags |= ImGuiTreeNodeFlags_DefaultOpen;
     }
-    if (activeEntity == entity)
+    if (active_entity == entity)
     {
         nodeFlags |= ImGuiTreeNodeFlags_Selected;
     }
@@ -44,13 +44,14 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
     {
         nodeFlags |= ImGuiTreeNodeFlags_Leaf;
     }
-    const std::string icon = entity == App->scene->GetScene()->GetRoot() ? ICON_MD_TOKEN : ICON_MD_HEXAGON;
-    const bool nodeOpen = ImGui::TreeNodeEx(StringUtils::Concat(icon, entity->GetName()).c_str(), nodeFlags);
+    const std::string icon = IsRoot(entity) ? ICON_MD_TOKEN : ICON_MD_HEXAGON;
+    const std::string dirtyMarker = IsRoot(entity) && App->scene->GetScene()->IsDirty() ? " *" : "";
+    const bool nodeOpen = ImGui::TreeNodeEx(StringUtils::Concat(icon, entity->GetName(), dirtyMarker).c_str(), nodeFlags);
 
     if (ImGui::IsItemClicked())
     {
         App->editor->SetActiveEntity(entity);
-        activeEntity = entity;
+        active_entity = entity;
     }
 
     ImGui::PushID(entity);
@@ -62,7 +63,22 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
             e->SetParent(entity);
             e->SetName(StringUtils::Concat("New Entity (", std::to_string(entity->GetChildren().size()), ")"));
             App->editor->SetActiveEntity(e);
-            activeEntity = e;
+            active_entity = e;
+        }
+
+        if (!IsRoot(entity))
+        {
+            ImGui::Separator();
+            if (ImGui::Selectable("Delete"))
+            {
+                if (entity == active_entity || active_entity->IsChildOf(entity->GetId())) //check if active element is going to be deleted
+                {
+                    active_entity = entity->GetParent();
+                }
+                App->scene->RemoveEntity(entity);
+                App->editor->SetActiveEntity(active_entity);
+                entity = nullptr;
+            }
         }
 
         ImGui::EndPopup();
@@ -70,10 +86,18 @@ void BoxerEngine::HierarchyPanel::UpdateHierarchyTree(Entity* entity)
     ImGui::PopID();
     if (nodeOpen)
     {
-        for (const auto child : children)
+        if (entity) // don't display the hierarchy if current element was deleted
         {
-            UpdateHierarchyTree(child);
+            for (const auto child : children)
+            {
+                UpdateHierarchyTree(child);
+            }
         }
         ImGui::TreePop();
     }
+}
+
+bool BoxerEngine::HierarchyPanel::IsRoot(Entity* entity)
+{
+    return App->scene->GetScene()->GetRoot() == entity;
 }
