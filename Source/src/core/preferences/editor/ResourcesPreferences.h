@@ -28,6 +28,7 @@ namespace BoxerEngine
 
 	private:
 		std::string scene_assets   = "./assets/scene/";
+		std::string models_assets   = "./assets/models/";
 		std::string meshes_assets   = "./assets/meshes/";
 		std::string textures_assets = "./assets/textures/";
 		std::string audio_assets = "./assets/audio/";
@@ -35,6 +36,7 @@ namespace BoxerEngine
 		std::string script_assets = "./assets/scripts/";
 
 		std::string scene_library   = "./library/scene/";
+		std::string models_library   = "./library/models/";
 		std::string meshes_library   = "./library/meshes/";
 		std::string textures_library = "./library/textures/";
 		std::string audio_library = "./library/audio/";

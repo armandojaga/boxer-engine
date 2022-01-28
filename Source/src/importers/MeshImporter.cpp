@@ -1,7 +1,6 @@
 #include "MeshImporter.h"
 #include <Globals.h>
-
-#include <yaml-cpp/yaml.h>
+#include "Application.h"
 
 #include "core/file system/FileManager.h"
 #include "core/preferences/PreferenceManager.h"
@@ -21,57 +20,65 @@ void MeshImporter::ImportAsset(const std::filesystem::path& mesh_path)
         return;
     }
 
-    if (scene->HasMeshes())
-    {
-        // This only import one mesh.
-        // For multiple imports consider use SceneImporter
-        ImportMesh(scene->mMeshes[0], UUID::GenerateUUIDv4());
-    }
+    // Just load the first mesh
+    // For multiple ones, consider using ModelImport
+    ImportMesh(scene->mMeshes[0], UUID::GenerateUUIDv4());
 }
 
-void MeshImporter::ImportMesh(aiMesh* mesh, const std::string& mesh_uid)
+void BoxerEngine::MeshImporter::SaveToFile(YAML::Node& ticket, const std::string& uuid)
 {
-    YAML::Node yaml_node;
     preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    std::string mesh_name(preferences->GetLibraryPath(ResourceType::MESH) + uuid);
+    std::ofstream fout(mesh_name);
+    fout << ticket;
+}
+void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid)
+{
+    YAML::Node ticket;
+    PopulateTicket(mesh, ticket);
+    SaveToFile(ticket, uuid);
+}
 
-    yaml_node["min_point"]["x"] = mesh->mVertices[0].x;
-    yaml_node["min_point"]["y"] = mesh->mVertices[0].y;
-    yaml_node["min_point"]["z"] = mesh->mVertices[0].z;
+void BoxerEngine::MeshImporter::PopulateTicket(aiMesh* mesh, YAML::Node& mesh_ticket)
+{
+    mesh_ticket["min_point"]["x"] = mesh->mVertices[0].x;
+    mesh_ticket["min_point"]["y"] = mesh->mVertices[0].y;
+    mesh_ticket["min_point"]["z"] = mesh->mVertices[0].z;
 
-    yaml_node["max_point"]["x"] = mesh->mVertices[0].x;
-    yaml_node["max_point"]["y"] = mesh->mVertices[0].y;
-    yaml_node["max_point"]["z"] = mesh->mVertices[0].z;
+    mesh_ticket["max_point"]["x"] = mesh->mVertices[0].x;
+    mesh_ticket["max_point"]["y"] = mesh->mVertices[0].y;
+    mesh_ticket["max_point"]["z"] = mesh->mVertices[0].z;
 
     // process vertex positions, normals and texture coordinates
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
-        yaml_node["vertices"][i]["x"] = mesh->mVertices[i].x;
-        yaml_node["vertices"][i]["y"] = mesh->mVertices[i].y;
-        yaml_node["vertices"][i]["z"] = mesh->mVertices[i].z;
+        mesh_ticket["vertices"][i]["x"] = mesh->mVertices[i].x;
+        mesh_ticket["vertices"][i]["y"] = mesh->mVertices[i].y;
+        mesh_ticket["vertices"][i]["z"] = mesh->mVertices[i].z;
 
-        yaml_node["normals"][i]["x"] = mesh->mNormals[i].x;
-        yaml_node["normals"][i]["y"] = mesh->mNormals[i].y;
-        yaml_node["normals"][i]["z"] = mesh->mNormals[i].z;
+        mesh_ticket["normals"][i]["x"] = mesh->mNormals[i].x;
+        mesh_ticket["normals"][i]["y"] = mesh->mNormals[i].y;
+        mesh_ticket["normals"][i]["z"] = mesh->mNormals[i].z;
 
         if (mesh->HasTextureCoords(0)) // TODO: What does 0 means
         {
-            yaml_node["texture_coords"][i]["x"] = mesh->mTextureCoords[0][i].x;
-            yaml_node["texture_coords"][i]["y"] = mesh->mTextureCoords[0][i].y;
+            mesh_ticket["texture_coords"][i]["x"] = mesh->mTextureCoords[0][i].x;
+            mesh_ticket["texture_coords"][i]["y"] = mesh->mTextureCoords[0][i].y;
         }
         else
         {
-            yaml_node["texture_coords"][i]["x"] = 0.0;
-            yaml_node["texture_coords"][i]["y"] = 0.0;
+            mesh_ticket["texture_coords"][i]["x"] = 0.0;
+            mesh_ticket["texture_coords"][i]["y"] = 0.0;
         }
 
-        yaml_node["min_point"]["x"] = std::min(mesh->mVertices[i].x, yaml_node["min_point"]["x"].as<float>());
-        yaml_node["min_point"]["y"] = std::min(mesh->mVertices[i].y, yaml_node["min_point"]["y"].as<float>());
-        yaml_node["min_point"]["z"] = std::min(mesh->mVertices[i].z, yaml_node["min_point"]["z"].as<float>());
+        mesh_ticket["min_point"]["x"] = std::min(mesh->mVertices[i].x, mesh_ticket["min_point"]["x"].as<float>());
+        mesh_ticket["min_point"]["y"] = std::min(mesh->mVertices[i].y, mesh_ticket["min_point"]["y"].as<float>());
+        mesh_ticket["min_point"]["z"] = std::min(mesh->mVertices[i].z, mesh_ticket["min_point"]["z"].as<float>());
 
-        yaml_node["max_point"]["x"] = std::max(mesh->mVertices[i].x, yaml_node["max_point"]["x"].as<float>());
-        yaml_node["max_point"]["y"] = std::max(mesh->mVertices[i].y, yaml_node["max_point"]["y"].as<float>());
-        yaml_node["max_point"]["z"] = std::max(mesh->mVertices[i].z, yaml_node["max_point"]["z"].as<float>());
-       
+        mesh_ticket["max_point"]["x"] = std::max(mesh->mVertices[i].x, mesh_ticket["max_point"]["x"].as<float>());
+        mesh_ticket["max_point"]["y"] = std::max(mesh->mVertices[i].y, mesh_ticket["max_point"]["y"].as<float>());
+        mesh_ticket["max_point"]["z"] = std::max(mesh->mVertices[i].z, mesh_ticket["max_point"]["z"].as<float>());
+
     }
 
     // process indices
@@ -80,10 +87,7 @@ void MeshImporter::ImportMesh(aiMesh* mesh, const std::string& mesh_uid)
         aiFace face = mesh->mFaces[i];
         for (unsigned int j = 0; j < face.mNumIndices; j++)
         {
-            yaml_node["indices"][i]["face#, %d", i][j] = face.mIndices[j];
+            mesh_ticket["indices"][i]["face#, %d", i][j] = face.mIndices[j];
         }
     }
-    std::string mesh_name(preferences->GetLibraryPath(ResourceType::MESH) + mesh_uid);
-    std::ofstream fout(mesh_name);
-    fout << yaml_node;
 }

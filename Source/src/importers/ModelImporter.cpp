@@ -1,12 +1,20 @@
 
 #include "ModelImporter.h"
 #include "MeshImporter.h"
+#include "Application.h"
+
+#include <Globals.h>
+#include <yaml-cpp/yaml.h>
+#include <fstream>
+
+#include "core/preferences/PreferenceManager.h"
+#include "core/preferences/editor/ResourcesPreferences.h"
 
 using namespace BoxerEngine;
 
 void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
 {
-    BE_LOG("Loading Module: %s", model_path);
+    BE_LOG("Entering ModelImporter: %s", model_path);
     Assimp::Importer import;
     const aiScene* scene = import.ReadFile(model_path.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
@@ -16,36 +24,34 @@ void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
         return;
     }
 
-    BE_LOG("Scene Summary");
-    BE_LOG("Meshes: %d", scene->mNumMeshes);
-    BE_LOG("Materials: %d", scene->mNumMaterials);
-    BE_LOG("Textures: %d", scene->mNumTextures);
-    BE_LOG("Cameras: %d", scene->mNumCameras);
-    BE_LOG("Animations: %d", scene->mNumAnimations);
-    BE_LOG("Lights: %d", scene->mNumLights);
-
-    ProcessRoot(scene->mRootNode, scene);
+    YAML::Node model_ticket;
+    ImportModel(scene->mRootNode, scene, model_ticket);
+    SaveToFile(model_ticket, UUID::GenerateUUIDv4());
 }
 
-void ModelImporter::ProcessRoot(aiNode* node, const aiScene* scene)
+void ModelImporter::ImportModel(aiNode* node, const aiScene* scene, YAML::Node& ticket)
 {
     MeshImporter mesh_importer;
+
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        mesh_importer.ImportMesh(mesh, UUID::GenerateUUIDv4());
+        const std::string mesh_uuid = UUID::GenerateUUIDv4();
+        ticket["mesh"][i]["id"] = mesh_uuid;
+        mesh_importer.ImportMesh(mesh, mesh_uuid);
     }
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        ProcessRoot(node->mChildren[i], scene);
+        ticket["node"][i];
+        ImportModel(node->mChildren[i], scene, ticket);
     }
 }
 
-void BoxerEngine::Modelmporter::ImportAsset(const std::filesystem::path& asset_path)
+void BoxerEngine::ModelImporter::SaveToFile(YAML::Node& ticket, const std::string& uuid)
 {
-}
-
-void BoxerEngine::Modelmporter::ProcessRoot(aiNode* node, const aiScene* scene)
-{
+    preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    std::string model_name(preferences->GetLibraryPath(ResourceType::MODEL) + uuid);
+    std::ofstream fout(model_name);
+    fout << ticket;
 }

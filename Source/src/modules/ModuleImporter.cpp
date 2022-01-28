@@ -8,15 +8,15 @@
 
 #include "importers/GenericImporter.h"
 #include "importers/MeshImporter.h"
-#include "importers/SceneImporter.h"
+#include "importers/ModelImporter.h"
 
 ModuleImporter::ModuleImporter()
 {
     BoxerEngine::GenericImporter* gen = new BoxerEngine::GenericImporter();
     BoxerEngine::MeshImporter* mesh = new BoxerEngine::MeshImporter();
-    BoxerEngine::SceneImporter* module = new BoxerEngine::SceneImporter();
+    BoxerEngine::ModelImporter* model = new BoxerEngine::ModelImporter();
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::GENERIC, static_cast<BoxerEngine::Importer*>(gen)));
-    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MODULE, static_cast<BoxerEngine::Importer*>(scene)));
+    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MODEL, static_cast<BoxerEngine::Importer*>(model)));
     importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MESH, static_cast<BoxerEngine::Importer*>(mesh)));
 }
 
@@ -63,6 +63,9 @@ BoxerEngine::ImporterType ModuleImporter::ToImporterType(const BoxerEngine::Reso
     {
     case BoxerEngine::ResourceType::SCENE:
         iType = BoxerEngine::ImporterType::SCENE;
+        break;
+    case BoxerEngine::ResourceType::MODEL:
+        iType = BoxerEngine::ImporterType::MODEL;
         break;
     case BoxerEngine::ResourceType::MESH:
         iType = BoxerEngine::ImporterType::MESH;
