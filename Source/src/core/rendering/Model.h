@@ -20,5 +20,6 @@ private:
     const char* path;
     std::vector<const char*> mesh_ids{};
     std::vector<Mesh*> meshes{};
+
     void Load(const char* file);
 };

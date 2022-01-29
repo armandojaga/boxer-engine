@@ -207,9 +207,6 @@
     <ClCompile Include="vendors\MathGeoLib\include\Math\grisu3.c">
       <Filter>Vendors\MathGeoLib\Math</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\util\Yaml.cpp">
-      <Filter>Core\Util</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\preferences\PreferenceManager.cpp">
       <Filter>Core\Preferences</Filter>
     </ClCompile>

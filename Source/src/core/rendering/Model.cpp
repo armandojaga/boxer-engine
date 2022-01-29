@@ -1,7 +1,10 @@
 #include "Model.h"
 #include "Globals.h"
+#include "Application.h"
 
 #include <yaml-cpp/yaml.h>
+#include "core/preferences/PreferenceManager.h"
+#include "core/preferences/editor/ResourcesPreferences.h"
 
 Model::Model(const char* model_name)
 {
@@ -11,6 +14,9 @@ Model::Model(const char* model_name)
 void Model::Load(const char* model_name)
 {
     BE_LOG("Loading Model: %s", model_name);
+    BoxerEngine::ResourcesPreferences* preferences = 
+        static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    std::string library_path(preferences->GetLibraryPath(BoxerEngine::ResourceType::MESH));
     YAML::Node model_data = YAML::LoadFile(model_name);
 
     for (auto it = model_data.begin(); it != model_data.end(); ++it)
@@ -40,7 +46,9 @@ void Model::Load(const char* model_name)
     }
     for (auto id : mesh_ids)
     {
-        meshes.push_back(new Mesh(id));
+        std::string mesh_path = library_path;
+        mesh_path.append(id);
+        meshes.push_back(new Mesh(mesh_path.c_str()));
     }
 }
 

@@ -8,6 +8,12 @@
 
 struct Vertex
 {
+    Vertex(const float3& pos, const float3& norm, const float2& tex)
+        : position(pos)
+        , normal(norm)
+        , tex_coords(tex)
+    {}
+
     float3 position;
     float3 normal;
     float2 tex_coords;
@@ -15,7 +21,13 @@ struct Vertex
 
 struct Texture
 {
-    unsigned int id{};
+    Texture(const unsigned int id, const std::string& type, const std::string& path)
+        : id(id)
+        , type(type)
+        , path(path)
+    {}
+
+    unsigned int id;
     std::string type;
     std::string path;
 };
@@ -23,9 +35,7 @@ struct Texture
 class Mesh
 {
 public:
-    Mesh(const char* id);
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, float3 minPoint, float3 maxPoint);
+    Mesh(const char* file_path);
     void Draw() const;
 
     [[nodiscard]] size_t GetNumVertices() const { return vertices.size(); }
@@ -34,10 +44,13 @@ public:
 
 private:
     // mesh data
-    std::vector<Vertex> vertices;
+    const char* id;
+    const char* material_id;
+    float3 min_point;
+    float3 max_point;
+    std::vector<Vertex*> vertices;
     std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
-    std::unique_ptr<BoxerEngine::BoundingBox> bounding_box;
+    std::vector<Texture*> textures;
 
     //  render data
     unsigned int VAO;
@@ -46,4 +59,5 @@ private:
 
     void SetupMesh();
     void Load(const char* mesh_data);
+    void LoadTextureData(const char* texture_path, const char* material_id);
 };

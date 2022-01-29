@@ -316,7 +316,6 @@
     <ClCompile Include="src\modules\ModuleInput.cpp" />
     <ClCompile Include="src\modules\ModuleRender.cpp" />
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
-    <ClCompile Include="src\core\util\Yaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\importers\ModelImporter.h" />

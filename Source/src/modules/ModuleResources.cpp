@@ -45,6 +45,8 @@ void ModuleResources::HandleResource(const std::filesystem::path& path)
     if (file_manager.CopyNew(path, destination.append(path.filename().c_str())))
     {
         last_resource_path = path;
+        // TODO: As we are importing a valid asset at this point. We have to be sure 
+        // that the corresponding library path is created and accesible
         HandleAssetsChanged(destination, type);
     }
 
