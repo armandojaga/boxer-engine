@@ -89,7 +89,7 @@ void BoxerEngine::MeshImporter::PopulateTicket(aiMesh* mesh, YAML::Node& mesh_ti
         aiFace face = mesh->mFaces[i];
         for (unsigned int j = 0; j < face.mNumIndices; j++)
         {
-            mesh_ticket["indices"][i]["face#, %d", i][j] = face.mIndices[j];
+            mesh_ticket["indices"][i][j] = face.mIndices[j];
         }
     }
 }

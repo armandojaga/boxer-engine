@@ -1,12 +1,14 @@
 #include "ModuleTexture.h"
-
-#include "core/util/Files.h"
-#include "core/util/StringUtils.h"
+#include "Application.h"
 
 #include "IL/il.h"
 #include "IL/ilu.h"
-
 #include "GL/glew.h"
+
+#include "core/util/Files.h"
+#include "core/util/StringUtils.h"
+#include "core/preferences/PreferenceManager.h"
+#include "core/preferences/editor/ResourcesPreferences.h"
 
 bool ModuleTexture::Init()
 {
@@ -25,14 +27,21 @@ bool ModuleTexture::CleanUp()
     return Module::CleanUp();
 }
 
-unsigned int ModuleTexture::Load(const char* texture_path)
+unsigned int ModuleTexture::Load(const char* texture_name)
 {
     unsigned int textureId(INVALID_ID);
     unsigned int image{};
+
+    BoxerEngine::ResourcesPreferences* preferences =
+        static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
     
+    std::string texture_path(preferences->GetAssetsPath(BoxerEngine::ResourceType::TEXTURE));
+    texture_path.append(texture_name);
+    
+    // TODO: We need to validate if the texture was already loaded into openGl
     ilGenImages(1, &image);
     ilBindImage(image);
-    if (ilLoadImage(texture_path))
+    if (ilLoadImage(texture_path.c_str()))
     {
         const bool success = ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
         if (!success)

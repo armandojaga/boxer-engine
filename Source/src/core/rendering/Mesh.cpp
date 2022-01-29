@@ -6,7 +6,10 @@
 
 #include "Application.h"
 #include "modules/ModuleProgram.h"
+#include "modules/ModuleTexture.h"
 #include "core/util/Yaml.h"
+#include "core/preferences/PreferenceManager.h"
+#include "core/preferences/editor/ResourcesPreferences.h"
 
 Mesh::Mesh(const char* file_path)
 {
@@ -16,14 +19,14 @@ Mesh::Mesh(const char* file_path)
 
 Mesh::~Mesh()
 {
-    for (auto vertex : vertices)
-    {
-        delete vertex;
-    }
-    for (auto texture : textures)
-    {
-        delete texture;
-    }
+    //for (auto vertex : vertices)
+    //{
+    //    delete vertex;
+    //}
+    //for (auto texture : textures)
+    //{
+    //    delete texture;
+    //}
 }
 
 void Mesh::Load(const char* mesh_data)
@@ -33,14 +36,14 @@ void Mesh::Load(const char* mesh_data)
 
     for (auto it = mesh_node.begin(); it != mesh_node.end(); ++it)
     {
-        if (it->first.as<std::string>()._Equal("id"))
+        if (it->first.as<std::string>()._Equal("mesh_id"))
         {
-            id = it->second.as<std::string>().c_str();
+            id = it->second.as<std::string>();
         }
 
         if (it->first.as<std::string>()._Equal("material"))
         {
-            material_id = it->second.as<std::string>().c_str();
+            material_id = it->second.as<std::string>();
         }
 
         if (it->first.as<std::string>()._Equal("min_point"))
@@ -66,18 +69,16 @@ void Mesh::Load(const char* mesh_data)
         float3 position;
         YAML::Node node = mesh_node["vertices"][index];
         BoxerEngine::Yaml::ToFloat3(node, position);
-        //node.reset(); // TODO: check if necessary
 
         float3 normal;
         node = mesh_node["normals"][index];
         BoxerEngine::Yaml::ToFloat3(node, normal);
-        //node.reset(); // TODO: check if necessary
 
         float2 tex_coords;
         node = mesh_node["texture_coords"][index];
         BoxerEngine::Yaml::ToFloat2(node, tex_coords);
 
-        vertices.push_back(new Vertex(position, normal, tex_coords));
+        vertices.push_back(Vertex(position, normal, tex_coords));
     }
 
     indices.reserve(mesh_node["indices"].size() * 3);
@@ -94,34 +95,40 @@ void Mesh::Load(const char* mesh_data)
 
 void Mesh::LoadTextureData(const char* mesh_path, const char* material_id)
 {
-    std::filesystem::path meshes_path(mesh_path);
-    std::filesystem::path library_path = meshes_path.parent_path();
-    library_path.append(material_id);
+    BoxerEngine::ResourcesPreferences* preferences =
+        static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
 
-    YAML::Node texture_node = YAML::LoadFile(library_path.string());
+    std::filesystem::path tex_path = preferences->GetLibraryPath(BoxerEngine::ResourceType::TEXTURE);
+    YAML::Node texture_node = YAML::LoadFile(tex_path.append(material_id).string().c_str());
 
     textures.reserve(texture_node["texture"].size());
     for (auto texture : texture_node["texture"])
     {
-        std::string path;
+        std::string name;
         std::string type;
-        unsigned int opengl_id;
+        unsigned int texture_id;
 
-        if (texture["diffuse"].IsDefined())
+        if (texture.first.as<std::string>()._Equal("diffuse"))
         {
-            path = texture["diffuse"]["texture_name"].as<std::string>();
-            opengl_id = texture["diffuse"]["opengl_id"].as<unsigned int>();
-            type = "texture_diffuse";
-        }
-        
-        if (texture["specular"].IsDefined())
-        {
-            path = texture["specular"]["texture_name"].as<std::string>();
-            opengl_id = texture["specular"]["opengl_id"].as<unsigned int>();
-            type = "texture_specular";
+            for (int i = 0; i < texture.second.size(); ++i)
+            {
+                name = texture.second[i]["texture_name"].as<std::string>();
+                type = "texture_diffuse";
+                texture_id = App->textures->Load(name.c_str());
+                textures.push_back(Texture(texture_id, type, name));
+            }
         }
 
-        textures.push_back(new Texture(opengl_id, type, path));
+        if (texture.first.as<std::string>()._Equal("specular"))
+        {
+            for (int i = 0; i < texture.second.size(); ++i)
+            {
+                name = texture.second[i]["texture_name"].as<std::string>();
+                texture_id = App->textures->Load(name.c_str());
+                type = "texture_specular";
+                textures.push_back(Texture(texture_id, type, name));
+            }
+        }
     }
 }
 
@@ -160,7 +167,7 @@ void Mesh::Draw() const
         // activate proper Texture unit before binding
         // retrieve Texture number (the N in diffuse_TextureN)
         std::string number;
-        std::string name = textures[i]->type;
+        std::string name = textures[i].type;
         if (name == "texture_diffuse")
         {
             number = std::to_string(diffuseNr++);
@@ -170,7 +177,7 @@ void Mesh::Draw() const
             number = std::to_string(specularNr++);
         }
         App->program->SetUniform((name + number), static_cast<int>(i));
-        glBindTexture(GL_TEXTURE_2D, textures[i]->id);
+        glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
 
     glActiveTexture(GL_TEXTURE0);

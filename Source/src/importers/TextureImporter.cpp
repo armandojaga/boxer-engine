@@ -58,9 +58,6 @@ void BoxerEngine::TextureImporter::ImportTexturesByType(aiMaterial* material, ai
         FindTextureLocation(str.C_Str());
         std::filesystem::path texture_path(str.C_Str());
         ticket["texture"][TextureTypeToString(type)][i]["texture_name"] = texture_path.filename().string();
-
-        asset_path.append(texture_path.filename().string());
-        ticket["texture"][TextureTypeToString(type)][i]["opengl_id"] = App->textures->Load(asset_path.c_str());
     }
 }
 

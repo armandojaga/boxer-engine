@@ -11,5 +11,5 @@ public:
 
     bool Init() override;
     bool CleanUp() override;
-    unsigned int Load(const char*);
+    unsigned int Load(const char* texture_name);
 };

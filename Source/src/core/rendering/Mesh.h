@@ -21,15 +21,15 @@ struct Vertex
 
 struct Texture
 {
-    Texture(const unsigned int id, const std::string& type, const std::string& path)
+    Texture(const unsigned int id, const std::string& type, const std::string& name)
         : id(id)
         , type(type)
-        , path(path)
+        , name(name)
     {}
 
     unsigned int id;
     std::string type;
-    std::string path;
+    std::string name;
 };
 
 class Mesh
@@ -45,13 +45,14 @@ public:
 
 private:
     // mesh data
-    const char* id;
-    const char* material_id;
+    std::string id;
+    std::string material_id;
     float3 min_point;
     float3 max_point;
-    std::vector<Vertex*> vertices;
+
+    std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
-    std::vector<Texture*> textures;
+    std::vector<Texture> textures;
 
     //  render data
     unsigned int VAO;

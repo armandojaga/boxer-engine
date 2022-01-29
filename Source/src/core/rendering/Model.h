@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <string>
+#include <yaml-cpp/yaml.h>
 
 class Model
 {
@@ -16,9 +17,9 @@ public:
     void Draw() const;
 
 private:
-    const char* id;
-    const char* path;
-    std::vector<const char*> mesh_ids{};
+    std::string id;
+    std::string path;
+    std::vector<std::string> mesh_ids{}; // TODO: consider using const char[36] as uuid is fixed lenght
     std::vector<Mesh*> meshes{};
 
     void Load(const char* file);

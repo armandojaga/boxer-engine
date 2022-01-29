@@ -85,6 +85,7 @@ bool ModuleRender::Init()
     };
     BoxerEngine::EventManager::GetInstance().Subscribe(BoxerEngine::Event::Type::SELECTION_CHANGED, setActiveEntity);
 
+    model = new Model("./library/models/BakerHouse");
     return true;
 }
 
@@ -133,7 +134,7 @@ update_status ModuleRender::Update(float delta)
     App->scene->GetScene()->GetRoot()->Draw();
 
     App->program->UseProgram();
-    //App->renderer->GetModel()->Draw();
+    App->renderer->GetModel()->Draw();
 
     App->renderer->GetFrameBuffer()->Unbind();
     return update_status::UPDATE_CONTINUE;

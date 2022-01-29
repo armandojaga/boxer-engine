@@ -23,23 +23,21 @@ void Model::Load(const char* model_name)
     {
         if (it->first.as<std::string>()._Equal("id"))
         {
-            id = it->second.as<std::string>().c_str();
+            id = it->second.as<std::string>();
         }
 
-        if (it->first.as<std::string>()._Equal("path"))
+        if (it->first.as<std::string>()._Equal("file_path"))
         {
-            path = it->second.as<std::string>().c_str();
+            path = it->second.as<std::string>();
         }
     }
 
-    for (auto it = model_data["mesh"].begin(); it != model_data["mesh"].end(); ++it)
+    mesh_ids.reserve(model_data["mesh"].size());
+    for (int i = 0; i < model_data["mesh"].size(); ++i)
     {
-        if (it->first.as<std::string>()._Equal("id"))
-        {
-            mesh_ids.push_back(it->second.as<std::string>().c_str());
-        }
+        mesh_ids.push_back(model_data["mesh"][i]["id"].as<std::string>());
     }
-
+    
     if (mesh_ids.size() == 0)
     {
         return;
