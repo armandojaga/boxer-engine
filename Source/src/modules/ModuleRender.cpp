@@ -61,7 +61,6 @@ bool ModuleRender::Init()
 
     SDL_GetWindowSize(App->window->window, &width, &height);
     frame_buffer = new BoxerEngine::FrameBuffer(width, height);
-    model = new Model();
 
     prefs = static_cast<BoxerEngine::EditorPreferences*>(App->preferences->GetEditorPreferences());
 
@@ -91,7 +90,6 @@ bool ModuleRender::Init()
 
 bool ModuleRender::Start()
 {
-    model->Load(BoxerEngine::StringUtils::Concat(ASSETS_PATH, MODELS_DIR, "BakerHouse.fbx").c_str());
     return true;
 }
 

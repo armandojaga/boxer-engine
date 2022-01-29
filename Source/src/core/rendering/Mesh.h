@@ -23,6 +23,7 @@ struct Texture
 class Mesh
 {
 public:
+    Mesh(const char* id);
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, float3 minPoint, float3 maxPoint);
     void Draw() const;
@@ -44,4 +45,5 @@ private:
     unsigned int EBO;
 
     void SetupMesh();
+    void Load(const char* mesh_data);
 };

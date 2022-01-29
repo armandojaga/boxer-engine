@@ -13,8 +13,18 @@ void Model::Load(const char* model_name)
     BE_LOG("Loading Model: %s", model_name);
     YAML::Node model_data = YAML::LoadFile(model_name);
 
-    id = NodeExtractor<std::string>("id", model_data).c_str();
-    path = NodeExtractor<std::string>("path", model_data).c_str();
+    for (auto it = model_data.begin(); it != model_data.end(); ++it)
+    {
+        if (it->first.as<std::string>()._Equal("id"))
+        {
+            id = it->second.as<std::string>().c_str();
+        }
+
+        if (it->first.as<std::string>()._Equal("path"))
+        {
+            path = it->second.as<std::string>().c_str();
+        }
+    }
 
     for (auto it = model_data["mesh"].begin(); it != model_data["mesh"].end(); ++it)
     {
@@ -47,18 +57,6 @@ void Model::Draw() const
     for (unsigned int i = 0; i < meshes.size(); i++)
     {
         meshes[i]->Draw();
-    }
-}
-
-template <typename T>
-T NodeExtractor(const std::string& key, YAML::Node& node)
-{
-    for (auto it = node.begin(); it != node.end(); ++it)
-    {
-        if (it->first.as<std::string>()._Equal(key))
-        {
-            return it->second.as<T>();
-        }
     }
 }
 

@@ -38,8 +38,7 @@ public:
     void LoadModel(const char* filPath)
     {
         delete model;
-        model = new Model();
-        model->Load(filPath);
+        model = new Model(filPath);
     }
 
 private:

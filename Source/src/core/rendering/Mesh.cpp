@@ -5,6 +5,11 @@
 #include "Application.h"
 #include "modules/ModuleProgram.h"
 
+Mesh::Mesh(const char* id)
+{
+    Load(std::string("./library/meshes/%s", id).c_str()); //TODO: import from resource preferences
+}
+
 Mesh::Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex)
 {
     vertices = ver;
@@ -47,6 +52,10 @@ void Mesh::SetupMesh()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex_coords));
 
     glBindVertexArray(0);
+}
+
+void Mesh::Load(const char* mesh_data)
+{
 }
 
 void Mesh::Draw() const
