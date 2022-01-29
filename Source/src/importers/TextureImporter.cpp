@@ -47,6 +47,10 @@ void BoxerEngine::TextureImporter::ImportMaterial(aiMaterial* material, const st
 
 void BoxerEngine::TextureImporter::ImportTexturesByType(aiMaterial* material, aiTextureType type, YAML::Node& ticket)
 {
+    preferences = static_cast<BoxerEngine::ResourcesPreferences*>
+        (App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    std::string asset_path = preferences->GetAssetsPath(ResourceType::TEXTURE);
+
     for (unsigned int i = 0; i < material->GetTextureCount(type); i++)
     {
         aiString str;
@@ -54,6 +58,9 @@ void BoxerEngine::TextureImporter::ImportTexturesByType(aiMaterial* material, ai
         FindTextureLocation(str.C_Str());
         std::filesystem::path texture_path(str.C_Str());
         ticket["texture"][TextureTypeToString(type)][i]["texture_name"] = texture_path.filename().string();
+
+        asset_path.append(texture_path.filename().string());
+        ticket["texture"][TextureTypeToString(type)][i]["opengl_id"] = App->textures->Load(asset_path.c_str());
     }
 }
 

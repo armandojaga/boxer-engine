@@ -93,20 +93,23 @@ void Mesh::LoadTextureData(const char* mesh_path, const char* material_id)
     {
         std::string path;
         std::string type;
-        
+        unsigned int opengl_id;
+
         if (texture["diffuse"].IsDefined())
         {
             path = texture["diffuse"]["texture_name"].as<std::string>();
+            opengl_id = texture["diffuse"]["opengl_id"].as<unsigned int>();
             type = "texture_diffuse";
         }
         
         if (texture["specular"].IsDefined())
         {
             path = texture["specular"]["texture_name"].as<std::string>();
+            opengl_id = texture["specular"]["opengl_id"].as<unsigned int>();
             type = "texture_specular";
         }
 
-        textures.push_back(new Texture(id, type, path));
+        textures.push_back(new Texture(opengl_id, type, path));
     }
 }
 

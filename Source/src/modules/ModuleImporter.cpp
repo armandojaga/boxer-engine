@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <algorithm>
+#include <thread>
 
 #include "Application.h"
 #include "core/events/EventManager.h"
