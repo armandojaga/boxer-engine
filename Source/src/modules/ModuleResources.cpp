@@ -8,9 +8,16 @@ using namespace BoxerEngine;
 
 bool ModuleResources::Init()
 {
-    preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
-
-    std::function handleAddedFile = [&](Event& evt)
+    preferences = static_cast<BoxerEngine::ResourcesPreferences*>
+        (App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
+    
+    // create library directory tree
+    for (int i = 0; i < (int)ResourceType::UNKNOWN; ++i)
+    {
+        file_manager.CreatePathIfNew(preferences->GetLibraryPath(static_cast<ResourceType>(i)));
+    }
+    
+        std::function handleAddedFile = [&](Event& evt)
     {
         const auto& e = evt.GetEventData<FileAddedEventPayload>();
         std::filesystem::path file = e.GetPath();
@@ -45,8 +52,6 @@ void ModuleResources::HandleResource(const std::filesystem::path& path)
     if (file_manager.CopyNew(path, destination.append(path.filename().c_str())))
     {
         last_resource_path = path;
-        // TODO: As we are importing a valid asset at this point. We have to be sure 
-        // that the corresponding library path is created and accesible
         HandleAssetsChanged(destination, type);
     }
 

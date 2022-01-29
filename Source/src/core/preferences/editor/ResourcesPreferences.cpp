@@ -167,3 +167,4 @@ const char* BoxerEngine::ResourcesPreferences::GetLibraryPath(ResourceType type)
         assert(false);
     }
 }
+

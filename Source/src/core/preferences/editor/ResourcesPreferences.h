@@ -5,15 +5,14 @@ namespace BoxerEngine
 {
 	enum class ResourceType
 	{
-		SCENE = 1,
+		SCENE = 0,
 		MODEL,
 		MESH,
 		TEXTURE,
 		AUDIO,
 		VIDEO,
 		SCRIPT,
-		SKYBOX,
-		UNKNOWN
+		UNKNOWN,
 	};
 
 	class ResourcesPreferences final : public Preferences

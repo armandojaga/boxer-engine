@@ -14,6 +14,18 @@ Mesh::Mesh(const char* file_path)
     SetupMesh();
 }
 
+Mesh::~Mesh()
+{
+    for (auto vertex : vertices)
+    {
+        delete vertex;
+    }
+    for (auto texture : textures)
+    {
+        delete texture;
+    }
+}
+
 void Mesh::Load(const char* mesh_data)
 {
     BE_LOG("Loading Mesh: %s", mesh_data);

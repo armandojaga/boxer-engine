@@ -36,6 +36,7 @@ class Mesh
 {
 public:
     Mesh(const char* file_path);
+    ~Mesh();
     void Draw() const;
 
     [[nodiscard]] size_t GetNumVertices() const { return vertices.size(); }
