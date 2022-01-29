@@ -33,7 +33,10 @@ bool ModuleImporter::Init()
         const auto& e = evt.GetEventData<BoxerEngine::AssetsChangedEventPayload>();
         std::filesystem::path file = e.GetPath();
         BE_LOG("Handling asset: %s, of type: %d", file.string().c_str(), e.GetType());
-        ImportAsset(file, e.GetType());
+
+        //Running import in a thread
+        std::thread import_thread(&ModuleImporter::ImportAsset, this, file, e.GetType());
+        import_thread.detach();
     };
     BoxerEngine::EventManager::GetInstance().Subscribe(BoxerEngine::Event::Type::ASSETS_CHANGED, handleNewAsset);
     return true;

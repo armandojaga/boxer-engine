@@ -33,7 +33,6 @@ void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
 
     ImportModel(scene, model_ticket);
     SaveToFile(model_ticket, file_name);
-
 }
 
 void ModelImporter::ImportModel(const aiScene* scene, YAML::Node& ticket)
