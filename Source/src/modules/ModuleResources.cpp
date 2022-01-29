@@ -27,6 +27,11 @@ bool ModuleResources::CleanUp()
     return Module::CleanUp();
 }
 
+std::filesystem::path ModuleResources::GetLastResourceLoadedPath() const
+{
+    return last_resource_path;
+}
+
 void ModuleResources::HandleResource(const std::filesystem::path& path)
 {
     ResourceType type = GetType(path);
@@ -39,6 +44,7 @@ void ModuleResources::HandleResource(const std::filesystem::path& path)
 
     if (file_manager.CopyNew(path, destination.append(path.filename().c_str())))
     {
+        last_resource_path = path;
         HandleAssetsChanged(destination, type);
     }
 

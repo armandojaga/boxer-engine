@@ -31,12 +31,12 @@ void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
     model_ticket["file_path"] = model_path.string();
     std::string file_name = model_path.filename().replace_extension().string();
 
-    ImportModel(scene, model_ticket, model_path);
+    ImportModel(scene, model_ticket);
     SaveToFile(model_ticket, file_name);
 
 }
 
-void ModelImporter::ImportModel(const aiScene* scene, YAML::Node& ticket, const std::filesystem::path& model_path)
+void ModelImporter::ImportModel(const aiScene* scene, YAML::Node& ticket)
 {
     MeshImporter mesh_importer;
     TextureImporter texture_importer;
@@ -51,7 +51,7 @@ void ModelImporter::ImportModel(const aiScene* scene, YAML::Node& ticket, const 
         {
             aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
             material_uuid = UUID::GenerateUUIDv4();
-            texture_importer.ImportMaterial(material, material_uuid, model_path);
+            texture_importer.ImportMaterial(material, material_uuid);
         }
 
         mesh_uuid = UUID::GenerateUUIDv4();

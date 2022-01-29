@@ -2,6 +2,7 @@
 #include "TextureImporter.h"
 #include "Application.h"
 #include "modules/ModuleTexture.h"
+#include "modules/ModuleResources.h"
 
 #include <filesystem>
 #include <fstream>
@@ -33,25 +34,26 @@ void TextureImporter::SaveToFile(YAML::Node& ticket, const std::string& file_nam
     fout << ticket;
 }
 
-void BoxerEngine::TextureImporter::ImportMaterial(aiMaterial* material, const std::string& uuid, const std::filesystem::path& model_path)
+void BoxerEngine::TextureImporter::ImportMaterial(aiMaterial* material, const std::string& uuid)
 {
     YAML::Node material_ticket;
     material_ticket["id"] = uuid;
-    ImportTexturesByType(material, aiTextureType::aiTextureType_DIFFUSE, material_ticket, model_path);
-    ImportTexturesByType(material, aiTextureType::aiTextureType_SPECULAR, material_ticket, model_path);
-    ImportTexturesByType(material, aiTextureType::aiTextureType_NORMALS, material_ticket, model_path);
-    ImportTexturesByType(material, aiTextureType::aiTextureType_AMBIENT_OCCLUSION, material_ticket, model_path);
+    ImportTexturesByType(material, aiTextureType::aiTextureType_DIFFUSE, material_ticket);
+    ImportTexturesByType(material, aiTextureType::aiTextureType_SPECULAR, material_ticket);
+    ImportTexturesByType(material, aiTextureType::aiTextureType_NORMALS, material_ticket);
+    ImportTexturesByType(material, aiTextureType::aiTextureType_AMBIENT_OCCLUSION, material_ticket);
     SaveToFile(material_ticket, uuid);
 }
 
-void BoxerEngine::TextureImporter::ImportTexturesByType(aiMaterial* material, aiTextureType type, YAML::Node& ticket, const std::filesystem::path& model_path)
+void BoxerEngine::TextureImporter::ImportTexturesByType(aiMaterial* material, aiTextureType type, YAML::Node& ticket)
 {
     for (unsigned int i = 0; i < material->GetTextureCount(type); i++)
     {
         aiString str;
         material->GetTexture(type, i, &str);
-        FindTextureLocation(str.C_Str(), model_path.string().c_str());
-        ticket["texture"][TextureTypeToString(type)][i]["texture_name"] = str.C_Str();
+        FindTextureLocation(str.C_Str());
+        std::filesystem::path texture_path(str.C_Str());
+        ticket["texture"][TextureTypeToString(type)][i]["texture_name"] = texture_path.filename().string();
     }
 }
 
@@ -102,45 +104,39 @@ std::string BoxerEngine::TextureImporter::TextureTypeToString(aiTextureType type
     }
 }
 
-std::filesystem::path BoxerEngine::TextureImporter::FindTextureLocation(const char* texture, const char* model_path)
+std::filesystem::path BoxerEngine::TextureImporter::FindTextureLocation(const char* texture)
 {
-    const std::filesystem::path textPath = texture;
-    std::filesystem::path relativePath;
+    const std::filesystem::path texture_path = texture;
+    std::filesystem::path relative_path = App->resources->GetLastResourceLoadedPath().parent_path().append(texture_path.filename().string());
     std::string output_path;
     preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
 
-    if (model_path)
-    {
-        const std::filesystem::path model = model_path;
-        relativePath = BoxerEngine::StringUtils::Concat(model.string(), "./", texture);
-    }
-
-    // First check if texture is already loaded in assets folder
     
-    const std::filesystem::path projectTexture = 
-        preferences->GetAssetsPath(BoxerEngine::ResourceType::TEXTURE) + textPath.filename().string();
+    // First check if texture is already loaded in assets folder
+    const std::filesystem::path project_texture_path = 
+        preferences->GetAssetsPath(BoxerEngine::ResourceType::TEXTURE) + texture_path.filename().string();
 
-    if (BoxerEngine::Files::IsValidFilePath(projectTexture))
+    if (BoxerEngine::Files::IsValidFilePath(project_texture_path))
     {
-        output_path = projectTexture.string();
+        output_path = project_texture_path.string();
     }
     //use path in model. If succed notify the event
     else if (BoxerEngine::Files::IsValidFilePath(texture))
     {
-        AddFileToAssetsFolder(texture);
+        NotifyAddedFile(texture);
         output_path = texture;
     }
     //use relative path to model. If succed notify the event
-    else if (BoxerEngine::Files::IsValidFilePath(absolute(relativePath)))
+    else if (BoxerEngine::Files::IsValidFilePath(relative_path))
     {
-        AddFileToAssetsFolder(relativePath.string().c_str());
-        output_path = absolute(relativePath).string();
+        NotifyAddedFile(relative_path.string().c_str());
+        output_path = relative_path.string();
     }
 
     return output_path;
 }
 
-void BoxerEngine::TextureImporter::AddFileToAssetsFolder(const char* path)
+void BoxerEngine::TextureImporter::NotifyAddedFile(const char* path)
 {
     BoxerEngine::Event fileDropped(BoxerEngine::Event::Type::FILE_ADDED);
     fileDropped.SetEventData<BoxerEngine::FileAddedEventPayload>(path);

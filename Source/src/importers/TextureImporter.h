@@ -19,11 +19,11 @@ namespace BoxerEngine
 		void SaveToFile(YAML::Node& ticket, const std::string& file_name) override;
 	
 	private:
-		void ImportMaterial(aiMaterial* material, const std::string& uuid, const std::filesystem::path& model_path);
-		void ImportTexturesByType(aiMaterial* material, aiTextureType type, YAML::Node& ticket, const std::filesystem::path& model_path);
+		void ImportMaterial(aiMaterial* material, const std::string& uuid);
+		void ImportTexturesByType(aiMaterial* material, aiTextureType type, YAML::Node& ticket);
 		std::string TextureTypeToString(aiTextureType type);
-		std::filesystem::path FindTextureLocation(const char* texture, const char* model_path);
-		void AddFileToAssetsFolder(const char* path);
+		std::filesystem::path FindTextureLocation(const char* texture);
+		void NotifyAddedFile(const char* path);
 	};
 }
 
