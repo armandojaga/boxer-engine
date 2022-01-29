@@ -347,3 +347,7 @@ Source/.idea/
 
 # ImGui
 Game/imgui.ini
+
+# Boxer Engine
+Game/data/config/be.cfg
+Game/library/*

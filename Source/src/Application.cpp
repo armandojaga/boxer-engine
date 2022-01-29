@@ -10,6 +10,7 @@
 #include "modules/ModuleDebugDraw.h"
 #include "modules/ModuleEditor.h"
 #include "modules/ModuleResources.h"
+#include "modules/ModuleImporter.h"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ Application::Application()
     modules.push_back(renderer = new ModuleRender());
     modules.push_back(program = new ModuleProgram());
     modules.push_back(resources = new ModuleResources());
+    modules.push_back(importer = new ModuleImporter());
     modules.push_back(camera = new ModuleCamera());
     modules.push_back(scene = new ModuleScene());
     modules.push_back(debug_draw = new ModuleDebugDraw());

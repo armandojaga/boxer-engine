@@ -14,6 +14,7 @@ namespace BoxerEngine
             CAMERA,
             GAME,
             RENDER,
+            RESOURCES,
             COUNT // to know how many they are
         };
 

@@ -4,37 +4,23 @@
 
 #include <vector>
 #include <string>
-
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include <yaml-cpp/yaml.h>
 
 class Model
 {
 public:
-    Model() = default;
-    Model(const char* file);
-    ~Model() = default;
+    Model(const char* model_name);
+    Model(Model&) = default;
+    Model(Model&&) = default;
+    ~Model();
 
     void Draw() const;
 
-    [[nodiscard]] bool IsValid() const { return (!directory.empty() && meshes.size() != 0 && textures_loaded.size() != 0); }
-    [[nodiscard]] const std::vector<Mesh>& GetMeshes() const { return meshes; }
-    [[nodiscard]] const std::string& GetDirectory() const { return directory; }
-
-    [[nodiscard]] const float3& GetOrigin() const { return position; }
-    void SetOrigin(const float3& origin) { position = origin; }
+private:
+    std::string id;
+    std::string path;
+    std::vector<std::string> mesh_ids{}; // TODO: consider using const char[36] as uuid is fixed lenght
+    std::vector<Mesh*> meshes{};
 
     void Load(const char* file);
-
-private:
-    // model data
-    std::vector<Mesh> meshes{};
-    std::string directory;
-    std::vector<Texture> textures_loaded{};
-    float3 position;
-
-    void ProcessNode(aiNode* node, const aiScene* scene);
-    Mesh ProcessMesh(aiMesh* mesh, const aiScene* scene);
-    std::vector<Texture> LoadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
 };

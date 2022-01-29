@@ -3,41 +3,20 @@
 #include "core/util/UUID.h"
 #include "Math/float3x3.h"
 
+//event payloads created here because std::variant does not like forward declarations
+#include "SelectionChangeEventPayload.h"
+#include "TransformChangedEventPayload.h"
+#include "FileAddedEventPayload.h"
+#include "AssetsChangedEventPayload.h"
+
 namespace BoxerEngine
 {
-    //event payloads created here because std::variant does not like forward declarations
-    struct SelectionChangedEventPayload
-    {
-        explicit SelectionChangedEventPayload(Entity* selected): selected(selected)
-        {
-        }
-
-        [[nodiscard]] Entity* GetSelected() const
-        {
-            return selected;
-        }
-
-    private:
-        Entity* selected;
-    };
-
-    struct TransformChangedEventPayload
-    {
-        TransformChangedEventPayload(const float3x3& transform): transform(transform)
-        {
-        }
-
-        [[nodiscard]] float3x3 GetTransform() const
-        {
-            return transform;
-        }
-
-    private:
-        float3x3 transform;
-    };
-
     //std::monostate is added just so we can have an empty std::variant
-    using EventData = std::variant<std::monostate, SelectionChangedEventPayload, TransformChangedEventPayload>;
+    using EventData = std::variant<std::monostate,
+        SelectionChangedEventPayload,
+        TransformChangedEventPayload,
+        FileAddedEventPayload, 
+        AssetsChangedEventPayload>;
 
     class Event
     {
@@ -47,7 +26,9 @@ namespace BoxerEngine
             UNDEFINED = 0,
             SELECTION_CHANGED,
             TRANSFORM_CHANGED,
-            MAX
+            FILE_ADDED,
+            ASSETS_CHANGED,
+            COUNT
         };
 
         explicit Event(Type type);

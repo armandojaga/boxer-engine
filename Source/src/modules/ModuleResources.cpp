@@ -2,12 +2,31 @@
 
 #include "Application.h"
 #include "ModuleRender.h"
-#include "core/util/Files.h"
-// #include <algorithm>
+#include "core/events/EventManager.h"
+
+using namespace BoxerEngine;
 
 bool ModuleResources::Init()
 {
-    return Module::Init();
+    preferences = static_cast<BoxerEngine::ResourcesPreferences*>
+        (App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
+    
+    // create library directory tree
+    for (int i = 0; i < (int)ResourceType::UNKNOWN; ++i)
+    {
+        file_manager.CreatePathIfNew(preferences->GetLibraryPath(static_cast<ResourceType>(i)));
+    }
+    
+        std::function handleAddedFile = [&](Event& evt)
+    {
+        const auto& e = evt.GetEventData<FileAddedEventPayload>();
+        std::filesystem::path file = e.GetPath();
+        BE_LOG("Handling dropped file: %s", file.string().c_str());
+        HandleResource(file);
+    };
+    EventManager::GetInstance().Subscribe(Event::Type::FILE_ADDED, handleAddedFile);
+
+    return true;
 }
 
 bool ModuleResources::CleanUp()
@@ -15,18 +34,28 @@ bool ModuleResources::CleanUp()
     return Module::CleanUp();
 }
 
-void ModuleResources::HandleResource(const char* path)
+std::filesystem::path ModuleResources::GetLastResourceLoadedPath() const
+{
+    return last_resource_path;
+}
+
+void ModuleResources::HandleResource(const std::filesystem::path& path)
 {
     ResourceType type = GetType(path);
-    switch (type)
+    if (type == ResourceType::UNKNOWN)
     {
-    case ResourceType::MODEL:
-        App->renderer->LoadModel(path);
-        break;
-    // case ResourceType::TEXTURE:
-    //
-    //     break;
+        BE_LOG("Unknown resource type recevied, nothing to be done");
+        return;
     }
+    std::filesystem::path destination = preferences->GetAssetsPath(type);
+
+    if (file_manager.CopyNew(path, destination.append(path.filename().c_str())))
+    {
+        last_resource_path = path;
+        HandleAssetsChanged(destination, type);
+    }
+
+    BE_LOG("File destination: %s", destination.string().c_str());
 }
 
 ResourceType ModuleResources::GetType(const std::filesystem::path& path)
@@ -50,4 +79,11 @@ ResourceType ModuleResources::GetType(const std::filesystem::path& path)
         return it->first;
     }
     return ResourceType::UNKNOWN;
+}
+
+void ModuleResources::HandleAssetsChanged(const std::filesystem::path& asset_path, const ResourceType asset_type)
+{
+    BoxerEngine::Event assetChanged(BoxerEngine::Event::Type::ASSETS_CHANGED);
+    assetChanged.SetEventData<BoxerEngine::AssetsChangedEventPayload>(asset_path, asset_type);
+    BoxerEngine::EventManager::GetInstance().Publish(assetChanged);
 }

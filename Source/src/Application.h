@@ -18,6 +18,7 @@ class ModuleEditor;
 class ModuleRender;
 class ModuleScene;
 class ModuleDebugDraw;
+class ModuleImporter;
 
 class Application
 {
@@ -33,6 +34,7 @@ public:
     ModuleWindow* window = nullptr;
     ModuleInput* input = nullptr;
     ModuleResources* resources = nullptr;
+    ModuleImporter* importer = nullptr;
     ModuleProgram* program = nullptr;
     ModuleTexture* textures = nullptr;
     ModuleCamera* camera = nullptr;
@@ -40,6 +42,7 @@ public:
     ModuleRender* renderer = nullptr;
     ModuleDebugDraw* debug_draw = nullptr;
     ModuleEditor* editor = nullptr;
+
 
     std::unique_ptr<BoxerEngine::Statistics> statistics;
     std::unique_ptr<BoxerEngine::PreferenceManager> preferences;

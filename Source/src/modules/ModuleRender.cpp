@@ -61,7 +61,6 @@ bool ModuleRender::Init()
 
     SDL_GetWindowSize(App->window->window, &width, &height);
     frame_buffer = new BoxerEngine::FrameBuffer(width, height);
-    model = new Model();
 
     prefs = static_cast<BoxerEngine::EditorPreferences*>(App->preferences->GetEditorPreferences());
 
@@ -86,12 +85,12 @@ bool ModuleRender::Init()
     };
     BoxerEngine::EventManager::GetInstance().Subscribe(BoxerEngine::Event::Type::SELECTION_CHANGED, setActiveEntity);
 
+    model = new Model("./library/models/BakerHouse");
     return true;
 }
 
 bool ModuleRender::Start()
 {
-    model->Load(BoxerEngine::StringUtils::Concat(ASSETS_PATH, MODELS_DIR, "BakerHouse.fbx").c_str());
     return true;
 }
 

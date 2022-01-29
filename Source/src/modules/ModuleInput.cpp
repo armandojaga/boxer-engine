@@ -8,6 +8,7 @@
 #include "imgui_impl_sdl.h"
 #include "ModuleResources.h"
 #include "core/util/Files.h"
+#include "core/events/EventManager.h"
 
 constexpr int MAX_KEYS = 300;
 
@@ -100,7 +101,9 @@ update_status ModuleInput::PreUpdate(float delta)
 
         case SDL_DROPFILE:
             {
-                App->resources->HandleResource(sdlEvent.drop.file);
+                BoxerEngine::Event fileDropped(BoxerEngine::Event::Type::FILE_ADDED);
+                fileDropped.SetEventData<BoxerEngine::FileAddedEventPayload>(sdlEvent.drop.file);
+                BoxerEngine::EventManager::GetInstance().Publish(fileDropped);
             }
             break;
 

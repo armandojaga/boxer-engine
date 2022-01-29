@@ -8,6 +8,12 @@
 
 struct Vertex
 {
+    Vertex(const float3& pos, const float3& norm, const float2& tex)
+        : position(pos)
+        , normal(norm)
+        , tex_coords(tex)
+    {}
+
     float3 position;
     float3 normal;
     float2 tex_coords;
@@ -15,16 +21,22 @@ struct Vertex
 
 struct Texture
 {
-    unsigned int id{};
+    Texture(const unsigned int id, const std::string& type, const std::string& name)
+        : id(id)
+        , type(type)
+        , name(name)
+    {}
+
+    unsigned int id;
     std::string type;
-    std::string path;
+    std::string name;
 };
 
 class Mesh
 {
 public:
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
-    Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, float3 minPoint, float3 maxPoint);
+    Mesh(const char* file_path);
+    ~Mesh();
     void Draw() const;
 
     [[nodiscard]] size_t GetNumVertices() const { return vertices.size(); }
@@ -33,10 +45,14 @@ public:
 
 private:
     // mesh data
+    std::string id;
+    std::string material_id;
+    float3 min_point;
+    float3 max_point;
+
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<Texture> textures;
-    std::unique_ptr<BoxerEngine::BoundingBox> bounding_box;
 
     //  render data
     unsigned int VAO;
@@ -44,4 +60,6 @@ private:
     unsigned int EBO;
 
     void SetupMesh();
+    void Load(const char* mesh_data);
+    void LoadTextureData(const char* texture_path, const char* material_id);
 };

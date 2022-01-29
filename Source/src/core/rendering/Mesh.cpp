@@ -2,27 +2,134 @@
 #include "Globals.h"
 #include "GL/glew.h"
 
+#include <filesystem>
+
 #include "Application.h"
 #include "modules/ModuleProgram.h"
+#include "modules/ModuleTexture.h"
+#include "core/util/Yaml.h"
+#include "core/preferences/PreferenceManager.h"
+#include "core/preferences/editor/ResourcesPreferences.h"
 
-Mesh::Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex)
+Mesh::Mesh(const char* file_path)
 {
-    vertices = ver;
-    indices = ind;
-    textures = tex;
-    bounding_box = std::make_unique<BoxerEngine::BoundingBox>();
-
+    Load(file_path);
     SetupMesh();
 }
 
-Mesh::Mesh(std::vector<Vertex> ver, std::vector<unsigned int> ind, std::vector<Texture> tex, float3 minPoint, float3 maxPoint)
+Mesh::~Mesh()
 {
-    vertices = ver;
-    indices = ind;
-    textures = tex;
-    bounding_box = std::make_unique<BoxerEngine::BoundingBox>(BoxerEngine::BB_TYPE::AABB, minPoint, maxPoint);
+    //for (auto vertex : vertices)
+    //{
+    //    delete vertex;
+    //}
+    //for (auto texture : textures)
+    //{
+    //    delete texture;
+    //}
+}
 
-    SetupMesh();
+void Mesh::Load(const char* mesh_data)
+{
+    BE_LOG("Loading Mesh: %s", mesh_data);
+    YAML::Node mesh_node = YAML::LoadFile(mesh_data);
+
+    for (auto it = mesh_node.begin(); it != mesh_node.end(); ++it)
+    {
+        if (it->first.as<std::string>()._Equal("mesh_id"))
+        {
+            id = it->second.as<std::string>();
+        }
+
+        if (it->first.as<std::string>()._Equal("material"))
+        {
+            material_id = it->second.as<std::string>();
+        }
+
+        if (it->first.as<std::string>()._Equal("min_point"))
+        {
+            min_point.x = it->second["x"].as<float>();
+            min_point.y = it->second["y"].as<float>();
+            min_point.z = it->second["z"].as<float>();
+        }
+
+        if (it->first.as<std::string>()._Equal("max_point"))
+        {
+            max_point.x = it->second["x"].as<float>();
+            max_point.y = it->second["y"].as<float>();
+            max_point.z = it->second["z"].as<float>();
+        }
+    }
+
+    // We iterate throughout vertices as the number of indices must match
+    // with normals and texture coordinates
+    vertices.reserve(mesh_node["vertices"].size());
+    for (int index = 0; index < mesh_node["vertices"].size(); ++index)
+    {
+        float3 position;
+        YAML::Node node = mesh_node["vertices"][index];
+        BoxerEngine::Yaml::ToFloat3(node, position);
+
+        float3 normal;
+        node = mesh_node["normals"][index];
+        BoxerEngine::Yaml::ToFloat3(node, normal);
+
+        float2 tex_coords;
+        node = mesh_node["texture_coords"][index];
+        BoxerEngine::Yaml::ToFloat2(node, tex_coords);
+
+        vertices.push_back(Vertex(position, normal, tex_coords));
+    }
+
+    indices.reserve(mesh_node["indices"].size() * 3);
+    for (int i = 0; i < mesh_node["indices"].size(); ++i)
+    {
+        indices.push_back(mesh_node["indices"][i][0].as<int>());
+        indices.push_back(mesh_node["indices"][i][1].as<int>());
+        indices.push_back(mesh_node["indices"][i][2].as<int>());
+    }
+
+    // Go for the textures
+    LoadTextureData(mesh_data, mesh_node["material"].as<std::string>().c_str());
+}
+
+void Mesh::LoadTextureData(const char* mesh_path, const char* material_id)
+{
+    BoxerEngine::ResourcesPreferences* preferences =
+        static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+
+    std::filesystem::path tex_path = preferences->GetLibraryPath(BoxerEngine::ResourceType::TEXTURE);
+    YAML::Node texture_node = YAML::LoadFile(tex_path.append(material_id).string().c_str());
+
+    textures.reserve(texture_node["texture"].size());
+    for (auto texture : texture_node["texture"])
+    {
+        std::string name;
+        std::string type;
+        unsigned int texture_id;
+
+        if (texture.first.as<std::string>()._Equal("diffuse"))
+        {
+            for (int i = 0; i < texture.second.size(); ++i)
+            {
+                name = texture.second[i]["texture_name"].as<std::string>();
+                type = "texture_diffuse";
+                texture_id = App->textures->Load(name.c_str());
+                textures.push_back(Texture(texture_id, type, name));
+            }
+        }
+
+        if (texture.first.as<std::string>()._Equal("specular"))
+        {
+            for (int i = 0; i < texture.second.size(); ++i)
+            {
+                name = texture.second[i]["texture_name"].as<std::string>();
+                texture_id = App->textures->Load(name.c_str());
+                type = "texture_specular";
+                textures.push_back(Texture(texture_id, type, name));
+            }
+        }
+    }
 }
 
 void Mesh::SetupMesh()
@@ -36,7 +143,7 @@ void Mesh::SetupMesh()
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
-                 &indices[0], GL_STATIC_DRAW);
+        &indices[0], GL_STATIC_DRAW);
 
     // Vertex positions
     glEnableVertexAttribArray(0);
@@ -79,6 +186,4 @@ void Mesh::Draw() const
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
-
-    bounding_box->Draw();
 }

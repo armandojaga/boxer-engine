@@ -24,8 +24,8 @@ namespace BoxerEngine
             COUNT
         };
 
-        explicit Component(Entity*);
-        explicit Component(Type, Entity*);
+        explicit Component(Entity* parent);
+        explicit Component(const Type type, Entity* parent);
         virtual ~Component() = default;
 
         virtual void Init();

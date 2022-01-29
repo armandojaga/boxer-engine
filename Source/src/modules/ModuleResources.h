@@ -5,28 +5,29 @@
 #include <vector>
 
 #include "Module.h"
-
-enum class ResourceType
-{
-    MODEL = 1,
-    TEXTURE,
-    AUDIO,
-    VIDEO,
-    SCRIPT,
-    UNKNOWN
-};
+#include "core/preferences/editor/ResourcesPreferences.h"
+#include "core/file system/FileManager.h"
 
 class ModuleResources : public Module
 {
 private:
-    std::vector<std::pair<ResourceType, std::string>> supported_extensions = {
-        {ResourceType::TEXTURE, ".png"},
-        {ResourceType::MODEL, ".fbx"}
+    std::vector<std::pair<BoxerEngine::ResourceType, std::string>> supported_extensions = {
+        {BoxerEngine::ResourceType::TEXTURE, ".png"},
+        {BoxerEngine::ResourceType::TEXTURE, ".tif"},
+        {BoxerEngine::ResourceType::MODEL, ".fbx"},
+        {BoxerEngine::ResourceType::SCENE, ".beta"}
     };
+    BoxerEngine::ResourcesPreferences* preferences = nullptr;
+    BoxerEngine::FileManager file_manager;
+    std::filesystem::path last_resource_path; // TODO: This will track every resource, his type and path loaded
+
+    void HandleAssetsChanged(const std::filesystem::path& asset,const BoxerEngine::ResourceType asset_type);
+    void HandleResource(const std::filesystem::path& path);
+    BoxerEngine::ResourceType GetType(const std::filesystem::path& file);
 public:
     bool Init() override;
     bool CleanUp() override;
 
-    void HandleResource(const char* path);
-    ResourceType GetType(const std::filesystem::path& file);
+    [[nodiscard]] std::filesystem::path GetLastResourceLoadedPath() const;
+
 };
