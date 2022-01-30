@@ -3,6 +3,8 @@
 
 #include "components/LightComponent.h"
 #include "components/CameraComponent.h"
+#include "components/MeshComponent.h"
+#include "components/ModelComponent.h"
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
 #include "modules/ModuleEditor.h"
@@ -94,6 +96,7 @@ void BoxerEngine::InspectorPanel::Update()
     {
         ADD_COMPONENT(LightComponent, "Light");
         ADD_COMPONENT(CameraComponent, "Camera");
+        ADD_COMPONENT(MeshComponent, "Mesh");
 
         ImGui::EndPopup();
     }

@@ -28,8 +28,13 @@ namespace BoxerEngine
 	class MeshComponent final : public Component
 	{
     public:
+        inline static Type type = Type::MESH;
+
 		explicit MeshComponent(Entity* parent);
 		~MeshComponent() override = default;
+
+        void UpdateUI() override;
+        [[nodiscard]] const char* GetName() const override;
 
     private:
         // mesh data
