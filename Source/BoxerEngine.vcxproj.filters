@@ -315,6 +315,9 @@
     <ClCompile Include="src\importers\TextureImporter.cpp">
       <Filter>Importers</Filter>
     </ClCompile>
+    <ClCompile Include="vendors\ImGuiFileDialog\ImGuiFileDialog.cpp">
+      <Filter>Vendors\ImGuiFileDialog</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1460,6 +1463,21 @@
     <ClInclude Include="src\importers\TextureImporter.h">
       <Filter>Importers</Filter>
     </ClInclude>
+    <ClInclude Include="vendors\ImGuiFileDialog\ImGuiFileDialog.h">
+      <Filter>Vendors\ImGuiFileDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuiFileDialog\ImGuiFileDialogConfig.h">
+      <Filter>Vendors\ImGuiFileDialog</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuiFileDialog\dirent\dirent.h">
+      <Filter>Vendors\ImGuiFileDialog\dirent</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuiFileDialog\stb\stb_image.h">
+      <Filter>Vendors\ImGuiFileDialog\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="vendors\ImGuiFileDialog\stb\stb_image_resize.h">
+      <Filter>Vendors\ImGuiFileDialog\stb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
@@ -1593,6 +1611,15 @@
     </Filter>
     <Filter Include="Importers">
       <UniqueIdentifier>{ded1989f-1adc-41cc-b7ed-9e68998a5845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\ImGuiFileDialog">
+      <UniqueIdentifier>{1664ba0f-8529-4dc2-b825-07ed720014fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\ImGuiFileDialog\stb">
+      <UniqueIdentifier>{b4c77d4f-074f-4c4d-8dc7-903e3681a86c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendors\ImGuiFileDialog\dirent">
+      <UniqueIdentifier>{e9c92902-9ee4-4cdb-b9e8-481d875b7993}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
