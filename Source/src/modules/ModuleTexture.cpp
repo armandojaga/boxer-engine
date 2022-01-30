@@ -1,9 +1,10 @@
 #include "ModuleTexture.h"
 #include "Application.h"
 
-#include "IL/il.h"
-#include "IL/ilu.h"
-#include "GL/glew.h"
+#include <algorithm>
+#include <IL/il.h>
+#include <IL/ilu.h>
+#include <GL/glew.h>
 
 #include "core/util/Files.h"
 #include "core/util/StringUtils.h"
@@ -29,15 +30,29 @@ bool ModuleTexture::CleanUp()
 
 unsigned int ModuleTexture::Load(const char* texture_name)
 {
+    auto texture = textures_loaded.find(texture_name);
+    if (texture != textures_loaded.end())
+    {
+        return texture->second;
+    }
+
+    unsigned int tex_id = LoadNew(texture_name);
+
+    textures_loaded.emplace(texture_name, tex_id);
+
+    return tex_id;
+}
+
+unsigned int ModuleTexture::LoadNew(const char* texture_name)
+{
     unsigned int textureId(INVALID_ID);
     unsigned int image{};
-
     BoxerEngine::ResourcesPreferences* preferences =
         static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
-    
+
     std::string texture_path(preferences->GetAssetsPath(BoxerEngine::ResourceType::TEXTURE));
     texture_path.append(texture_name);
-    
+
     // TODO: We need to validate if the texture was already loaded into openGl
     ilGenImages(1, &image);
     ilBindImage(image);
@@ -65,3 +80,5 @@ unsigned int ModuleTexture::Load(const char* texture_name)
     ilDeleteImages(1, &image);
     return textureId;
 }
+
+

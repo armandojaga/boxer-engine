@@ -3,27 +3,16 @@
 
 #include <string>
 #include <vector>
+
 #include "Math/float3.h"
 #include "Math/float2.h"
+
 #include "core/rendering/BoundingBox.h"
+#include "core/rendering/Model.h"
 
 namespace BoxerEngine
 {
-    struct Vertex
-    {
-        float3 position;
-        float3 normal;
-        float2 tex_coords;
-    };
-
-    struct Texture
-    {
-        unsigned int id{};
-        std::string type;
-        std::string path;
-    };
-
-    class Entity;
+class Entity;
 
 	class MeshComponent final : public Component
 	{
@@ -31,26 +20,18 @@ namespace BoxerEngine
         inline static Type type = Type::MESH;
 
 		explicit MeshComponent(Entity* parent);
-		~MeshComponent() override = default;
+		~MeshComponent() override;
 
         void UpdateUI() override;
+        void Update() override;
         [[nodiscard]] const char* GetName() const override;
 
+		void Draw();
     private:
-        // mesh data
-        std::vector<Vertex*> vertices;
-        std::vector<unsigned int> indices;
-        std::vector<Texture*> textures;
-        std::unique_ptr<BoxerEngine::BoundingBox> bounding_box;
+		bool loaded = false;
+		BoxerEngine::Model* Model = nullptr;
 
-        //  render data
-        unsigned int VAO;
-        unsigned int VBO;
-        unsigned int EBO;
-
-        void SetupMesh();
+		void DisplayLoadedUI();
+		void DisplayNotLoadedUI();
 	};
-
-
 }
-

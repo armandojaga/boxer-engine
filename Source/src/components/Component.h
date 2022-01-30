@@ -16,6 +16,7 @@ namespace BoxerEngine
             LIGHT,
             CAMERA,
             MESH,
+            MODEL,
             MATERIAL,
             BOUNDING_BOX,
             AUDIO,

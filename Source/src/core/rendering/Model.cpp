@@ -2,9 +2,12 @@
 #include "Globals.h"
 #include "Application.h"
 
-#include <yaml-cpp/yaml.h>
 #include "core/preferences/PreferenceManager.h"
 #include "core/preferences/editor/ResourcesPreferences.h"
+#include "core/util/Files.h"
+#include "core/util/StringUtils.h"
+
+using namespace BoxerEngine;
 
 Model::Model(const char* model_name)
 {
@@ -14,28 +17,37 @@ Model::Model(const char* model_name)
 void Model::Load(const char* model_name)
 {
     BE_LOG("Loading Model: %s", model_name);
+
     BoxerEngine::ResourcesPreferences* preferences = 
         static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
-    std::string library_path(preferences->GetLibraryPath(BoxerEngine::ResourceType::MESH));
-    YAML::Node model_data = YAML::LoadFile(model_name);
+    std::string meshes_library_path(preferences->GetLibraryPath(BoxerEngine::ResourceType::MESH));
+    std::string models_library_path(preferences->GetLibraryPath(BoxerEngine::ResourceType::MODEL));
+    
+    models_library_path.append(model_name);
+    if (!Files::IsValidFilePath(models_library_path))
+    {
+        return;
+    }
+
+    YAML::Node model_data = YAML::LoadFile(models_library_path);
 
     for (auto it = model_data.begin(); it != model_data.end(); ++it)
     {
         if (it->first.as<std::string>()._Equal("id"))
         {
-            id = it->second.as<std::string>();
+            id = std::move(it->second.as<std::string>());
         }
 
         if (it->first.as<std::string>()._Equal("file_path"))
         {
-            path = it->second.as<std::string>();
+            path = std::move(it->second.as<std::string>());
         }
     }
 
     mesh_ids.reserve(model_data["mesh"].size());
     for (int i = 0; i < model_data["mesh"].size(); ++i)
     {
-        mesh_ids.push_back(model_data["mesh"][i]["id"].as<std::string>());
+        mesh_ids.emplace_back(model_data["mesh"][i]["id"].as<std::string>());
     }
     
     if (mesh_ids.size() == 0)
@@ -44,9 +56,8 @@ void Model::Load(const char* model_name)
     }
     for (auto id : mesh_ids)
     {
-        std::string mesh_path = library_path;
-        mesh_path.append(id);
-        meshes.push_back(new Mesh(mesh_path.c_str()));
+        std::string mesh_path = BoxerEngine::StringUtils::Concat(preferences->GetLibraryPath(BoxerEngine::ResourceType::MESH), id);
+        meshes.emplace_back(new Mesh(mesh_path.c_str()));
     }
 }
 
@@ -66,3 +77,19 @@ void Model::Draw() const
     }
 }
 
+void BoxerEngine::Model::SetTransform()
+{
+}
+
+void BoxerEngine::Model::SetMeshTexture(const char* mesh_id, const int texture_id, const char* texture_type)
+{
+    for (auto mesh : meshes)
+    {
+        mesh->SetTexture(texture_id, texture_type);
+        //if (mesh_id == mesh->GetId())
+        //{
+        //    mesh->SetTexture(texture_id, texture_type);
+        //    return;
+        //}
+    }
+}

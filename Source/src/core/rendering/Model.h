@@ -6,21 +6,28 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 
-class Model
+namespace BoxerEngine
 {
-public:
-    Model(const char* model_name);
-    Model(Model&) = default;
-    Model(Model&&) = default;
-    ~Model();
+    class Model
+    {
+    public:
+        Model(const char* model_name);
+        Model(Model&) = default;
+        Model(Model&&) = default;
+        ~Model();
 
-    void Draw() const;
+        void Draw() const;
+        [[nodiscard]] const char* GetPath() const { return path.c_str(); }
+        [[nodiscard]] unsigned int GetMeshesCount() const { return meshes.size(); }
 
-private:
-    std::string id;
-    std::string path;
-    std::vector<std::string> mesh_ids{}; // TODO: consider using const char[36] as uuid is fixed lenght
-    std::vector<Mesh*> meshes{};
+        void SetTransform();
+        void SetMeshTexture(const char* mesh_id, const int texture_id, const char* texture_type);
+    private:
+        std::string id;
+        std::string path;
+        std::vector<std::string> mesh_ids{};
+        std::vector<Mesh*> meshes{};
 
-    void Load(const char* file);
-};
+        void Load(const char* file);
+    };
+}

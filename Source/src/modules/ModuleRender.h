@@ -25,7 +25,7 @@ public:
     void Resize(int width, int height);
     [[nodiscard]] void* GetContext() const;
 
-    [[nodiscard]] const Model* GetModel() const
+    [[nodiscard]] const BoxerEngine::Model* GetModel() const
     {
         return model;
     }
@@ -38,7 +38,7 @@ public:
     void LoadModel(const char* filPath)
     {
         delete model;
-        model = new Model(filPath);
+        model = new BoxerEngine::Model(filPath);
     }
 
 private:
@@ -46,6 +46,6 @@ private:
     int width{}, height{};
     BoxerEngine::FrameBuffer* frame_buffer;
     BoxerEngine::EditorPreferences* prefs = nullptr;
-    Model* model = nullptr;
+    BoxerEngine::Model* model = nullptr;
     BoxerEngine::Entity* active_entity = nullptr;
 };
