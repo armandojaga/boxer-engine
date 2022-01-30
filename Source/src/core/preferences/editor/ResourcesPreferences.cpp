@@ -16,86 +16,86 @@ void ResourcesPreferences::SetConfigurationData(const YAML::Node& node)
         // Assets path
         if (it->first.as<std::string>()._Equal("scene_assets"))
         {
-            scene_assets = it->second.as<std::string>();
+            scene_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("models_assets"))
         {
-            models_assets = it->second.as<std::string>();
+            models_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("meshes_assets"))
         {
-            meshes_assets = it->second.as<std::string>();
+            meshes_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("textures_assets"))
         {
-            textures_assets = it->second.as<std::string>();
+            textures_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("audio_assets"))
         {
-            audio_assets = it->second.as<std::string>();
+            audio_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("video_assets"))
         {
-            video_assets = it->second.as<std::string>();
+            video_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("script_assets"))
         {
-            script_assets = it->second.as<std::string>();
+            script_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
         // Library path
         if (it->first.as<std::string>()._Equal("scene_library"))
         {
-            meshes_library = it->second.as<std::string>();
+            meshes_library = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("models_library"))
         {
-            models_library = it->second.as<std::string>();
+            models_library = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("meshes_library"))
         {
-            meshes_library = it->second.as<std::string>();
+            meshes_library = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("textures_library"))
         {
-            textures_library = it->second.as<std::string>();
+            textures_library = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("audio_library"))
         {
-            audio_library = it->second.as<std::string>();
+            audio_library = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("video_library"))
         {
-            video_library = it->second.as<std::string>();
+            video_library = std::move(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("script_library"))
         {
-            script_library = it->second.as<std::string>();
+            script_library = std::move(it->second.as<std::string>());
             continue;
         }
     }

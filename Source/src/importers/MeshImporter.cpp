@@ -32,11 +32,10 @@ void BoxerEngine::MeshImporter::SaveToFile(YAML::Node& ticket, const std::string
     std::ofstream fout(mesh_name);
     fout << ticket;
 }
-void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid, const std::string& material_id)
+void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid)
 {
     YAML::Node ticket;
     ticket["mesh_id"] = uuid;
-    ticket["material"] = material_id;
     PopulateTicket(mesh, ticket);
     SaveToFile(ticket, uuid);
 }

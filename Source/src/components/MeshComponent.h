@@ -27,11 +27,16 @@ class Entity;
         [[nodiscard]] const char* GetName() const override;
 
 		void Draw();
+		void Enable() { enabled = true; }
+		void Disable() { enabled = false; }
+
     private:
-		bool loaded = false;
+		bool model_loaded = false;
+		bool texture_loaded = false;
 		BoxerEngine::Model* Model = nullptr;
 
 		void DisplayLoadedUI();
 		void DisplayNotLoadedUI();
+		void AddTextureDisplay();
 	};
 }

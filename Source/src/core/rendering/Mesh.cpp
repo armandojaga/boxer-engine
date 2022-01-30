@@ -18,6 +18,7 @@ using namespace BoxerEngine;
 Mesh::Mesh(const char* file_path)
 {
     textures.reserve(MAX_TEXTURES_COUNT);
+    glBindTexture(GL_TEXTURE_2D,0);
     Load(file_path);
     SetupMesh();
 }

@@ -13,6 +13,8 @@ namespace BoxerEngine
 
 		void UpdateUI() override;
 		[[nodiscard]] const char* GetName() const override;
+	private:
+		Entity* parent;
 	};
 }
 
