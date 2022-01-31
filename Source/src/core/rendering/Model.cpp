@@ -81,15 +81,7 @@ void BoxerEngine::Model::SetTransform()
 {
 }
 
-void BoxerEngine::Model::SetMeshTexture(const char* mesh_id, const int texture_id, const char* texture_type)
+void BoxerEngine::Model::SetMeshTexture(const int mesh_index, const int texture_id, const char* texture_type)
 {
-    for (auto mesh : meshes)
-    {
-        mesh->SetTexture(texture_id, texture_type);
-        //if (mesh_id == mesh->GetId())
-        //{
-        //    mesh->SetTexture(texture_id, texture_type);
-        //    return;
-        //}
-    }
+    meshes[mesh_index]->SetTexture(texture_id, texture_type);
 }

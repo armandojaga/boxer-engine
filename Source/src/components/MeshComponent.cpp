@@ -3,9 +3,10 @@
 #include "modules/ModuleTexture.h"
 #include "Application.h"
 
-#include "../vendors/ImGuiFileDialog/ImGuiFileDialog.h"
 #include "core/util/Files.h"
 #include "core/util/StringUtils.h"
+
+static const char* types[]{ "Diffuse", "Specular"};
 
 BoxerEngine::MeshComponent::MeshComponent(Entity* parent)
 	: Component(Component::Type::MESH, parent)
@@ -14,6 +15,10 @@ BoxerEngine::MeshComponent::MeshComponent(Entity* parent)
 
 BoxerEngine::MeshComponent::~MeshComponent()
 {
+    for (auto mesh : meshes)
+    {
+        delete mesh;
+    }
     delete Model;
 }
 
@@ -55,11 +60,11 @@ void BoxerEngine::MeshComponent::DisplayLoadedUI()
     
     for (int i = 0; i <  Model->GetMeshesCount(); ++i)
     {
-        ImGui::TextWrapped(BoxerEngine::StringUtils::Concat(ICON_MD_ARROW_FORWARD_IOS," ", std::to_string(i), ":").c_str());
-
-        if (!texture_loaded)
+        ImGui::TextWrapped(BoxerEngine::StringUtils::Concat(ICON_MD_ARROW_FORWARD_IOS," ", std::to_string(i), " Mesh:").c_str());
+        
+        if (!meshes[i]->texture_loaded)
         {
-            AddTextureDisplay();
+            AddTextureDisplay(i);
         }
     }
 }
@@ -70,6 +75,7 @@ void BoxerEngine::MeshComponent::DisplayNotLoadedUI()
     {
         ImGuiFileDialog::Instance()->OpenDialog("Select Mesh", "Select Mesh", ".*", "./library/models/", 1, nullptr,
             ImGuiFileDialogFlags_DontShowHiddenFiles |
+            ImGuiFileDialogFlags_HideColumnType |
             ImGuiFileDialogFlags_DisableCreateDirectoryButton |
             ImGuiFileDialogFlags_HideColumnDate);
     }
@@ -83,32 +89,54 @@ void BoxerEngine::MeshComponent::DisplayNotLoadedUI()
 
             Model = new BoxerEngine::Model(file_path.filename().replace_extension().string().c_str());
             model_loaded = true;
+
+            meshes.reserve(Model->GetMeshesCount());
+            for (int i = 0; i < Model->GetMeshesCount(); ++i)
+            {
+                meshes.emplace_back(new MeshData());
+            }
         }
 
         ImGuiFileDialog::Instance()->Close();
     }
 }
 
-void BoxerEngine::MeshComponent::AddTextureDisplay()
+void BoxerEngine::MeshComponent::AddTextureDisplay(const int mesh_index)
 {
-    if (ImGui::Button("Add Texture"))
+    std::string title("Select texture##%d", mesh_index);
+    
+    ImGui::TextWrapped(ICON_MD_IMAGE_SEARCH);
+    ImGui::SameLine();
+    if (ImGui::Button(BoxerEngine::StringUtils::Concat(std::to_string(mesh_index).c_str(), " Mesh").c_str()))
     {
-        ImGuiFileDialog::Instance()->OpenDialog("Select Texture", "Select Texture", ".*", "./library/textures/", 1, nullptr,
+        ImGuiFileDialog::Instance()->OpenDialog(title.c_str(), "Select Texture", ".*", "./library/textures/", 1, nullptr,
             ImGuiFileDialogFlags_DontShowHiddenFiles |
             ImGuiFileDialogFlags_DisableCreateDirectoryButton |
+            ImGuiFileDialogFlags_HideColumnType |
             ImGuiFileDialogFlags_HideColumnDate);
     }
 
-    if (ImGuiFileDialog::Instance()->Display("Select Texture"))
+    ImGui::PushID(mesh_index);
+    int index = TexturesTypesListBox();
+    ImGui::PopID();
+
+    if (ImGuiFileDialog::Instance()->Display(title.c_str()))
     {
         if (ImGuiFileDialog::Instance()->IsOk())
         {
             std::filesystem::path texture_path = ImGuiFileDialog::Instance()->GetFilePathName();
             unsigned int texture_id = App->textures->Load(texture_path.filename().string().c_str());
-            Model->SetMeshTexture("", texture_id, "texture_diffuse");
-            texture_loaded = true;
+            Model->SetMeshTexture(mesh_index, texture_id, types[index]);
         }
 
         ImGuiFileDialog::Instance()->Close();
     }
+}
+
+int BoxerEngine::MeshComponent::TexturesTypesListBox()
+{
+    static int selection;
+    ImGui::Combo("", &selection, types, IM_ARRAYSIZE(types));
+
+    return selection;
 }

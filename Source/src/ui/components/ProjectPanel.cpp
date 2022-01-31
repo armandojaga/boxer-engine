@@ -13,11 +13,11 @@ void BoxerEngine::ProjectPanel::Update()
         ImGui::End();
         return;
     }
-    std::filesystem::path assets_path("./assets/");
+    std::filesystem::path assets_path("./assets");
 
     if (current_directory != assets_path)
     {
-        if (ImGui::Button("<-"))
+        if (ImGui::Button(ICON_MD_SUBDIRECTORY_ARROW_LEFT))
         {
             current_directory = current_directory.parent_path();
         }

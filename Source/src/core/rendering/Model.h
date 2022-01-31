@@ -19,9 +19,10 @@ namespace BoxerEngine
         void Draw() const;
         [[nodiscard]] const char* GetPath() const { return path.c_str(); }
         [[nodiscard]] unsigned int GetMeshesCount() const { return meshes.size(); }
+        [[nodiscard]] const char* GetMeshIdByIndex(const int index) const { return meshes[index]->GetId().c_str(); }
 
         void SetTransform();
-        void SetMeshTexture(const char* mesh_id, const int texture_id, const char* texture_type);
+        void SetMeshTexture(const int mesh_index, const int texture_id, const char* texture_type);
     private:
         std::string id;
         std::string path;

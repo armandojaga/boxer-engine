@@ -13,7 +13,7 @@ public:
     bool CleanUp() override;
     unsigned int Load(const char* texture_name);
 private:
-    std::map < const char*, unsigned int > textures_loaded{};
+    std::map < std::string, unsigned int > textures_loaded{};
 
     unsigned int LoadNew(const char* texture_name);
 };

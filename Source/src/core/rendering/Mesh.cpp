@@ -119,12 +119,14 @@ void Mesh::Draw() const
         // retrieve Texture number (the N in diffuse_TextureN)
         std::string number;
         std::string name = textures[i].type;
-        if (name._Equal("texture_diffuse"))
+        if (name._Equal("Diffuse"))
         {
+            name = "texture_diffuse";
             number = std::to_string(diffuseNr++);
         }
-        else if (name._Equal("texture_specular"))
+        else if (name._Equal("Specular"))
         {
+            name = "texture_specular";
             number = std::to_string(specularNr++);
         }
         App->program->SetUniform((name + number), static_cast<int>(i));

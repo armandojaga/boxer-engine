@@ -42,7 +42,7 @@ unsigned int ModuleTexture::Load(const char* texture_name)
 
     unsigned int tex_id = LoadNew(name.string().c_str());
 
-    textures_loaded.emplace(texture_name, tex_id);
+    textures_loaded.emplace(name.string().c_str(), tex_id);
 
     return tex_id;
 }
