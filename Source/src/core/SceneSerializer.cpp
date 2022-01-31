@@ -1,15 +1,13 @@
 #include "bepch.h"
 #include "SceneSerializer.h"
-#include "Scene.h"
-#include "Entity.h"
 
-const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load()
-{
-	return nullptr;
-}
+#include <yaml-cpp/yaml.h>
+
+#include "Scene.h"
 
 const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(std::filesystem::path& path)
 {
+	path.filename();
 	return nullptr;
 }
 
@@ -19,7 +17,7 @@ bool BoxerEngine::SceneSerializer::Save(const BoxerEngine::Scene* scene)
 	return false;
 }
 
-void BoxerEngine::SceneSerializer::SaveEntity(const Entity* entity)
+void BoxerEngine::SceneSerializer::SaveEntity(const BoxerEngine::Entity* entity)
 {
 	entity->GetId();
 	entity->GetName();
