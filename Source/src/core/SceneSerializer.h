@@ -16,7 +16,7 @@ namespace BoxerEngine
 		const Scene* Load(std::filesystem::path& path);
 		bool Save(const Scene* scene);
 	private:
-		void SaveEntity(const Entity* entity);
+		YAML::Node& SaveEntity(const Entity* entity);
 	};
 }
 
