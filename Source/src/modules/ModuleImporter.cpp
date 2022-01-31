@@ -12,25 +12,28 @@
 #include "importers/ModelImporter.h"
 #include "importers/TextureImporter.h"
 
+using namespace BoxerEngine;
+
 ModuleImporter::ModuleImporter()
 {
-    BoxerEngine::GenericImporter* gen = new BoxerEngine::GenericImporter();
-    BoxerEngine::MeshImporter* mesh = new BoxerEngine::MeshImporter();
-    BoxerEngine::ModelImporter* model = new BoxerEngine::ModelImporter();
-    BoxerEngine::TextureImporter* texture = new BoxerEngine::TextureImporter();
-    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::GENERIC, static_cast<BoxerEngine::Importer*>(gen)));
-    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MODEL, static_cast<BoxerEngine::Importer*>(model)));
-    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::MESH, static_cast<BoxerEngine::Importer*>(mesh)));
-    importers.push_back(std::make_pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>(BoxerEngine::ImporterType::TEXTURE, static_cast<BoxerEngine::Importer*>(texture)));
+    GenericImporter* gen = new GenericImporter();
+    MeshImporter* mesh = new MeshImporter();
+    ModelImporter* model = new ModelImporter();
+    TextureImporter* texture = new TextureImporter();
+
+    importers.push_back(std::make_pair<Importer::Type, Importer*>(gen->GetType(), static_cast<Importer*>(gen)));
+    importers.push_back(std::make_pair<Importer::Type, Importer*>(model->GetType(), static_cast<Importer*>(model)));
+    importers.push_back(std::make_pair<Importer::Type, Importer*>(mesh->GetType(), static_cast<Importer*>(mesh)));
+    importers.push_back(std::make_pair<Importer::Type, Importer*>(texture->GetType(), static_cast<Importer*>(texture)));
 }
 
 bool ModuleImporter::Init()
 {
-    preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
 
-    std::function handleNewAsset = [&](BoxerEngine::Event& evt)
+    std::function handleNewAsset = [&](Event& evt)
     {
-        const auto& e = evt.GetEventData<BoxerEngine::AssetsChangedEventPayload>();
+        const auto& e = evt.GetEventData<AssetsAddedEventPayload>();
         std::filesystem::path file = e.GetPath();
         BE_LOG("Handling asset: %s, of type: %d", file.string().c_str(), e.GetType());
 
@@ -38,7 +41,7 @@ bool ModuleImporter::Init()
         std::thread import_thread(&ModuleImporter::ImportAsset, this, file, e.GetType());
         import_thread.detach();
     };
-    BoxerEngine::EventManager::GetInstance().Subscribe(BoxerEngine::Event::Type::ASSETS_CHANGED, handleNewAsset);
+    EventManager::GetInstance().Subscribe(Event::Type::ASSETS_CHANGED, handleNewAsset);
     return true;
 }
 
@@ -52,10 +55,15 @@ bool ModuleImporter::CleanUp()
     return true;
 }
 
-void ModuleImporter::ImportAsset(const std::filesystem::path& asset_path, const BoxerEngine::ResourceType asset_type)
+bool ModuleImporter::RestoreLibrary()
+{
+    return false;
+}
+
+void ModuleImporter::ImportAsset(const std::filesystem::path& asset_path, const ResourceType asset_type)
 {
     auto it = std::find_if(importers.begin(), importers.end(),
-        [&](const std::pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>& element)
+        [&](const std::pair<Importer::Type, Importer*>& element)
         { 
             return element.first == ToImporterType(asset_type);
         });
@@ -63,28 +71,29 @@ void ModuleImporter::ImportAsset(const std::filesystem::path& asset_path, const 
     it->second->ImportAsset(asset_path);
 }
 
-BoxerEngine::ImporterType ModuleImporter::ToImporterType(const BoxerEngine::ResourceType type)
+Importer::Type ModuleImporter::ToImporterType(const ResourceType type)
 {
-    BoxerEngine::ImporterType iType;
+    Importer::Type iType;
     switch (type)
     {
-    case BoxerEngine::ResourceType::SCENE:
-        iType = BoxerEngine::ImporterType::SCENE;
-        break;
-    case BoxerEngine::ResourceType::MODEL:
-        iType = BoxerEngine::ImporterType::MODEL;
-        break;
-    case BoxerEngine::ResourceType::MESH:
-        iType = BoxerEngine::ImporterType::MESH;
-        break;
-    case BoxerEngine::ResourceType::TEXTURE:
-        iType = BoxerEngine::ImporterType::TEXTURE;
-        break;
-    case BoxerEngine::ResourceType::AUDIO:
-    case BoxerEngine::ResourceType::VIDEO:
-    case BoxerEngine::ResourceType::SCRIPT:
-    case BoxerEngine::ResourceType::UNKNOWN:
-        iType = BoxerEngine::ImporterType::GENERIC;
+        case ResourceType::MODEL:
+            iType = Importer::Type::MODEL;
+            break;
+
+        case ResourceType::MESH:
+            iType = Importer::Type::MESH;
+            break;
+        
+        case ResourceType::TEXTURE:
+            iType = Importer::Type::TEXTURE;
+            break;
+        
+        case ResourceType::AUDIO:
+        case ResourceType::VIDEO:
+        case ResourceType::SCRIPT:
+        case ResourceType::UNKNOWN:
+            iType = Importer::Type::GENERIC;
     }
+
     return iType;
 }

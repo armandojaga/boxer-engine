@@ -4,9 +4,9 @@
 
 namespace BoxerEngine
 {
-    struct AssetsChangedEventPayload
+    struct AssetsAddedEventPayload
     {
-        AssetsChangedEventPayload(const std::filesystem::path& path, BoxerEngine::ResourceType type)
+        AssetsAddedEventPayload(const std::filesystem::path& path, BoxerEngine::ResourceType type)
             : path(path)
             , type(type)
         {

@@ -133,7 +133,7 @@ void Mesh::Draw() const
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
 
-    glActiveTexture(GL_TEXTURE0);
+    //glActiveTexture(GL_TEXTURE0);
 
     // draw mesh
     glBindVertexArray(VAO);

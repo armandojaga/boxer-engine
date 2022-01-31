@@ -2,7 +2,7 @@
 
 bool ModuleScene::Init()
 {
-    scene = new BoxerEngine::Scene();
+    scene = new BoxerEngine::Scene(); // App->importer->GetSceneImporter()->ImportAsset(./asset/scene/MyScene.be);
     scene->Init();
     return true;
 }
@@ -17,6 +17,11 @@ update_status ModuleScene::Update(float delta)
 {
     scene->Update();
     return update_status::UPDATE_CONTINUE;
+}
+
+bool ModuleScene::CleanUp()
+{
+    return false;
 }
 
 void ModuleScene::CreateEmptyScene() const
@@ -47,6 +52,10 @@ void ModuleScene::RemoveEntity(BoxerEngine::Entity* entity) const
 BoxerEngine::Scene* ModuleScene::GetScene() const
 {
     return scene;
+}
+
+void ModuleScene::SaveScene()
+{
 }
 
 ModuleScene::~ModuleScene()

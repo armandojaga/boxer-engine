@@ -8,6 +8,11 @@
 
 using namespace BoxerEngine;
 
+BoxerEngine::GenericImporter::GenericImporter()
+    : Importer(Importer::Type::GENERIC)
+{
+}
+
 void GenericImporter::ImportAsset(const std::filesystem::path& asset_path)
 {
     YAML::Node asset_ticket;

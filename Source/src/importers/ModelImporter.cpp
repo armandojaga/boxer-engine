@@ -14,6 +14,11 @@
 
 using namespace BoxerEngine;
 
+BoxerEngine::ModelImporter::ModelImporter()
+    : Importer(Importer::Type::MODEL)
+{
+}
+
 void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
 {
     BE_LOG("Entering ModelImporter: %s", model_path);

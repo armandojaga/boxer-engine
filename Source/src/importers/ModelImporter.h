@@ -11,7 +11,7 @@ namespace BoxerEngine
 	class ModelImporter final : public Importer
 	{
 	public:
-		ModelImporter() = default;
+		ModelImporter();
 		~ModelImporter() override = default;
 		void ImportAsset(const std::filesystem::path& asset_path);
 		void ImportModel(const aiScene* scene, YAML::Node& ticket);

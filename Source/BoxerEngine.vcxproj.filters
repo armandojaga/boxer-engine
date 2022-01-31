@@ -318,6 +318,9 @@
     <ClCompile Include="vendors\ImGuiFileDialog\ImGuiFileDialog.cpp">
       <Filter>Vendors\ImGuiFileDialog</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\SceneSerializer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
@@ -1415,7 +1418,7 @@
     <ClInclude Include="src\core\preferences\editor\ResourcesPreferences.h">
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\events\AssetsChangedEventPayload.h">
+    <ClInclude Include="src\core\events\AssetsAddedEventPayload.h">
       <Filter>Core\Events\Event Structures</Filter>
     </ClInclude>
     <ClInclude Include="src\modules\ModuleImporter.h">
@@ -1477,6 +1480,9 @@
     </ClInclude>
     <ClInclude Include="vendors\ImGuiFileDialog\stb\stb_image_resize.h">
       <Filter>Vendors\ImGuiFileDialog\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\SceneSerializer.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

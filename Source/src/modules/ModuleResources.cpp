@@ -51,7 +51,7 @@ void ModuleResources::HandleResource(const std::filesystem::path& path)
 
     if (file_manager.CopyNew(path, destination.append(path.filename().c_str())))
     {
-        last_resource_path = path;
+        last_resource_path = path; // We may need this to import more assets from this path
         HandleAssetsChanged(destination, type);
     }
 
@@ -84,6 +84,6 @@ ResourceType ModuleResources::GetType(const std::filesystem::path& path)
 void ModuleResources::HandleAssetsChanged(const std::filesystem::path& asset_path, const ResourceType asset_type)
 {
     BoxerEngine::Event assetChanged(BoxerEngine::Event::Type::ASSETS_CHANGED);
-    assetChanged.SetEventData<BoxerEngine::AssetsChangedEventPayload>(asset_path, asset_type);
+    assetChanged.SetEventData<BoxerEngine::AssetsAddedEventPayload>(asset_path, asset_type);
     BoxerEngine::EventManager::GetInstance().Publish(assetChanged);
 }

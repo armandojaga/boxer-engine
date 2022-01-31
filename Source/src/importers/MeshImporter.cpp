@@ -8,6 +8,11 @@
 
 using namespace BoxerEngine;
 
+BoxerEngine::MeshImporter::MeshImporter()
+    : Importer(Importer::Type::MESH)
+{
+}
+
 void MeshImporter::ImportAsset(const std::filesystem::path& mesh_path)
 {
     BE_LOG("Loading Module: %s", mesh_path);

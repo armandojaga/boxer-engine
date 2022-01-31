@@ -13,7 +13,7 @@ namespace BoxerEngine
 		friend class ModelImporter;
 	
 	public:
-		TextureImporter() = default;
+		TextureImporter();
 		~TextureImporter() override = default;
 		void ImportAsset(const std::filesystem::path& asset_path) override;
 		void SaveToFile(YAML::Node& ticket, const std::string& file_name) override;

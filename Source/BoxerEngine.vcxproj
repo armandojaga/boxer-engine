@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\SceneSerializer.cpp" />
     <ClCompile Include="src\importers\ModelImporter.cpp" />
     <ClCompile Include="src\importers\GenericImporter.cpp" />
     <ClCompile Include="src\importers\MeshImporter.cpp" />
@@ -319,12 +320,13 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\SceneSerializer.h" />
     <ClInclude Include="src\importers\ModelImporter.h" />
     <ClInclude Include="src\importers\GenericImporter.h" />
     <ClInclude Include="src\importers\MeshImporter.h" />
     <ClInclude Include="src\importers\Importer.h" />
     <ClInclude Include="src\modules\ModuleImporter.h" />
-    <ClInclude Include="src\core\events\AssetsChangedEventPayload.h" />
+    <ClInclude Include="src\core\events\AssetsAddedEventPayload.h" />
     <ClInclude Include="src\core\preferences\editor\ResourcesPreferences.h" />
     <ClInclude Include="src\core\events\FileAddedEventPayload.h" />
     <ClInclude Include="src\core\events\SelectionChangeEventPayload.h" />
