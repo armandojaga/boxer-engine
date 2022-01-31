@@ -21,6 +21,7 @@ update_status ModuleScene::Update(float delta)
 
 bool ModuleScene::CleanUp()
 {
+    SaveScene();
     return false;
 }
 
@@ -56,6 +57,7 @@ BoxerEngine::Scene* ModuleScene::GetScene() const
 
 void ModuleScene::SaveScene()
 {
+    scene_serializer.Save(scene);
 }
 
 ModuleScene::~ModuleScene()

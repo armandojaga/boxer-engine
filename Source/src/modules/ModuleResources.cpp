@@ -11,10 +11,11 @@ bool ModuleResources::Init()
     preferences = static_cast<BoxerEngine::ResourcesPreferences*>
         (App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
     
-    // create library directory tree
+    // create assets & library directory tree
     for (int i = 0; i < (int)ResourceType::UNKNOWN; ++i)
     {
         file_manager.CreatePathIfNew(preferences->GetLibraryPath(static_cast<ResourceType>(i)));
+        file_manager.CreatePathIfNew(preferences->GetAssetsPath(static_cast<ResourceType>(i)));
     }
     
         std::function handleAddedFile = [&](Event& evt)

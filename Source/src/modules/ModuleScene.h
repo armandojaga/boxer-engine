@@ -1,6 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "core/Scene.h"
+#include "core/SceneSerializer.h"
 
 class ModuleScene : public Module
 {
@@ -21,4 +22,5 @@ public:
     void SaveScene();
 private:
     BoxerEngine::Scene* scene = nullptr;
+    BoxerEngine::SceneSerializer scene_serializer;
 };
