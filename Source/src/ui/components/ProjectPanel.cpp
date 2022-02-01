@@ -1,6 +1,8 @@
 #include "core/bepch.h"
 #include "ProjectPanel.h"
 
+#include "modules/ModuleResources.h"
+
 BoxerEngine::ProjectPanel::ProjectPanel() : Panel("Project", true)
 {
 }
@@ -38,11 +40,23 @@ void BoxerEngine::ProjectPanel::Update()
         }
         else
         {
-            if (ImGui::Button(filename.c_str()))
+            auto selection = ImGui::Selectable(filename.c_str(), ImGuiSelectableFlags_AllowDoubleClick);
+            if (ImGui::IsMouseDoubleClicked(selection) && ImGui::IsItemHovered())
             {
+                filename.insert(0, "\\");
+                filename.insert(0, current_directory.string().c_str());
+                ImportAsset(filename);
             }
         }
     }
 
     ImGui::End();
 }
+
+void BoxerEngine::ProjectPanel::ImportAsset(const std::string& path)
+{
+    Event assetChanged(Event::Type::ASSETS_CHANGED);
+    assetChanged.SetEventData<AssetsAddedEventPayload>(path, App->resources->GetType(path));
+    EventManager::GetInstance().Publish(assetChanged);
+}
+

@@ -13,6 +13,7 @@ namespace BoxerEngine
 
         void Update() override;
     private:
+        void ImportAsset(const std::string& path);
         std::filesystem::path current_directory = "./assets";
     };
 }

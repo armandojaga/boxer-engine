@@ -23,10 +23,10 @@ private:
 
     void HandleAssetsChanged(const std::filesystem::path& asset, BoxerEngine::ResourceType asset_type);
     void HandleResource(const std::filesystem::path& path);
-    BoxerEngine::ResourceType GetType(const std::filesystem::path& file);
 public:
     bool Init() override;
     bool CleanUp() override;
 
     [[nodiscard]] std::filesystem::path GetLastResourceLoadedPath() const;
+    BoxerEngine::ResourceType GetType(const std::filesystem::path& file);
 };
