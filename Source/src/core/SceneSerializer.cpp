@@ -8,13 +8,36 @@
 
 const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(std::filesystem::path& path)
 {
-    path.filename();
-    return nullptr;
+	if (!BoxerEngine::Files::IsValidFilePath(path))
+	{
+		return nullptr;
+	}
+
+	YAML::Node scene_node = YAML::LoadFile(path.string().c_str());
+	
+	// Validate scene header
+	if (!scene_node["scene_id"].IsDefined())
+	{
+		return nullptr;
+	}
+
+	Scene* scene_output = new Scene();
+	scene_output->SetSceneId(std::move(scene_node["scene_id"].as<std::string>()));
+	
+	if (!scene_node["root"].IsDefined())
+	{
+		return scene_output;
+	}
+
+	LoadEntity(scene_node["root"]);
+	return scene_output;
 }
 
 bool BoxerEngine::SceneSerializer::Save(const Scene* scene, const char* name, const char* path)
 {
-    const YAML::Node scene_data = SaveEntity(scene->GetRoot());
+	YAML::Node scene_data;
+	scene_data["scene_id"] = scene->GetSceneId();
+	scene_data["root"] = SaveEntity(scene->GetRoot());
 	BoxerEngine::ResourcesPreferences* preferences = static_cast<BoxerEngine::ResourcesPreferences*>
     	(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
 	
@@ -105,4 +128,14 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 	}
 
 	return component_node;
+}
+
+const BoxerEngine::Entity* BoxerEngine::SceneSerializer::LoadEntity(YAML::Node& entity)
+{
+	return nullptr;
+}
+
+const std::shared_ptr<BoxerEngine::Component> BoxerEngine::SceneSerializer::LoadComponent(YAML::Node& component)
+{
+	return std::shared_ptr<BoxerEngine::Component>();
 }
