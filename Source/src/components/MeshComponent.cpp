@@ -9,7 +9,7 @@
 #include "TransformComponent.h"
 #include "modules/ModuleProgram.h"
 
-static const char* types[]{"Diffuse", "Specular"};
+static const char* texture_types[]{"Diffuse", "Specular"};
 
 BoxerEngine::MeshComponent::MeshComponent(Entity* entity)
     : Component(Type::MESH, entity)
@@ -22,7 +22,7 @@ BoxerEngine::MeshComponent::~MeshComponent()
     {
         delete mesh;
     }
-    delete Model;
+    delete model;
 }
 
 void BoxerEngine::MeshComponent::UpdateUI()
@@ -46,6 +46,16 @@ const char* BoxerEngine::MeshComponent::GetName() const
     return "Mesh";
 }
 
+const char* BoxerEngine::MeshComponent::GetModelName() const
+{
+    if (!model_loaded)
+    {
+        return nullptr;
+    }
+
+    return model->GetPath();
+}
+
 void BoxerEngine::MeshComponent::Draw()
 {
     if (!model_loaded || !enabled)
@@ -54,7 +64,7 @@ void BoxerEngine::MeshComponent::Draw()
     }
 
     App->program->SetUniform("model", GetEntity()->GetComponent<TransformComponent>()->GetGlobalMatrix());
-    Model->Draw();
+    model->Draw();
 }
 
 void BoxerEngine::MeshComponent::DisplayLoadedUI()
@@ -62,7 +72,7 @@ void BoxerEngine::MeshComponent::DisplayLoadedUI()
     ImGui::TextWrapped("Meshes");
     ImGui::Separator();
 
-    for (int i = 0; i < Model->GetMeshesCount(); ++i)
+    for (int i = 0; i < model->GetMeshesCount(); ++i)
     {
         ImGui::TextWrapped(StringUtils::Concat(ICON_MD_ARROW_FORWARD_IOS, " ", std::to_string(i), " Mesh:").c_str());
 
@@ -90,12 +100,12 @@ void BoxerEngine::MeshComponent::DisplayNotLoadedUI()
         {
             const std::filesystem::path file_path = ImGuiFileDialog::Instance()->GetFilePathName();
             // TODO: If filepath is not asset. Import mesh
-
-            Model = new BoxerEngine::Model(file_path.filename().replace_extension().string().c_str());
+ 
+            model = new BoxerEngine::Model(file_path.filename().replace_extension().string().c_str());
             model_loaded = true;
 
-            meshes.reserve(Model->GetMeshesCount());
-            for (int i = 0; i < Model->GetMeshesCount(); ++i)
+            meshes.reserve(model->GetMeshesCount());
+            for (int i = 0; i < model->GetMeshesCount(); ++i)
             {
                 meshes.emplace_back(new MeshData());
             }
@@ -128,9 +138,12 @@ void BoxerEngine::MeshComponent::AddTextureDisplay(const int meshIndex)
     {
         if (ImGuiFileDialog::Instance()->IsOk())
         {
-            const std::filesystem::path texturePath = ImGuiFileDialog::Instance()->GetFilePathName();
-            const unsigned int textureId = App->textures->Load(texturePath.filename().string().c_str());
-            Model->SetMeshTexture(meshIndex, textureId, types[index]);
+            const std::filesystem::path texture_path = ImGuiFileDialog::Instance()->GetFilePathName().c_str();
+            const std::string texture_name = texture_path.filename().replace_extension().string().c_str();
+            const unsigned int textureId = App->textures->Load(texture_name.c_str());
+            model->SetMeshTexture(meshIndex, textureId, texture_types[index]);
+            meshes[meshIndex]->texture_loaded = true;
+            meshes[meshIndex]->texture_name = texture_name.c_str();
         }
 
         ImGuiFileDialog::Instance()->Close();
@@ -140,7 +153,7 @@ void BoxerEngine::MeshComponent::AddTextureDisplay(const int meshIndex)
 int BoxerEngine::MeshComponent::TexturesTypesListBox()
 {
     static int selection;
-    ImGui::Combo("", &selection, types, IM_ARRAYSIZE(types));
+    ImGui::Combo("", &selection, texture_types, IM_ARRAYSIZE(texture_types));
 
     return selection;
 }

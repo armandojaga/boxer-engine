@@ -25,7 +25,6 @@ namespace BoxerEngine
     private:
         std::string id;
         std::string path;
-        std::vector<std::string> mesh_ids{};
         std::vector<Mesh*> meshes{};
 
         void Load(const char* file);

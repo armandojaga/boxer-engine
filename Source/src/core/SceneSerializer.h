@@ -15,9 +15,9 @@ namespace BoxerEngine
         ~SceneSerializer() = default;
 
 		const Scene* Load(std::filesystem::path& path);
-		bool Save(const Scene* scene);
+		bool Save(const Scene* scene, const char* name, const char* path = nullptr);
 	private:
 		YAML::Node SaveEntity(const Entity* entity);
-		YAML::Node SaveComponent(const BoxerEngine::Component& component);
+		YAML::Node SaveComponent(const std::shared_ptr<BoxerEngine::Component> component);
 	};
 }

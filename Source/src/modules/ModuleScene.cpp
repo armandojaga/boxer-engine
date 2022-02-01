@@ -59,7 +59,7 @@ BoxerEngine::Scene* ModuleScene::GetScene() const
 
 void ModuleScene::SaveScene()
 {
-    scene_serializer.Save(scene);
+    scene_serializer.Save(scene, "MyScene");
 }
 
 ModuleScene::~ModuleScene()
