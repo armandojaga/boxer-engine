@@ -52,9 +52,9 @@ void ModuleResources::HandleResource(const std::filesystem::path& path)
     if (file_manager.CopyNew(path, destination.append(path.filename().c_str())))
     {
         last_resource_path = path; // We may need this to import more assets from this path
-        HandleAssetsChanged(destination, type);
     }
 
+    HandleAssetsChanged(destination, type);
     BE_LOG("File destination: %s", destination.string().c_str());
 }
 
