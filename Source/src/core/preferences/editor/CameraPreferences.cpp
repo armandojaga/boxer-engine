@@ -44,9 +44,9 @@ void CameraPreferences::SetConfigurationData(const YAML::Node& node)
 
 void CameraPreferences::GetConfigurationData(YAML::Node& node)
 {
-    node["camera"]["move_speed"] = move_speed;
-    node["camera"]["rotation_speed"] = rotation_speed;
-    node["camera"]["orbit_speed"] = orbit_speed;
-    node["camera"]["zoom_speed"] = zoom_speed;
-    node["camera"]["fov"] = fov;
+    node[group_name]["move_speed"] = move_speed;
+    node[group_name]["rotation_speed"] = rotation_speed;
+    node[group_name]["orbit_speed"] = orbit_speed;
+    node[group_name]["zoom_speed"] = zoom_speed;
+    node[group_name]["fov"] = fov;
 }

@@ -8,11 +8,11 @@ namespace BoxerEngine
 	class Entity;
 	class Component;
 
-	class SceneSerializer
-	{
-	public:
-		SceneSerializer() = default;
-		~SceneSerializer() = default;
+    class SceneSerializer
+    {
+    public:
+        SceneSerializer() = default;
+        ~SceneSerializer() = default;
 
 		const Scene* Load(std::filesystem::path& path);
 		bool Save(const Scene* scene);
@@ -21,5 +21,3 @@ namespace BoxerEngine
 		YAML::Node SaveComponent(const BoxerEngine::Component& component);
 	};
 }
-
-

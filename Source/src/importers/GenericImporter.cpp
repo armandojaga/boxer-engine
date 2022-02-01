@@ -1,15 +1,11 @@
+#include "core/bepch.h"
+
 #include "GenericImporter.h"
-#include "Application.h"
-
-#include <filesystem>
-#include <fstream>
-
-#include "core/util/UUID.h"
 
 using namespace BoxerEngine;
 
-BoxerEngine::GenericImporter::GenericImporter()
-    : Importer(Importer::Type::GENERIC)
+GenericImporter::GenericImporter()
+    : Importer(Type::GENERIC)
 {
 }
 
@@ -19,7 +15,7 @@ void GenericImporter::ImportAsset(const std::filesystem::path& asset_path)
     asset_ticket["id"] = UUID::GenerateUUIDv4();
     asset_ticket["file_path"] = asset_path.string();
 
-    preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
     std::string file_name = asset_path.filename().replace_extension().string();
     std::string model_name(preferences->GetLibraryPath(DeduceResourceType(asset_path)) + file_name);
 
@@ -32,9 +28,9 @@ void GenericImporter::SaveToFile(YAML::Node& ticket, const std::string& file_nam
     fout << ticket;
 }
 
-ResourceType BoxerEngine::GenericImporter::DeduceResourceType(const std::filesystem::path& path)
+ResourceType GenericImporter::DeduceResourceType(const std::filesystem::path& path)
 {
-    ResourceType type = ResourceType::UNKNOWN;
+    auto type = ResourceType::UNKNOWN;
     std::string extension = path.filename().extension().string();
     return type;
 }

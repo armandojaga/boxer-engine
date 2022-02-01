@@ -1,5 +1,5 @@
-//#include "Globals.h"
-#include "Application.h"
+#include "core/bepch.h"
+
 #include "ModuleWindow.h"
 
 ModuleWindow::ModuleWindow() = default;

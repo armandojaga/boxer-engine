@@ -33,7 +33,7 @@ namespace BoxerEngine
         [[nodiscard]] Entity* GetEntity(UID entityId);
         [[nodiscard]] Entity* GetEntity(const std::string& entityName);
         void RemoveChild(UID entityId);
-        bool IsChildOf(UID entityId);
+        bool IsChildOf(UID entityId) const;
 
         template <typename C>
         bool Has();
@@ -43,7 +43,7 @@ namespace BoxerEngine
         [[nodiscard]] C* GetComponent() const;
         template <typename C>
         void RemoveComponent();
-        void RemoveComponent(UID id);
+        void RemoveComponent(UID componentId);
 
         void Enable();
         void Disable();

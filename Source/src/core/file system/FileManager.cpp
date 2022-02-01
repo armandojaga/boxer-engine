@@ -1,19 +1,10 @@
 #include "FileManager.h"
 
-#include <functional>
-
-#include "../../Globals.h"
 #include "core/util/Files.h"
 #include "core/events/EventManager.h"
 
-using namespace BoxerEngine;
-namespace fs = std::filesystem;
 
-BoxerEngine::FileManager::FileManager()
-{
-}
-
-FileManager::~FileManager()
+BoxerEngine::FileManager::~FileManager()
 {
     if (rfile.is_open())
     {
@@ -21,54 +12,54 @@ FileManager::~FileManager()
     }
 }
 
-std::ifstream* FileManager::Load(fs::path file_path)
+std::ifstream* BoxerEngine::FileManager::Load(std::filesystem::path filePath)
 {
-    rfile.open(file_path);
+    rfile.open(filePath);
     return &rfile;
 }
 
-void FileManager::Save(std::ostream data, fs::path file_path)
+void BoxerEngine::FileManager::Save(std::ostream data, std::filesystem::path filePath)
 {
 }
 
-void FileManager::Remove(const fs::path& source)
+void BoxerEngine::FileManager::Remove(const std::filesystem::path& source)
 {
 }
 
-void FileManager::Copy(const fs::path& source, const fs::path& destination)
+void BoxerEngine::FileManager::Copy(const std::filesystem::path& source, const std::filesystem::path& destination)
 {
-    fs::copy(source, destination);
+    copy(source, destination);
 }
 
-bool BoxerEngine::FileManager::CopyNew(const fs::path& source, const fs::path& destination)
+bool BoxerEngine::FileManager::CopyNew(const std::filesystem::path& source, const std::filesystem::path& destination)
 {
-    if (fs::exists(destination))
+    if (exists(destination))
     {
         return false;
     }
 
-    if (!fs::exists(destination.parent_path()) && 
-        !fs::create_directories(destination.parent_path()))
+    if (!exists(destination.parent_path()) &&
+        !create_directories(destination.parent_path()))
     {
         return false;
     }
 
-    fs::copy(source, destination);
+    copy(source, destination);
     return true;
 }
 
-bool BoxerEngine::FileManager::CreatePathIfNew(const fs::path& path)
+bool BoxerEngine::FileManager::CreatePathIfNew(const std::filesystem::path& path)
 {
-    return fs::exists(path) || fs::create_directories(path);
+    return exists(path) || create_directories(path);
 }
 
-bool BoxerEngine::FileManager::CreateFileIfNew(const fs::path& file_path)
+bool BoxerEngine::FileManager::CreateFileIfNew(const std::filesystem::path& file_path)
 {
     if (Files::IsValidFilePath(file_path))
     {
         return true;
     }
-    
+
     if (!CreatePathIfNew(file_path.parent_path()))
     {
         return false;
@@ -79,6 +70,6 @@ bool BoxerEngine::FileManager::CreateFileIfNew(const fs::path& file_path)
     return true;
 }
 
-void FileManager::AppendToFile()
+void BoxerEngine::FileManager::AppendToFile()
 {
 }

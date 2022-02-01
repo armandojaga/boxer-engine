@@ -4,14 +4,13 @@
 
 #include <vector>
 #include <string>
-#include <yaml-cpp/yaml.h>
 
 namespace BoxerEngine
 {
     class Model
     {
     public:
-        Model(const char* model_name);
+        Model(const char* modelName);
         Model(Model&) = default;
         Model(Model&&) = default;
         ~Model();
@@ -22,7 +21,7 @@ namespace BoxerEngine
         [[nodiscard]] const char* GetMeshIdByIndex(const int index) const { return meshes[index]->GetId().c_str(); }
 
         void SetTransform();
-        void SetMeshTexture(const int mesh_index, const int texture_id, const char* texture_type);
+        void SetMeshTexture(int meshIndex, int textureId, const char* textureType);
     private:
         std::string id;
         std::string path;

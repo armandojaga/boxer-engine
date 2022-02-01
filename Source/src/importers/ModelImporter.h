@@ -8,13 +8,13 @@
 
 namespace BoxerEngine
 {
-	class ModelImporter final : public Importer
-	{
-	public:
-		ModelImporter();
-		~ModelImporter() override = default;
-		void ImportAsset(const std::filesystem::path& asset_path);
-		void ImportModel(const aiScene* scene, YAML::Node& ticket);
-		void SaveToFile(YAML::Node& ticket, const std::string& file_name) override;
-	};
+    class ModelImporter final : public Importer
+    {
+    public:
+        ModelImporter();
+        ~ModelImporter() override = default;
+        void ImportAsset(const std::filesystem::path& asset_path) override;
+        void ImportModel(const aiScene* scene, YAML::Node& ticket);
+        void SaveToFile(YAML::Node& ticket, const std::string& file_name) override;
+    };
 }

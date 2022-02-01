@@ -1,4 +1,3 @@
-
 #include <cassert>
 
 #include "ResourcesPreferences.h"
@@ -7,8 +6,9 @@ using namespace BoxerEngine;
 
 ResourcesPreferences::ResourcesPreferences() : Preferences(Type::RESOURCES)
 {
-	group_name = "resources";
+    group_name = "resources";
 }
+
 void ResourcesPreferences::SetConfigurationData(const YAML::Node& node)
 {
     for (auto it = node.begin(); it != node.end(); ++it)
@@ -96,7 +96,6 @@ void ResourcesPreferences::SetConfigurationData(const YAML::Node& node)
         if (it->first.as<std::string>()._Equal("script_library"))
         {
             script_library = std::move(it->second.as<std::string>());
-            continue;
         }
     }
 }
@@ -120,12 +119,12 @@ void ResourcesPreferences::GetConfigurationData(YAML::Node& node)
     node[group_name]["script_library"] = script_library;
 }
 
-const char* BoxerEngine::ResourcesPreferences::GetAssetsPath(ResourceType type)
+const char* ResourcesPreferences::GetAssetsPath(ResourceType type)
 {
     switch (type)
     {
     case ResourceType::SCENE:
-        return scene_assets.c_str(); 
+        return scene_assets.c_str();
     case ResourceType::MODEL:
         return models_assets.c_str();
     case ResourceType::MESH:
@@ -144,7 +143,7 @@ const char* BoxerEngine::ResourcesPreferences::GetAssetsPath(ResourceType type)
     }
 }
 
-const char* BoxerEngine::ResourcesPreferences::GetLibraryPath(ResourceType type)
+const char* ResourcesPreferences::GetLibraryPath(ResourceType type) const
 {
     switch (type)
     {
@@ -167,4 +166,3 @@ const char* BoxerEngine::ResourcesPreferences::GetLibraryPath(ResourceType type)
         assert(false);
     }
 }
-

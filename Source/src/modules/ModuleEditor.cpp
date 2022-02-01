@@ -1,19 +1,14 @@
 #include "core/bepch.h"
+
 #include "ModuleEditor.h"
 
-#include <SDL.h>
-
-#include "Application.h"
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera.h"
 
-#include "imgui_impl_opengl3.h"
-#include "imgui_impl_sdl.h"
 #include "ModuleProgram.h"
 #include "ModuleScene.h"
-#include "core/events/Event.h"
-#include "core/events/EventManager.h"
+
 #include "ui/components/StatisticsPanel.h"
 #include "core/preferences/editor/EditorPreferences.h"
 

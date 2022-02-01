@@ -9,12 +9,12 @@
 
 using namespace BoxerEngine;
 
-PreferenceManager::PreferenceManager() 
-    : globals(new GlobalPreferences()) 
-    , editor(new EditorPreferences()) 
-    , render(new RenderPreferences()) 
-    , camera(new CameraPreferences())
-    , resources(new ResourcesPreferences())
+PreferenceManager::PreferenceManager()
+    : globals(new GlobalPreferences())
+      , editor(new EditorPreferences())
+      , render(new RenderPreferences())
+      , camera(new CameraPreferences())
+      , resources(new ResourcesPreferences())
 {
     preferences.reserve(static_cast<size_t>(Preferences::Type::COUNT));
 

@@ -9,6 +9,10 @@ namespace BoxerEngine
         ScenePanel();
         ~ScenePanel() override = default;
 
+        void UpdateGizmoType();
         void Update() override;
+    private:
+        mutable Entity* active_entity = nullptr;
+        int guizmo_operation = -1;
     };
 }

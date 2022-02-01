@@ -6,9 +6,9 @@ namespace BoxerEngine
 {
     struct AssetsAddedEventPayload
     {
-        AssetsAddedEventPayload(const std::filesystem::path& path, BoxerEngine::ResourceType type)
+        AssetsAddedEventPayload(const std::filesystem::path& path, ResourceType type)
             : path(path)
-            , type(type)
+              , type(type)
         {
         }
 
@@ -17,13 +17,13 @@ namespace BoxerEngine
             return path;
         }
 
-        [[nodiscard]] BoxerEngine::ResourceType GetType() const
+        [[nodiscard]] ResourceType GetType() const
         {
             return type;
         }
 
     private:
         std::filesystem::path path;
-        BoxerEngine::ResourceType type;
+        ResourceType type;
     };
 }

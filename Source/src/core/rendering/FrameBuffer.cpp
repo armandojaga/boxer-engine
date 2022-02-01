@@ -32,9 +32,9 @@ void BoxerEngine::FrameBuffer::Reset()
     BE_LOG("Resetting frame buffer, w: %d, h: %d", width, height);
     if (fbo_id)
     {
-        glDeleteFramebuffers(GL_FRAMEBUFFER, &fbo_id);
-        glDeleteTextures(1, &texture_id);
-        glDeleteRenderbuffers(1, &rbo_id);
+        // glDeleteFramebuffers(GL_FRAMEBUFFER, &fbo_id);
+        // glDeleteTextures(1, &texture_id);
+        // glDeleteRenderbuffers(1, &rbo_id);
         texture_id = 0;
         rbo_id = 0;
         fbo_id = 0;
@@ -82,4 +82,14 @@ void BoxerEngine::FrameBuffer::Bind()
 void BoxerEngine::FrameBuffer::Unbind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+int BoxerEngine::FrameBuffer::GetWidth() const
+{
+    return width;
+}
+
+int BoxerEngine::FrameBuffer::GetHeight() const
+{
+    return height;
 }

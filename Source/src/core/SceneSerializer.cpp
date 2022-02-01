@@ -1,30 +1,27 @@
 #include "bepch.h"
-#include "SceneSerializer.h"
-
-#include <yaml-cpp/yaml.h>
-
 #include "Scene.h"
 #include "components/Component.h"
 #include "components/TransformComponent.h"
+#include "SceneSerializer.h"
 
 const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(std::filesystem::path& path)
 {
-	path.filename();
-	return nullptr;
+    path.filename();
+    return nullptr;
 }
 
-bool BoxerEngine::SceneSerializer::Save(const BoxerEngine::Scene* scene)
+bool BoxerEngine::SceneSerializer::Save(const Scene* scene)
 {
-	YAML::Node scene_data = SaveEntity(scene->GetRoot());
-	//preferences = static_cast<BoxerEngine::ResourcesPreferences*>
-	//	(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
-	std::string scene_path("./assets/scene/MyScene.be");
-	std::ofstream fout(scene_path);
-	fout << scene_data;
-	return true;
+    const YAML::Node scene_data = SaveEntity(scene->GetRoot());
+    //preferences = static_cast<BoxerEngine::ResourcesPreferences*>
+    //	(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    const std::string scene_path("./assets/scene/MyScene.be");
+    std::ofstream fout(scene_path);
+    fout << scene_data;
+    return true;
 }
 
-YAML::Node BoxerEngine::SceneSerializer::SaveEntity(const BoxerEngine::Entity* entity)
+YAML::Node BoxerEngine::SceneSerializer::SaveEntity(const Entity* entity)
 {
 	YAML::Node save_scene;
 	save_scene["id"] = entity->GetId();
@@ -40,12 +37,12 @@ YAML::Node BoxerEngine::SceneSerializer::SaveEntity(const BoxerEngine::Entity* e
 		save_scene["component"][i]["data"] = SaveComponent(*entity->GetComponents()[i]);
 	}
 
-	for (int i = 0; i < entity->GetChildren().size(); ++i)
-	{
-		save_scene["child"][i] = SaveEntity(entity->GetChildren()[i]);
-	}
+    for (int i = 0; i < entity->GetChildren().size(); ++i)
+    {
+        save_scene["child"][i] = SaveEntity(entity->GetChildren()[i]);
+    }
 
-	return save_scene;
+    return save_scene;
 }
 
 YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const BoxerEngine::Component& component)

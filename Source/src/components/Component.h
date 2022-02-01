@@ -1,6 +1,5 @@
 #pragma once
 #include "core/util/UUID.h"
-#include <memory>
 
 namespace BoxerEngine
 {
@@ -25,8 +24,8 @@ namespace BoxerEngine
             COUNT
         };
 
-        explicit Component(Entity* parent);
-        explicit Component(const Type type, Entity* parent);
+        explicit Component(Entity* entity);
+        explicit Component(Type type, Entity* entity);
         virtual ~Component() = default;
 
         virtual void Init();
@@ -46,6 +45,8 @@ namespace BoxerEngine
         void SetType(Type type);
         [[nodiscard]] Type GetType() const;
 
+        [[nodiscard]] Entity* GetEntity() const;
+
         [[nodiscard]] virtual const char* GetName() const = 0;
 
     protected:
@@ -54,6 +55,6 @@ namespace BoxerEngine
 
     private:
         UID id = 0;
-        Entity* parent = nullptr;
+        Entity* entity = nullptr;
     };
 }

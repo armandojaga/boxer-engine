@@ -1,3 +1,5 @@
+#include "core/bepch.h"
+
 #include "ModuleScene.h"
 
 bool ModuleScene::Init()
@@ -22,7 +24,7 @@ update_status ModuleScene::Update(float delta)
 bool ModuleScene::CleanUp()
 {
     SaveScene();
-    return false;
+    return true;
 }
 
 void ModuleScene::CreateEmptyScene() const

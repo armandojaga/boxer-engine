@@ -1,15 +1,14 @@
-#include "MeshImporter.h"
-#include <Globals.h>
-#include "Application.h"
+#include "core/bepch.h"
 
-#include "core/file system/FileManager.h"
+#include "MeshImporter.h"
+
 #include "core/preferences/PreferenceManager.h"
 #include "core/preferences/editor/ResourcesPreferences.h"
 
 using namespace BoxerEngine;
 
-BoxerEngine::MeshImporter::MeshImporter()
-    : Importer(Importer::Type::MESH)
+MeshImporter::MeshImporter()
+    : Importer(Type::MESH)
 {
 }
 
@@ -30,14 +29,15 @@ void MeshImporter::ImportAsset(const std::filesystem::path& mesh_path)
     ImportMesh(scene->mMeshes[0], UUID::GenerateUUIDv4());
 }
 
-void BoxerEngine::MeshImporter::SaveToFile(YAML::Node& ticket, const std::string& file_name)
+void MeshImporter::SaveToFile(YAML::Node& ticket, const std::string& file_name)
 {
-    preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
     std::string mesh_name(preferences->GetLibraryPath(ResourceType::MESH) + file_name);
     std::ofstream fout(mesh_name);
     fout << ticket;
 }
-void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid)
+
+void MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid)
 {
     YAML::Node ticket;
     ticket["mesh_id"] = uuid;
@@ -45,7 +45,7 @@ void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid
     SaveToFile(ticket, uuid);
 }
 
-void BoxerEngine::MeshImporter::PopulateTicket(aiMesh* mesh, YAML::Node& mesh_ticket)
+void MeshImporter::PopulateTicket(aiMesh* mesh, YAML::Node& mesh_ticket)
 {
     mesh_ticket["min_point"]["x"] = mesh->mVertices[0].x;
     mesh_ticket["min_point"]["y"] = mesh->mVertices[0].y;
@@ -84,7 +84,6 @@ void BoxerEngine::MeshImporter::PopulateTicket(aiMesh* mesh, YAML::Node& mesh_ti
         mesh_ticket["max_point"]["x"] = std::max(mesh->mVertices[i].x, mesh_ticket["max_point"]["x"].as<float>());
         mesh_ticket["max_point"]["y"] = std::max(mesh->mVertices[i].y, mesh_ticket["max_point"]["y"].as<float>());
         mesh_ticket["max_point"]["z"] = std::max(mesh->mVertices[i].z, mesh_ticket["max_point"]["z"].as<float>());
-
     }
 
     // process indices

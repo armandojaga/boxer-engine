@@ -1,23 +1,18 @@
-#include "Globals.h"
-#include "Application.h"
+#include "core/bepch.h"
+
 #include "ModuleRender.h"
 #include "ModuleWindow.h"
 #include "ModuleCamera.h"
 #include "ModuleDebugDraw.h"
-#include <SDL.h>
-
 #include "ModuleProgram.h"
-#include "core/ErrorHandler.h"
-#include "core/util/StringUtils.h"
-
-#include "core/logging/AssimpLogger.h"
-#include <assimp/DefaultLogger.hpp>
-
-#include <optick.h>
 
 #include "ModuleScene.h"
-#include "core/events/Event.h"
-#include "core/events/EventManager.h"
+
+#include <SDL.h>
+
+#include "core/ErrorHandler.h"
+#include "core/logging/AssimpLogger.h"
+#include <assimp/DefaultLogger.hpp>
 
 ModuleRender::~ModuleRender()
 {
@@ -130,7 +125,7 @@ update_status ModuleRender::Update(float delta)
     }
 
     App->program->UseProgram();
-    
+
     //draw entities
     App->scene->GetScene()->GetRoot()->Draw();
 

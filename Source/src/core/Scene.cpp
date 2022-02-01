@@ -1,8 +1,6 @@
 #include "bepch.h"
 #include "Scene.h"
 
-#include "util/StringUtils.h"
-
 const std::string& BoxerEngine::Scene::GetSceneId() const
 {
     return id;

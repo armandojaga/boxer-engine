@@ -1,11 +1,11 @@
 #include "core/bepch.h"
 #include "Component.h"
 
-BoxerEngine::Component::Component(Entity* parent): id(UUID::GenerateUID()), parent(parent)
+BoxerEngine::Component::Component(Entity* entity): id(UUID::GenerateUID()), entity(entity)
 {
 }
 
-BoxerEngine::Component::Component(const Type type, Entity* parent): type(type), id(UUID::GenerateUID()), parent(parent)
+BoxerEngine::Component::Component(const Type type, Entity* entity): type(type), id(UUID::GenerateUID()), entity(entity)
 {
 }
 
@@ -51,6 +51,11 @@ bool BoxerEngine::Component::IsEnabled() const
 BoxerEngine::Component::Type BoxerEngine::Component::GetType() const
 {
     return type;
+}
+
+BoxerEngine::Entity* BoxerEngine::Component::GetEntity() const
+{
+    return entity;
 }
 
 void BoxerEngine::Component::SetType(Type type)

@@ -26,7 +26,7 @@ void BoxerEngine::ProjectPanel::Update()
     for (auto& directory_entry : std::filesystem::directory_iterator(current_directory))
     {
         const auto& path = directory_entry.path();
-        auto relative_path = std::filesystem::relative(path, assets_path);
+        auto relative_path = relative(path, assets_path);
         std::string filename = relative_path.filename().string();
 
         if (directory_entry.is_directory())

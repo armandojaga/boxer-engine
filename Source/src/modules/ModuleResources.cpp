@@ -1,24 +1,23 @@
-#include "ModuleResources.h"
+#include "core/bepch.h"
 
-#include "Application.h"
+#include "ModuleResources.h"
 #include "ModuleRender.h"
-#include "core/events/EventManager.h"
 
 using namespace BoxerEngine;
 
 bool ModuleResources::Init()
 {
-    preferences = static_cast<BoxerEngine::ResourcesPreferences*>
+    preferences = static_cast<ResourcesPreferences*>
         (App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
-    
+
     // create assets & library directory tree
-    for (int i = 0; i < (int)ResourceType::UNKNOWN; ++i)
+    for (int i = 0; i < static_cast<int>(ResourceType::UNKNOWN); ++i)
     {
         file_manager.CreatePathIfNew(preferences->GetLibraryPath(static_cast<ResourceType>(i)));
         file_manager.CreatePathIfNew(preferences->GetAssetsPath(static_cast<ResourceType>(i)));
     }
-    
-        std::function handleAddedFile = [&](Event& evt)
+
+    std::function handleAddedFile = [&](Event& evt)
     {
         const auto& e = evt.GetEventData<FileAddedEventPayload>();
         std::filesystem::path file = e.GetPath();
@@ -84,7 +83,7 @@ ResourceType ModuleResources::GetType(const std::filesystem::path& path)
 
 void ModuleResources::HandleAssetsChanged(const std::filesystem::path& asset_path, const ResourceType asset_type)
 {
-    BoxerEngine::Event assetChanged(BoxerEngine::Event::Type::ASSETS_CHANGED);
-    assetChanged.SetEventData<BoxerEngine::AssetsAddedEventPayload>(asset_path, asset_type);
-    BoxerEngine::EventManager::GetInstance().Publish(assetChanged);
+    Event assetChanged(Event::Type::ASSETS_CHANGED);
+    assetChanged.SetEventData<AssetsAddedEventPayload>(asset_path, asset_type);
+    EventManager::GetInstance().Publish(assetChanged);
 }

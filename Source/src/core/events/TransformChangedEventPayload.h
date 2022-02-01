@@ -1,4 +1,5 @@
 #pragma once
+#include "Math/float3x3.h"
 
 namespace BoxerEngine
 {
@@ -16,5 +17,4 @@ namespace BoxerEngine
     private:
         float3x3 transform;
     };
-
 }

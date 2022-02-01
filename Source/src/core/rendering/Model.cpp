@@ -1,29 +1,27 @@
+#include "core/bepch.h"
+
 #include "Model.h"
-#include "Globals.h"
-#include "Application.h"
 
 #include "core/preferences/PreferenceManager.h"
 #include "core/preferences/editor/ResourcesPreferences.h"
-#include "core/util/Files.h"
-#include "core/util/StringUtils.h"
 
 using namespace BoxerEngine;
 
-Model::Model(const char* model_name)
+Model::Model(const char* modelName)
 {
-    Load(model_name);
+    Load(modelName);
 }
 
-void Model::Load(const char* model_name)
+void Model::Load(const char* modelName)
 {
-    BE_LOG("Loading Model: %s", model_name);
+    BE_LOG("Loading Model: %s", modelName);
 
-    BoxerEngine::ResourcesPreferences* preferences = 
-        static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
-    std::string meshes_library_path(preferences->GetLibraryPath(BoxerEngine::ResourceType::MESH));
-    std::string models_library_path(preferences->GetLibraryPath(BoxerEngine::ResourceType::MODEL));
-    
-    models_library_path.append(model_name);
+    auto preferences =
+        static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
+    std::string meshes_library_path(preferences->GetLibraryPath(ResourceType::MESH));
+    std::string models_library_path(preferences->GetLibraryPath(ResourceType::MODEL));
+
+    models_library_path.append(modelName);
     if (!Files::IsValidFilePath(models_library_path))
     {
         return;
@@ -49,21 +47,21 @@ void Model::Load(const char* model_name)
     {
         mesh_ids.emplace_back(model_data["mesh"][i]["id"].as<std::string>());
     }
-    
+
     if (mesh_ids.size() == 0)
     {
         return;
     }
     for (auto id : mesh_ids)
     {
-        std::string mesh_path = BoxerEngine::StringUtils::Concat(preferences->GetLibraryPath(BoxerEngine::ResourceType::MESH), id);
+        std::string mesh_path = StringUtils::Concat(preferences->GetLibraryPath(ResourceType::MESH), id);
         meshes.emplace_back(new Mesh(mesh_path.c_str()));
     }
 }
 
 Model::~Model()
 {
-    for (auto mesh : meshes)
+    for (const auto mesh : meshes)
     {
         delete mesh;
     }
@@ -77,11 +75,11 @@ void Model::Draw() const
     }
 }
 
-void BoxerEngine::Model::SetTransform()
+void Model::SetTransform()
 {
 }
 
-void BoxerEngine::Model::SetMeshTexture(const int mesh_index, const int texture_id, const char* texture_type)
+void Model::SetMeshTexture(const int meshIndex, const int textureId, const char* textureType)
 {
-    meshes[mesh_index]->SetTexture(texture_id, texture_type);
+    meshes[meshIndex]->SetTexture(textureId, textureType);
 }

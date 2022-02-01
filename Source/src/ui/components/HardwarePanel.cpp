@@ -1,8 +1,6 @@
 #include "core/bepch.h"
 #include "HardwarePanel.h"
 
-#include "SDL.h"
-#include "imgui_impl_opengl3.h"
 #include "GL/glew.h"
 
 BoxerEngine::HardwarePanel::HardwarePanel(): Panel("Hardware", false)
