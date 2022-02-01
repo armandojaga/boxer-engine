@@ -3,6 +3,16 @@
 
 namespace BoxerEngine
 {
+    namespace Light
+    {
+        enum class Type
+        {
+            SPOT,
+            DIRECTIONAL,
+            POINT
+        };
+    }
+
     class LightComponent : public Component
     {
     public:
@@ -18,7 +28,12 @@ namespace BoxerEngine
 
         [[nodiscard]] const char* GetName() const override;
     private:
-        float3 color{255.0f};
         float intensity = 1.0f;
+        float radius = 1.0f;
+
+        float3 color{255.0f};
+        float3 direction{0.0f};
+
+        Light::Type lightType = Light::Type::SPOT;
     };
 }

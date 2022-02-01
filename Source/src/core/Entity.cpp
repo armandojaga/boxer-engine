@@ -141,7 +141,7 @@ void BoxerEngine::Entity::RemoveChild(UID entityId)
     );
 }
 
-bool BoxerEngine::Entity::IsChildOf(UID entityId)
+bool BoxerEngine::Entity::IsChildOf(UID entityId) const
 {
     if (!GetParent())
     {
@@ -154,9 +154,9 @@ bool BoxerEngine::Entity::IsChildOf(UID entityId)
     return GetParent()->IsChildOf(entityId);
 }
 
-void BoxerEngine::Entity::RemoveComponent(UID id)
+void BoxerEngine::Entity::RemoveComponent(UID componentId)
 {
-    auto isSameComponentId = [&](const auto c) { return c->GetId() == id; };
+    auto isSameComponentId = [&](const auto c) { return c->GetId() == componentId; };
     components.erase(
         std::remove_if(std::begin(components), std::end(components), isSameComponentId),
         components.end()

@@ -24,6 +24,9 @@ namespace BoxerEngine
             return texture_id;
         }
 
+        [[nodiscard]] int GetWidth() const;
+        [[nodiscard]] int GetHeight() const;
+
     private:
         unsigned int fbo_id = 0;
         unsigned int texture_id = 0;
