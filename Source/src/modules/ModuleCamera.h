@@ -54,6 +54,8 @@ public:
     void ZoomInPosition();
     void ZoomOutPosition();
 
+    [[nodiscard]] const Frustum& GetCameraFrustum() const;
+
 private:
     Frustum camera_frustum;
     BoxerEngine::CameraPreferences* camera_preferences = nullptr;

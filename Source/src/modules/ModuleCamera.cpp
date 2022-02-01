@@ -180,22 +180,22 @@ void ModuleCamera::CameraInputs()
 
 inline void ModuleCamera::TranslationInputs()
 {
-    if (App->input->IsKeyPressed(SDL_SCANCODE_W))
+    if (App->input->IsKeyPressed(SDL_SCANCODE_UP))
     {
         position += camera_frustum.Front() * GetSpeed(MoveType::TRANSLATION);
     }
 
-    if (App->input->IsKeyPressed(SDL_SCANCODE_S))
+    if (App->input->IsKeyPressed(SDL_SCANCODE_DOWN))
     {
         position -= camera_frustum.Front() * GetSpeed(MoveType::TRANSLATION);
     }
 
-    if (App->input->IsKeyPressed(SDL_SCANCODE_D))
+    if (App->input->IsKeyPressed(SDL_SCANCODE_RIGHT))
     {
         position += camera_frustum.WorldRight() * GetSpeed(MoveType::TRANSLATION);
     }
 
-    if (App->input->IsKeyPressed(SDL_SCANCODE_A))
+    if (App->input->IsKeyPressed(SDL_SCANCODE_LEFT))
     {
         position -= camera_frustum.WorldRight() * GetSpeed(MoveType::TRANSLATION);
     }
@@ -214,15 +214,15 @@ inline void ModuleCamera::TranslationInputs()
 
 inline void ModuleCamera::AspectInputs()
 {
-    if (App->input->IsKeyPressed(SDL_SCANCODE_Q))
-    {
-        ZoomOutFOV();
-    }
-
-    if (App->input->IsKeyPressed(SDL_SCANCODE_E))
-    {
-        ZoomInFOV();
-    }
+    // if (App->input->IsKeyPressed(SDL_SCANCODE_Q))
+    // {
+    //     ZoomOutFOV();
+    // }
+    //
+    // if (App->input->IsKeyPressed(SDL_SCANCODE_E))
+    // {
+    //     ZoomInFOV();
+    // }
 
     SetHorizontalFovInDegrees(horizontal_fov_degree);
 }
@@ -230,38 +230,38 @@ inline void ModuleCamera::AspectInputs()
 inline void ModuleCamera::RotationInputs()
 {
     // Keyboard
-    if (App->input->IsKeyPressed(SDL_SCANCODE_UP))
-    {
-        pitch += GetSpeed(MoveType::ROTATION);
-        // Deprecate below
-        Rotate(GetSpeed(MoveType::ROTATION), 0.0f);
-    }
-
-    if (App->input->IsKeyPressed(SDL_SCANCODE_DOWN))
-    {
-        pitch -= GetSpeed(MoveType::ROTATION);
-        // Deprecate below
-        Rotate(-GetSpeed(MoveType::ROTATION), 0.0f);
-    }
-
-    if (App->input->IsKeyPressed(SDL_SCANCODE_LEFT))
-    {
-        yaw += GetSpeed(MoveType::ROTATION);
-        // Deprecate below
-        Rotate(0.0f, GetSpeed(MoveType::ROTATION));
-    }
-
-    if (App->input->IsKeyPressed(SDL_SCANCODE_RIGHT))
-    {
-        yaw -= GetSpeed(MoveType::ROTATION);
-        // Deprecate below
-        Rotate(0.0f, -GetSpeed(MoveType::ROTATION));
-    }
-
-    if (App->input->GetKey(SDL_SCANCODE_F) == KeyState::KEY_DOWN)
-    {
-        LookModule();
-    }
+    // if (App->input->IsKeyPressed(SDL_SCANCODE_UP))
+    // {
+    //     pitch += GetSpeed(MoveType::ROTATION);
+    //     // Deprecate below
+    //     Rotate(GetSpeed(MoveType::ROTATION), 0.0f);
+    // }
+    //
+    // if (App->input->IsKeyPressed(SDL_SCANCODE_DOWN))
+    // {
+    //     pitch -= GetSpeed(MoveType::ROTATION);
+    //     // Deprecate below
+    //     Rotate(-GetSpeed(MoveType::ROTATION), 0.0f);
+    // }
+    //
+    // if (App->input->IsKeyPressed(SDL_SCANCODE_LEFT))
+    // {
+    //     yaw += GetSpeed(MoveType::ROTATION);
+    //     // Deprecate below
+    //     Rotate(0.0f, GetSpeed(MoveType::ROTATION));
+    // }
+    //
+    // if (App->input->IsKeyPressed(SDL_SCANCODE_RIGHT))
+    // {
+    //     yaw -= GetSpeed(MoveType::ROTATION);
+    //     // Deprecate below
+    //     Rotate(0.0f, -GetSpeed(MoveType::ROTATION));
+    // }
+    //
+    // if (App->input->GetKey(SDL_SCANCODE_F) == KeyState::KEY_DOWN)
+    // {
+    //     LookModule();
+    // }
 
     // Mouse
     if (App->input->IsMouseButtonPressed(SDL_BUTTON_RIGHT))
@@ -310,6 +310,11 @@ void ModuleCamera::ZoomInPosition()
 void ModuleCamera::ZoomOutPosition()
 {
     position -= camera_frustum.Front() * GetSpeed(MoveType::ZOOM_POS);
+}
+
+const Frustum& ModuleCamera::GetCameraFrustum() const
+{
+    return camera_frustum;
 }
 
 inline void ModuleCamera::ZoomOutFOV()

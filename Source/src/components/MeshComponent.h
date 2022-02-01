@@ -42,7 +42,7 @@ namespace BoxerEngine
 
         void DisplayLoadedUI();
         void DisplayNotLoadedUI();
-        void AddTextureDisplay(int mesh_index);
+        void AddTextureDisplay(int meshIndex);
         int TexturesTypesListBox();
     };
 }
