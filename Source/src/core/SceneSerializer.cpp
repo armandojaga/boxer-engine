@@ -4,6 +4,8 @@
 #include <yaml-cpp/yaml.h>
 
 #include "Scene.h"
+#include "components/Component.h"
+#include "components/TransformComponent.h"
 
 const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(std::filesystem::path& path)
 {
@@ -31,10 +33,11 @@ YAML::Node BoxerEngine::SceneSerializer::SaveEntity(const BoxerEngine::Entity* e
 	
 	for (int i = 0; i < entity->GetComponents().size(); ++i)
 	{
-		save_scene["component"][i] = (unsigned long long)entity->GetComponents()[i]->GetId();
-		save_scene["component"][i] = std::move(std::string(entity->GetComponents()[i]->GetName()));
-		//save_scene["component"][i] = entity->GetComponents()[i]->GetType();
-		save_scene["component"][i] = entity->GetComponents()[i]->IsEnabled();
+		save_scene["component"][i]["id"] = entity->GetComponents()[i]->GetId();
+		save_scene["component"][i]["name"] = std::string(entity->GetComponents()[i]->GetName());
+		save_scene["component"][i]["type"] = static_cast<unsigned int>(entity->GetComponents()[i]->GetType());
+		save_scene["component"][i]["enabled"] = entity->GetComponents()[i]->IsEnabled();
+		save_scene["component"][i]["data"] = SaveComponent(*entity->GetComponents()[i]);
 	}
 
 	for (int i = 0; i < entity->GetChildren().size(); ++i)
@@ -43,4 +46,38 @@ YAML::Node BoxerEngine::SceneSerializer::SaveEntity(const BoxerEngine::Entity* e
 	}
 
 	return save_scene;
+}
+
+YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const BoxerEngine::Component& component)
+{
+	YAML::Node component_node;
+
+	switch (component.GetType())
+	{
+		case Component::Type::TRANSFORM:
+		{
+			const BoxerEngine::TransformComponent tc = 
+				static_cast<const BoxerEngine::TransformComponent&>(component);
+
+			component_node["position"]["x"] = tc.GetPosition().x;
+			component_node["position"]["y"] = tc.GetPosition().y;
+			component_node["position"]["z"] = tc.GetPosition().z;
+			
+			component_node["rotation"]["x"] = tc.GetRotation().x;
+			component_node["rotation"]["y"] = tc.GetRotation().y;
+			component_node["rotation"]["z"] = tc.GetRotation().z;
+
+			component_node["scale"]["x"] = tc.GetScale().x;
+			component_node["scale"]["y"] = tc.GetScale().y;
+			component_node["scale"]["z"] = tc.GetScale().z;
+
+		}
+		case Component::Type::LIGHT:
+		case Component::Type::CAMERA:
+		case Component::Type::MESH:
+		default:
+			break;
+	}
+
+	return component_node;
 }

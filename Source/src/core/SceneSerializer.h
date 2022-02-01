@@ -6,6 +6,7 @@ namespace BoxerEngine
 {
 	class Scene;
 	class Entity;
+	class Component;
 
 	class SceneSerializer
 	{
@@ -17,6 +18,7 @@ namespace BoxerEngine
 		bool Save(const Scene* scene);
 	private:
 		YAML::Node SaveEntity(const Entity* entity);
+		YAML::Node SaveComponent(const BoxerEngine::Component& component);
 	};
 }
 
