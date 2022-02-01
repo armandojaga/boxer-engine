@@ -18,12 +18,7 @@ bool BoxerEngine::SceneSerializer::Save(const Scene* scene, const char* name, co
 	BoxerEngine::ResourcesPreferences* preferences = static_cast<BoxerEngine::ResourcesPreferences*>
     	(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
 	
-	std::string scene_path(path);
-	
-	if (scene_path.empty())
-	{
-		scene_path = preferences->GetAssetsPath(BoxerEngine::ResourceType::SCENE);
-	}
+	std::string scene_path = path != nullptr ? path : preferences->GetAssetsPath(BoxerEngine::ResourceType::SCENE);
 	scene_path.append(name);
 	std::ofstream fout(scene_path);
     fout << scene_data;
@@ -90,7 +85,7 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 			{
 				component_node["mesh"][i]["enabled"] = mc->IsMeshEnabled(i);
 				
-				if (!mc->IsMeshTextureLoaded(i))
+				if (mc->IsMeshTextureLoaded(i))
 				{
 					component_node["mesh"][i]["texture_file_name"] = mc->GetMeshTextureName(i);
 				}

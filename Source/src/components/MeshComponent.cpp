@@ -75,11 +75,7 @@ void BoxerEngine::MeshComponent::DisplayLoadedUI()
     for (int i = 0; i < model->GetMeshesCount(); ++i)
     {
         ImGui::TextWrapped(StringUtils::Concat(ICON_MD_ARROW_FORWARD_IOS, " ", std::to_string(i), " Mesh:").c_str());
-
-        if (!meshes[i]->texture_loaded)
-        {
-            AddTextureDisplay(i);
-        }
+        AddTextureDisplay(i);
     }
 }
 

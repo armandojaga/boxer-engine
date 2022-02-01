@@ -100,6 +100,7 @@ void Mesh::Draw() const
 {
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;
+    glBindTexture(GL_TEXTURE_2D, 0);
     for (unsigned int i = 0; i < textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i);
@@ -122,7 +123,7 @@ void Mesh::Draw() const
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
 
-    //glActiveTexture(GL_TEXTURE0);
+    glActiveTexture(GL_TEXTURE0);
 
     // draw mesh
     glBindVertexArray(VAO);
