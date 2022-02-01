@@ -11,22 +11,20 @@
 #include "core/preferences/PreferenceManager.h"
 #include "core/preferences/editor/ResourcesPreferences.h"
 
+using namespace BoxerEngine;
+
+#define MAX_TEXTURES_COUNT 5
+
 Mesh::Mesh(const char* file_path)
 {
+    textures.reserve(MAX_TEXTURES_COUNT);
+    glBindTexture(GL_TEXTURE_2D,0);
     Load(file_path);
     SetupMesh();
 }
 
 Mesh::~Mesh()
 {
-    //for (auto vertex : vertices)
-    //{
-    //    delete vertex;
-    //}
-    //for (auto texture : textures)
-    //{
-    //    delete texture;
-    //}
 }
 
 void Mesh::Load(const char* mesh_data)
@@ -38,12 +36,7 @@ void Mesh::Load(const char* mesh_data)
     {
         if (it->first.as<std::string>()._Equal("mesh_id"))
         {
-            id = it->second.as<std::string>();
-        }
-
-        if (it->first.as<std::string>()._Equal("material"))
-        {
-            material_id = it->second.as<std::string>();
+            id = std::move(it->second.as<std::string>());
         }
 
         if (it->first.as<std::string>()._Equal("min_point"))
@@ -78,57 +71,15 @@ void Mesh::Load(const char* mesh_data)
         node = mesh_node["texture_coords"][index];
         BoxerEngine::Yaml::ToFloat2(node, tex_coords);
 
-        vertices.push_back(Vertex(position, normal, tex_coords));
+        vertices.emplace_back(Vertex(position, normal, tex_coords));
     }
 
     indices.reserve(mesh_node["indices"].size() * 3);
     for (int i = 0; i < mesh_node["indices"].size(); ++i)
     {
-        indices.push_back(mesh_node["indices"][i][0].as<int>());
-        indices.push_back(mesh_node["indices"][i][1].as<int>());
-        indices.push_back(mesh_node["indices"][i][2].as<int>());
-    }
-
-    // Go for the textures
-    LoadTextureData(mesh_data, mesh_node["material"].as<std::string>().c_str());
-}
-
-void Mesh::LoadTextureData(const char* mesh_path, const char* material_id)
-{
-    BoxerEngine::ResourcesPreferences* preferences =
-        static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
-
-    std::filesystem::path tex_path = preferences->GetLibraryPath(BoxerEngine::ResourceType::TEXTURE);
-    YAML::Node texture_node = YAML::LoadFile(tex_path.append(material_id).string().c_str());
-
-    textures.reserve(texture_node["texture"].size());
-    for (auto texture : texture_node["texture"])
-    {
-        std::string name;
-        std::string type;
-        unsigned int texture_id;
-
-        if (texture.first.as<std::string>()._Equal("diffuse"))
-        {
-            for (int i = 0; i < texture.second.size(); ++i)
-            {
-                name = texture.second[i]["texture_name"].as<std::string>();
-                type = "texture_diffuse";
-                texture_id = App->textures->Load(name.c_str());
-                textures.push_back(Texture(texture_id, type, name));
-            }
-        }
-
-        if (texture.first.as<std::string>()._Equal("specular"))
-        {
-            for (int i = 0; i < texture.second.size(); ++i)
-            {
-                name = texture.second[i]["texture_name"].as<std::string>();
-                texture_id = App->textures->Load(name.c_str());
-                type = "texture_specular";
-                textures.push_back(Texture(texture_id, type, name));
-            }
-        }
+        indices.emplace_back(mesh_node["indices"][i][0].as<int>());
+        indices.emplace_back(mesh_node["indices"][i][1].as<int>());
+        indices.emplace_back(mesh_node["indices"][i][2].as<int>());
     }
 }
 
@@ -168,22 +119,37 @@ void Mesh::Draw() const
         // retrieve Texture number (the N in diffuse_TextureN)
         std::string number;
         std::string name = textures[i].type;
-        if (name == "texture_diffuse")
+        if (name._Equal("Diffuse"))
         {
+            name = "texture_diffuse";
             number = std::to_string(diffuseNr++);
         }
-        else if (name == "texture_specular")
+        else if (name._Equal("Specular"))
         {
+            name = "texture_specular";
             number = std::to_string(specularNr++);
         }
         App->program->SetUniform((name + number), static_cast<int>(i));
         glBindTexture(GL_TEXTURE_2D, textures[i].id);
     }
 
-    glActiveTexture(GL_TEXTURE0);
+    //glActiveTexture(GL_TEXTURE0);
 
     // draw mesh
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
+}
+
+void BoxerEngine::Mesh::SetTexture(unsigned int id, const char* type)
+{
+    for (int i = 0; i < textures.size(); ++i)
+    {
+        if (textures[i].type._Equal(type))
+        {
+            textures[i] = Texture(id, type);
+            return;
+        }
+    }
+    textures.emplace_back(id, type);
 }

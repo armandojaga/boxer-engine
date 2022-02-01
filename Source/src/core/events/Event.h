@@ -7,7 +7,7 @@
 #include "SelectionChangeEventPayload.h"
 #include "TransformChangedEventPayload.h"
 #include "FileAddedEventPayload.h"
-#include "AssetsChangedEventPayload.h"
+#include "AssetsAddedEventPayload.h"
 
 namespace BoxerEngine
 {
@@ -16,7 +16,7 @@ namespace BoxerEngine
         SelectionChangedEventPayload,
         TransformChangedEventPayload,
         FileAddedEventPayload, 
-        AssetsChangedEventPayload>;
+        AssetsAddedEventPayload>;
 
     class Event
     {

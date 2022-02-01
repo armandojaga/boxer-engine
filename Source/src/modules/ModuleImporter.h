@@ -11,11 +11,11 @@ public:
 	bool Init() override;
 	bool CleanUp() override;
 
+	bool RestoreLibrary();
 private:
 	BoxerEngine::ResourcesPreferences* preferences;
-	std::vector<std::pair<BoxerEngine::ImporterType, BoxerEngine::Importer*>> importers;
+	std::vector < std::pair < BoxerEngine::Importer::Type, BoxerEngine::Importer* >> importers;
 
 	void ImportAsset(const std::filesystem::path& asset_path, const  BoxerEngine::ResourceType asset_type);
-	BoxerEngine::ImporterType ToImporterType(const  BoxerEngine::ResourceType type);
+	BoxerEngine::Importer::Type ToImporterType(const  BoxerEngine::ResourceType type);
 };
-

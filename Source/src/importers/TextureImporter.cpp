@@ -15,6 +15,11 @@
 
 using namespace BoxerEngine;
 
+BoxerEngine::TextureImporter::TextureImporter() 
+    : Importer(Importer::Type::TEXTURE)
+{
+}
+
 void TextureImporter::ImportAsset(const std::filesystem::path& asset_path)
 {
     YAML::Node asset_ticket;

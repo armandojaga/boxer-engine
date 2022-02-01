@@ -6,60 +6,77 @@
 #include "Math/float2.h"
 #include "core/rendering/BoundingBox.h"
 
-struct Vertex
+namespace BoxerEngine
 {
-    Vertex(const float3& pos, const float3& norm, const float2& tex)
-        : position(pos)
-        , normal(norm)
-        , tex_coords(tex)
-    {}
+    struct Vertex
+    {
+        Vertex(const float3& pos, const float3& norm, const float2& tex)
+            : position(pos)
+            , normal(norm)
+            , tex_coords(tex)
+        {}
 
-    float3 position;
-    float3 normal;
-    float2 tex_coords;
-};
+        Vertex(Vertex&& vertex) noexcept
+        {
+            this->position = std::move(vertex.position);
+            this->normal = std::move(vertex.normal);
+            this->tex_coords = std::move(vertex.tex_coords);
+        }
 
-struct Texture
-{
-    Texture(const unsigned int id, const std::string& type, const std::string& name)
-        : id(id)
-        , type(type)
-        , name(name)
-    {}
+        float3 position;
+        float3 normal;
+        float2 tex_coords;
+    };
 
-    unsigned int id;
-    std::string type;
-    std::string name;
-};
+    struct Texture
+    {
+        Texture(const unsigned int id, std::string type)
+            : id(id)
+            , type(std::move(type))
+        {}
 
-class Mesh
-{
-public:
-    Mesh(const char* file_path);
-    ~Mesh();
-    void Draw() const;
+        Texture(Texture&& texture) = default;
 
-    [[nodiscard]] size_t GetNumVertices() const { return vertices.size(); }
-    [[nodiscard]] size_t GetNumIndices() const { return indices.size(); }
-    [[nodiscard]] size_t GetNumTextures() const { return textures.size(); }
+        Texture& operator= (Texture&& tex) noexcept
+        {
+            this->id = std::move(tex.id);
+            this->type = std::move(tex.type);
+            return *this;
+        }
+        
+        unsigned int id;
+        std::string type;
+    };
 
-private:
-    // mesh data
-    std::string id;
-    std::string material_id;
-    float3 min_point;
-    float3 max_point;
+    class Mesh
+    {
+    public:
+        Mesh(const char* file_path);
+        ~Mesh();
+        void Draw() const;
 
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
-    std::vector<Texture> textures;
+        [[nodiscard]] size_t GetNumVertices() const { return vertices.size(); }
+        [[nodiscard]] size_t GetNumIndices() const { return indices.size(); }
+        [[nodiscard]] size_t GetNumTextures() const { return textures.size(); }
+        [[nodiscard]] const std::string& GetId() const { return id; };
 
-    //  render data
-    unsigned int VAO;
-    unsigned int VBO;
-    unsigned int EBO;
+        void SetTexture(unsigned int id, const char* type);
+    private:
+        // mesh data
+        std::string id;
+        float3 min_point;
+        float3 max_point;
 
-    void SetupMesh();
-    void Load(const char* mesh_data);
-    void LoadTextureData(const char* texture_path, const char* material_id);
-};
+        std::vector<Vertex> vertices{};
+        std::vector<unsigned int> indices{};
+        std::vector<Texture> textures{};
+
+        //  render data
+        unsigned int VAO;
+        unsigned int VBO;
+        unsigned int EBO;
+
+        void SetupMesh();
+        void Load(const char* mesh_data);
+    };
+}

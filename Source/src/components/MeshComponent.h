@@ -3,49 +3,52 @@
 
 #include <string>
 #include <vector>
+
 #include "Math/float3.h"
 #include "Math/float2.h"
+#include "../vendors/ImGuiFileDialog/ImGuiFileDialog.h"
+
 #include "core/rendering/BoundingBox.h"
+#include "core/rendering/Model.h"
 
 namespace BoxerEngine
 {
-    struct Vertex
-    {
-        float3 position;
-        float3 normal;
-        float2 tex_coords;
-    };
+	struct MeshData
+	{
+		MeshData(bool enable = true, bool has_texture = false)
+			: enabled(enable)
+			, texture_loaded(has_texture)
+		{}
+		bool enabled;
+		bool texture_loaded;
+	};
 
-    struct Texture
-    {
-        unsigned int id{};
-        std::string type;
-        std::string path;
-    };
-
-    class Entity;
+class Entity;
 
 	class MeshComponent final : public Component
 	{
     public:
+        inline static Type type = Type::MESH;
+
 		explicit MeshComponent(Entity* parent);
-		~MeshComponent() override = default;
+		~MeshComponent() override;
+
+        void UpdateUI() override;
+        void Update() override;
+        [[nodiscard]] const char* GetName() const override;
+
+		void Draw();
+		void Enable() { enabled = true; }
+		void Disable() { enabled = false; }
 
     private:
-        // mesh data
-        std::vector<Vertex*> vertices;
-        std::vector<unsigned int> indices;
-        std::vector<Texture*> textures;
-        std::unique_ptr<BoxerEngine::BoundingBox> bounding_box;
+		bool model_loaded = false;
+		BoxerEngine::Model* Model = nullptr;
+		std::vector<MeshData*> meshes{};
 
-        //  render data
-        unsigned int VAO;
-        unsigned int VBO;
-        unsigned int EBO;
-
-        void SetupMesh();
+		void DisplayLoadedUI();
+		void DisplayNotLoadedUI();
+		void AddTextureDisplay(const int mesh_index);
+		int TexturesTypesListBox();
 	};
-
-
 }
-

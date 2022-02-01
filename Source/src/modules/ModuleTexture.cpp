@@ -1,9 +1,11 @@
 #include "ModuleTexture.h"
 #include "Application.h"
 
-#include "IL/il.h"
-#include "IL/ilu.h"
-#include "GL/glew.h"
+#include <algorithm>
+#include <IL/il.h>
+#include <IL/ilu.h>
+#include <GL/glew.h>
+#include <yaml-cpp/yaml.h>
 
 #include "core/util/Files.h"
 #include "core/util/StringUtils.h"
@@ -29,16 +31,36 @@ bool ModuleTexture::CleanUp()
 
 unsigned int ModuleTexture::Load(const char* texture_name)
 {
+    std::filesystem::path name(texture_name);
+    name.replace_extension();
+
+    auto texture = textures_loaded.find(name.string().c_str());
+    if (texture != textures_loaded.end())
+    {
+        return texture->second;
+    }
+
+    unsigned int tex_id = LoadNew(name.string().c_str());
+
+    textures_loaded.emplace(name.string().c_str(), tex_id);
+
+    return tex_id;
+}
+
+unsigned int ModuleTexture::LoadNew(const char* texture_name)
+{
     unsigned int textureId(INVALID_ID);
     unsigned int image{};
 
     BoxerEngine::ResourcesPreferences* preferences =
         static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
     
-    std::string texture_path(preferences->GetAssetsPath(BoxerEngine::ResourceType::TEXTURE));
-    texture_path.append(texture_name);
-    
-    // TODO: We need to validate if the texture was already loaded into openGl
+    std::string library_path(preferences->GetLibraryPath(BoxerEngine::ResourceType::TEXTURE));
+    library_path.append(texture_name);
+
+    YAML::Node node = YAML::LoadFile(library_path.c_str());
+    std::string texture_path = std::move(node["file_path"].as<std::string>());
+
     ilGenImages(1, &image);
     ilBindImage(image);
     if (ilLoadImage(texture_path.c_str()))
@@ -65,3 +87,5 @@ unsigned int ModuleTexture::Load(const char* texture_name)
     ilDeleteImages(1, &image);
     return textureId;
 }
+
+

@@ -14,11 +14,18 @@
 
 using namespace BoxerEngine;
 
+BoxerEngine::ModelImporter::ModelImporter()
+    : Importer(Importer::Type::MODEL)
+{
+}
+
 void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
 {
     BE_LOG("Entering ModelImporter: %s", model_path);
     Assimp::Importer import;
-    const aiScene* scene = import.ReadFile(model_path.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
+    const aiScene* scene = nullptr;
+
+    scene = import.ReadFile(model_path.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
 
     if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
@@ -33,30 +40,19 @@ void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
 
     ImportModel(scene, model_ticket);
     SaveToFile(model_ticket, file_name);
-
 }
 
 void ModelImporter::ImportModel(const aiScene* scene, YAML::Node& ticket)
 {
     MeshImporter mesh_importer;
-    TextureImporter texture_importer;
     std::string mesh_uuid;
-    std::string material_uuid;
 
     for (unsigned int i = 0; i < scene->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[i];
-
-        if (mesh->mMaterialIndex >= 0)
-        {
-            aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-            material_uuid = UUID::GenerateUUIDv4();
-            texture_importer.ImportMaterial(material, material_uuid);
-        }
-
         mesh_uuid = UUID::GenerateUUIDv4();
         ticket["mesh"][i]["id"] = mesh_uuid;
-        mesh_importer.ImportMesh(mesh, mesh_uuid, material_uuid);
+        mesh_importer.ImportMesh(mesh, mesh_uuid);
     }
 }
 

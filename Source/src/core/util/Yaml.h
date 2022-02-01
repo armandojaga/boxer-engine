@@ -9,7 +9,7 @@ namespace BoxerEngine
     class Yaml
     {
     public:
-        static  void ToFloat3(YAML::Node& in_node, float3& out_vector)
+        static void ToFloat3(YAML::Node& in_node, float3& out_vector)
         {
             out_vector.x = in_node["x"].as<float>();
             out_vector.y = in_node["y"].as<float>();

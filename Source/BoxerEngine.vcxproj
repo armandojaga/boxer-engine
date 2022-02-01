@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\SceneSerializer.cpp" />
     <ClCompile Include="src\importers\ModelImporter.cpp" />
     <ClCompile Include="src\importers\GenericImporter.cpp" />
     <ClCompile Include="src\importers\MeshImporter.cpp" />
@@ -230,6 +231,7 @@
     <ClCompile Include="src\ui\components\ScenePanel.cpp" />
     <ClCompile Include="src\ui\components\StatisticsPanel.cpp" />
     <ClCompile Include="src\importers\TextureImporter.cpp" />
+    <ClCompile Include="vendors\ImGuiFileDialog\ImGuiFileDialog.cpp" />
     <ClCompile Include="vendors\ImGuizmo\GraphEditor.cpp" />
     <ClCompile Include="vendors\ImGuizmo\ImCurveEdit.cpp" />
     <ClCompile Include="vendors\ImGuizmo\ImGradient.cpp" />
@@ -318,12 +320,13 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\SceneSerializer.h" />
     <ClInclude Include="src\importers\ModelImporter.h" />
     <ClInclude Include="src\importers\GenericImporter.h" />
     <ClInclude Include="src\importers\MeshImporter.h" />
     <ClInclude Include="src\importers\Importer.h" />
     <ClInclude Include="src\modules\ModuleImporter.h" />
-    <ClInclude Include="src\core\events\AssetsChangedEventPayload.h" />
+    <ClInclude Include="src\core\events\AssetsAddedEventPayload.h" />
     <ClInclude Include="src\core\preferences\editor\ResourcesPreferences.h" />
     <ClInclude Include="src\core\events\FileAddedEventPayload.h" />
     <ClInclude Include="src\core\events\SelectionChangeEventPayload.h" />
@@ -467,6 +470,11 @@
     <ClInclude Include="vendors\glew-2.1.0\include\GL\glxew.h" />
     <ClInclude Include="vendors\glew-2.1.0\include\GL\wglew.h" />
     <ClInclude Include="vendors\IconFontCppHeaders\include\IconsMaterialDesign.h" />
+    <ClInclude Include="vendors\ImGuiFileDialog\dirent\dirent.h" />
+    <ClInclude Include="vendors\ImGuiFileDialog\ImGuiFileDialog.h" />
+    <ClInclude Include="vendors\ImGuiFileDialog\ImGuiFileDialogConfig.h" />
+    <ClInclude Include="vendors\ImGuiFileDialog\stb\stb_image.h" />
+    <ClInclude Include="vendors\ImGuiFileDialog\stb\stb_image_resize.h" />
     <ClInclude Include="vendors\ImGuizmo\GraphEditor.h" />
     <ClInclude Include="vendors\ImGuizmo\ImCurveEdit.h" />
     <ClInclude Include="vendors\ImGuizmo\ImGradient.h" />

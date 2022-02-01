@@ -8,6 +8,11 @@
 
 using namespace BoxerEngine;
 
+BoxerEngine::MeshImporter::MeshImporter()
+    : Importer(Importer::Type::MESH)
+{
+}
+
 void MeshImporter::ImportAsset(const std::filesystem::path& mesh_path)
 {
     BE_LOG("Loading Module: %s", mesh_path);
@@ -32,11 +37,10 @@ void BoxerEngine::MeshImporter::SaveToFile(YAML::Node& ticket, const std::string
     std::ofstream fout(mesh_name);
     fout << ticket;
 }
-void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid, const std::string& material_id)
+void BoxerEngine::MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid)
 {
     YAML::Node ticket;
     ticket["mesh_id"] = uuid;
-    ticket["material"] = material_id;
     PopulateTicket(mesh, ticket);
     SaveToFile(ticket, uuid);
 }

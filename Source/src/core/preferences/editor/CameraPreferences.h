@@ -35,6 +35,6 @@ namespace BoxerEngine
         unsigned int zoom_speed = 50;
         float fov = 90.0;
         float near_distance = 0.1;
-        float far_distance = 100.0;
+        float far_distance = 500.0;
     };
 }
