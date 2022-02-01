@@ -42,20 +42,13 @@ void Model::Load(const char* modelName)
         }
     }
 
-    mesh_ids.reserve(model_data["mesh"].size());
+    std::string meshes_path = preferences->GetLibraryPath(ResourceType::MESH);
+
     for (int i = 0; i < model_data["mesh"].size(); ++i)
     {
-        mesh_ids.emplace_back(model_data["mesh"][i]["id"].as<std::string>());
-    }
-
-    if (mesh_ids.size() == 0)
-    {
-        return;
-    }
-    for (auto id : mesh_ids)
-    {
-        std::string mesh_path = StringUtils::Concat(preferences->GetLibraryPath(ResourceType::MESH), id);
-        meshes.emplace_back(new Mesh(mesh_path.c_str()));
+        std::string mesh_id = std::move(model_data["mesh"][i]["id"].as<std::string>());
+        mesh_id.insert(0, meshes_path);
+        meshes.emplace_back(new Mesh(mesh_id.c_str()));
     }
 }
 

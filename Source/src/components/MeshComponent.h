@@ -11,12 +11,13 @@ namespace BoxerEngine
     {
         MeshData(bool enable = true, bool has_texture = false)
             : enabled(enable)
-              , texture_loaded(has_texture)
+            , texture_loaded(has_texture)
         {
         }
 
         bool enabled;
         bool texture_loaded;
+        std::string texture_name;
     };
 
     class Entity;
@@ -32,12 +33,18 @@ namespace BoxerEngine
         void UpdateUI() override;
         void Update() override;
         [[nodiscard]] const char* GetName() const override;
-
         void Draw() override;
+
+        [[nodiscard]] const char* GetModelName() const;
+        [[nodiscard]] const char* GetMeshTextureName(const int index) const { return meshes[index]->texture_name.c_str(); };
+        [[nodiscard]] int GetMeshesCount() const { return meshes.size(); };
+
+        bool IsMeshEnabled(const int index) const { return meshes[index]->enabled; };
+        bool IsMeshTextureLoaded(const int index) const { return meshes[index]->texture_loaded; };
 
     private:
         bool model_loaded = false;
-        Model* Model = nullptr;
+        Model* model = nullptr;
         std::vector<MeshData*> meshes{};
 
         void DisplayLoadedUI();
