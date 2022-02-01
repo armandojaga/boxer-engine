@@ -22,7 +22,7 @@ update_status ModuleScene::Update(float delta)
 bool ModuleScene::CleanUp()
 {
     SaveScene();
-    return false;
+    return true;
 }
 
 void ModuleScene::CreateEmptyScene() const
