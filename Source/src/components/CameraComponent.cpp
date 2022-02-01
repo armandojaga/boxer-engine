@@ -1,7 +1,7 @@
 #include "core/bepch.h"
 #include "CameraComponent.h"
 
-BoxerEngine::CameraComponent::CameraComponent(Entity* parent): Component(type, parent)
+BoxerEngine::CameraComponent::CameraComponent(Entity* entity): Component(type, entity)
 {
 }
 

@@ -1,15 +1,8 @@
+#include "core/bepch.h"
 #include "Mesh.h"
-#include "Globals.h"
-#include "GL/glew.h"
 
-#include <filesystem>
-
-#include "Application.h"
 #include "modules/ModuleProgram.h"
-#include "modules/ModuleTexture.h"
 #include "core/util/Yaml.h"
-#include "core/preferences/PreferenceManager.h"
-#include "core/preferences/editor/ResourcesPreferences.h"
 
 using namespace BoxerEngine;
 
@@ -18,13 +11,9 @@ using namespace BoxerEngine;
 Mesh::Mesh(const char* file_path)
 {
     textures.reserve(MAX_TEXTURES_COUNT);
-    glBindTexture(GL_TEXTURE_2D,0);
+    glBindTexture(GL_TEXTURE_2D, 0);
     Load(file_path);
     SetupMesh();
-}
-
-Mesh::~Mesh()
-{
 }
 
 void Mesh::Load(const char* mesh_data)
@@ -61,15 +50,15 @@ void Mesh::Load(const char* mesh_data)
     {
         float3 position;
         YAML::Node node = mesh_node["vertices"][index];
-        BoxerEngine::Yaml::ToFloat3(node, position);
+        Yaml::ToFloat3(node, position);
 
         float3 normal;
         node = mesh_node["normals"][index];
-        BoxerEngine::Yaml::ToFloat3(node, normal);
+        Yaml::ToFloat3(node, normal);
 
         float2 tex_coords;
         node = mesh_node["texture_coords"][index];
-        BoxerEngine::Yaml::ToFloat2(node, tex_coords);
+        Yaml::ToFloat2(node, tex_coords);
 
         vertices.emplace_back(Vertex(position, normal, tex_coords));
     }
@@ -94,7 +83,7 @@ void Mesh::SetupMesh()
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
-        &indices[0], GL_STATIC_DRAW);
+                 &indices[0], GL_STATIC_DRAW);
 
     // Vertex positions
     glEnableVertexAttribArray(0);
@@ -141,7 +130,7 @@ void Mesh::Draw() const
     glBindVertexArray(0);
 }
 
-void BoxerEngine::Mesh::SetTexture(unsigned int id, const char* type)
+void Mesh::SetTexture(unsigned int id, const char* type)
 {
     for (int i = 0; i < textures.size(); ++i)
     {

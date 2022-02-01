@@ -1,7 +1,6 @@
-#include "ModuleProgram.h"
+#include "core/bepch.h"
 
-#include "core/util/Files.h"
-#include "core/util/StringUtils.h"
+#include "ModuleProgram.h"
 
 ModuleProgram::ModuleProgram()
 {

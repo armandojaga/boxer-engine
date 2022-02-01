@@ -1,8 +1,6 @@
 #include "core/bepch.h"
 #include "AboutPanel.h"
 
-#include "core/util/Files.h"
-
 BoxerEngine::AboutPanel::AboutPanel(): Panel("About", false)
 {
 }

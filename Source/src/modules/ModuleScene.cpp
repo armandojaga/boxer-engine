@@ -1,3 +1,5 @@
+#include "core/bepch.h"
+
 #include "ModuleScene.h"
 
 bool ModuleScene::Init()

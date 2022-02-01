@@ -1,21 +1,15 @@
+#include "core/bepch.h"
 
 #include "ModelImporter.h"
 #include "MeshImporter.h"
-#include "TextureImporter.h"
-#include "Application.h"
-
-#include <Globals.h>
-#include <yaml-cpp/yaml.h>
-#include <fstream>
-#include <filesystem>
 
 #include "core/preferences/PreferenceManager.h"
 #include "core/preferences/editor/ResourcesPreferences.h"
 
 using namespace BoxerEngine;
 
-BoxerEngine::ModelImporter::ModelImporter()
-    : Importer(Importer::Type::MODEL)
+ModelImporter::ModelImporter()
+    : Importer(Type::MODEL)
 {
 }
 
@@ -56,9 +50,9 @@ void ModelImporter::ImportModel(const aiScene* scene, YAML::Node& ticket)
     }
 }
 
-void BoxerEngine::ModelImporter::SaveToFile(YAML::Node& ticket, const std::string& file_name)
+void ModelImporter::SaveToFile(YAML::Node& ticket, const std::string& file_name)
 {
-    preferences = static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
+    preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
     std::string model_name(preferences->GetLibraryPath(ResourceType::MODEL) + file_name);
     std::ofstream fout(model_name);
     fout << ticket;

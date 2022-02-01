@@ -2,7 +2,7 @@
 #include "LightComponent.h"
 
 
-BoxerEngine::LightComponent::LightComponent(Entity* parent): Component(type, parent)
+BoxerEngine::LightComponent::LightComponent(Entity* entity): Component(type, entity)
 {
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "core/util/UUID.h"
-#include <memory>
 
 namespace BoxerEngine
 {
@@ -26,7 +25,7 @@ namespace BoxerEngine
         };
 
         explicit Component(Entity* parent);
-        explicit Component(const Type type, Entity* parent);
+        explicit Component(Type type, Entity* parent);
         virtual ~Component() = default;
 
         virtual void Init();

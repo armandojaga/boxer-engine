@@ -9,7 +9,7 @@ namespace BoxerEngine
     public:
         inline static Type type = Type::TRANSFORM;
 
-        explicit TransformComponent(Entity* parent);
+        explicit TransformComponent(Entity* entity);
         ~TransformComponent() override = default;
 
         void UpdateUI() override;

@@ -11,16 +11,14 @@ namespace BoxerEngine
     struct Vertex
     {
         Vertex(const float3& pos, const float3& norm, const float2& tex)
-            : position(pos)
-            , normal(norm)
-            , tex_coords(tex)
-        {}
-
-        Vertex(Vertex&& vertex) noexcept
+            : position(pos), normal(norm), tex_coords(tex)
         {
-            this->position = std::move(vertex.position);
-            this->normal = std::move(vertex.normal);
-            this->tex_coords = std::move(vertex.tex_coords);
+        }
+
+        Vertex(Vertex&& vertex) noexcept : position(std::move(vertex.position)),
+                                           normal(std::move(vertex.normal)),
+                                           tex_coords(std::move(vertex.tex_coords))
+        {
         }
 
         float3 position;
@@ -32,18 +30,19 @@ namespace BoxerEngine
     {
         Texture(const unsigned int id, std::string type)
             : id(id)
-            , type(std::move(type))
-        {}
+              , type(std::move(type))
+        {
+        }
 
         Texture(Texture&& texture) = default;
 
-        Texture& operator= (Texture&& tex) noexcept
+        Texture& operator=(Texture&& tex) noexcept
         {
             this->id = std::move(tex.id);
             this->type = std::move(tex.type);
             return *this;
         }
-        
+
         unsigned int id;
         std::string type;
     };
@@ -52,7 +51,7 @@ namespace BoxerEngine
     {
     public:
         Mesh(const char* file_path);
-        ~Mesh();
+        ~Mesh() = default;
         void Draw() const;
 
         [[nodiscard]] size_t GetNumVertices() const { return vertices.size(); }
@@ -72,9 +71,9 @@ namespace BoxerEngine
         std::vector<Texture> textures{};
 
         //  render data
-        unsigned int VAO;
-        unsigned int VBO;
-        unsigned int EBO;
+        unsigned int VAO{};
+        unsigned int VBO{};
+        unsigned int EBO{};
 
         void SetupMesh();
         void Load(const char* mesh_data);

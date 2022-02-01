@@ -1,7 +1,5 @@
 #pragma once
 #include <variant>
-#include "core/util/UUID.h"
-#include "Math/float3x3.h"
 
 //event payloads created here because std::variant does not like forward declarations
 #include "SelectionChangeEventPayload.h"
@@ -13,10 +11,10 @@ namespace BoxerEngine
 {
     //std::monostate is added just so we can have an empty std::variant
     using EventData = std::variant<std::monostate,
-        SelectionChangedEventPayload,
-        TransformChangedEventPayload,
-        FileAddedEventPayload, 
-        AssetsAddedEventPayload>;
+                                   SelectionChangedEventPayload,
+                                   TransformChangedEventPayload,
+                                   FileAddedEventPayload,
+                                   AssetsAddedEventPayload>;
 
     class Event
     {

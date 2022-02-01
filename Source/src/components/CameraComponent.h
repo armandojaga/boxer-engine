@@ -8,7 +8,7 @@ namespace BoxerEngine
     public:
         inline static Type type = Type::CAMERA;
 
-        explicit CameraComponent(Entity* parent);
+        explicit CameraComponent(Entity* entity);
         ~CameraComponent() override = default;
 
         void UpdateUI() override;

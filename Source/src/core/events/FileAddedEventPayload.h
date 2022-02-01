@@ -16,5 +16,4 @@ namespace BoxerEngine
     private:
         std::filesystem::path path;
     };
-
 }

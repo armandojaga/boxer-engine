@@ -2,7 +2,6 @@
 #include "Entity.h"
 #include "components/TransformComponent.h"
 
-
 BoxerEngine::Entity::Entity() : Entity(nullptr)
 {
 }

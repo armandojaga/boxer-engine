@@ -130,7 +130,7 @@ update_status ModuleRender::Update(float delta)
     }
 
     App->program->UseProgram();
-    
+
     //draw entities
     App->scene->GetScene()->GetRoot()->Draw();
 

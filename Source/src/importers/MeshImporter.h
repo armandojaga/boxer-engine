@@ -11,17 +11,17 @@
 
 namespace BoxerEngine
 {
-	class MeshImporter final : public Importer
-	{
-		friend class ModelImporter;
+    class MeshImporter final : public Importer
+    {
+        friend class ModelImporter;
 
-		public:
-			MeshImporter();
-			~MeshImporter() override = default;
-			void ImportAsset(const std::filesystem::path& mesh_path) override;
-			void SaveToFile(YAML::Node& ticket, const std::string& file_name) override;
-		private:
-			void ImportMesh(aiMesh* mesh, const std::string& uuid);
-			void PopulateTicket(aiMesh* mesh, YAML::Node& ticket);
-	};
+    public:
+        MeshImporter();
+        ~MeshImporter() override = default;
+        void ImportAsset(const std::filesystem::path& mesh_path) override;
+        void SaveToFile(YAML::Node& ticket, const std::string& file_name) override;
+    private:
+        void ImportMesh(aiMesh* mesh, const std::string& uuid);
+        void PopulateTicket(aiMesh* mesh, YAML::Node& ticket);
+    };
 }

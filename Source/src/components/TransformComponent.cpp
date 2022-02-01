@@ -2,7 +2,7 @@
 #include "TransformComponent.h"
 #include "ui/widgets/AxisSlider.h"
 
-BoxerEngine::TransformComponent::TransformComponent(Entity* parent): Component(type, parent)
+BoxerEngine::TransformComponent::TransformComponent(Entity* entity): Component(type, entity)
 {
 }
 

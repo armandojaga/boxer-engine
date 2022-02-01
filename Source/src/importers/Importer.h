@@ -8,28 +8,31 @@ class YAML::Node;
 
 namespace BoxerEngine
 {
-	class Importer
-	{
-	public:
-		enum class Type
-		{
-			GENERIC = 0,
-			MODEL,
-			MESH,
-			TEXTURE,
-			COUNT
-		};
+    class Importer
+    {
+    public:
+        enum class Type
+        {
+            GENERIC = 0,
+            MODEL,
+            MESH,
+            TEXTURE,
+            COUNT
+        };
 
-		Importer(const Type type) : type(type) {}
-		virtual ~Importer() = default;
+        Importer(const Type type) : type(type)
+        {
+        }
 
-		[[nodiscard]] Type GetType() const { return type; }
+        virtual ~Importer() = default;
 
-		virtual void ImportAsset(const std::filesystem::path& asset_path) = 0;
-		virtual void SaveToFile(YAML::Node& ticket, const std::string& file_name) = 0;
+        [[nodiscard]] Type GetType() const { return type; }
 
-	protected:
-		BoxerEngine::ResourcesPreferences* preferences = nullptr;
-		Type type;
-	};
+        virtual void ImportAsset(const std::filesystem::path& asset_path) = 0;
+        virtual void SaveToFile(YAML::Node& ticket, const std::string& file_name) = 0;
+
+    protected:
+        ResourcesPreferences* preferences = nullptr;
+        Type type;
+    };
 }

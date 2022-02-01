@@ -1,14 +1,11 @@
-#include "ModuleTexture.h"
-#include "Application.h"
+#include "core/bepch.h"
 
-#include <algorithm>
+#include "ModuleTexture.h"
+
 #include <IL/il.h>
 #include <IL/ilu.h>
 #include <GL/glew.h>
-#include <yaml-cpp/yaml.h>
 
-#include "core/util/Files.h"
-#include "core/util/StringUtils.h"
 #include "core/preferences/PreferenceManager.h"
 #include "core/preferences/editor/ResourcesPreferences.h"
 
@@ -52,9 +49,9 @@ unsigned int ModuleTexture::LoadNew(const char* texture_name)
     unsigned int textureId(INVALID_ID);
     unsigned int image{};
 
-    BoxerEngine::ResourcesPreferences* preferences =
+    auto preferences =
         static_cast<BoxerEngine::ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
-    
+
     std::string library_path(preferences->GetLibraryPath(BoxerEngine::ResourceType::TEXTURE));
     library_path.append(texture_name);
 
@@ -87,5 +84,3 @@ unsigned int ModuleTexture::LoadNew(const char* texture_name)
     ilDeleteImages(1, &image);
     return textureId;
 }
-
-

@@ -288,7 +288,7 @@ void ModuleCamera::OrbitModule()
     {
         return;
     }
-    const float3 moduleOrigin = float3(0.0f);//model->GetOrigin(); TODO: take selected object model transform
+    const auto moduleOrigin = float3(0.0f); //model->GetOrigin(); TODO: take selected object model transform
 
     // Radius is the distance to the module in xz plane
     auto distanceXZ = float2(position.x - moduleOrigin.x, position.z - moduleOrigin.z);

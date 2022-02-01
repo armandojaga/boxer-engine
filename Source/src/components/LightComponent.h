@@ -8,7 +8,7 @@ namespace BoxerEngine
     public:
         inline static Type type = Type::LIGHT;
 
-        explicit LightComponent(Entity* parent);
+        explicit LightComponent(Entity* entity);
         ~LightComponent() override = default;
 
         void UpdateUI() override;

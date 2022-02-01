@@ -4,7 +4,6 @@
 #include "components/LightComponent.h"
 #include "components/CameraComponent.h"
 #include "components/MeshComponent.h"
-#include "components/ModelComponent.h"
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
 #include "modules/ModuleEditor.h"

@@ -1,20 +1,13 @@
-#include "Globals.h"
-#include "Application.h"
+#include "core/bepch.h"
+
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModuleCamera.h"
-#include <SDL.h>
-
-#include "imgui_impl_sdl.h"
-#include "ModuleResources.h"
-#include "core/util/Files.h"
-#include "core/events/EventManager.h"
 
 constexpr int MAX_KEYS = 300;
 
-ModuleInput::ModuleInput()
+ModuleInput::ModuleInput() : keyboard(new KeyState[MAX_KEYS])
 {
-    keyboard = new KeyState[MAX_KEYS];
     memset(keyboard, 0, sizeof(KeyState) * MAX_KEYS);
     memset(mouse_buttons, 0, sizeof(KeyState) * NUM_MOUSE_BUTTONS);
 }
