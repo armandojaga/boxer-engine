@@ -6,6 +6,8 @@
 #include "core/util/Files.h"
 #include "core/util/StringUtils.h"
 #include "ImGuiFileDialog.h"
+#include "TransformComponent.h"
+#include "modules/ModuleProgram.h"
 
 static const char* types[]{"Diffuse", "Specular"};
 
@@ -16,7 +18,7 @@ BoxerEngine::MeshComponent::MeshComponent(Entity* entity)
 
 BoxerEngine::MeshComponent::~MeshComponent()
 {
-    for (auto mesh : meshes)
+    for (const auto mesh : meshes)
     {
         delete mesh;
     }
@@ -51,6 +53,7 @@ void BoxerEngine::MeshComponent::Draw()
         return;
     }
 
+    App->program->SetUniform("model", GetEntity()->GetComponent<TransformComponent>()->GetGlobalMatrix());
     Model->Draw();
 }
 
@@ -85,7 +88,7 @@ void BoxerEngine::MeshComponent::DisplayNotLoadedUI()
     {
         if (ImGuiFileDialog::Instance()->IsOk())
         {
-            std::filesystem::path file_path = ImGuiFileDialog::Instance()->GetFilePathName();
+            const std::filesystem::path file_path = ImGuiFileDialog::Instance()->GetFilePathName();
             // TODO: If filepath is not asset. Import mesh
 
             Model = new BoxerEngine::Model(file_path.filename().replace_extension().string().c_str());
@@ -102,13 +105,13 @@ void BoxerEngine::MeshComponent::DisplayNotLoadedUI()
     }
 }
 
-void BoxerEngine::MeshComponent::AddTextureDisplay(const int mesh_index)
+void BoxerEngine::MeshComponent::AddTextureDisplay(const int meshIndex)
 {
-    std::string title("Select texture##%d", mesh_index);
+    const std::string title = StringUtils::Concat("Select texture##%d", std::to_string(meshIndex));
 
     ImGui::TextWrapped(ICON_MD_IMAGE_SEARCH);
     ImGui::SameLine();
-    if (ImGui::Button(StringUtils::Concat(std::to_string(mesh_index).c_str(), " Mesh").c_str()))
+    if (ImGui::Button(StringUtils::Concat(std::to_string(meshIndex).c_str(), " Mesh").c_str()))
     {
         ImGuiFileDialog::Instance()->OpenDialog(title.c_str(), "Select Texture", ".*", "./library/textures/", 1, nullptr,
                                                 ImGuiFileDialogFlags_DontShowHiddenFiles |
@@ -117,17 +120,17 @@ void BoxerEngine::MeshComponent::AddTextureDisplay(const int mesh_index)
                                                 ImGuiFileDialogFlags_HideColumnDate);
     }
 
-    ImGui::PushID(mesh_index);
-    int index = TexturesTypesListBox();
+    ImGui::PushID(meshIndex);
+    const int index = TexturesTypesListBox();
     ImGui::PopID();
 
     if (ImGuiFileDialog::Instance()->Display(title.c_str()))
     {
         if (ImGuiFileDialog::Instance()->IsOk())
         {
-            std::filesystem::path texture_path = ImGuiFileDialog::Instance()->GetFilePathName();
-            unsigned int texture_id = App->textures->Load(texture_path.filename().string().c_str());
-            Model->SetMeshTexture(mesh_index, texture_id, types[index]);
+            const std::filesystem::path texturePath = ImGuiFileDialog::Instance()->GetFilePathName();
+            const unsigned int textureId = App->textures->Load(texturePath.filename().string().c_str());
+            Model->SetMeshTexture(meshIndex, textureId, types[index]);
         }
 
         ImGuiFileDialog::Instance()->Close();
