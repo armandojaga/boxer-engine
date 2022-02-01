@@ -8,7 +8,15 @@ BoxerEngine::LightComponent::LightComponent(Entity* entity): Component(type, ent
 
 void BoxerEngine::LightComponent::UpdateUI()
 {
-    ImGui::Text("Light here");
+    int selected = static_cast<int>(lightType);;
+    const char* items[static_cast<int>(Light::Type::COUNT)]{};
+    items[static_cast<int>(Light::Type::SPOT)] = "Spot";
+    items[static_cast<int>(Light::Type::DIRECTIONAL)] = "Directional";
+    items[static_cast<int>(Light::Type::POINT)] = "Point";
+    if(ImGui::Combo("##light", &selected, items, IM_ARRAYSIZE(items)))
+    {
+        lightType = static_cast<Light::Type>(selected);
+    }
 }
 
 float3 BoxerEngine::LightComponent::GetColor() const

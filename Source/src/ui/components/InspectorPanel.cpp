@@ -66,13 +66,13 @@ void BoxerEngine::InspectorPanel::Update()
         if (component->GetType() != Component::Type::TRANSFORM) //can not remove the transform
         {
             ImGui::SameLine();
-            if (ImGui::Button("?"))
+            if (ImGui::Button(ICON_MD_SETTINGS))
             {
                 ImGui::OpenPopup("RemoveComponentMenu");
             }
             if (ImGui::BeginPopup("RemoveComponentMenu"))
             {
-                if (ImGui::MenuItem("Remove"))
+                if (ImGui::MenuItem(StringUtils::Concat(ICON_MD_DELETE_FOREVER,"Remove").c_str()))
                 {
                     currentEntity->RemoveComponent(component->GetId());
                 }

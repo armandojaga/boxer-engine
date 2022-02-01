@@ -7,9 +7,10 @@ namespace BoxerEngine
     {
         enum class Type
         {
-            SPOT,
+            SPOT = 0,
             DIRECTIONAL,
-            POINT
+            POINT,
+            COUNT
         };
     }
 
