@@ -4,38 +4,38 @@ using namespace BoxerEngine;
 
 CameraPreferences::CameraPreferences() : Preferences(Type::CAMERA)
 {
-    group_name = "camera";
+    group_name = CAMERA_NODE;
 }
 
 void CameraPreferences::SetConfigurationData(const YAML::Node& node)
 {
     for (auto it = node.begin(); it != node.end(); ++it)
     {
-        if (it->first.as<std::string>()._Equal("move_speed"))
+        if (it->first.as<std::string>()._Equal(MOVE_SPEED))
         {
             move_speed = it->second.as<int>();
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("rotation_speed"))
+        if (it->first.as<std::string>()._Equal(ROTATION_SPEED))
         {
             rotation_speed = it->second.as<int>();
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("orbit_speed"))
+        if (it->first.as<std::string>()._Equal(ORBIT_SPEED))
         {
             orbit_speed = it->second.as<int>();
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("zoom_speed"))
+        if (it->first.as<std::string>()._Equal(ZOOM_SPEED))
         {
             zoom_speed = it->second.as<int>();
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("fov"))
+        if (it->first.as<std::string>()._Equal(FOV))
         {
             fov = it->second.as<float>();
         }
@@ -44,9 +44,9 @@ void CameraPreferences::SetConfigurationData(const YAML::Node& node)
 
 void CameraPreferences::GetConfigurationData(YAML::Node& node)
 {
-    node[group_name]["move_speed"] = move_speed;
-    node[group_name]["rotation_speed"] = rotation_speed;
-    node[group_name]["orbit_speed"] = orbit_speed;
-    node[group_name]["zoom_speed"] = zoom_speed;
-    node[group_name]["fov"] = fov;
+    node[group_name][MOVE_SPEED] = move_speed;
+    node[group_name][ROTATION_SPEED] = rotation_speed;
+    node[group_name][ORBIT_SPEED] = orbit_speed;
+    node[group_name][ZOOM_SPEED] = zoom_speed;
+    node[group_name][FOV] = fov;
 }

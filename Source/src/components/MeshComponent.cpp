@@ -43,7 +43,7 @@ const char* BoxerEngine::MeshComponent::GetName() const
     return "Mesh";
 }
 
-const char* BoxerEngine::MeshComponent::GetModelName() const
+const char* BoxerEngine::MeshComponent::GetModelPath() const
 {
     if (!model_loaded)
     {
@@ -51,6 +51,34 @@ const char* BoxerEngine::MeshComponent::GetModelName() const
     }
 
     return model->GetPath();
+}
+
+void BoxerEngine::MeshComponent::LoadModel(const char* path)
+{
+    if (model)
+    {
+        delete model;
+    }
+
+    std::filesystem::path model_path(path);
+    model_path = model_path.filename().replace_extension();
+
+    model = new BoxerEngine::Model(model_path.string().c_str());
+    meshes.reserve(model->GetMeshesCount());
+    for (int i = 0; i < model->GetMeshesCount(); ++i)
+    {
+        meshes.emplace_back(new MeshData());
+    }
+    model_loaded = true;
+}
+
+void BoxerEngine::MeshComponent::LoadTexture(const char* path, int mesh_index, int type)
+{
+    const unsigned int textureId = App->textures->Load(path);
+    model->SetMeshTexture(mesh_index, textureId, texture_types[type]);
+    meshes[mesh_index]->texture_loaded = true;
+    meshes[mesh_index]->texture_name = path;
+    meshes[mesh_index]->texture_type = type;
 }
 
 void BoxerEngine::MeshComponent::Draw()
@@ -73,6 +101,7 @@ void BoxerEngine::MeshComponent::DisplayLoadedUI()
     {
         ImGui::TextWrapped(StringUtils::Concat(ICON_MD_ARROW_FORWARD_IOS, " ", std::to_string(i), " Mesh:").c_str());
         AddTextureDisplay(i);
+        ImGui::NewLine();
     }
 }
 
@@ -91,30 +120,26 @@ void BoxerEngine::MeshComponent::DisplayNotLoadedUI()
     {
         if (ImGuiFileDialog::Instance()->IsOk())
         {
-            const std::filesystem::path file_path = ImGuiFileDialog::Instance()->GetFilePathName();
             // TODO: If filepath is not asset. Import mesh
- 
-            model = new BoxerEngine::Model(file_path.filename().replace_extension().string().c_str());
-            model_loaded = true;
-
-            meshes.reserve(model->GetMeshesCount());
-            for (int i = 0; i < model->GetMeshesCount(); ++i)
-            {
-                meshes.emplace_back(new MeshData());
-            }
+            const std::filesystem::path file_path = ImGuiFileDialog::Instance()->GetFilePathName();
+            LoadModel(file_path.filename().replace_extension().string().c_str());
         }
 
         ImGuiFileDialog::Instance()->Close();
     }
 }
 
-void BoxerEngine::MeshComponent::AddTextureDisplay(const int meshIndex)
+void BoxerEngine::MeshComponent::AddTextureDisplay(const int mesh_index)
 {
-    const std::string title = StringUtils::Concat("Select texture##%d", std::to_string(meshIndex));
+    const std::string title = StringUtils::Concat("Select texture##%d", std::to_string(mesh_index));
 
-    ImGui::TextWrapped(ICON_MD_IMAGE_SEARCH);
+    ImGui::PushID(mesh_index);
+    const int index = TexturesTypesListBox();
+    ImGui::PopID();
+
+    ImGui::Text(ICON_MD_IMAGE_SEARCH);
     ImGui::SameLine();
-    if (ImGui::Button(StringUtils::Concat(std::to_string(meshIndex).c_str(), " Mesh").c_str()))
+    if (ImGui::Button(StringUtils::Concat(std::to_string(mesh_index).c_str(), " Texture").c_str()))
     {
         ImGuiFileDialog::Instance()->OpenDialog(title.c_str(), "Select Texture", ".*", "./library/textures/", 1, nullptr,
                                                 ImGuiFileDialogFlags_DontShowHiddenFiles |
@@ -122,21 +147,20 @@ void BoxerEngine::MeshComponent::AddTextureDisplay(const int meshIndex)
                                                 ImGuiFileDialogFlags_HideColumnType |
                                                 ImGuiFileDialogFlags_HideColumnDate);
     }
-
-    ImGui::PushID(meshIndex);
-    const int index = TexturesTypesListBox();
-    ImGui::PopID();
+    ImGui::SameLine();
+    if (meshes[mesh_index]->texture_loaded && ImGui::Button(ICON_MD_HIGHLIGHT_REMOVE))
+    {
+        model->SetMeshTexture(mesh_index, 0, texture_types[0]);
+        meshes[mesh_index]->texture_loaded = false;
+    }
 
     if (ImGuiFileDialog::Instance()->Display(title.c_str()))
     {
         if (ImGuiFileDialog::Instance()->IsOk())
         {
             const std::filesystem::path texture_path = ImGuiFileDialog::Instance()->GetFilePathName().c_str();
-            const std::string texture_name = texture_path.filename().replace_extension().string().c_str();
-            const unsigned int textureId = App->textures->Load(texture_name.c_str());
-            model->SetMeshTexture(meshIndex, textureId, texture_types[index]);
-            meshes[meshIndex]->texture_loaded = true;
-            meshes[meshIndex]->texture_name = texture_name.c_str();
+            LoadTexture(texture_path.filename().replace_extension().string().c_str(), mesh_index, index);
+
         }
 
         ImGuiFileDialog::Instance()->Close();

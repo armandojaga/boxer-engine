@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\importers\SceneImporter.cpp" />
     <ClCompile Include="src\core\SceneSerializer.cpp" />
     <ClCompile Include="src\importers\ModelImporter.cpp" />
     <ClCompile Include="src\importers\GenericImporter.cpp" />
@@ -321,7 +322,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\converters\TypeConverter.h" />
+    <ClInclude Include="src\core\util\Semaphore.h" />
+    <ClInclude Include="src\importers\SceneImporter.h" />
+    <ClInclude Include="src\converters\TypeConverter.h" />
     <ClInclude Include="src\core\SceneSerializer.h" />
+    <ClInclude Include="src\core\util\YamlDefinitions.h" />
     <ClInclude Include="src\importers\ModelImporter.h" />
     <ClInclude Include="src\importers\GenericImporter.h" />
     <ClInclude Include="src\importers\MeshImporter.h" />

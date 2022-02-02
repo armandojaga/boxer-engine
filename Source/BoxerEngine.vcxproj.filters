@@ -237,9 +237,6 @@
     <ClCompile Include="src\core\events\EventManager.cpp">
       <Filter>Core\Events</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Scene.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\components\LightComponent.cpp">
       <Filter>Core\Components</Filter>
     </ClCompile>
@@ -318,8 +315,14 @@
     <ClCompile Include="vendors\ImGuiFileDialog\ImGuiFileDialog.cpp">
       <Filter>Vendors\ImGuiFileDialog</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Scene.cpp">
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\SceneSerializer.cpp">
-      <Filter>Core</Filter>
+      <Filter>Core\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\importers\SceneImporter.cpp">
+      <Filter>Importers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1210,9 +1213,6 @@
     <ClInclude Include="src\core\Entity.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Scene.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="src\components\Component.h">
       <Filter>Core\Components</Filter>
     </ClInclude>
@@ -1481,8 +1481,20 @@
     <ClInclude Include="vendors\ImGuiFileDialog\stb\stb_image_resize.h">
       <Filter>Vendors\ImGuiFileDialog\stb</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\util\YamlDefinitions.h">
+      <Filter>Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Scene.h">
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\SceneSerializer.h">
-      <Filter>Core</Filter>
+      <Filter>Core\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\importers\SceneImporter.h">
+      <Filter>Importers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\util\Semaphore.h">
+      <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\ui\Theme.h">
       <Filter>UI</Filter>
@@ -1630,6 +1642,9 @@
     </Filter>
     <Filter Include="Vendors\ImGuiFileDialog\dirent">
       <UniqueIdentifier>{e9c92902-9ee4-4cdb-b9e8-481d875b7993}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Scene">
+      <UniqueIdentifier>{df58e4e2-1548-4024-8b2c-6bafd2d4ef86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

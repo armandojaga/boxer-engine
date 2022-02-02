@@ -31,12 +31,12 @@ void Model::Load(const char* modelName)
 
     for (auto it = model_data.begin(); it != model_data.end(); ++it)
     {
-        if (it->first.as<std::string>()._Equal("id"))
+        if (it->first.as<std::string>()._Equal(MODEL_ID))
         {
             id = std::move(it->second.as<std::string>());
         }
 
-        if (it->first.as<std::string>()._Equal("file_path"))
+        if (it->first.as<std::string>()._Equal(MODEL_FILE_PATH))
         {
             path = std::move(it->second.as<std::string>());
         }
@@ -44,9 +44,9 @@ void Model::Load(const char* modelName)
 
     std::string meshes_path = preferences->GetLibraryPath(ResourceType::MESH);
 
-    for (int i = 0; i < model_data["mesh"].size(); ++i)
+    for (int i = 0; i < model_data[MESH_NODE].size(); ++i)
     {
-        std::string mesh_id = std::move(model_data["mesh"][i]["id"].as<std::string>());
+        std::string mesh_id = std::move(model_data[MODEL_MESH_NODE][i][MODEL_MESH_ID].as<std::string>());
         mesh_id.insert(0, meshes_path);
         meshes.emplace_back(new Mesh(mesh_id.c_str()));
     }

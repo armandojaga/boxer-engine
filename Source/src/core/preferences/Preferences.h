@@ -1,6 +1,7 @@
 #pragma once
 
 #include <yaml-cpp/yaml.h>
+#include "core/util/YamlDefinitions.h"
 
 namespace BoxerEngine
 {

@@ -4,7 +4,13 @@
 
 bool ModuleScene::Init()
 {
-    scene = new BoxerEngine::Scene(); // App->importer->GetSceneImporter()->ImportAsset(./asset/scene/MyScene.be);
+    LoadScene("./assets/scene/MyScene.be");
+    
+    if (!scene)
+    {
+        scene = new BoxerEngine::Scene();
+    }
+
     scene->Init();
     return true;
 }
@@ -23,7 +29,7 @@ update_status ModuleScene::Update(float delta)
 
 bool ModuleScene::CleanUp()
 {
-    SaveScene();
+    SaveScene("MyScene.be");
     return true;
 }
 
@@ -57,9 +63,18 @@ BoxerEngine::Scene* ModuleScene::GetScene() const
     return scene;
 }
 
-void ModuleScene::SaveScene()
+void ModuleScene::SaveScene(const char* scene_name)
 {
-    scene_serializer.Save(scene, "MyScene");
+    scene_serializer.Save(scene, scene_name);
+}
+
+void ModuleScene::LoadScene(const char* scene_path)
+{
+    if (scene)
+    {
+        delete scene;
+    }
+    scene = scene_serializer.Load(scene_path);
 }
 
 ModuleScene::~ModuleScene()

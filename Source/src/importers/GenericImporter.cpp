@@ -12,8 +12,8 @@ GenericImporter::GenericImporter()
 void GenericImporter::ImportAsset(const std::filesystem::path& asset_path)
 {
     YAML::Node asset_ticket;
-    asset_ticket["id"] = UUID::GenerateUUIDv4();
-    asset_ticket["file_path"] = asset_path.string();
+    asset_ticket[GENERIC_ID] = UUID::GenerateUUIDv4();
+    asset_ticket[GENERIC_FILE_PATH] = asset_path.string();
 
     preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
     std::string file_name = asset_path.filename().replace_extension().string();

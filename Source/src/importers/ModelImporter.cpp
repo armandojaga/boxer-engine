@@ -28,8 +28,8 @@ void ModelImporter::ImportAsset(const std::filesystem::path& model_path)
     }
 
     YAML::Node model_ticket;
-    model_ticket["id"] = UUID::GenerateUUIDv4();
-    model_ticket["file_path"] = model_path.string();
+    model_ticket[MODEL_ID] = UUID::GenerateUUIDv4();
+    model_ticket[MODEL_FILE_PATH] = model_path.string();
     std::string file_name = model_path.filename().replace_extension().string();
 
     ImportModel(scene, model_ticket);
@@ -45,7 +45,7 @@ void ModelImporter::ImportModel(const aiScene* scene, YAML::Node& ticket)
     {
         aiMesh* mesh = scene->mMeshes[i];
         mesh_uuid = UUID::GenerateUUIDv4();
-        ticket["mesh"][i]["id"] = mesh_uuid;
+        ticket[MODEL_MESH_NODE][i][MODEL_MESH_ID] = mesh_uuid;
         mesh_importer.ImportMesh(mesh, mesh_uuid);
     }
 }

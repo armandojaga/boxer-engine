@@ -40,50 +40,50 @@ void MeshImporter::SaveToFile(YAML::Node& ticket, const std::string& file_name)
 void MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid)
 {
     YAML::Node ticket;
-    ticket["mesh_id"] = uuid;
+    ticket[MESH_ID] = uuid;
     PopulateTicket(mesh, ticket);
     SaveToFile(ticket, uuid);
 }
 
 void MeshImporter::PopulateTicket(aiMesh* mesh, YAML::Node& mesh_ticket)
 {
-    mesh_ticket["min_point"]["x"] = mesh->mVertices[0].x;
-    mesh_ticket["min_point"]["y"] = mesh->mVertices[0].y;
-    mesh_ticket["min_point"]["z"] = mesh->mVertices[0].z;
+    mesh_ticket[MIN_POINT][NODE_X] = mesh->mVertices[0].x;
+    mesh_ticket[MIN_POINT][NODE_Y] = mesh->mVertices[0].y;
+    mesh_ticket[MIN_POINT][NODE_Z] = mesh->mVertices[0].z;
 
-    mesh_ticket["max_point"]["x"] = mesh->mVertices[0].x;
-    mesh_ticket["max_point"]["y"] = mesh->mVertices[0].y;
-    mesh_ticket["max_point"]["z"] = mesh->mVertices[0].z;
+    mesh_ticket[MAX_POINT][NODE_X] = mesh->mVertices[0].x;
+    mesh_ticket[MAX_POINT][NODE_Y] = mesh->mVertices[0].y;
+    mesh_ticket[MAX_POINT][NODE_Z] = mesh->mVertices[0].z;
 
     // process vertex positions, normals and texture coordinates
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
-        mesh_ticket["vertices"][i]["x"] = mesh->mVertices[i].x;
-        mesh_ticket["vertices"][i]["y"] = mesh->mVertices[i].y;
-        mesh_ticket["vertices"][i]["z"] = mesh->mVertices[i].z;
+        mesh_ticket[VERTICES_NODE][i][NODE_X] = mesh->mVertices[i].x;
+        mesh_ticket[VERTICES_NODE][i][NODE_Y] = mesh->mVertices[i].y;
+        mesh_ticket[VERTICES_NODE][i][NODE_Z] = mesh->mVertices[i].z;
 
-        mesh_ticket["normals"][i]["x"] = mesh->mNormals[i].x;
-        mesh_ticket["normals"][i]["y"] = mesh->mNormals[i].y;
-        mesh_ticket["normals"][i]["z"] = mesh->mNormals[i].z;
+        mesh_ticket[NORMALS_NODE][i][NODE_X] = mesh->mNormals[i].x;
+        mesh_ticket[NORMALS_NODE][i][NODE_Y] = mesh->mNormals[i].y;
+        mesh_ticket[NORMALS_NODE][i][NODE_Z] = mesh->mNormals[i].z;
 
         if (mesh->HasTextureCoords(0)) // TODO: What does 0 means
         {
-            mesh_ticket["texture_coords"][i]["x"] = mesh->mTextureCoords[0][i].x;
-            mesh_ticket["texture_coords"][i]["y"] = mesh->mTextureCoords[0][i].y;
+            mesh_ticket[TEXTURE_COORDS_NODE][i][NODE_X] = mesh->mTextureCoords[0][i].x;
+            mesh_ticket[TEXTURE_COORDS_NODE][i][NODE_Y] = mesh->mTextureCoords[0][i].y;
         }
         else
         {
-            mesh_ticket["texture_coords"][i]["x"] = 0.0;
-            mesh_ticket["texture_coords"][i]["y"] = 0.0;
+            mesh_ticket[TEXTURE_COORDS_NODE][i][NODE_X] = 0.0;
+            mesh_ticket[TEXTURE_COORDS_NODE][i][NODE_Y] = 0.0;
         }
 
-        mesh_ticket["min_point"]["x"] = std::min(mesh->mVertices[i].x, mesh_ticket["min_point"]["x"].as<float>());
-        mesh_ticket["min_point"]["y"] = std::min(mesh->mVertices[i].y, mesh_ticket["min_point"]["y"].as<float>());
-        mesh_ticket["min_point"]["z"] = std::min(mesh->mVertices[i].z, mesh_ticket["min_point"]["z"].as<float>());
+        mesh_ticket[MIN_POINT][NODE_X] = std::min(mesh->mVertices[i].x, mesh_ticket[MIN_POINT][NODE_X].as<float>());
+        mesh_ticket[MIN_POINT][NODE_Y] = std::min(mesh->mVertices[i].y, mesh_ticket[MIN_POINT][NODE_Y].as<float>());
+        mesh_ticket[MIN_POINT][NODE_Z] = std::min(mesh->mVertices[i].z, mesh_ticket[MIN_POINT][NODE_Z].as<float>());
 
-        mesh_ticket["max_point"]["x"] = std::max(mesh->mVertices[i].x, mesh_ticket["max_point"]["x"].as<float>());
-        mesh_ticket["max_point"]["y"] = std::max(mesh->mVertices[i].y, mesh_ticket["max_point"]["y"].as<float>());
-        mesh_ticket["max_point"]["z"] = std::max(mesh->mVertices[i].z, mesh_ticket["max_point"]["z"].as<float>());
+        mesh_ticket[MAX_POINT][NODE_X] = std::max(mesh->mVertices[i].x, mesh_ticket[MAX_POINT][NODE_X].as<float>());
+        mesh_ticket[MAX_POINT][NODE_Y] = std::max(mesh->mVertices[i].y, mesh_ticket[MAX_POINT][NODE_Y].as<float>());
+        mesh_ticket[MAX_POINT][NODE_Z] = std::max(mesh->mVertices[i].z, mesh_ticket[MAX_POINT][NODE_Z].as<float>());
     }
 
     // process indices
@@ -92,7 +92,7 @@ void MeshImporter::PopulateTicket(aiMesh* mesh, YAML::Node& mesh_ticket)
         aiFace face = mesh->mFaces[i];
         for (unsigned int j = 0; j < face.mNumIndices; j++)
         {
-            mesh_ticket["indices"][i][j] = face.mIndices[j];
+            mesh_ticket[INDICES_NODE][i][j] = face.mIndices[j];
         }
     }
 }

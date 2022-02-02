@@ -23,52 +23,52 @@ void Mesh::Load(const char* mesh_data)
 
     for (auto it = mesh_node.begin(); it != mesh_node.end(); ++it)
     {
-        if (it->first.as<std::string>()._Equal("mesh_id"))
+        if (it->first.as<std::string>()._Equal(MESH_ID))
         {
             id = std::move(it->second.as<std::string>());
         }
 
-        if (it->first.as<std::string>()._Equal("min_point"))
+        if (it->first.as<std::string>()._Equal(MIN_POINT))
         {
-            min_point.x = it->second["x"].as<float>();
-            min_point.y = it->second["y"].as<float>();
-            min_point.z = it->second["z"].as<float>();
+            min_point.x = it->second[NODE_X].as<float>();
+            min_point.y = it->second[NODE_Y].as<float>();
+            min_point.z = it->second[NODE_Z].as<float>();
         }
 
         if (it->first.as<std::string>()._Equal("max_point"))
         {
-            max_point.x = it->second["x"].as<float>();
-            max_point.y = it->second["y"].as<float>();
-            max_point.z = it->second["z"].as<float>();
+            max_point.x = it->second[NODE_X].as<float>();
+            max_point.y = it->second[NODE_Y].as<float>();
+            max_point.z = it->second[NODE_Z].as<float>();
         }
     }
 
     // We iterate throughout vertices as the number of indices must match
     // with normals and texture coordinates
-    vertices.reserve(mesh_node["vertices"].size());
-    for (int index = 0; index < mesh_node["vertices"].size(); ++index)
+    vertices.reserve(mesh_node[VERTICES_NODE].size());
+    for (int index = 0; index < mesh_node[VERTICES_NODE].size(); ++index)
     {
         float3 position;
-        YAML::Node node = mesh_node["vertices"][index];
+        YAML::Node node = mesh_node[VERTICES_NODE][index];
         Yaml::ToFloat3(node, position);
 
         float3 normal;
-        node = mesh_node["normals"][index];
+        node = mesh_node[NORMALS_NODE][index];
         Yaml::ToFloat3(node, normal);
 
         float2 tex_coords;
-        node = mesh_node["texture_coords"][index];
+        node = mesh_node[TEXTURE_COORDS_NODE][index];
         Yaml::ToFloat2(node, tex_coords);
 
         vertices.emplace_back(Vertex(position, normal, tex_coords));
     }
 
-    indices.reserve(mesh_node["indices"].size() * 3);
-    for (int i = 0; i < mesh_node["indices"].size(); ++i)
+    indices.reserve(mesh_node[INDICES_NODE].size() * 3);
+    for (int i = 0; i < mesh_node[INDICES_NODE].size(); ++i)
     {
-        indices.emplace_back(mesh_node["indices"][i][0].as<int>());
-        indices.emplace_back(mesh_node["indices"][i][1].as<int>());
-        indices.emplace_back(mesh_node["indices"][i][2].as<int>());
+        indices.emplace_back(mesh_node[INDICES_NODE][i][0].as<int>());
+        indices.emplace_back(mesh_node[INDICES_NODE][i][1].as<int>());
+        indices.emplace_back(mesh_node[INDICES_NODE][i][2].as<int>());
     }
 }
 

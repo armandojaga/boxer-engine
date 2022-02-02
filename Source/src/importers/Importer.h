@@ -14,6 +14,7 @@ namespace BoxerEngine
         enum class Type
         {
             GENERIC = 0,
+            SCENE,
             MODEL,
             MESH,
             TEXTURE,
@@ -29,7 +30,7 @@ namespace BoxerEngine
         [[nodiscard]] Type GetType() const { return type; }
 
         virtual void ImportAsset(const std::filesystem::path& asset_path) = 0;
-        virtual void SaveToFile(YAML::Node& ticket, const std::string& file_name) = 0;
+        virtual void SaveToFile(YAML::Node& ticket, const std::string& file_name) {};
 
     protected:
         ResourcesPreferences* preferences = nullptr;
