@@ -1,12 +1,12 @@
-#include <cassert>
-
 #include "ResourcesPreferences.h"
+
+#include <cassert>
 
 using namespace BoxerEngine;
 
 ResourcesPreferences::ResourcesPreferences() : Preferences(Type::RESOURCES)
 {
-    group_name = "resources";
+    group_name = RESOURCES_NODE;
 }
 
 void ResourcesPreferences::SetConfigurationData(const YAML::Node& node)
@@ -14,86 +14,86 @@ void ResourcesPreferences::SetConfigurationData(const YAML::Node& node)
     for (auto it = node.begin(); it != node.end(); ++it)
     {
         // Assets path
-        if (it->first.as<std::string>()._Equal("scene_assets"))
+        if (it->first.as<std::string>()._Equal(SCENE_ASSETS))
         {
             scene_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("models_assets"))
+        if (it->first.as<std::string>()._Equal(MODELS_ASSETS))
         {
             models_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("meshes_assets"))
+        if (it->first.as<std::string>()._Equal(MESHES_ASSETS))
         {
             meshes_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("textures_assets"))
+        if (it->first.as<std::string>()._Equal(TEXTURES_ASSETS))
         {
             textures_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("audio_assets"))
+        if (it->first.as<std::string>()._Equal(AUDIO_ASSETS))
         {
             audio_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("video_assets"))
+        if (it->first.as<std::string>()._Equal(VIDEO_ASSETS))
         {
             video_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("script_assets"))
+        if (it->first.as<std::string>()._Equal(SCRIPTS_ASSETS))
         {
             script_assets = std::move(it->second.as<std::string>());
             continue;
         }
 
         // Library path
-        if (it->first.as<std::string>()._Equal("scene_library"))
+        if (it->first.as<std::string>()._Equal(SCENE_LIBRARY))
         {
             meshes_library = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("models_library"))
+        if (it->first.as<std::string>()._Equal(MODELS_LIBRARY))
         {
             models_library = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("meshes_library"))
+        if (it->first.as<std::string>()._Equal(MESHES_LIBRARY))
         {
             meshes_library = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("textures_library"))
+        if (it->first.as<std::string>()._Equal(TEXTURES_LIBRARY))
         {
             textures_library = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("audio_library"))
+        if (it->first.as<std::string>()._Equal(AUDIO_LIBRARY))
         {
             audio_library = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("video_library"))
+        if (it->first.as<std::string>()._Equal(VIDEO_LIBRARY))
         {
             video_library = std::move(it->second.as<std::string>());
             continue;
         }
 
-        if (it->first.as<std::string>()._Equal("script_library"))
+        if (it->first.as<std::string>()._Equal(SCRIPTS_LIBRARY))
         {
             script_library = std::move(it->second.as<std::string>());
         }
@@ -102,21 +102,21 @@ void ResourcesPreferences::SetConfigurationData(const YAML::Node& node)
 
 void ResourcesPreferences::GetConfigurationData(YAML::Node& node)
 {
-    node[group_name]["scene_assets"] = scene_assets;
-    node[group_name]["models_assets"] = models_assets;
-    node[group_name]["meshes_assets"] = meshes_assets;
-    node[group_name]["textures_assets"] = textures_assets;
-    node[group_name]["audio_assets"] = audio_assets;
-    node[group_name]["video_assets"] = video_assets;
-    node[group_name]["script_assets"] = script_assets;
+    node[group_name][SCENE_ASSETS] = scene_assets;
+    node[group_name][MODELS_ASSETS] = models_assets;
+    node[group_name][MESHES_ASSETS] = meshes_assets;
+    node[group_name][TEXTURES_ASSETS] = textures_assets;
+    node[group_name][AUDIO_ASSETS] = audio_assets;
+    node[group_name][VIDEO_ASSETS] = video_assets;
+    node[group_name][SCRIPTS_ASSETS] = script_assets;
 
-    node[group_name]["scene_library"] = scene_library;
-    node[group_name]["models_library"] = models_library;
-    node[group_name]["meshes_library"] = meshes_library;
-    node[group_name]["textures_library"] = textures_library;
-    node[group_name]["audio_library"] = audio_library;
-    node[group_name]["video_library"] = video_library;
-    node[group_name]["script_library"] = script_library;
+    node[group_name][SCENE_LIBRARY] = scene_library;
+    node[group_name][MODELS_LIBRARY] = models_library;
+    node[group_name][MESHES_LIBRARY] = meshes_library;
+    node[group_name][TEXTURES_LIBRARY] = textures_library;
+    node[group_name][AUDIO_LIBRARY] = audio_library;
+    node[group_name][VIDEO_LIBRARY] = video_library;
+    node[group_name][SCRIPTS_LIBRARY] = script_library;
 }
 
 const char* ResourcesPreferences::GetAssetsPath(ResourceType type)

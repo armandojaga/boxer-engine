@@ -13,8 +13,8 @@ TextureImporter::TextureImporter()
 void TextureImporter::ImportAsset(const std::filesystem::path& asset_path)
 {
     YAML::Node asset_ticket;
-    asset_ticket["id"] = UUID::GenerateUUIDv4();
-    asset_ticket["file_path"] = asset_path.string();
+    asset_ticket[TEXTURE_ID] = UUID::GenerateUUIDv4();
+    asset_ticket[TEXTURE_FILE_PATH] = asset_path.string();
 
     std::string file_name = asset_path.filename().replace_extension().string();
     SaveToFile(asset_ticket, file_name);

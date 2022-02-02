@@ -1,10 +1,10 @@
-#include "bepch.h"
 #include "SceneSerializer.h"
 
 #include "Scene.h"
 #include "components/Component.h"
 #include "components/TransformComponent.h"
 #include "components/MeshComponent.h"
+#include "util/YamlDefinitions.h"
 
 const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(std::filesystem::path& path)
 {
@@ -16,28 +16,28 @@ const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(std::filesystem::pa
 	YAML::Node scene_node = YAML::LoadFile(path.string().c_str());
 	
 	// Validate scene header
-	if (!scene_node["scene_id"].IsDefined())
+	if (!scene_node[SCENE_ID].IsDefined())
 	{
 		return nullptr;
 	}
 
 	Scene* scene_output = new Scene();
-	scene_output->SetSceneId(std::move(scene_node["scene_id"].as<std::string>()));
+	scene_output->SetSceneId(std::move(scene_node[SCENE_ID].as<std::string>()));
 	
-	if (!scene_node["root"].IsDefined())
+	if (!scene_node[ENTITY_ROOT].IsDefined())
 	{
 		return scene_output;
 	}
 
-	LoadEntity(scene_node["root"]);
+	LoadEntity(scene_node[ENTITY_ROOT], scene_output);
 	return scene_output;
 }
 
 bool BoxerEngine::SceneSerializer::Save(const Scene* scene, const char* name, const char* path)
 {
 	YAML::Node scene_data;
-	scene_data["scene_id"] = scene->GetSceneId();
-	scene_data["root"] = SaveEntity(scene->GetRoot());
+	scene_data[SCENE_ID] = scene->GetSceneId();
+	scene_data[ENTITY_ROOT] = SaveEntity(scene->GetRoot());
 	BoxerEngine::ResourcesPreferences* preferences = static_cast<BoxerEngine::ResourcesPreferences*>
     	(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
 	
@@ -51,22 +51,22 @@ bool BoxerEngine::SceneSerializer::Save(const Scene* scene, const char* name, co
 YAML::Node BoxerEngine::SceneSerializer::SaveEntity(const Entity* entity)
 {
 	YAML::Node save_scene;
-	save_scene["name"] = entity->GetName();
-	save_scene["enabled"] = entity->IsEnabled();
-	save_scene["id"] = entity->GetId();
+	save_scene[ENTITY_NAME] = entity->GetName();
+	save_scene[ENTITY_ENABLED] = entity->IsEnabled();
+	save_scene[ENTITY_ID] = entity->GetId();
 	
 	for (int i = 0; i < entity->GetComponents().size(); ++i)
 	{
-		save_scene["component"][i]["name"] = std::string(entity->GetComponents()[i]->GetName());
-		save_scene["component"][i]["enabled"] = entity->GetComponents()[i]->IsEnabled();
-		save_scene["component"][i]["id"] = entity->GetComponents()[i]->GetId();
-		save_scene["component"][i]["type"] = static_cast<unsigned int>(entity->GetComponents()[i]->GetType());
-		save_scene["component"][i]["data"] = std::move(SaveComponent(entity->GetComponents()[i]));
+		save_scene[COMPONENT_NODE][i][COMPONENT_NAME] = std::string(entity->GetComponents()[i]->GetName());
+		save_scene[COMPONENT_NODE][i][COMPONENT_ENABLED] = entity->GetComponents()[i]->IsEnabled();
+		save_scene[COMPONENT_NODE][i][COMPONENT_ID] = entity->GetComponents()[i]->GetId();
+		save_scene[COMPONENT_NODE][i][COMPONENT_TYPE] = static_cast<unsigned int>(entity->GetComponents()[i]->GetType());
+		save_scene[COMPONENT_NODE][i][COMPONENT_DATA] = std::move(SaveComponent(entity->GetComponents()[i]));
 	}
 
     for (int i = 0; i < entity->GetChildren().size(); ++i)
     {
-        save_scene["child"][i] = std::move(SaveEntity(entity->GetChildren()[i]));
+        save_scene[CHILD_NODE][i] = std::move(SaveEntity(entity->GetChildren()[i]));
     }
 
     return save_scene;
@@ -83,17 +83,17 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 
 			auto tc = std::static_pointer_cast<const BoxerEngine::TransformComponent>(component);
 
-			component_node["position"]["x"] = tc->GetPosition().x;
-			component_node["position"]["y"] = tc->GetPosition().y;
-			component_node["position"]["z"] = tc->GetPosition().z;
+			component_node[POSITION_NODE][NODE_X] = tc->GetPosition().x;
+			component_node[POSITION_NODE][NODE_Y] = tc->GetPosition().y;
+			component_node[POSITION_NODE][NODE_Z] = tc->GetPosition().z;
 			
-			component_node["rotation"]["x"] = tc->GetRotation().x;
-			component_node["rotation"]["y"] = tc->GetRotation().y;
-			component_node["rotation"]["z"] = tc->GetRotation().z;
+			component_node[ROTATION_NODE][NODE_X] = tc->GetRotation().x;
+			component_node[ROTATION_NODE][NODE_Y] = tc->GetRotation().y;
+			component_node[ROTATION_NODE][NODE_Z] = tc->GetRotation().z;
 
-			component_node["scale"]["x"] = tc->GetScale().x;
-			component_node["scale"]["y"] = tc->GetScale().y;
-			component_node["scale"]["z"] = tc->GetScale().z;
+			component_node[SCALE_NODE][NODE_X] = tc->GetScale().x;
+			component_node[SCALE_NODE][NODE_Y] = tc->GetScale().y;
+			component_node[SCALE_NODE][NODE_Z] = tc->GetScale().z;
 
 			break;
 		}
@@ -102,15 +102,15 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 		{
 			auto mc = std::static_pointer_cast<const BoxerEngine::MeshComponent>(component);
 
-			component_node["model_path"] = mc->GetModelName();
+			component_node[MODEL_PATH] = mc->GetModelName();
 			
 			for (int i = 0; i < mc->GetMeshesCount(); ++i)
 			{
-				component_node["mesh"][i]["enabled"] = mc->IsMeshEnabled(i);
+				component_node[MESH_NODE][i][MESH_ENABLED] = mc->IsMeshEnabled(i);
 				
 				if (mc->IsMeshTextureLoaded(i))
 				{
-					component_node["mesh"][i]["texture_file_name"] = mc->GetMeshTextureName(i);
+					component_node[MESH_NODE][i][MESH_TEXTURE] = mc->GetMeshTextureName(i);
 				}
 			}
 			
@@ -130,7 +130,7 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 	return component_node;
 }
 
-const BoxerEngine::Entity* BoxerEngine::SceneSerializer::LoadEntity(YAML::Node& entity)
+const BoxerEngine::Entity* BoxerEngine::SceneSerializer::LoadEntity(YAML::Node entity, Scene* scene)
 {
 	return nullptr;
 }

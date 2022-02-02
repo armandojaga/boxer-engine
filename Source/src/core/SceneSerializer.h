@@ -23,7 +23,7 @@ namespace BoxerEngine
 		const Scene* Load(std::filesystem::path& path);
 		YAML::Node SaveEntity(const Entity* entity);
 		YAML::Node SaveComponent(const std::shared_ptr<BoxerEngine::Component> component);
-		const Entity* LoadEntity(YAML::Node& entity);
+		const Entity* LoadEntity(YAML::Node entity, Scene* scene);
 		const std::shared_ptr<BoxerEngine::Component> LoadComponent(YAML::Node& component);
 	};
 }
