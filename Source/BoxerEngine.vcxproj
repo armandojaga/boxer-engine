@@ -324,6 +324,7 @@
     <ClInclude Include="src\converters\TypeConverter.h" />
     <ClInclude Include="src\core\util\Semaphore.h" />
     <ClInclude Include="src\importers\SceneImporter.h" />
+    <ClInclude Include="src\converters\TypeConverter.h" />
     <ClInclude Include="src\core\SceneSerializer.h" />
     <ClInclude Include="src\core\util\YamlDefinitions.h" />
     <ClInclude Include="src\importers\ModelImporter.h" />
