@@ -55,3 +55,5 @@
 
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
+
+#include "converters/TypeConverter.h"

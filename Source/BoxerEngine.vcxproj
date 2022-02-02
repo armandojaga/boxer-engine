@@ -320,6 +320,7 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\converters\TypeConverter.h" />
     <ClInclude Include="src\core\SceneSerializer.h" />
     <ClInclude Include="src\importers\ModelImporter.h" />
     <ClInclude Include="src\importers\GenericImporter.h" />
@@ -382,6 +383,7 @@
     <ClInclude Include="src\ui\components\ProjectPanel.h" />
     <ClInclude Include="src\ui\components\ScenePanel.h" />
     <ClInclude Include="src\ui\components\StatisticsPanel.h" />
+    <ClInclude Include="src\ui\Theme.h" />
     <ClInclude Include="src\ui\widgets\AxisSlider.h" />
     <ClInclude Include="src\components\TransformComponent.h" />
     <ClInclude Include="src\core\events\TransformChangedEventPayload.h" />

@@ -1484,6 +1484,10 @@
     <ClInclude Include="src\core\SceneSerializer.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\ui\Theme.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\converters\TypeConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">
