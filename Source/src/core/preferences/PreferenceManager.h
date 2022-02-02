@@ -23,8 +23,8 @@ namespace BoxerEngine
 
     private:
         std::vector<Preferences*> preferences{};
-        std::vector<YAML::Node> nodes_vec;
-        FileManager file_manager;
+        std::vector<YAML::Node> nodes_vec{};
+        FileManager file_manager{};
 
         GlobalPreferences* globals = nullptr;
         EditorPreferences* editor = nullptr;

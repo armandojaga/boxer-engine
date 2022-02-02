@@ -1,10 +1,7 @@
 #include "core/bepch.h"
 #include "MeshComponent.h"
 #include "modules/ModuleTexture.h"
-#include "Application.h"
 
-#include "core/util/Files.h"
-#include "core/util/StringUtils.h"
 #include "ImGuiFileDialog.h"
 #include "TransformComponent.h"
 #include "modules/ModuleProgram.h"

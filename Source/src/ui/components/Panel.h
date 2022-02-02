@@ -5,7 +5,7 @@ namespace BoxerEngine
     class Panel
     {
     public:
-        Panel(const std::string& title, bool visible);
+        Panel(const std::string& title, bool isVisible);
         virtual ~Panel() = default;
 
         [[nodiscard]] const std::string& GetTitle() const;

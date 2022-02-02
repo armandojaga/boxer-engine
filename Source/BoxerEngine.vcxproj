@@ -123,7 +123,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)vendors\SDL\lib\x64;$(ProjectDir)vendors\DevIL\lib\x64\Release;$(ProjectDir)vendors\glew-2.1.0\lib\Release\x64;$(ProjectDir)vendors\assimp\lib\x64;$(ProjectDir)vendors\optick\lib\x64\debug;%(AdditionalLibraryDirectories);$(ProjectDir)vendors\yaml-cpp\lib\x64\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;OptickCore.lib;yaml-cpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;DevIL.lib;ILU.lib;ILUT.lib;SDL2.lib;SDL2main.lib;assimp-vc143-mt.lib;OptickCore.lib;yaml-cppd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
