@@ -137,7 +137,7 @@ update_status ModuleEditor::PostUpdate(float delta)
 
 void ModuleEditor::UpdateTheme() const
 {
-    if (preferences->IsLightTheme())
+    if (preferences->GetTheme() == BoxerEngine::Editor::Theme::Type::LIGHT)
     {
         // UI style
         ImGuiStyle& style = ImGui::GetStyle();
@@ -147,12 +147,27 @@ void ModuleEditor::UpdateTheme() const
         colors[ImGuiCol_PlotLinesHovered] = ImVec4(1.00f, 0.43f, 0.35f, 0.7f);
         colors[ImGuiCol_PlotHistogram] = ImVec4(0.90f, 0.70f, 0.00f, 0.7f);
         colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.45f, 0.00f, 0.7f);
-        preferences->SetSceneBackgroundColor(0.9f);
+        preferences->SetSceneBackgroundColor(float3(0.9f));
+    }
+    else if (preferences->GetTheme() == BoxerEngine::Editor::Theme::Type::PINK)
+    {
+        ImGuiStyle& style = ImGui::GetStyle();
+        ImGui::StyleColorsLight();
+        ImVec4* colors = style.Colors;
+        colors[ImGuiCol_WindowBg] = ImColor(160, 160, 232);
+        colors[ImGuiCol_TitleBgActive] = ImColor(232, 160, 160);
+        colors[ImGuiCol_TitleBg] = ImColor(160, 232, 232);
+        colors[ImGuiCol_MenuBarBg] = ImColor(217, 245, 217);
+        colors[ImGuiCol_PopupBg] = ImColor(153, 225, 220);
+        colors[ImGuiCol_HeaderHovered] = ImColor(139, 204, 199);
+        colors[ImGuiCol_Text] = ImColor(64, 64, 92);
+        colors[ImGuiCol_FrameBg] = ImColor(232, 232, 160);
+        preferences->SetSceneBackgroundColor(float3(217, 217, 245));
     }
     else
     {
         ImGui::StyleColorsDark();
-        preferences->SetSceneBackgroundColor(0.1f);
+        preferences->SetSceneBackgroundColor(float3(0.1f));
     }
 }
 
@@ -267,11 +282,26 @@ void ModuleEditor::CreateMenu() const
         }
         if (ImGui::BeginMenu("Theme"))
         {
-            bool lightTheme = preferences->IsLightTheme();
+            bool lightTheme = preferences->GetTheme() == BoxerEngine::Editor::Theme::Type::LIGHT;
+            bool darkTheme = preferences->GetTheme() == BoxerEngine::Editor::Theme::Type::DARK;
+            bool pinkTheme = preferences->GetTheme() == BoxerEngine::Editor::Theme::Type::PINK;
+
             if (ImGui::MenuItem("Light", nullptr, &lightTheme))
             {
                 logger.Debug("Selecting light mode");
-                preferences->SetLightTheme(lightTheme);
+                preferences->SetTheme(BoxerEngine::Editor::Theme::Type::LIGHT);
+                UpdateTheme();
+            }
+            if (ImGui::MenuItem("Dark", nullptr, &darkTheme))
+            {
+                logger.Debug("Selecting dark mode");
+                preferences->SetTheme(BoxerEngine::Editor::Theme::Type::DARK);
+                UpdateTheme();
+            }
+            if (ImGui::MenuItem("Pink", nullptr, &pinkTheme))
+            {
+                logger.Debug("Selecting pink mode");
+                preferences->SetTheme(BoxerEngine::Editor::Theme::Type::PINK);
                 UpdateTheme();
             }
             ImGui::EndMenu();

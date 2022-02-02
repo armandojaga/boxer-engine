@@ -1,4 +1,7 @@
+#include "core/bepch.h"
 #include "EditorPreferences.h"
+
+#include "Math/float3.h"
 
 using namespace BoxerEngine;
 
@@ -31,13 +34,13 @@ void EditorPreferences::SetConfigurationData(const YAML::Node& node)
 
         if (it->first.as<std::string>()._Equal("theme"))
         {
-            light_theme = it->second.as<std::string>()._Equal("light");
+            theme = Editor::Theme::FromString(it->second.as<std::string>());
             continue;
         }
 
         if (it->first.as<std::string>()._Equal("scene_background_color"))
         {
-            scene_background_color = it->second.as<float>();
+            scene_background_color = it->second.as<float3>();
             continue;
         }
 
@@ -53,7 +56,7 @@ void EditorPreferences::GetConfigurationData(YAML::Node& node)
     node[group_name]["display_camera_settings"] = display_camera_settings;
     node[group_name]["fullscreen"] = fullscreen;
     node[group_name]["display_debug_draw"] = display_debug_draw;
-    node[group_name]["theme"] = light_theme ? "light" : "dark";
+    node[group_name]["theme"] = Editor::Theme::ToString(theme);
     node[group_name]["vsync"] = vsync;
     node[group_name]["scene_background_color"] = scene_background_color;
 }

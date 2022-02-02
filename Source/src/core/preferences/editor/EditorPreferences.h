@@ -1,6 +1,8 @@
 #pragma once
 
 #include "core/preferences/Preferences.h"
+#include "ui/Theme.h"
+#include "Math/float3.h"
 
 namespace BoxerEngine
 {
@@ -22,12 +24,12 @@ namespace BoxerEngine
             return display_debug_draw;
         }
 
-        void SetSceneBackgroundColor(const float& sceneBackgroundColor)
+        void SetSceneBackgroundColor(const float3& sceneBackgroundColor)
         {
             scene_background_color = sceneBackgroundColor;
         }
 
-        [[nodiscard]] const float& GetSceneBackgroundColor() const
+        [[nodiscard]] const float3& GetSceneBackgroundColor() const
         {
             return scene_background_color;
         }
@@ -79,19 +81,19 @@ namespace BoxerEngine
             return display_camera_settings;
         }
 
-        void SetLightTheme(const bool lightTheme)
+        void SetTheme(const Editor::Theme::Type theme)
         {
-            light_theme = lightTheme;
+            this->theme = theme;
         }
 
-        [[nodiscard]] bool IsLightTheme() const
+        [[nodiscard]] Editor::Theme::Type GetTheme() const
         {
-            return light_theme;
+            return theme;
         }
 
     private:
         bool display_debug_draw = false;
-        float scene_background_color = 0.9f;
+        float3 scene_background_color = float3(0.9f);
 
         //TODO remove this property in favor of the camera component
         bool display_camera_settings = false;
@@ -100,6 +102,6 @@ namespace BoxerEngine
         bool fullscreen = false;
         int vsync = 0;
         float fps_threshold = 1000.0f / max_fps;
-        bool light_theme = true;
+        Editor::Theme::Type theme = Editor::Theme::Type::DARK;
     };
 }
