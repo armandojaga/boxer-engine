@@ -13,10 +13,21 @@ TextureImporter::TextureImporter()
 void TextureImporter::ImportAsset(const std::filesystem::path& asset_path)
 {
     YAML::Node asset_ticket;
+    std::filesystem::path texture;
+    
+    if (!asset_path.has_extension())
+    {
+        texture = FindTextureInAssets(asset_path.string().c_str());
+    }
+    else
+    {
+        texture = asset_path;
+    }
+    
     asset_ticket[TEXTURE_ID] = UUID::GenerateUUIDv4();
-    asset_ticket[TEXTURE_FILE_PATH] = asset_path.string();
+    asset_ticket[TEXTURE_FILE_PATH] = texture.string();
 
-    std::string file_name = asset_path.filename().replace_extension().string();
+    std::string file_name = texture.filename().replace_extension().string();
     SaveToFile(asset_ticket, file_name);
 }
 
@@ -110,7 +121,6 @@ std::filesystem::path TextureImporter::FindTextureLocation(const char* texture)
     std::string output_path;
     preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
 
-
     // First check if texture is already loaded in assets folder
     const std::filesystem::path project_texture_path =
         preferences->GetAssetsPath(ResourceType::TEXTURE) + texture_path.filename().string();
@@ -133,6 +143,24 @@ std::filesystem::path TextureImporter::FindTextureLocation(const char* texture)
     }
 
     return output_path;
+}
+
+std::filesystem::path BoxerEngine::TextureImporter::FindTextureInAssets(const char* texture)
+{
+    preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
+    for (auto& directory_entry : std::filesystem::directory_iterator(preferences->GetAssetsPath(ResourceType::TEXTURE)))
+    {
+        if (directory_entry.is_directory())
+        {
+            continue;
+        }
+
+        if (directory_entry.path().filename().replace_extension().string()._Equal(texture))
+        {
+            return directory_entry.path();
+        }
+    }
+    return std::filesystem::path();
 }
 
 void TextureImporter::NotifyAddedFile(const char* path)

@@ -25,5 +25,8 @@ namespace BoxerEngine
 		YAML::Node SaveComponent(const std::shared_ptr<BoxerEngine::Component> component);
 		const Entity* LoadEntity(YAML::Node entity_node, Scene* scene, Entity* parent = nullptr);
 		void LoadComponent(YAML::Node component, Entity* entity);
+		void ImportFromAssets(const char* path, ResourceType type);
+		bool CheckIfImported(const char* path);
+		ResourcesPreferences* preferences;
 	};
 }

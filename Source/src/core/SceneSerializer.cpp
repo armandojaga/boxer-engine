@@ -9,6 +9,9 @@
 #include "components/LightComponent.h"
 #include "util/YamlDefinitions.h"
 
+#include "Application.h"
+#include "modules/ModuleImporter.h"
+
 BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(const char* path)
 {
 	if (!BoxerEngine::Files::IsValidFilePath(path))
@@ -23,7 +26,7 @@ BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(const char* path)
 	{
 		return nullptr;
 	}
-
+	preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
 	Scene* scene_output = new Scene();
 	scene_output->SetSceneId(std::move(scene_node[SCENE_ID].as<std::string>()));
 	
@@ -197,6 +200,13 @@ void BoxerEngine::SceneSerializer::LoadComponent(YAML::Node component, Entity* e
 			entity->GetComponent<MeshComponent>()->SetType(Component::Type::MESH);
 			component[COMPONENT_ENABLED].as<bool>() ? entity->GetComponent<MeshComponent>()->Enable() :
 				entity->GetComponent<MeshComponent>()->Disable();
+
+			// if not present in library import from assets folder
+			if (!CheckIfImported(component[COMPONENT_DATA][MODEL_PATH].as<std::string>().c_str()))
+			{
+				ImportFromAssets(component[COMPONENT_DATA][MODEL_PATH].as<std::string>().c_str(), ResourceType::MODEL);
+			}
+			
 			entity->GetComponent<MeshComponent>()->LoadModel(component[COMPONENT_DATA][MODEL_PATH].as<std::string>().c_str());
 			
 			for (int i = 0; i < component[COMPONENT_DATA][MESH_NODE].size(); ++i)
@@ -206,6 +216,11 @@ void BoxerEngine::SceneSerializer::LoadComponent(YAML::Node component, Entity* e
 				
 				if (component[COMPONENT_DATA][MESH_NODE][i][MESH_TEXTURE].IsDefined())
 				{
+					if (!CheckIfImported(component[COMPONENT_DATA][MESH_NODE][i][MESH_TEXTURE].as<std::string>().c_str()))
+					{
+						ImportFromAssets(component[COMPONENT_DATA][MESH_NODE][i][MESH_TEXTURE].as<std::string>().c_str(), ResourceType::TEXTURE);
+					}
+
 					entity->GetComponent<MeshComponent>()->LoadTexture(
 						component[COMPONENT_DATA][MESH_NODE][i][MESH_TEXTURE].as<std::string>().c_str(), i,
 						component[COMPONENT_DATA][MESH_NODE][i][MESH_TEXTURE_TYPE].as<int>());
@@ -233,4 +248,19 @@ void BoxerEngine::SceneSerializer::LoadComponent(YAML::Node component, Entity* e
 			break;
 		}
 	}
+}
+
+void BoxerEngine::SceneSerializer::ImportFromAssets(const char* path, ResourceType type)
+{
+	App->importer->ImportAsset(path, type);
+}
+
+bool BoxerEngine::SceneSerializer::CheckIfImported(const char* path)
+{
+	std::filesystem::path model_name(path);
+	model_name = model_name.filename().replace_extension();
+	std::string full_path = preferences->GetLibraryPath(ResourceType::MODEL);
+	full_path.append(model_name.string());
+
+	return Files::IsValidFilePath(full_path);
 }

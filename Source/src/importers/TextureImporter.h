@@ -21,6 +21,7 @@ namespace BoxerEngine
         void ImportTexturesByType(aiMaterial* material, aiTextureType type, YAML::Node& ticket);
         std::string TextureTypeToString(aiTextureType type);
         std::filesystem::path FindTextureLocation(const char* texture);
+        std::filesystem::path FindTextureInAssets(const char* texture);
         void NotifyAddedFile(const char* path);
     };
 }
