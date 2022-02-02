@@ -321,7 +321,6 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\converters\TypeConverter.h" />
     <ClInclude Include="src\core\util\Semaphore.h" />
     <ClInclude Include="src\importers\SceneImporter.h" />
     <ClInclude Include="src\converters\TypeConverter.h" />
