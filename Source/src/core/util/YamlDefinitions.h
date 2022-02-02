@@ -90,6 +90,7 @@
 //////////////////////////
 
 #define SCENE_ID "scene_id"
+#define SCENE_NAME "scene_name"
 
 // Entity
 #define ENTITY_ROOT "root"
@@ -118,6 +119,7 @@
 #define MODEL_PATH "model_path"
 #define MESH_ENABLED "enabled"
 #define MESH_TEXTURE "texture_file_name"
+#define MESH_TEXTURE_TYPE "texture_type"
 
 //////////////////////////
 //						//
@@ -129,3 +131,4 @@
 #define NODE_X "x"
 #define NODE_Y "y"
 #define NODE_Z "z"
+#define NODE_W "w"

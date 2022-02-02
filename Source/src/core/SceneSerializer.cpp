@@ -1,22 +1,25 @@
 #include "SceneSerializer.h"
 
 #include "Scene.h"
+#include "Entity.h"
 #include "components/Component.h"
 #include "components/TransformComponent.h"
 #include "components/MeshComponent.h"
+#include "components/CameraComponent.h"
+#include "components/LightComponent.h"
 #include "util/YamlDefinitions.h"
 
-const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(std::filesystem::path& path)
+BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(const char* path)
 {
 	if (!BoxerEngine::Files::IsValidFilePath(path))
 	{
 		return nullptr;
 	}
 
-	YAML::Node scene_node = YAML::LoadFile(path.string().c_str());
+	YAML::Node scene_node = YAML::LoadFile(path);
 	
 	// Validate scene header
-	if (!scene_node[SCENE_ID].IsDefined())
+	if (!scene_node[SCENE_ID].IsDefined() || !scene_node[SCENE_NAME].IsDefined())
 	{
 		return nullptr;
 	}
@@ -24,12 +27,15 @@ const BoxerEngine::Scene* BoxerEngine::SceneSerializer::Load(std::filesystem::pa
 	Scene* scene_output = new Scene();
 	scene_output->SetSceneId(std::move(scene_node[SCENE_ID].as<std::string>()));
 	
-	if (!scene_node[ENTITY_ROOT].IsDefined())
+	if (!scene_node[CHILD_NODE].IsDefined())
 	{
 		return scene_output;
 	}
 
-	LoadEntity(scene_node[ENTITY_ROOT], scene_output);
+	for (int i = 0; i < scene_node[CHILD_NODE].size(); ++i)
+	{
+		LoadEntity(scene_node[CHILD_NODE][i], scene_output);
+	}
 	return scene_output;
 }
 
@@ -37,7 +43,13 @@ bool BoxerEngine::SceneSerializer::Save(const Scene* scene, const char* name, co
 {
 	YAML::Node scene_data;
 	scene_data[SCENE_ID] = scene->GetSceneId();
-	scene_data[ENTITY_ROOT] = SaveEntity(scene->GetRoot());
+	scene_data[SCENE_NAME] = scene->GetRoot()->GetName();
+
+	for (int i = 0; i < scene->GetRoot()->GetChildren().size(); ++i)
+	{
+		scene_data[CHILD_NODE][i] = std::move(SaveEntity(scene->GetRoot()->GetChildren()[i]));
+	}
+	
 	BoxerEngine::ResourcesPreferences* preferences = static_cast<BoxerEngine::ResourcesPreferences*>
     	(App->preferences->GetPreferenceDataByType(BoxerEngine::Preferences::Type::RESOURCES));
 	
@@ -90,6 +102,7 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 			component_node[ROTATION_NODE][NODE_X] = tc->GetRotation().x;
 			component_node[ROTATION_NODE][NODE_Y] = tc->GetRotation().y;
 			component_node[ROTATION_NODE][NODE_Z] = tc->GetRotation().z;
+			component_node[ROTATION_NODE][NODE_W] = tc->GetRotation().w;
 
 			component_node[SCALE_NODE][NODE_X] = tc->GetScale().x;
 			component_node[SCALE_NODE][NODE_Y] = tc->GetScale().y;
@@ -102,7 +115,7 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 		{
 			auto mc = std::static_pointer_cast<const BoxerEngine::MeshComponent>(component);
 
-			component_node[MODEL_PATH] = mc->GetModelName();
+			component_node[MODEL_PATH] = mc->GetModelPath();
 			
 			for (int i = 0; i < mc->GetMeshesCount(); ++i)
 			{
@@ -111,6 +124,7 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 				if (mc->IsMeshTextureLoaded(i))
 				{
 					component_node[MESH_NODE][i][MESH_TEXTURE] = mc->GetMeshTextureName(i);
+					component_node[MESH_NODE][i][MESH_TEXTURE_TYPE] = mc->GetMeshTextureType(i);
 				}
 			}
 			
@@ -130,12 +144,93 @@ YAML::Node BoxerEngine::SceneSerializer::SaveComponent(const std::shared_ptr<Box
 	return component_node;
 }
 
-const BoxerEngine::Entity* BoxerEngine::SceneSerializer::LoadEntity(YAML::Node entity, Scene* scene)
+const BoxerEngine::Entity* BoxerEngine::SceneSerializer::LoadEntity(YAML::Node entity_node, Scene* scene, Entity* parent)
 {
+	Entity* entity = scene->CreateEntity();
+	entity->SetName(std::move(entity_node[ENTITY_NAME].as<std::string>()));
+	entity->SetId(entity_node[ENTITY_ID].as<size_t>());
+
+	if (parent)
+	{
+		entity->SetParent(parent);
+	}
+
+	if (entity_node[COMPONENT_NODE].IsDefined())
+	{
+		for (int i = 0; i < entity_node[COMPONENT_NODE].size(); ++i)
+		{
+			LoadComponent(entity_node[COMPONENT_NODE][i], entity);
+		}
+	}
+
+	if (entity_node[CHILD_NODE].IsDefined())
+	{
+		for (int i = 0; i < entity_node[CHILD_NODE].size(); ++i)
+		{
+			LoadEntity(entity_node[CHILD_NODE][i], scene, entity);
+		}
+	}
+
 	return nullptr;
 }
 
-const std::shared_ptr<BoxerEngine::Component> BoxerEngine::SceneSerializer::LoadComponent(YAML::Node& component)
+void BoxerEngine::SceneSerializer::LoadComponent(YAML::Node component, Entity* entity)
 {
-	return std::shared_ptr<BoxerEngine::Component>();
+	switch (static_cast<Component::Type>(component[COMPONENT_TYPE].as<int>()))
+	{
+		case Component::Type::TRANSFORM:
+		{
+			entity->CreateComponent<TransformComponent>();
+			entity->GetComponent<TransformComponent>()->SetId(component[COMPONENT_ID].as<size_t>());
+			entity->GetComponent<TransformComponent>()->SetType(Component::Type::TRANSFORM);
+			component[COMPONENT_ENABLED].as<bool>() ? entity->GetComponent<TransformComponent>()->Enable() :
+				entity->GetComponent<TransformComponent>()->Disable();
+			entity->GetComponent<TransformComponent>()->SetPosition(Yaml::ToFloat3(component[COMPONENT_DATA][POSITION_NODE]));
+			entity->GetComponent<TransformComponent>()->SetRotation(Yaml::ToFloat4(component[COMPONENT_DATA][ROTATION_NODE]));
+			entity->GetComponent<TransformComponent>()->SetScale(Yaml::ToFloat3(component[COMPONENT_DATA][SCALE_NODE]));
+			break;
+		}
+		case Component::Type::MESH:
+		{
+			entity->CreateComponent<MeshComponent>();
+			entity->GetComponent<MeshComponent>()->SetId(component[COMPONENT_ID].as<size_t>());
+			entity->GetComponent<MeshComponent>()->SetType(Component::Type::MESH);
+			component[COMPONENT_ENABLED].as<bool>() ? entity->GetComponent<MeshComponent>()->Enable() :
+				entity->GetComponent<MeshComponent>()->Disable();
+			entity->GetComponent<MeshComponent>()->LoadModel(component[COMPONENT_DATA][MODEL_PATH].as<std::string>().c_str());
+			
+			for (int i = 0; i < component[COMPONENT_DATA][MESH_NODE].size(); ++i)
+			{
+				component[COMPONENT_DATA][MESH_NODE][i][MESH_ENABLED].as<bool>()
+					? entity->GetComponent<MeshComponent>()->EnableMesh(i) : entity->GetComponent<MeshComponent>()->DisableMesh(i);
+				
+				if (component[COMPONENT_DATA][MESH_NODE][i][MESH_TEXTURE].IsDefined())
+				{
+					entity->GetComponent<MeshComponent>()->LoadTexture(
+						component[COMPONENT_DATA][MESH_NODE][i][MESH_TEXTURE].as<std::string>().c_str(), i,
+						component[COMPONENT_DATA][MESH_NODE][i][MESH_TEXTURE_TYPE].as<int>());
+				}
+			}
+
+			break;
+		}
+		case Component::Type::CAMERA:
+		{
+			entity->CreateComponent<CameraComponent>();
+			entity->GetComponent<CameraComponent>()->SetId(component[COMPONENT_ID].as<size_t>());
+			entity->GetComponent<CameraComponent>()->SetType(Component::Type::MESH);
+			component[COMPONENT_ENABLED].as<bool>() ? entity->GetComponent<CameraComponent>()->Enable() :
+				entity->GetComponent<CameraComponent>()->Disable();
+			break;
+		}
+		case Component::Type::LIGHT:
+		{
+			entity->CreateComponent<LightComponent>();
+			entity->GetComponent<LightComponent>()->SetId(component[COMPONENT_ID].as<size_t>());
+			entity->GetComponent<LightComponent>()->SetType(Component::Type::MESH);
+			component[COMPONENT_ENABLED].as<bool>() ? entity->GetComponent<LightComponent>()->Enable() :
+				entity->GetComponent<LightComponent>()->Disable();
+			break;
+		}
+	}
 }

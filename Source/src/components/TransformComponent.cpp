@@ -40,6 +40,13 @@ void BoxerEngine::TransformComponent::SetRotation(const Quat& rotation)
     this->rotation = rotation;
 }
 
+void BoxerEngine::TransformComponent::SetRotation(const float4& rotation)
+{
+    Quat q(rotation.x, rotation.y, rotation.z, rotation.w); 
+    euler_angles = RadToDeg(q.ToEulerXYZ());
+    this->rotation = std::move(q);
+}
+
 void BoxerEngine::TransformComponent::SetScale(const float3& scale)
 {
     this->scale = scale;

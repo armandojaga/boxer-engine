@@ -20,10 +20,10 @@ namespace BoxerEngine
 	private:
 		// Load is private to ensure only ModuleScene can call it 
 		// as we retrieve ownership of scene object pointer
-		const Scene* Load(std::filesystem::path& path);
+		Scene* Load(const char* path);
 		YAML::Node SaveEntity(const Entity* entity);
 		YAML::Node SaveComponent(const std::shared_ptr<BoxerEngine::Component> component);
-		const Entity* LoadEntity(YAML::Node entity, Scene* scene);
-		const std::shared_ptr<BoxerEngine::Component> LoadComponent(YAML::Node& component);
+		const Entity* LoadEntity(YAML::Node entity_node, Scene* scene, Entity* parent = nullptr);
+		void LoadComponent(YAML::Node component, Entity* entity);
 	};
 }

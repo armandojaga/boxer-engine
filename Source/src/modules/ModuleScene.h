@@ -19,8 +19,12 @@ public:
     void RemoveEntity(BoxerEngine::Entity* entity) const;
 
     [[nodiscard]] BoxerEngine::Scene* GetScene() const;
-    void SaveScene();
+
+    void SaveScene(const char* scene_name);
+    void LoadScene(const char* scene_path);
+
 private:
     BoxerEngine::Scene* scene = nullptr;
     BoxerEngine::SceneSerializer scene_serializer;
+    std::mutex scene_acces;
 };

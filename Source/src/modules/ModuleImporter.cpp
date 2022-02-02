@@ -6,6 +6,7 @@
 #include "importers/MeshImporter.h"
 #include "importers/ModelImporter.h"
 #include "importers/TextureImporter.h"
+#include "importers/SceneImporter.h"
 
 using namespace BoxerEngine;
 
@@ -15,11 +16,13 @@ ModuleImporter::ModuleImporter()
     const auto mesh = new MeshImporter();
     const auto model = new ModelImporter();
     const auto texture = new TextureImporter();
+    const auto scene = new SceneImporter();
 
     importers.push_back(std::make_pair<Importer::Type, Importer*>(gen->GetType(), gen));
     importers.push_back(std::make_pair<Importer::Type, Importer*>(model->GetType(), model));
     importers.push_back(std::make_pair<Importer::Type, Importer*>(mesh->GetType(), mesh));
     importers.push_back(std::make_pair<Importer::Type, Importer*>(texture->GetType(), texture));
+    importers.push_back(std::make_pair<Importer::Type, Importer*>(scene->GetType(), scene));
 }
 
 bool ModuleImporter::Init()
@@ -83,6 +86,9 @@ Importer::Type ModuleImporter::ToImporterType(const ResourceType type)
         iType = Importer::Type::TEXTURE;
         break;
 
+    case ResourceType::SCENE:
+        iType = Importer::Type::SCENE;
+        break;
     case ResourceType::AUDIO:
     case ResourceType::VIDEO:
     case ResourceType::SCRIPT:

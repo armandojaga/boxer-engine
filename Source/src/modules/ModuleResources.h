@@ -15,7 +15,7 @@ private:
         {BoxerEngine::ResourceType::TEXTURE, ".png"},
         {BoxerEngine::ResourceType::TEXTURE, ".tif"},
         {BoxerEngine::ResourceType::MODEL, ".fbx"},
-        {BoxerEngine::ResourceType::SCENE, ".beta"}
+        {BoxerEngine::ResourceType::SCENE, ".be"}
     };
     BoxerEngine::ResourcesPreferences* preferences = nullptr;
     BoxerEngine::FileManager file_manager;
