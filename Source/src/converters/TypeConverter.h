@@ -6,6 +6,8 @@
 #include <Math/Quat.h>
 #include <Math/float4x4.h>
 
+#include "assimp/vector3.h"
+
 namespace YAML
 {
     template <>
@@ -176,6 +178,33 @@ namespace YAML
             rhs.shearWz = node[14].as<float>();
             rhs.w = node[15].as<float>();
 
+            return true;
+        }
+    };
+
+    template <>
+    struct convert<aiVector3D>
+    {
+        static Node encode(const aiVector3D& rhs)
+        {
+            Node node;
+            node.push_back(rhs.x);
+            node.push_back(rhs.y);
+            node.push_back(rhs.z);
+            node.SetStyle(EmitterStyle::Flow);
+            return node;
+        }
+
+        static bool decode(const Node& node, aiVector3D& rhs)
+        {
+            if (!node.IsSequence() || node.size() != 3)
+            {
+                return false;
+            }
+
+            rhs.x = node[0].as<float>();
+            rhs.y = node[1].as<float>();
+            rhs.z = node[2].as<float>();
             return true;
         }
     };
