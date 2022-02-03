@@ -48,6 +48,9 @@ namespace BoxerEngine
 
         [[nodiscard]] const float4x4& GetGlobalMatrix();
 
+        void Save(::YAML::Node) override;
+        void Load(::YAML::Node) override;
+
     private:
         float3 position = float3::zero;
         Quat rotation = Quat::identity;

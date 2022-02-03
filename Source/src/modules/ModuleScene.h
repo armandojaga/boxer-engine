@@ -1,7 +1,8 @@
 #pragma once
+#include <mutex>
 #include "Module.h"
 #include "core/Scene.h"
-#include "core/SceneSerializer.h"
+#include "core/serialization/SceneSerializer.h"
 
 class ModuleScene : public Module
 {
@@ -15,7 +16,7 @@ public:
     bool CleanUp() override;
 
     void CreateEmptyScene() const;
-    BoxerEngine::Entity* CreateEmptyEntity() const;
+    [[nodiscard]] BoxerEngine::Entity* CreateEmptyEntity() const;
     void RemoveEntity(BoxerEngine::Entity* entity) const;
 
     [[nodiscard]] BoxerEngine::Scene* GetScene() const;

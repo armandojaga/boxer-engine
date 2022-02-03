@@ -55,4 +55,7 @@
 #include "core/events/Event.h"
 #include "core/events/EventManager.h"
 
-#include "converters/TypeConverter.h"
+#include "core/serialization/converters/TypeConverter.h"
+
+#include "core/serialization/YamlDefinitions.h"
+#include "core/serialization/Serializable.h"

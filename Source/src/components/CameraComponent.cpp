@@ -27,3 +27,11 @@ const char* BoxerEngine::CameraComponent::GetName() const
 {
     return "Camera";
 }
+
+void BoxerEngine::CameraComponent::Save(YAML::Node)
+{
+}
+
+void BoxerEngine::CameraComponent::Load(YAML::Node)
+{
+}

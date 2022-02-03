@@ -1,13 +1,13 @@
 #include "core/bepch.h"
 
-#include "Scene.h"
+#include "core/Scene.h"
 #include "SceneSerializer.h"
 
 #include "components/TransformComponent.h"
 #include "components/MeshComponent.h"
 #include "components/CameraComponent.h"
 #include "components/LightComponent.h"
-#include "util/YamlDefinitions.h"
+#include "core/serialization/YamlDefinitions.h"
 
 #include "modules/ModuleImporter.h"
 

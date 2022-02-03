@@ -213,7 +213,7 @@
     <ClCompile Include="src\core\preferences\editor\EditorPreferences.cpp">
       <Filter>Core\Preferences\Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\file system\FileManager.cpp">
+    <ClCompile Include="src\core\filesystem\FileManager.cpp">
       <Filter>Core\File System</Filter>
     </ClCompile>
     <ClCompile Include="src\core\preferences\editor\RenderPreferences.cpp">
@@ -318,7 +318,7 @@
     <ClCompile Include="src\core\Scene.cpp">
       <Filter>Core\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\SceneSerializer.cpp">
+    <ClCompile Include="src\core\serialization\SceneSerializer.cpp">
       <Filter>Core\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\importers\SceneImporter.cpp">
@@ -1345,7 +1345,7 @@
     <ClInclude Include="src\core\preferences\editor\EditorPreferences.h">
       <Filter>Core\Preferences\Source</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\file system\FileManager.h">
+    <ClInclude Include="src\core\filesystem\FileManager.h">
       <Filter>Core\File System</Filter>
     </ClInclude>
     <ClInclude Include="src\core\preferences\editor\RenderPreferences.h">
@@ -1478,13 +1478,13 @@
     <ClInclude Include="vendors\ImGuiFileDialog\stb\stb_image_resize.h">
       <Filter>Vendors\ImGuiFileDialog\stb</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\util\YamlDefinitions.h">
+    <ClInclude Include="src\core\serialization\YamlDefinitions.h">
       <Filter>Core\Util</Filter>
     </ClInclude>
     <ClInclude Include="src\core\Scene.h">
       <Filter>Core\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\SceneSerializer.h">
+    <ClInclude Include="src\core\serialization\SceneSerializer.h">
       <Filter>Core\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\importers\SceneImporter.h">
@@ -1496,9 +1496,10 @@
     <ClInclude Include="src\ui\Theme.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\converters\TypeConverter.h">
+    <ClInclude Include="src\core\serialization\converters\TypeConverter.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\serialization\Serializable.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

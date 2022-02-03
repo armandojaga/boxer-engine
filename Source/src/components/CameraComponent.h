@@ -16,6 +16,9 @@ namespace BoxerEngine
         void UpdateUI() override;
         void DisplayGizmos() override;
         [[nodiscard]] const char* GetName() const override;
+
+        void Save(::YAML::Node) override;
+        void Load(::YAML::Node) override;
     private:
         Frustum frustum;
     };

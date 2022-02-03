@@ -1,11 +1,12 @@
 #pragma once
+#include "core/serialization/Serializable.h"
 #include "core/util/UUID.h"
 
 namespace BoxerEngine
 {
     class Entity;
 
-    class Component
+    class Component: public Serializable
     {
     public:
         enum class Type
@@ -26,7 +27,7 @@ namespace BoxerEngine
 
         explicit Component(Entity* entity);
         explicit Component(Type type, Entity* entity);
-        virtual ~Component() = default;
+        ~Component() override = default;
 
         virtual void Init();
         virtual void Start();
@@ -48,6 +49,9 @@ namespace BoxerEngine
         [[nodiscard]] Entity* GetEntity() const;
 
         [[nodiscard]] virtual const char* GetName() const = 0;
+
+        // void Save(YAML::Node){};
+        // void Load(YAML::Node){};
 
     protected:
         bool enabled = true;

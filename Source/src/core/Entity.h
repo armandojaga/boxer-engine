@@ -6,12 +6,12 @@
 
 namespace BoxerEngine
 {
-    class Entity
+    class Entity : public Serializable
     {
     public:
         Entity();
         explicit Entity(Entity* parent);
-        ~Entity();
+        ~Entity() override;
 
         void SetId(UID newId);
         [[nodiscard]] UID GetId() const;
@@ -33,7 +33,7 @@ namespace BoxerEngine
         [[nodiscard]] Entity* GetEntity(UID entityId);
         [[nodiscard]] Entity* GetEntity(const std::string& entityName);
         void RemoveChild(UID entityId);
-        bool IsChildOf(UID entityId) const;
+        [[nodiscard]] bool IsChildOf(UID entityId) const;
 
         template <typename C>
         bool Has();
@@ -52,6 +52,9 @@ namespace BoxerEngine
         [[nodiscard]] std::vector<std::shared_ptr<Component>> GetComponents() const;
         [[nodiscard]] std::vector<Entity*> GetChildren() const;
         void Clear();
+
+        void Save(YAML::Node) override;
+        void Load(YAML::Node) override;
 
     private:
         UID id = 0;

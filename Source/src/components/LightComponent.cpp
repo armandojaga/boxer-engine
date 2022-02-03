@@ -25,3 +25,11 @@ const char* BoxerEngine::LightComponent::GetName() const
 {
     return "Light";
 }
+
+void BoxerEngine::LightComponent::Save(YAML::Node)
+{
+}
+
+void BoxerEngine::LightComponent::Load(YAML::Node)
+{
+}

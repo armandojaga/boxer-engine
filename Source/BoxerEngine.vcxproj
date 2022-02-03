@@ -172,7 +172,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\importers\SceneImporter.cpp" />
-    <ClCompile Include="src\core\SceneSerializer.cpp" />
+    <ClCompile Include="src\core\serialization\SceneSerializer.cpp" />
     <ClCompile Include="src\importers\ModelImporter.cpp" />
     <ClCompile Include="src\importers\GenericImporter.cpp" />
     <ClCompile Include="src\importers\MeshImporter.cpp" />
@@ -183,7 +183,7 @@
     <ClCompile Include="src\core\preferences\editor\CameraPreferences.cpp" />
     <ClCompile Include="src\core\preferences\editor\GlobalPreferences.cpp" />
     <ClCompile Include="src\core\preferences\editor\RenderPreferences.cpp" />
-    <ClCompile Include="src\core\file system\FileManager.cpp" />
+    <ClCompile Include="src\core\filesystem\FileManager.cpp" />
     <ClCompile Include="src\core\preferences\editor\EditorPreferences.cpp" />
     <ClCompile Include="src\core\preferences\PreferenceManager.cpp" />
     <ClCompile Include="src\components\CameraComponent.cpp" />
@@ -321,11 +321,12 @@
     <ClCompile Include="src\modules\ModuleWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\core\serialization\Serializable.h" />
     <ClInclude Include="src\core\util\Semaphore.h" />
     <ClInclude Include="src\importers\SceneImporter.h" />
-    <ClInclude Include="src\converters\TypeConverter.h" />
-    <ClInclude Include="src\core\SceneSerializer.h" />
-    <ClInclude Include="src\core\util\YamlDefinitions.h" />
+    <ClInclude Include="src\core\serialization\converters\TypeConverter.h" />
+    <ClInclude Include="src\core\serialization\SceneSerializer.h" />
+    <ClInclude Include="src\core\serialization\YamlDefinitions.h" />
     <ClInclude Include="src\importers\ModelImporter.h" />
     <ClInclude Include="src\importers\GenericImporter.h" />
     <ClInclude Include="src\importers\MeshImporter.h" />
@@ -340,7 +341,7 @@
     <ClInclude Include="src\core\preferences\editor\CameraPreferences.h" />
     <ClInclude Include="src\core\preferences\editor\GlobalPreferences.h" />
     <ClInclude Include="src\core\preferences\editor\RenderPreferences.h" />
-    <ClInclude Include="src\core\file system\FileManager.h" />
+    <ClInclude Include="src\core\filesystem\FileManager.h" />
     <ClInclude Include="src\core\preferences\editor\EditorPreferences.h" />
     <ClInclude Include="src\core\preferences\Preferences.h" />
     <ClInclude Include="src\core\preferences\PreferenceManager.h" />

@@ -65,3 +65,11 @@ const float4x4& BoxerEngine::TransformComponent::GetGlobalMatrix()
     CalculateGlobalMatrix();
     return global_matrix;
 }
+
+void BoxerEngine::TransformComponent::Save(YAML::Node)
+{
+}
+
+void BoxerEngine::TransformComponent::Load(YAML::Node)
+{
+}

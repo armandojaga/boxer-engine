@@ -49,6 +49,9 @@ namespace BoxerEngine
         bool IsMeshEnabled(const int index) const { return meshes[index]->enabled; };
         bool IsMeshTextureLoaded(const int index) const { return meshes[index]->texture_loaded; };
 
+        void Save(::YAML::Node) override;
+        void Load(::YAML::Node) override;
+
     private:
         bool model_loaded = false;
         Model* model = nullptr;

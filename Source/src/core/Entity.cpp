@@ -214,6 +214,14 @@ void BoxerEngine::Entity::Clear()
     components.clear();
 }
 
+void BoxerEngine::Entity::Save(YAML::Node)
+{
+}
+
+void BoxerEngine::Entity::Load(YAML::Node)
+{
+}
+
 void BoxerEngine::Entity::SetId(const UID newId)
 {
     this->id = newId;

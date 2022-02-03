@@ -27,6 +27,9 @@ namespace BoxerEngine
         [[nodiscard]] float GetIntensity() const;
 
         [[nodiscard]] const char* GetName() const override;
+
+        void Save(::YAML::Node) override;
+        void Load(::YAML::Node) override;
     private:
         float intensity = 1.0f;
         float radius = 1.0f;

@@ -6,7 +6,7 @@
 
 #include "Module.h"
 #include "core/preferences/editor/ResourcesPreferences.h"
-#include "core/file system/FileManager.h"
+#include "core/filesystem/FileManager.h"
 
 class ModuleResources : public Module
 {

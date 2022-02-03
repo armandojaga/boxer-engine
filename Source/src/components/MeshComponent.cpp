@@ -81,6 +81,14 @@ void BoxerEngine::MeshComponent::LoadTexture(const char* path, int mesh_index, i
     meshes[mesh_index]->texture_type = type;
 }
 
+void BoxerEngine::MeshComponent::Save(YAML::Node)
+{
+}
+
+void BoxerEngine::MeshComponent::Load(YAML::Node)
+{
+}
+
 void BoxerEngine::MeshComponent::Draw()
 {
     if (!model_loaded || !enabled)
