@@ -9,7 +9,7 @@
 // Texture
 #define TEXTURE_ID "id"
 #define TEXTURE_FILE_PATH "file_path"
- 
+
 // Model
 #define MODEL_ID "id"
 #define MODEL_FILE_PATH "file_path"
@@ -120,15 +120,3 @@
 #define MESH_ENABLED "enabled"
 #define MESH_TEXTURE "texture_file_name"
 #define MESH_TEXTURE_TYPE "texture_type"
-
-//////////////////////////
-//						//
-//      Globals         //
-//						//
-//////////////////////////
-
-// Vector
-#define NODE_X "x"
-#define NODE_Y "y"
-#define NODE_Z "z"
-#define NODE_W "w"

@@ -11,8 +11,8 @@ namespace BoxerEngine
     {
         MeshData(bool enable = true, bool has_texture = false, int type = 0)
             : enabled(enable)
-            , texture_loaded(has_texture)
-            , texture_type(type)
+              , texture_loaded(has_texture)
+              , texture_type(type)
         {
         }
 
@@ -41,7 +41,7 @@ namespace BoxerEngine
         [[nodiscard]] const char* GetMeshTextureName(const int index) const { return meshes[index]->texture_name.c_str(); };
         [[nodiscard]] int GetMeshTextureType(const int index) const { return meshes[index]->texture_type; };
         [[nodiscard]] int GetMeshesCount() const { return meshes.size(); };
-        
+
         void LoadModel(const char* path);
         void LoadTexture(const char* path, int mesh_index, int type);
         void EnableMesh(int index) { meshes[index]->enabled = true; }

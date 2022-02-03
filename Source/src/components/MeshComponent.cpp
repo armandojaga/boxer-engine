@@ -63,7 +63,7 @@ void BoxerEngine::MeshComponent::LoadModel(const char* path)
     std::filesystem::path model_path(path);
     model_path = model_path.filename().replace_extension();
 
-    model = new BoxerEngine::Model(model_path.string().c_str());
+    model = new Model(model_path.string().c_str());
     meshes.reserve(model->GetMeshesCount());
     for (int i = 0; i < model->GetMeshesCount(); ++i)
     {
@@ -160,7 +160,6 @@ void BoxerEngine::MeshComponent::AddTextureDisplay(const int mesh_index)
         {
             const std::filesystem::path texture_path = ImGuiFileDialog::Instance()->GetFilePathName().c_str();
             LoadTexture(texture_path.filename().replace_extension().string().c_str(), mesh_index, index);
-
         }
 
         ImGuiFileDialog::Instance()->Close();

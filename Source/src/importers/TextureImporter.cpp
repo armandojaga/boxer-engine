@@ -14,7 +14,7 @@ void TextureImporter::ImportAsset(const std::filesystem::path& asset_path)
 {
     YAML::Node asset_ticket;
     std::filesystem::path texture;
-    
+
     if (!asset_path.has_extension())
     {
         texture = FindTextureInAssets(asset_path.string().c_str());
@@ -23,7 +23,7 @@ void TextureImporter::ImportAsset(const std::filesystem::path& asset_path)
     {
         texture = asset_path;
     }
-    
+
     asset_ticket[TEXTURE_ID] = UUID::GenerateUUIDv4();
     asset_ticket[TEXTURE_FILE_PATH] = texture.string();
 
@@ -145,7 +145,7 @@ std::filesystem::path TextureImporter::FindTextureLocation(const char* texture)
     return output_path;
 }
 
-std::filesystem::path BoxerEngine::TextureImporter::FindTextureInAssets(const char* texture)
+std::filesystem::path TextureImporter::FindTextureInAssets(const char* texture)
 {
     preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
     for (auto& directory_entry : std::filesystem::directory_iterator(preferences->GetAssetsPath(ResourceType::TEXTURE)))

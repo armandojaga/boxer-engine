@@ -47,7 +47,6 @@
 #include "modules/Module.h"
 #include "core/util/StringUtils.h"
 #include "core/util/Files.h"
-#include "core/util/Yaml.h"
 #include "rendering/Bindable.h"
 #include "Entity.h"
 #include "components/Component.h"

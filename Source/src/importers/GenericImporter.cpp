@@ -9,28 +9,26 @@ GenericImporter::GenericImporter()
 {
 }
 
-void GenericImporter::ImportAsset(const std::filesystem::path& asset_path)
+void GenericImporter::ImportAsset(const std::filesystem::path& assetPath)
 {
     YAML::Node asset_ticket;
     asset_ticket[GENERIC_ID] = UUID::GenerateUUIDv4();
-    asset_ticket[GENERIC_FILE_PATH] = asset_path.string();
+    asset_ticket[GENERIC_FILE_PATH] = assetPath.string();
 
     preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
-    std::string file_name = asset_path.filename().replace_extension().string();
-    std::string model_name(preferences->GetLibraryPath(DeduceResourceType(asset_path)) + file_name);
+    const std::string fileName = assetPath.filename().replace_extension().string();
+    const std::string modelName(preferences->GetLibraryPath(DeduceResourceType(assetPath)) + fileName);
 
-    SaveToFile(asset_ticket, model_name);
+    SaveToFile(asset_ticket, modelName);
 }
 
-void GenericImporter::SaveToFile(YAML::Node& ticket, const std::string& file_name)
+void GenericImporter::SaveToFile(YAML::Node& ticket, const std::string& fileName)
 {
-    std::ofstream fout(file_name);
+    std::ofstream fout(fileName);
     fout << ticket;
 }
 
 ResourceType GenericImporter::DeduceResourceType(const std::filesystem::path& path)
 {
-    auto type = ResourceType::UNKNOWN;
-    std::string extension = path.filename().extension().string();
-    return type;
+    return ResourceType::UNKNOWN;
 }

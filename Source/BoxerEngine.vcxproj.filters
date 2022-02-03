@@ -1336,9 +1336,6 @@
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\node\type.h">
       <Filter>Vendors\Yaml\Node</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\util\Yaml.h">
-      <Filter>Core\Util</Filter>
-    </ClInclude>
     <ClInclude Include="src\core\preferences\PreferenceManager.h">
       <Filter>Core\Preferences</Filter>
     </ClInclude>
@@ -1499,7 +1496,9 @@
     <ClInclude Include="src\ui\Theme.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\converters\TypeConverter.h" />
+    <ClInclude Include="src\converters\TypeConverter.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Modules">

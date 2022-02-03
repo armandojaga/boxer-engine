@@ -12,9 +12,9 @@ namespace BoxerEngine
     public:
         GenericImporter();
         ~GenericImporter() override = default;
-        void ImportAsset(const std::filesystem::path& asset_path) override;
-        void SaveToFile(YAML::Node& ticket, const std::string& file_name) override;
+        void ImportAsset(const std::filesystem::path& assetPath) override;
+        void SaveToFile(YAML::Node& ticket, const std::string& fileName) override;
     private:
-        ResourceType DeduceResourceType(const std::filesystem::path& path);
+        static ResourceType DeduceResourceType(const std::filesystem::path& path);
     };
 }

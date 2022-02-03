@@ -5,7 +5,7 @@
 bool ModuleScene::Init()
 {
     LoadScene("./assets/scene/MyScene.be");
-    
+
     if (!scene)
     {
         scene = new BoxerEngine::Scene();
@@ -63,18 +63,19 @@ BoxerEngine::Scene* ModuleScene::GetScene() const
     return scene;
 }
 
-void ModuleScene::SaveScene(const char* scene_name)
+void ModuleScene::SaveScene(const char* sceneName)
 {
-    scene_serializer.Save(scene, scene_name);
+    scene_serializer.Save(scene, sceneName);
 }
 
-void ModuleScene::LoadScene(const char* scene_path)
+void ModuleScene::LoadScene(const char* scenePath)
 {
-    if (scene)
+    auto load = [&]
     {
         delete scene;
-    }
-    scene = scene_serializer.Load(scene_path);
+        scene = scene_serializer.Load(scenePath);
+    };
+    load();
 }
 
 ModuleScene::~ModuleScene()

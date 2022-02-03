@@ -59,4 +59,3 @@ void BoxerEngine::ProjectPanel::ImportAsset(const std::string& path)
     assetChanged.SetEventData<AssetsAddedEventPayload>(path, App->resources->GetType(path));
     EventManager::GetInstance().Publish(assetChanged);
 }
-

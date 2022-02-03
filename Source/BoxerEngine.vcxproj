@@ -711,7 +711,6 @@
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\stlemitter.h" />
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\traits.h" />
     <ClInclude Include="vendors\yaml-cpp\include\yaml-cpp\yaml.h" />
-    <ClInclude Include="src\core\util\Yaml.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Game\assets\shaders\fragmentTexture.glsl" />

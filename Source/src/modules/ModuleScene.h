@@ -20,8 +20,8 @@ public:
 
     [[nodiscard]] BoxerEngine::Scene* GetScene() const;
 
-    void SaveScene(const char* scene_name);
-    void LoadScene(const char* scene_path);
+    void SaveScene(const char* sceneName);
+    void LoadScene(const char* scenePath);
 
 private:
     BoxerEngine::Scene* scene = nullptr;

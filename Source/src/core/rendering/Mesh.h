@@ -10,20 +10,20 @@ namespace BoxerEngine
 {
     struct Vertex
     {
-        Vertex(const float3& pos, const float3& norm, const float2& tex)
-            : position(pos), normal(norm), tex_coords(tex)
+        Vertex(const float3& position, const float3& normal, const float2& textureCoordinates)
+            : position(position), normal(normal), texture_coordinates(textureCoordinates)
         {
         }
 
         Vertex(Vertex&& vertex) noexcept : position(std::move(vertex.position)),
                                            normal(std::move(vertex.normal)),
-                                           tex_coords(std::move(vertex.tex_coords))
+                                           texture_coordinates(std::move(vertex.texture_coordinates))
         {
         }
 
         float3 position;
         float3 normal;
-        float2 tex_coords;
+        float2 texture_coordinates;
     };
 
     struct Texture
@@ -50,7 +50,7 @@ namespace BoxerEngine
     class Mesh
     {
     public:
-        Mesh(const char* file_path);
+        Mesh(const char* filePath);
         ~Mesh() = default;
         void Draw() const;
 
@@ -76,6 +76,6 @@ namespace BoxerEngine
         unsigned int EBO{};
 
         void SetupMesh();
-        void Load(const char* mesh_data);
+        void Load(const char* meshData);
     };
 }

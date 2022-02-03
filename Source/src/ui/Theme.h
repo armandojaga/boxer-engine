@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
+
 namespace BoxerEngine::Editor
 {
-    class Theme final {
+    class Theme final
+    {
     public:
-
         enum class Type
         {
             DARK = 0,
@@ -16,19 +17,19 @@ namespace BoxerEngine::Editor
         {
             switch (theme)
             {
-                case Type::LIGHT:
-                    return "light";
-                case Type::PINK:
-                    return "pink";
-                case Type::DARK:
-                default:
-                    return "dark";
+            case Type::LIGHT:
+                return "light";
+            case Type::PINK:
+                return "pink";
+            case Type::DARK:
+            default:
+                return "dark";
             }
         }
 
         static Type FromString(const std::string& theme)
         {
-            if(theme == "light")
+            if (theme == "light")
             {
                 return Type::LIGHT;
             }
@@ -38,6 +39,7 @@ namespace BoxerEngine::Editor
             }
             return Type::DARK;
         }
+
         Theme() = delete;
     };
 }

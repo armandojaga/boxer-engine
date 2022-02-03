@@ -47,52 +47,39 @@ void MeshImporter::ImportMesh(aiMesh* mesh, const std::string& uuid)
 
 void MeshImporter::PopulateTicket(aiMesh* mesh, YAML::Node& mesh_ticket)
 {
-    mesh_ticket[MIN_POINT][NODE_X] = mesh->mVertices[0].x;
-    mesh_ticket[MIN_POINT][NODE_Y] = mesh->mVertices[0].y;
-    mesh_ticket[MIN_POINT][NODE_Z] = mesh->mVertices[0].z;
-
-    mesh_ticket[MAX_POINT][NODE_X] = mesh->mVertices[0].x;
-    mesh_ticket[MAX_POINT][NODE_Y] = mesh->mVertices[0].y;
-    mesh_ticket[MAX_POINT][NODE_Z] = mesh->mVertices[0].z;
+    float3 minValue(mesh->mVertices[0].x, mesh->mVertices[0].y, mesh->mVertices[0].z);
+    float3 maxValue(minValue);
 
     // process vertex positions, normals and texture coordinates
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
-        mesh_ticket[VERTICES_NODE][i][NODE_X] = mesh->mVertices[i].x;
-        mesh_ticket[VERTICES_NODE][i][NODE_Y] = mesh->mVertices[i].y;
-        mesh_ticket[VERTICES_NODE][i][NODE_Z] = mesh->mVertices[i].z;
+        mesh_ticket[VERTICES_NODE][i] = mesh->mVertices[i];
 
-        mesh_ticket[NORMALS_NODE][i][NODE_X] = mesh->mNormals[i].x;
-        mesh_ticket[NORMALS_NODE][i][NODE_Y] = mesh->mNormals[i].y;
-        mesh_ticket[NORMALS_NODE][i][NODE_Z] = mesh->mNormals[i].z;
+        mesh_ticket[NORMALS_NODE][i] = mesh->mNormals[i];
 
-        if (mesh->HasTextureCoords(0)) // TODO: What does 0 means
+        YAML::Node textureCoords(float2(0.0f));
+
+        if (mesh->HasTextureCoords(0))
         {
-            mesh_ticket[TEXTURE_COORDS_NODE][i][NODE_X] = mesh->mTextureCoords[0][i].x;
-            mesh_ticket[TEXTURE_COORDS_NODE][i][NODE_Y] = mesh->mTextureCoords[0][i].y;
-        }
-        else
-        {
-            mesh_ticket[TEXTURE_COORDS_NODE][i][NODE_X] = 0.0;
-            mesh_ticket[TEXTURE_COORDS_NODE][i][NODE_Y] = 0.0;
+            mesh_ticket[TEXTURE_COORDS_NODE][i] = float2(mesh->mTextureCoords[0][i].x, mesh->mTextureCoords[0][i].y);
         }
 
-        mesh_ticket[MIN_POINT][NODE_X] = std::min(mesh->mVertices[i].x, mesh_ticket[MIN_POINT][NODE_X].as<float>());
-        mesh_ticket[MIN_POINT][NODE_Y] = std::min(mesh->mVertices[i].y, mesh_ticket[MIN_POINT][NODE_Y].as<float>());
-        mesh_ticket[MIN_POINT][NODE_Z] = std::min(mesh->mVertices[i].z, mesh_ticket[MIN_POINT][NODE_Z].as<float>());
+        float3 current(mesh->mVertices[0].x, mesh->mVertices[0].y, mesh->mVertices[0].z);
 
-        mesh_ticket[MAX_POINT][NODE_X] = std::max(mesh->mVertices[i].x, mesh_ticket[MAX_POINT][NODE_X].as<float>());
-        mesh_ticket[MAX_POINT][NODE_Y] = std::max(mesh->mVertices[i].y, mesh_ticket[MAX_POINT][NODE_Y].as<float>());
-        mesh_ticket[MAX_POINT][NODE_Z] = std::max(mesh->mVertices[i].z, mesh_ticket[MAX_POINT][NODE_Z].as<float>());
+        minValue = Min(minValue, current);
+        maxValue = Max(maxValue, current);
+
+        mesh_ticket[MIN_POINT] = minValue;
+        mesh_ticket[MAX_POINT] = maxValue;
     }
 
     // process indices
     for (unsigned int i = 0; i < mesh->mNumFaces; i++)
     {
-        aiFace face = mesh->mFaces[i];
-        for (unsigned int j = 0; j < face.mNumIndices; j++)
+        const aiFace face = mesh->mFaces[i];
+        for (unsigned int j = 0; j < face.mNumIndices; j += 3)
         {
-            mesh_ticket[INDICES_NODE][i][j] = face.mIndices[j];
+            mesh_ticket[INDICES_NODE][i] = float3(face.mIndices[j], face.mIndices[j + 1], face.mIndices[j + 2]);
         }
     }
 }

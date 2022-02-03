@@ -4,12 +4,12 @@
 
 using namespace BoxerEngine;
 
-BoxerEngine::SceneImporter::SceneImporter()
-	: Importer(Type::SCENE)
+SceneImporter::SceneImporter()
+    : Importer(Type::SCENE)
 {
 }
 
-void BoxerEngine::SceneImporter::ImportAsset(const std::filesystem::path& asset_path)
+void SceneImporter::ImportAsset(const std::filesystem::path& asset_path)
 {
-	//App->scene->LoadScene(asset_path.string().c_str());
+    //App->scene->LoadScene(asset_path.string().c_str());
 }

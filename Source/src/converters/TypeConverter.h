@@ -166,7 +166,7 @@ namespace YAML
             rhs.shearYx = node[4].as<float>();
             rhs.scaleY = node[5].as<float>();
             rhs.shearYz = node[6].as<float>();
-            rhs.y = node[7].as<float>();;
+            rhs.y = node[7].as<float>();
 
             rhs.shearZx = node[8].as<float>();
             rhs.shearZy = node[9].as<float>();

@@ -29,8 +29,11 @@ namespace BoxerEngine
 
         [[nodiscard]] Type GetType() const { return type; }
 
-        virtual void ImportAsset(const std::filesystem::path& asset_path) = 0;
-        virtual void SaveToFile(YAML::Node& ticket, const std::string& file_name) {};
+        virtual void ImportAsset(const std::filesystem::path& assetPath) = 0;
+
+        virtual void SaveToFile(YAML::Node& ticket, const std::string& fileName)
+        {
+        };
 
     protected:
         ResourcesPreferences* preferences = nullptr;

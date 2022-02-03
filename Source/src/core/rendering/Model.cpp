@@ -16,20 +16,19 @@ void Model::Load(const char* modelName)
 {
     BE_LOG("Loading Model: %s", modelName);
 
-    auto preferences =
-        static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
-    std::string meshes_library_path(preferences->GetLibraryPath(ResourceType::MESH));
-    std::string models_library_path(preferences->GetLibraryPath(ResourceType::MODEL));
+    const auto preferences = static_cast<ResourcesPreferences*>(App->preferences->GetPreferenceDataByType(Preferences::Type::RESOURCES));
+    std::string meshesLibraryPath(preferences->GetLibraryPath(ResourceType::MESH));
+    std::string modelsLibraryPath(preferences->GetLibraryPath(ResourceType::MODEL));
 
-    models_library_path.append(modelName);
-    if (!Files::IsValidFilePath(models_library_path))
+    modelsLibraryPath.append(modelName);
+    if (!Files::IsValidFilePath(modelsLibraryPath))
     {
         return;
     }
 
-    YAML::Node model_data = YAML::LoadFile(models_library_path);
+    YAML::Node modelData = YAML::LoadFile(modelsLibraryPath);
 
-    for (auto it = model_data.begin(); it != model_data.end(); ++it)
+    for (auto it = modelData.begin(); it != modelData.end(); ++it)
     {
         if (it->first.as<std::string>()._Equal(MODEL_ID))
         {
@@ -42,13 +41,13 @@ void Model::Load(const char* modelName)
         }
     }
 
-    std::string meshes_path = preferences->GetLibraryPath(ResourceType::MESH);
+    const std::string meshesPath = preferences->GetLibraryPath(ResourceType::MESH);
 
-    for (int i = 0; i < model_data[MESH_NODE].size(); ++i)
+    for (int i = 0; i < modelData[MESH_NODE].size(); ++i)
     {
-        std::string mesh_id = std::move(model_data[MODEL_MESH_NODE][i][MODEL_MESH_ID].as<std::string>());
-        mesh_id.insert(0, meshes_path);
-        meshes.emplace_back(new Mesh(mesh_id.c_str()));
+        std::string meshId = std::move(modelData[MODEL_MESH_NODE][i][MODEL_MESH_ID].as<std::string>());
+        meshId.insert(0, meshesPath);
+        meshes.emplace_back(new Mesh(meshId.c_str()));
     }
 }
 

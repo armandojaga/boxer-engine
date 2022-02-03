@@ -23,7 +23,6 @@ namespace BoxerEngine
 
         void SetPosition(const float3& position);
         void SetRotation(const Quat& rotation);
-        void SetRotation(const float4& rotation);
         void SetScale(const float3& scale);
 
         [[nodiscard]] const float3& GetPosition() const;
